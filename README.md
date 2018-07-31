@@ -1,6 +1,7 @@
 # Final_Project
+Mentor: Andrey Zozich
 
-
+Developers:
 Dmytro    Vlasenko
 Myroslav    Polischuk
 Rostyslav    Barmakov
