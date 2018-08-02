@@ -118,8 +118,6 @@ body {
     }
   }
 
-  /* stylelint-disable */
-
   @keyframes squidge-#{$i}
 {
     #{$i * 15 - 10}% {
