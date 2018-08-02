@@ -26,8 +26,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: var(--container-size);
   position: relative;
+  width: var(--container-size);
 }
 
 .load__item {
@@ -37,12 +37,13 @@ body {
   height: var(--box-size);
   transform-origin: -50% center;
   border-radius: var(--box-border-radius);
-  &:after {
+
+  &::after {
     position: absolute;
     width: 100%;
     height: 100%;
-    content: '';
     top: 0;
+    content: '';
     right: 0;
     border-radius: var(--box-border-radius);
     background-color: lightblue;
@@ -52,14 +53,16 @@ body {
   &:nth-child(1) {
     animation: slide var(--duration) ease-in-out infinite alternate;
 
-    &:after {
+    &::after {
       animation: color-change var(--duration) ease-in-out infinite alternate;
     }
   }
+
   @for $i from 1 to 3 {
     &:nth-child(#{$i + 1}) {
       animation: flip-#{$i} var(--duration) ease-in-out infinite alternate;
-      &:after {
+
+      &::after {
         animation: squidge-#{$i} var(--duration) ease-in-out infinite alternate;
       }
     }
