@@ -11,7 +11,7 @@ cache:
     - ./client/node_modules/
 
 script:
-  - mvn clean test
+  - mvn clean test jacoco:report coveralls:report
   - npm run build --prefix client/
 
 before_script:
