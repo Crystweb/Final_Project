@@ -1,0 +1,22 @@
+server:
+  port: 9000
+
+spring:
+  datasource:
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:hotel;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL;
+    platform: h2
+    schema: classpath*:database/schema.sql
+    data: classpath*:database/data.sql
+  h2:
+    console:
+      enabled: true
+      path: /console
+      settings:
+        trace: true
+        web-allow-others: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
