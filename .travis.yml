@@ -10,4 +10,4 @@ cache:
     - $HOME/.m2
 
 script:
-  - mvn clean test
+  - mvn clean test jacoco:report coveralls:report
