@@ -2,12 +2,7 @@ package ua.danit.final_project.entities;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -19,9 +14,13 @@ public class User implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "r_id", nullable = false)
+  private Role role;
+
   @Column(name = "u_login",unique = true, nullable = false)
   private String login;
 
-  @Column(name = "u_password",unique = true, nullable = false)
+  @Column(name = "u_password", nullable = false)
   private String password;
 }
