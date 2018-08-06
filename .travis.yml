@@ -18,8 +18,9 @@ script:
 
 before_script:
   - npm install --prefix client/
+
 addons:
   sonarcloud:
-    organization: "<thehardestkeyintheworld>"
-    token: <e2144f5d208938a94f40097693ba839791cb7f02>
+    organization: "thehardestkeyintheworld"
+    token: e2144f5d208938a94f40097693ba839791cb7f02
 
