@@ -9,12 +9,18 @@ cache:
   directories:
     - $HOME/.m2
     - ./client/node_modules/
+    - $HOME/.sonar
 
 script:
   - mvn clean test jacoco:report coveralls:report
   - npm run build --prefix client/
+  - sonar-scanner
 
 before_script:
   - npm install --prefix client/
 
+addons:
+  sonarcloud:
+    organization: "thehardestkeyintheworld"
+    token: e2144f5d208938a94f40097693ba839791cb7f02
 
