@@ -1,14 +1,13 @@
-# The Travis Client [![Build Status](https://travis-ci.org/Romik9/Final_Project.svg?branch=master)](https://travis-ci.org/Romik9/Final_Project)
+# Final_Project FS-2 group1
 
-![The Travis Mascot](http://about.travis-ci.org/images/travis-mascot-200px.png)
+## The Travis Client [![Build Status](https://travis-ci.org/Romik9/Final_Project.svg?branch=master)](https://travis-ci.org/Romik9/Final_Project)
+## The Coveralls Client [![Coverage Status](https://coveralls.io/repos/github/Romik9/Final_Project/badge.svg?branch=master)](https://coveralls.io/github/Romik9/Final_Project?branch=master)
 
 
-# Final_Project
-
-## Mentor: 
+### Mentor: 
     Andrey Zozich
 
-## Developers:
+### Developers:
     Artem Tymchuk
     Dmytro Semenchenko
     Dmytro Vlasenko
