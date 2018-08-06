@@ -9,6 +9,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
 
 ---
 
