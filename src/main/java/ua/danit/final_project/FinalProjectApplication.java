@@ -8,13 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
-public  class FinalProjectApplication {
+public class FinalProjectApplication {
 
   /**
-   * private constructor.
+   * protected constructor.
    */
 
-  private FinalProjectApplication() {
+  protected FinalProjectApplication() {
   }
 
   /**
