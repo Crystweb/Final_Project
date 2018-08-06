@@ -1,7 +1,7 @@
 package ua.danit.final_project.entities;
 
-import lombok.Data;
 
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,23 +13,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.FetchType;
 import javax.persistence.Column;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "user")
+@Table(name = "comment")
 @Data
-public class User implements Serializable {
+public class Comment implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "r_id", nullable = false)
-  private Role role;
+  @JoinColumn(name = "u_id", nullable = false)
+  private User user;
 
-  @Column(name = "u_login", unique = true, nullable = false)
-  private String login;
+  @Column(name = "c_message", nullable = false)
+  private String message;
 
-  @Column(name = "u_password", nullable = false)
-  private String password;
+  @Column(name = "c_date", nullable = false)
+  private Timestamp date;
+
+
+
+
 }
+
+
+
+
