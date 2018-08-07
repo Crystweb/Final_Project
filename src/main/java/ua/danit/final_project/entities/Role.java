@@ -1,5 +1,6 @@
 package ua.danit.final_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ public class Role implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @JsonIgnore
   private Long id;
 
   @Column(name = "r_name", unique = true, nullable = false)
