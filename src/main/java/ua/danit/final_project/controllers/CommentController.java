@@ -1,6 +1,7 @@
 package ua.danit.final_project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 import ua.danit.final_project.entities.Comment;
 import ua.danit.final_project.services.CommentService;
@@ -26,4 +27,4 @@ public class CommentController {
     public Comment getLast() {
         return commentService.getLastComment();
     }
-}
+

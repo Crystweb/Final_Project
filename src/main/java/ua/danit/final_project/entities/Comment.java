@@ -1,10 +1,10 @@
 package ua.danit.final_project.entities;
 
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-
 import javax.persistence.GenerationType;
 import javax.persistence.FetchType;
 import javax.persistence.Column;
