@@ -1,19 +1,33 @@
-body, p, ul, li, h1, h2, h3, h4, h5, h6, a {
+body,
+p,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a {
   margin: 0;
   padding: 0;
   list-style: none;
-  text-decoration: none; }
+  text-decoration: none;
+}
 
 body {
   min-width: 320px;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+}
 
 .container {
   margin: 0 auto;
-  padding: 0 10px 0 10px; }
+  padding: 0 10px;
+}
 
 .header {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-  background-color: #c0fb10; }
+  background-color: #c0fb10;
+}
