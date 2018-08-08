@@ -1,4 +1,3 @@
-
 const routes = {
   home: {name: 'Главная страница', href: '/'},
   comments: {name: 'Передача смены', href: '/comments'},

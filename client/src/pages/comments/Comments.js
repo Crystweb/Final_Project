@@ -3,6 +3,10 @@ import '../../styles/comments.css'
 import settings from '../../constants/settings'
 import axios from 'axios'
 import Preloader from '../../components/Preloader'
+import routes from '../../constants/routes'
+import { Link, Route, Switch } from 'react-router-dom'
+import Home from '../Home'
+import CommentsHistory from './CommentsHistory'
 
 class Comments extends Component {
   constructor (props) {
@@ -32,9 +36,17 @@ class Comments extends Component {
     if (!!this.state.userName && !!this.state.userMessage && !!this.state.messageDate) {
       return (
         <div className="container">
-          <h2>{this.state.userName}</h2>
-          <h1>{this.state.userMessage}</h1>
-          <h3>{this.state.messageDate}</h3>
+          <section className="comments">
+            <h2>{this.state.userName}</h2>
+            <h1>{this.state.userMessage}</h1>
+            <h3>{this.state.messageDate}</h3>
+          </section>
+          <nav className="navigation">
+            <ul>
+              <li><Link to={routes.addNewComments.href}>{routes.addNewComments.name}</Link></li>
+              <li><Link to={routes.commentsHistory.href}>{routes.commentsHistory.name}</Link></li>
+            </ul>
+          </nav>
         </div>
       )
     } else {
