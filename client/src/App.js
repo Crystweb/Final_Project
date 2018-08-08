@@ -3,7 +3,6 @@ import './styles/App.css'
 import Home from './pages/Home'
 import { Route, Switch } from 'react-router-dom'
 import Comments from './pages/comments/Comments'
-import CommentsHistory from './pages/comments/CommentsHistory'
 
 class App extends Component {
   render () {
@@ -14,7 +13,7 @@ class App extends Component {
         </header>
         <Switch>
           <Route exact path='/' component={Home}/>
-          <Route path='/comments' component={Comments}/>
+          <Route exact path='/comments' component={Comments}/>
         </Switch>
       </div>
     )
