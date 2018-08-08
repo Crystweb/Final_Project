@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import './styles/app.css'
+import './styles/App.css'
 import Home from './pages/Home'
 import { Route, Switch } from 'react-router-dom'
 import Comments from './pages/comments/Comments'
+import CommentsHistory from './pages/comments/CommentsHistory'
 
 class App extends Component {
   render () {
