@@ -4,9 +4,7 @@ import settings from '../../constants/settings'
 import axios from 'axios'
 import Preloader from '../../components/Preloader'
 import routes from '../../constants/routes'
-import { Link, Route, Switch } from 'react-router-dom'
-import Home from '../Home'
-import CommentsHistory from './CommentsHistory'
+import { Link } from 'react-router-dom'
 
 class Comments extends Component {
   constructor (props) {
