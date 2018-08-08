@@ -26,7 +26,7 @@
   "scripts": {
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-styles-sass watch-compile-sass start-js",
-    "build": "npm run stylelint-build && npm run build-sass && react-scripts build",
+    "build": "npm run build-sass && npm run stylelint-build && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "watch-compile-sass": "npm run build-sass && node-sass-chokidar src/ -o src/ --watch --recursive",
