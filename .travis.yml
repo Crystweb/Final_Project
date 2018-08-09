@@ -23,5 +23,5 @@ before_script:
 addons:
   sonarcloud:
     organization: "final-project"
-    token: finalproject: 47dd1653e53a7fb83b19a666b449586b12432c8d
+    token: 47dd1653e53a7fb83b19a666b449586b12432c8d
 
