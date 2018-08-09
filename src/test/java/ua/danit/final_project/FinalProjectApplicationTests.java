@@ -12,8 +12,6 @@ import ua.danit.final_project.repositories.RoleRepo;
 import ua.danit.final_project.repositories.UserRepo;
 import ua.danit.final_project.services.RoleService;
 
-import javax.persistence.EntityNotFoundException;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FinalProjectApplicationTests {
