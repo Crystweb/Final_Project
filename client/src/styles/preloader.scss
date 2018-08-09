@@ -5,29 +5,18 @@
   --box-border-radius: 15%;
 }
 
-html,
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
 .load {
   display: flex;
   justify-content: center;
-}
+  height: 90vh;
 
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  width: var(--container-size);
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    width: var(--container-size);
+  }
 }
 
 .load__item {
