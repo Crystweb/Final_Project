@@ -1,9 +1,10 @@
 package ua.danit.final_project.entities;
 
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-
 import javax.persistence.GenerationType;
 import javax.persistence.FetchType;
 import javax.persistence.Column;
@@ -33,6 +34,7 @@ public class Comment implements Serializable {
   @Column(name = "c_message", nullable = false)
   private String message;
 
+  @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
   @Column(name = "c_date", nullable = false)
   private Timestamp date;
 

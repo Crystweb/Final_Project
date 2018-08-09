@@ -1,10 +1,10 @@
 import React from 'react'
 import '../styles/preloader.css'
 
-const Preloader = () => {
+const preloader = () => {
   return (
     <div className="load">
-      <div className="container">
+      <div className="load__container">
         <div className="load__item"></div>
         <div className="load__item"></div>
         <div className="load__item"></div>
@@ -14,4 +14,4 @@ const Preloader = () => {
   )
 }
 
-export default Preloader
+export default preloader
