@@ -26,9 +26,18 @@ body {
   padding: 0 10px;
 }
 
+.calendar {
+  display: flex;
+  justify-content: center;
+}
+
 .header {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
   background-color: #c0fb10;
+
+  &__title {
+    font-size: 25px;
+  }
 }
