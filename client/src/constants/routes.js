@@ -1,9 +1,10 @@
 const routes = {
   home: {name: 'California', href: '/'},
+  users: {name: 'Сотрудники', href:'/users'},
   comments: {name: 'Передача смены', href: '/comments'},
   commentsHistory: {name: 'История смен', href: '/comments/history'},
-  addNewComments: {name: 'Передать смену', href: '/comments/new'},
-  tasks: {
+  addNewComments: {name: 'Передать смену', href: '/comments/new'},  tasks: {
+
     name: 'Задачи',
     href: '/tasks',
     hotelTasks: {name: 'Отель', href: '/tasks/hotel'},
