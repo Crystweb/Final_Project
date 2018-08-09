@@ -52,13 +52,4 @@ public class FinalProjectApplicationTests {
 
     Assert.assertEquals(expected, actual);
   }
-
-  @Test(expected = EntityNotFoundException.class)
-  public void roleRemoved() {
-    roleService.create("test");
-    Assert.assertNotNull(roleService.findRole("test"));
-
-    roleService.remove("test");
-    Assert.assertNotNull(roleService.findRole("test")); // throws EntityNotFound
-  }
 }
