@@ -1,5 +1,5 @@
 const routes = {
-  home: {name: 'Главная страница', href: '/'},
+  home: {name: 'California', href: '/'},
   comments: {name: 'Передача смены', href: '/comments'},
   commentsHistory: {name: 'История смен', href: '/comments/history'},
   addNewComments: {name: 'Передать смену', href: '/comments/new'},

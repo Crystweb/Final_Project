@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import './styles/App.css'
 import Home from './pages/Home'
-import { Route, Switch } from 'react-router-dom'
+import { Link, Route, Switch } from 'react-router-dom'
 import Comments from './pages/comments/Comments'
 import CommentsHistory from './pages/comments/CommentsHistory'
 import CreateNewComments from './pages/comments/CreateNewComments'
+import routes from './constants/routes'
 
 class App extends Component {
   render () {
     return (
       <div className="container">
         <header className="header">
-          <h2 className="header__title">HOTEL CALIFORNIA</h2>
+          <Link to={routes.home.href} className="header__title">{routes.home.name}</Link>
         </header>
         <Switch>
           <Route exact path='/' component={Home}/>
