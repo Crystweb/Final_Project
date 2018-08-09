@@ -10,7 +10,7 @@ public interface RoleService {
 
   Role findRole(String role);
 
-  Role remove(String role);
+  void remove(String role);
 
   Role create(String role);
 }

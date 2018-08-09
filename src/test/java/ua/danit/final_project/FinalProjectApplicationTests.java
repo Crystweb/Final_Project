@@ -12,6 +12,8 @@ import ua.danit.final_project.repositories.RoleRepo;
 import ua.danit.final_project.repositories.UserRepo;
 import ua.danit.final_project.services.RoleService;
 
+import javax.persistence.EntityNotFoundException;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FinalProjectApplicationTests {
@@ -51,10 +53,12 @@ public class FinalProjectApplicationTests {
     Assert.assertEquals(expected, actual);
   }
 
-  @Test
+  @Test(expected = EntityNotFoundException.class)
   public void roleRemoved() {
-    Role admin = roleService.remove("admin");
+    roleService.create("test");
+    Assert.assertNotNull(roleService.findRole("test"));
 
-    Assert.assertNotNull(admin);
+    roleService.remove("test");
+    Assert.assertNotNull(roleService.findRole("test")); // throws EntityNotFound
   }
 }

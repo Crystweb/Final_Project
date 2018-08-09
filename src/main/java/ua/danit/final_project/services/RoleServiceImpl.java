@@ -30,8 +30,8 @@ public class RoleServiceImpl implements RoleService {
 
   @Override
   @Transactional
-  public Role remove(@NotNull String role) {
-    return roleRepo.deleteByName(role).orElseThrow(EntityNotFoundException::new);
+  public void remove(@NotNull String role) {
+    roleRepo.deleteByName(role);
   }
 
   @Override
