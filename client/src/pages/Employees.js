@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Users = () => {
+const Employees = () => {
     return (
         <div className="container">
             <div className="user_list">
-                <div className="user">
+                <div className="employee">
 
                 </div>
             </div>
@@ -13,4 +13,4 @@ const Users = () => {
     )
 }
 
-export default Users
+export default Employees
