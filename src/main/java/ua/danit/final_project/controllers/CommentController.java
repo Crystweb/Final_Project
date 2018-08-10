@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.danit.final_project.entities.Comment;
 import ua.danit.final_project.services.CommentService;
 
-import ua.danit.final_project.services.Varsdeer;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
