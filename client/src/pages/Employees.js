@@ -13,7 +13,6 @@ class Employees extends Component {
                     </ul>
                 </nav>
             </div>
-
         )
     }
 }
