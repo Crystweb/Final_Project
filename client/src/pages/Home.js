@@ -10,8 +10,7 @@ class Home extends Component {
         <nav className="navigation">
           <ul>
             <li><Link to={routes.comments.href}>{routes.comments.name}</Link></li>
-            <li><Link to={routes.users.href}>{routes.users.name}</Link></li>
-            <li><Link to={routes.tasks.href}>{routes.tasks.name}</Link></li>
+            <li><Link to={routes.employees.href}>{routes.employees.name}</Link></li>
           </ul>
         </nav>
       </div>

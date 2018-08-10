@@ -1,6 +1,8 @@
 const routes = {
   home: {name: 'California', href: '/'},
-  users: {name: 'Сотрудники', href:'/users'},
+  employees: {name: 'Сотрудники', href: '/employees'},
+  employeeList: {name: 'Список сотрудников', href: '/employees/list'},
+  vacancies: {name: 'Открытые вакансии', href: '/employees/vacancies'},
   comments: {name: 'Передача смены', href: '/comments'},
   commentsHistory: {name: 'История смен', href: '/comments/history'},
   addNewComments: {name: 'Передать смену', href: '/comments/new'},
