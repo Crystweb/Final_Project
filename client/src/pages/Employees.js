@@ -5,7 +5,6 @@ const Employees = () => {
         <div className="container">
             <div className="user_list">
                 <div className="employee">
-
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ import Employees from './pages/Employees'
 import Comments from './pages/comments/Comments'
 import CommentsHistory from './pages/comments/CommentsHistory'
 import CreateNewComments from './pages/comments/CreateNewComments'
+import Tasks from './pages/Tasks'
 import routes from './constants/routes'
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
           <Route exact path='/comments' component={Comments}/>
           <Route exact path='/comments/history' component={CommentsHistory}/>
           <Route exact path='/comments/new' component={CreateNewComments}/>
+          <Route exact path='/tasks' component={Tasks}/>
         </Switch>
       </div>
     )
