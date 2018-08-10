@@ -1,23 +1,31 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
 import './styles/App.css'
-import Preloader from './components/Preloader'
-
-
+import Home from './pages/Home'
+import {Link, Route, Switch } from 'react-router-dom'
+import Comments from './pages/comments/Comments'
+import CommentsHistory from './pages/comments/CommentsHistory'
+import CreateNewComments from './pages/comments/CreateNewComments'
+import Employees from './pages/Employees'
+import EmployeeList from './pages/EmployeeList'
+import Vacancies from './pages/Vacancies'
+import routes from './constants/routes'
 
 class App extends Component {
   render () {
     return (
-
-      <div className="App">
-        <Preloader/>
-        <header className="App-header">
-          <img src= {logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+      <div className="container">
+        <header className="header">
+          <Link to={routes.home.href} className="header__title">{routes.home.name}</Link>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Switch>
+          <Route exact path='/' component={Home}/>
+          <Route exact path='/employees' component={Employees}/>
+          <Route exact path='/employees/list' component={EmployeeList}/>
+          <Route exact path='/employees/vacancies' component={Vacancies}/>
+          <Route exact path='/comments' component={Comments}/>
+          <Route exact path='/comments/history' component={CommentsHistory}/>
+          <Route exact path='/comments/new' component={CreateNewComments}/>
+        </Switch>
       </div>
     )
   }
