@@ -10,7 +10,6 @@ h3,
 h4,
 h5,
 h6,
-
 a {
   margin: 0;
   padding: 0;
@@ -45,7 +44,7 @@ body {
   }
 }
 
-li>a {
+li > a {
   display: inline-block;
   padding: 10px;
   border: 1px solid lime;
@@ -53,6 +52,6 @@ li>a {
   box-sizing: border-box;
 }
 
-ul>li {
+ul > li {
   margin: 20px 0;
 }
