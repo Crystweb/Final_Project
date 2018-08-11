@@ -1,3 +1,5 @@
+$lime: #c0fb10;
+
 body,
 p,
 ul,
@@ -8,6 +10,9 @@ h3,
 h4,
 h5,
 h6,
+
+
+
 a {
   margin: 0;
   padding: 0;
@@ -35,9 +40,21 @@ body {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-  background-color: #c0fb10;
+  background-color: lime;
 
   &__title {
     font-size: 25px;
   }
+}
+
+li>a {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid lime;
+  width: 200px;
+  box-sizing: border-box;
+}
+
+ul>li {
+  margin: 20px 0;
 }

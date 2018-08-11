@@ -7,6 +7,12 @@ import Comments from './pages/comments/Comments'
 import CommentsHistory from './pages/comments/CommentsHistory'
 import CreateNewComments from './pages/comments/CreateNewComments'
 import Tasks from './pages/Tasks'
+import TasksForHotel from './pages/tasks/TasksForHotel'
+import TasksForKitchen from './pages/tasks/TasksForKitchen'
+import TasksForFirstRestaurant from './pages/tasks/TasksForFirstRestaurant'
+import TasksForSecondRestaurant from './pages/tasks/TasksForSecondRestaurant'
+import TasksOfCyclic from './pages/tasks/TasksOfCyclic'
+import MyTasks from './pages/tasks/MyTasks'
 import routes from './constants/routes'
 
 class App extends Component {
@@ -22,7 +28,13 @@ class App extends Component {
           <Route exact path='/comments' component={Comments}/>
           <Route exact path='/comments/history' component={CommentsHistory}/>
           <Route exact path='/comments/new' component={CreateNewComments}/>
-          <Route exact path='/tasks' component={Tasks}/>
+          <Route exact path= {routes.tasks.href} component={Tasks}/>
+          <Route exact path= {routes.tasks.hotelTasks.href} component={TasksForHotel}/>
+          <Route exact path= {routes.tasks.kitchenTasks.href} component={TasksForKitchen}/>
+          <Route exact path= {routes.tasks.firstRestaurantTasks.href} component={TasksForFirstRestaurant}/>
+          <Route exact path= {routes.tasks.secondRestaurantTasks.href} component={TasksForSecondRestaurant}/>
+          <Route exact path= {routes.tasks.cyclicTasks.href} component={TasksOfCyclic}/>
+          <Route exact path= {routes.tasks.myTasks.href} component={MyTasks}/>
         </Switch>
       </div>
     )
