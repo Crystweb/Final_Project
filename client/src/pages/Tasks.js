@@ -16,7 +16,7 @@ class Tasks extends Component {
                         <li><Link to={routes.tasks.cyclicTasks.href}>{routes.tasks.cyclicTasks.name}</Link></li>
                         <li><Link to={routes.tasks.myTasks.href}>{routes.tasks.myTasks.name}</Link></li>
                     </ul>
-                </nav>
+                </nav>               
             </div>
         )
     }
