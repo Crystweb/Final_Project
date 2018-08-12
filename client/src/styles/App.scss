@@ -1,3 +1,5 @@
+$lime: #c0fb10;
+
 body,
 p,
 ul,
@@ -35,9 +37,21 @@ body {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-  background-color: #c0fb10;
+  background-color: lime;
 
   &__title {
     font-size: 25px;
   }
+}
+
+li > a {
+  display: inline-block;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid lime;
+  box-sizing: border-box;
+}
+
+ul > li {
+  margin: 20px 0;
 }
