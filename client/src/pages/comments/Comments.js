@@ -17,7 +17,7 @@ class Comments extends Component {
   }
 
   componentDidMount () {
-    axios.get(settings.api + '/comment')
+    axios.get('/comment')
       .then(response => {
         let commentInfo = response.data
         console.log(commentInfo)

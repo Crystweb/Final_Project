@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.danit.final_project.entities.Comment;
 import ua.danit.final_project.services.CommentService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
 public class CommentController {
 

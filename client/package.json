@@ -39,5 +39,6 @@
   },
   "devDependencies": {
     "standard": "^10.0.3"
-  }
+  },
+  "proxy": "http://localhost:9000"
 }
