@@ -32,8 +32,10 @@ public class EmployeeController {
   public Employee addEmployee(@RequestParam("uid") Long uid,
                               @RequestParam("foname") String forename,
                               @RequestParam("surname") String surname,
-                              @RequestParam("patronymic") String patronymic) {
-    return employeeService.addEmployee(uid, forename, surname, patronymic);
+                              @RequestParam("patronymic") String patronymic,
+                              @RequestParam("telephone") String telephone,
+                              @RequestParam("position") String position) {
+    return employeeService.addEmployee(uid, forename, surname, patronymic, telephone, position);
   }
 
 

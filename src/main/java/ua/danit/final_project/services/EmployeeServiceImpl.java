@@ -23,7 +23,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
   @Override
-  public Employee addEmployee(Long uid, String forename, String surname, String patronymic) {
+  public Employee addEmployee(Long uid,
+                              String forename,
+                              String surname,
+                              String patronymic,
+                              String telephone,
+                              String position) {
     User user = userRepo.findById(uid).orElseThrow(EntityNotFoundException::new);
 
     Employee employee = new Employee();
@@ -31,6 +36,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     employee.setForename(forename);
     employee.setSurname(surname);
     employee.setPatronymic(patronymic);
+    employee.setTelephone(telephone);
+    employee.setPosition(position);
     return employeeRepo.save(employee);
   }
 

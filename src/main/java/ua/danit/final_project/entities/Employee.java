@@ -25,7 +25,7 @@ public class Employee implements Serializable {
   private Long id;
 
   @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "u_id", nullable = false, unique = true)
+  @JoinColumn(name = "u_id", unique = true)
   private User user;
 
   @Column(name = "e_forename", nullable = false)
@@ -34,6 +34,12 @@ public class Employee implements Serializable {
   @Column(name = "e_surname", nullable = false)
   private String surname;
 
-  @Column(name = "e_patronymic", nullable = false)
+  @Column(name = "e_patronymic")
   private String patronymic;
+
+  @Column(name = "e_telephone", unique = true)
+  private String telephone;
+
+  @Column(name = "e_position", nullable = false)
+  private String position;
 }

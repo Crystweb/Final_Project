@@ -29,10 +29,12 @@ CREATE TABLE IF NOT EXISTS `comment` (
 
 CREATE TABLE IF NOT EXISTS `employee` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL UNIQUE,
+  `u_id` BIGINT UNIQUE,
   `e_forename` VARCHAR(32) NOT NULL,
   `e_surname` VARCHAR(32) NOT NULL,
-  `e_patronymic` VARCHAR(32) NOT NULL,
+  `e_patronymic` VARCHAR(32),
+  `e_telephone` VARCHAR(15) UNIQUE,
+  `e_position` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
