@@ -7,19 +7,26 @@ const routes = {
   commentsHistory: {name: 'История смен', href: '/comments/history'},
   addNewComments: {name: 'Передать смену', href: '/comments/new'},
   tasks: {
-    name: 'Задачи', href: '/tasks',
+    name: 'Задачи',
+    href: '/tasks',
     hotelTasks: {
-      name: 'Отель', href: '/tasks/hotel'},
+      name: 'Отель', href: '/tasks/hotel'
+    },
     kitchenTasks: {
-      name: 'Кухня', href: '/tasks/kitchen'},
+      name: 'Кухня', href: '/tasks/kitchen'
+    },
     firstRestaurantTasks: {
-      name: 'Первый Ресторан', href: '/tasks/firstRestaurant'},
+      name: 'Первый Ресторан', href: '/tasks/firstRestaurant'
+    },
     secondRestaurantTasks: {
-      name: 'Второй Ресторан', href: '/tasks/secondRestaurant'},
+      name: 'Второй Ресторан', href: '/tasks/secondRestaurant'
+    },
     cyclicTasks: {
-      name: 'Циклические задачи', href: '/tasks/cyclic'},
+      name: 'Циклические задачи', href: '/tasks/cyclic'
+    },
     myTasks: {
-      name: 'Мои задачи', href: '/tasks/myTasks'}
+      name: 'Мои задачи', href: '/tasks/myTasks'
+    }
   }
 }
 
