@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import '../../styles/comments.css'
-import settings from '../../constants/settings'
 import axios from 'axios'
 import Preloader from '../../components/preloader'
 import routes from '../../constants/routes'
