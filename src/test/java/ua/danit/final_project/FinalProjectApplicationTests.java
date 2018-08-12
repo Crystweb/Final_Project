@@ -60,18 +60,4 @@ public class FinalProjectApplicationTests {
     Assert.assertEquals(expected, actual);
   }
 
-  @Test
-  public void employee() {
-    Assert.assertTrue(employeeRepo.findAll().size() > 0);
-
-    Employee employee = new Employee();
-    Optional<User> user = userRepo.findById(1l);
-    employee.setId(1l);
-    employee.setUser(user.get());
-    employee.setForename("Vasyl");
-    employee.setSurname("Kit");
-    employee.setPatronymic("Vasylovich");
-
-    Assert.assertEquals(employee, employeeRepo.findById(1l));
-  }
 }
