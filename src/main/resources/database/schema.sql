@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `employee`;
 DROP TABLE IF EXISTS `comment`;
 DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `role`;
@@ -14,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `u_login` VARCHAR(32) NOT NULL UNIQUE,
   `u_password` VARCHAR(32) NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`r_id`) REFERENCES role(`id`)
+  FOREIGN KEY (`r_id`) REFERENCES `role`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `comment` (
@@ -25,4 +26,21 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `employee` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `u_id` BIGINT NOT NULL UNIQUE,
+  `e_forename` VARCHAR(32) NOT NULL,
+  `e_surname` VARCHAR(32) NOT NULL,
+  `e_patronymic` VARCHAR(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+
+
+
+
+
+
 
