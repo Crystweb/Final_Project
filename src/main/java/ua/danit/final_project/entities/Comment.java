@@ -24,12 +24,16 @@ import java.sql.Timestamp;
 public class Comment implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "u_id", nullable = false)
   private User user;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "u_w_shift_id")
+  private UserWorkShift userWorkShift;
 
   @Column(name = "c_message", nullable = false)
   private String message;
