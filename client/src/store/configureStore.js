@@ -3,7 +3,7 @@ import combineReducers from 'redux/es/combineReducers'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
-import shiftReducer from '../reducers/shiftReducer'
+import shiftReducer from '../reducers/shift'
 
 const reducers = {
   shift: shiftReducer,
