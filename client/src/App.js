@@ -15,6 +15,9 @@ import MyTasks from './pages/tasks/MyTasks'
 import Employees from './pages/Employees'
 import EmployeeList from './pages/EmployeeList'
 import Vacancies from './pages/Vacancies'
+import WashingData from './pages/WashingData'
+import SalesNumbers from './pages/washingDate/SalesNumbers'
+import Lodgers from './pages/washingDate/Lodgers'
 
 import routes from './constants/routes'
 
@@ -26,13 +29,13 @@ class App extends Component {
           <Link to={routes.home.href} className="header__title">{routes.home.name}</Link>
         </header>
         <Switch>
-          <Route exact path='/' component={Home}/>
-          <Route exact path='/employees' component={Employees}/>
-          <Route exact path='/employees/list' component={EmployeeList}/>
-          <Route exact path='/employees/vacancies' component={Vacancies}/>
-          <Route exact path='/comments' component={Comments}/>
-          <Route exact path='/comments/history' component={CommentsHistory}/>
-          <Route exact path='/comments/new' component={CreateNewComments}/>
+          <Route exact path= {routes.home.href} component={Home}/>
+          <Route exact path= {routes.employees.href} component={Employees}/>
+          <Route exact path= {routes.employeeList.href} component={EmployeeList}/>
+          <Route exact path= {routes.vacancies.href}component={Vacancies}/>
+          <Route exact path= {routes.comments.href}component={Comments}/>
+          <Route exact path= {routes.commentsHistory.href} component={CommentsHistory}/>
+          <Route exact path= {routes.addNewComments.href}component={CreateNewComments}/>
           <Route exact path= {routes.tasks.href} component={Tasks}/>
           <Route exact path= {routes.tasks.hotelTasks.href} component={TasksForHotel}/>
           <Route exact path= {routes.tasks.kitchenTasks.href} component={TasksForKitchen}/>
@@ -40,6 +43,9 @@ class App extends Component {
           <Route exact path= {routes.tasks.secondRestaurantTasks.href} component={TasksForSecondRestaurant}/>
           <Route exact path= {routes.tasks.cyclicTasks.href} component={TasksOfCyclic}/>
           <Route exact path= {routes.tasks.myTasks.href} component={MyTasks}/>
+          <Route exact path= {routes.washingData.href} component={WashingData}/>
+          <Route exact path= {routes.washingData.salesNumbers.href} component={SalesNumbers}/>
+          <Route exact path= {routes.washingData.lodgers.href} component={Lodgers}/>
         </Switch>
       </div>
     )
