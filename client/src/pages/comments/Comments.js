@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import '../../styles/comments.css'
-import settings from '../../constants/settings'
-import axios from 'axios'
-import Preloader from '../../components/preloader'
+import '../../styles/Comments.css'
+import Preloader from '../../components/Preloader'
 import routes from '../../constants/routes'
 import { Link } from 'react-router-dom'
+import { getLastShift } from '../../utils/Utills'
 
 class Comments extends Component {
   constructor (props) {
@@ -17,17 +16,13 @@ class Comments extends Component {
   }
 
   componentDidMount () {
-    axios.get(settings.api + '/comment')
-      .then(response => {
-        let commentInfo = response.data
-        console.log(commentInfo)
-
-        this.setState({
-          userName: commentInfo.user.login,
-          userMessage: commentInfo.message,
-          messageDate: commentInfo.date
-        })
+    getLastShift(data => {
+      this.setState({
+        userName: data.user.login,
+        userMessage: data.message,
+        messageDate: data.date
       })
+    })
   }
 
   render () {
