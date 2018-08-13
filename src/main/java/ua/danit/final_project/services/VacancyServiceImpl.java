@@ -38,7 +38,6 @@ public class VacancyServiceImpl implements VacancyService {
     Vacancy vacancy = new Vacancy();
     vacancy.setPosition(position);
     vacancy.setSalary(salary);
-    vacancy.setPublication(publication);
     return vacancyRepo.save(vacancy);
   }
 }

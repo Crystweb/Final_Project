@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.danit.final_project.entities.Role;
+import ua.danit.final_project.entities.Vacancy;
 import ua.danit.final_project.repositories.CommentRepo;
 import ua.danit.final_project.repositories.RoleRepo;
 import ua.danit.final_project.repositories.UserRepo;
 import ua.danit.final_project.services.RoleService;
+import ua.danit.final_project.services.VacancyService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -27,6 +29,9 @@ public class FinalProjectApplicationTests {
 
   @Autowired
   RoleService roleService;
+
+  @Autowired
+  VacancyService vacancyService;
 
   @Test
   public void contextLoads() {
@@ -47,6 +52,13 @@ public class FinalProjectApplicationTests {
   public void newRoleSaved() {
     Role actual = roleService.create("test");
     Role expected = roleService.findRole("test");
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  public void newVacancySave() {
+    Vacancy actual = vacancyService.create("Povar", 10000);
+    Vacancy expected = vacancyService.findAll().get(2);
 
     Assert.assertEquals(expected, actual);
   }

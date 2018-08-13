@@ -6,3 +6,6 @@ INSERT INTO `user` (r_id, u_login, u_password) VALUES (2, 'myroslav@mail.com','1
 
 INSERT INTO `comment` (u_id, c_message) VALUES (1, 'first comment');
 INSERT INTO `comment` (u_id, c_message) VALUES (2, 'second comment');
+
+INSERT INTO `vacancy` (v_position, v_salary) VALUES ('waiter', 10000);
+INSERT INTO `vacancy` (v_position, v_salary) VALUES ('housekeeper', 10000);
