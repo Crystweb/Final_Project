@@ -30,7 +30,7 @@ public class EmployeeController {
 
   @PostMapping
   public Employee addEmployee(@RequestParam("uid") Long uid,
-                              @RequestParam("foname") String forename,
+                              @RequestParam("forename") String forename,
                               @RequestParam("surname") String surname,
                               @RequestParam("patronymic") String patronymic,
                               @RequestParam("telephone") String telephone,
