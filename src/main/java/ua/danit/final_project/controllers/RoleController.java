@@ -1,7 +1,8 @@
 package ua.danit.final_project.controllers;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ua.danit.final_project.entities.Role;
@@ -19,12 +20,12 @@ public class RoleController {
     this.roleService = roleService;
   }
 
-  @RequestMapping(value = "/list", method = RequestMethod.GET)
+  @GetMapping
   public List<Role> getRoles() {
     return roleService.findAll();
   }
 
-  @RequestMapping(method = RequestMethod.POST)
+  @PostMapping
   public Role createRole(@RequestParam("role") String role) {
     return roleService.create(role);
   }
