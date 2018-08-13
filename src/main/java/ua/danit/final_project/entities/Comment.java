@@ -24,7 +24,7 @@ import java.sql.Timestamp;
 public class Comment implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -41,9 +41,6 @@ public class Comment implements Serializable {
   @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
   @Column(name = "c_date", nullable = false)
   private Timestamp date;
-
-
-
 
 }
 
