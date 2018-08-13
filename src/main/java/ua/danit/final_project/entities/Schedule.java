@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "work_shift")
+@Table(name = "schedule")
 @Data
 public class Schedule implements Serializable {
 

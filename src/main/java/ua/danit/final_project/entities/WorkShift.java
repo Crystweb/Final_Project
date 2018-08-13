@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "user_work_shift")
+@Table(name = "work_shift")
 @Data
 public class WorkShift {
 
@@ -25,7 +25,7 @@ public class WorkShift {
   private User user;
 
   @ManyToOne
-  @JoinColumn(name = "w_shift_id", nullable = false)
+  @JoinColumn(name = "s_id", nullable = false)
   private Schedule schedule;
 
   private Timestamp date;

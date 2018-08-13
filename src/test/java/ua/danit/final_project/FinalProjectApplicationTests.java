@@ -34,12 +34,12 @@ public class FinalProjectApplicationTests {
 
   @Test
   public void dataDDLExecuted() {
-//    Assert.assertTrue(userRepo.findAll().size() > 0);
-//    Assert.assertTrue(roleRepo.findAll().size() > 0);
-//    Assert.assertTrue(commentRepo.findAll().size() > 0);
-//    Assert.assertTrue(commentRepo.findAll().size() > 1);
-//    Assert.assertTrue(roleRepo.findAll().size() > 1);
-//    Assert.assertTrue(userRepo.findAll().size() > 1);
+    Assert.assertTrue(userRepo.findAll().size() > 0);
+    Assert.assertTrue(roleRepo.findAll().size() > 0);
+    Assert.assertTrue(commentRepo.findAll().size() > 0);
+    Assert.assertTrue(commentRepo.findAll().size() > 1);
+    Assert.assertTrue(roleRepo.findAll().size() > 1);
+    Assert.assertTrue(userRepo.findAll().size() > 1);
   }
 
 
