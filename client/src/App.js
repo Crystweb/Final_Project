@@ -15,6 +15,9 @@ import MyTasks from './pages/tasks/MyTasks'
 import Employees from './pages/Employees'
 import EmployeeList from './pages/EmployeeList'
 import Vacancies from './pages/Vacancies'
+import WashingData from './pages/WashingData'
+import SalesNumbers from './pages/washingDate/SalesNumbers'
+import Lodgers from './pages/washingDate/Lodgers'
 
 import routes from './constants/routes'
 
@@ -40,6 +43,9 @@ class App extends Component {
           <Route exact path= {routes.tasks.secondRestaurantTasks.href} component={TasksForSecondRestaurant}/>
           <Route exact path= {routes.tasks.cyclicTasks.href} component={TasksOfCyclic}/>
           <Route exact path= {routes.tasks.myTasks.href} component={MyTasks}/>
+          <Route exact path= {routes.washingData.href} component={WashingData}/>
+          <Route exact path= {routes.washingData.salesNumbers.href} component={SalesNumbers}/>
+          <Route exact path= {routes.washingData.lodgers.href} component={Lodgers}/>
         </Switch>
       </div>
     )
