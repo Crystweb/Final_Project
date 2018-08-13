@@ -7,10 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.danit.final_project.entities.Role;
+import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.repositories.CommentRepo;
 import ua.danit.final_project.repositories.RoleRepo;
+import ua.danit.final_project.repositories.ScheduleRepo;
 import ua.danit.final_project.repositories.UserRepo;
 import ua.danit.final_project.services.RoleService;
+
+import javax.persistence.EntityNotFoundException;
+import java.sql.Timestamp;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,6 +33,9 @@ public class FinalProjectApplicationTests {
   @Autowired
   RoleService roleService;
 
+  @Autowired
+  ScheduleRepo scheduleRepo;
+
   @Test
   public void contextLoads() {
   }
@@ -37,9 +45,6 @@ public class FinalProjectApplicationTests {
     Assert.assertTrue(userRepo.findAll().size() > 0);
     Assert.assertTrue(roleRepo.findAll().size() > 0);
     Assert.assertTrue(commentRepo.findAll().size() > 0);
-    Assert.assertTrue(commentRepo.findAll().size() > 1);
-    Assert.assertTrue(roleRepo.findAll().size() > 1);
-    Assert.assertTrue(userRepo.findAll().size() > 1);
   }
 
 
@@ -49,5 +54,16 @@ public class FinalProjectApplicationTests {
     Role expected = roleService.findRole("test");
 
     Assert.assertEquals(expected, actual);
+  }
+
+  @Test
+  public void newScheduleCreated() {
+    Schedule schedule = new Schedule();
+    schedule.setStart(new Timestamp(System.currentTimeMillis()));
+    schedule.setEnd(new Timestamp(System.currentTimeMillis()));
+    schedule.setRole(roleRepo.findById(1L).orElseThrow(EntityNotFoundException::new));
+
+    schedule = scheduleRepo.save(schedule);
+    Assert.assertNotNull(scheduleRepo.findById(schedule.getId()).orElse(null));
   }
 }
