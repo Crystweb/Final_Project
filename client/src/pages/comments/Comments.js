@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import '../../styles/comments.css'
-import settings from '../../constants/settings'
 import axios from 'axios'
 import Preloader from '../../components/preloader'
 import routes from '../../constants/routes'
@@ -17,7 +16,7 @@ class Comments extends Component {
   }
 
   componentDidMount () {
-    axios.get(settings.api + '/comment')
+    axios.get('/comment')
       .then(response => {
         let commentInfo = response.data
         console.log(commentInfo)
