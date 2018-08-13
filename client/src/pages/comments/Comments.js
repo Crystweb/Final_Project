@@ -4,6 +4,7 @@ import Preloader from '../../components/Preloader'
 import routes from '../../constants/routes'
 import { Link } from 'react-router-dom'
 import { getLastShift } from '../../utils/Utills'
+import axios from 'axios'
 
 class Comments extends Component {
   constructor (props) {
@@ -23,6 +24,20 @@ class Comments extends Component {
         messageDate: data.date
       })
     })
+  }
+
+  componentDidMount () {
+    axios.get('http://localhost:9000/comment')
+      .then(response => {
+        let commentInfo = response.data
+        console.log(commentInfo)
+
+        this.setState({
+          userName: commentInfo.user.login,
+          userMessage: commentInfo.message,
+          messageDate: commentInfo.date
+        })
+      })
   }
 
   render () {

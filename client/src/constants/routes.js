@@ -9,25 +9,19 @@ const routes = {
   tasks: {
     name: 'Задачи',
     href: '/tasks',
-    hotelTasks: {
-      name: 'Отель', href: '/tasks/hotel'
+      hotelTasks: {name: 'Отель', href: '/tasks/hotel'},
+      kitchenTasks: {name: 'Кухня', href: '/tasks/kitchen'},
+      firstRestaurantTasks: {name: 'Первый Ресторан', href: '/tasks/firstRestaurant'},
+      secondRestaurantTasks: {name: 'Второй Ресторан', href: '/tasks/secondRestaurant'},
+      cyclicTasks: {name: 'Циклические задачи', href: '/tasks/cyclic'},
+      myTasks: {name: 'Мои задачи', href: '/tasks/myTasks'}
+  },
+  washingData:{
+    name: 'Данные о стирке',
+    href: '/washingData',
+      salesNumbers:{name: 'Продажные номера', href: '/washingData/salesNumbers'},
+      lodgers:{name: 'Постояльцы', href: '/washingData/lodgers'}
     },
-    kitchenTasks: {
-      name: 'Кухня', href: '/tasks/kitchen'
-    },
-    firstRestaurantTasks: {
-      name: 'Первый Ресторан', href: '/tasks/firstRestaurant'
-    },
-    secondRestaurantTasks: {
-      name: 'Второй Ресторан', href: '/tasks/secondRestaurant'
-    },
-    cyclicTasks: {
-      name: 'Циклические задачи', href: '/tasks/cyclic'
-    },
-    myTasks: {
-      name: 'Мои задачи', href: '/tasks/myTasks'
-    }
-  }
 }
 
-export default routes
+export default routes;
