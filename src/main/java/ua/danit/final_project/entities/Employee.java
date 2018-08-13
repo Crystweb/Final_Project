@@ -1,6 +1,7 @@
 package ua.danit.final_project.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import javax.persistence.Entity;
@@ -24,8 +25,9 @@ public class Employee implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne
   @JoinColumn(name = "u_id", unique = true)
+  @JsonIgnore
   private User user;
 
   @Column(name = "e_forename", nullable = false)

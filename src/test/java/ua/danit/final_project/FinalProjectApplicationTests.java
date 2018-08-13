@@ -37,6 +37,9 @@ public class FinalProjectApplicationTests {
   @Autowired
   EmployeeRepo employeeRepo;
 
+  @Autowired
+  EmployeeService employeeService;
+
   @Test
   public void contextLoads() {
   }
@@ -56,6 +59,19 @@ public class FinalProjectApplicationTests {
   public void newRoleSaved() {
     Role actual = roleService.create("test");
     Role expected = roleService.findRole("test");
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  @Test
+  public void newEmployeeSaved() {
+    Employee actual = employeeService.addEmployee(3L,
+            "vas",
+            "vasyl",
+            "vasylovich",
+            "0645668093",
+            "hero");
+    Employee expected = employeeService.getAll().get(2);
 
     Assert.assertEquals(expected, actual);
   }
