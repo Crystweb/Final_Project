@@ -26,13 +26,13 @@ class App extends Component {
           <Link to={routes.home.href} className="header__title">{routes.home.name}</Link>
         </header>
         <Switch>
-          <Route exact path='/' component={Home}/>
-          <Route exact path='/employees' component={Employees}/>
-          <Route exact path='/employees/list' component={EmployeeList}/>
-          <Route exact path='/employees/vacancies' component={Vacancies}/>
-          <Route exact path='/comments' component={Comments}/>
-          <Route exact path='/comments/history' component={CommentsHistory}/>
-          <Route exact path='/comments/new' component={CreateNewComments}/>
+          <Route exact path= {routes.home.href} component={Home}/>
+          <Route exact path= {routes.employees.href} component={Employees}/>
+          <Route exact path= {routes.employeeList.href} component={EmployeeList}/>
+          <Route exact path= {routes.vacancies.href}component={Vacancies}/>
+          <Route exact path= {routes.comments.href}component={Comments}/>
+          <Route exact path= {routes.commentsHistory.href} component={CommentsHistory}/>
+          <Route exact path= {routes.addNewComments.href}component={CreateNewComments}/>
           <Route exact path= {routes.tasks.href} component={Tasks}/>
           <Route exact path= {routes.tasks.hotelTasks.href} component={TasksForHotel}/>
           <Route exact path= {routes.tasks.kitchenTasks.href} component={TasksForKitchen}/>
