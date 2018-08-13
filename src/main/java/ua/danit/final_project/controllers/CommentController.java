@@ -24,8 +24,9 @@ public class CommentController {
 
   @PostMapping
   public Comment addComment(@RequestParam("uid") Long uid,
-                            @RequestParam("message") String message) {
-    return commentService.addComment(uid, message);
+                            @RequestParam("message") String message,
+                            @RequestParam("workshift") Long workShiftId) {
+    return commentService.addComment(uid, message, workShiftId);
   }
 
   @GetMapping
