@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import routes from '../constants/routes'
 import { Link } from 'react-router-dom'
 import '../styles/Home.css'
+import routes from '../constants/routes'
 
 class WashingData extends Component {
   render () {
