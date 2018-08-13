@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS `task`;
 DROP TABLE IF EXISTS `location`;
 DROP TABLE IF EXISTS `employee`;
 DROP TABLE IF EXISTS `comment`;
-DROP TABLE IF EXISTS `user_work_shift`;
 DROP TABLE IF EXISTS `work_shift`;
+DROP TABLE IF EXISTS `schedule`;
 DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `role`;
 
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   FOREIGN KEY (`r_id`) REFERENCES `role`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS `work_shift` (
+CREATE TABLE IF NOT EXISTS `schedule` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `r_id` BIGINT NOT NULL,
   `start` TIME NOT NULL,
@@ -31,25 +31,25 @@ CREATE TABLE IF NOT EXISTS `work_shift` (
   FOREIGN KEY (`r_id`) REFERENCES `role`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS `user_work_shift` (
+CREATE TABLE IF NOT EXISTS `work_shift` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `u_id` BIGINT,
-  `w_shift_id` BIGINT NOT NULL,
+  `s_id` BIGINT NOT NULL,
   `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
-  FOREIGN KEY (`w_shift_id`) REFERENCES `work_shift`(`id`)
+  FOREIGN KEY (`s_id`) REFERENCES `schedule`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `u_id` BIGINT NOT NULL,
-  `u_w_shift_id` BIGINT NOT NULL,
+  `w_shift_id` BIGINT NOT NULL,
   `c_message` VARCHAR(511) NOT NULL,
   `c_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
-  FOREIGN KEY (`u_w_shift_id`) REFERENCES `user_work_shift`(`id`)
+  FOREIGN KEY (`w_shift_id`) REFERENCES `work_shift`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `employee` (

@@ -33,7 +33,7 @@ public class Comment implements Serializable {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "u_w_shift_id")
-  private UserWorkShift userWorkShift;
+  private WorkShift workShift;
 
   @Column(name = "c_message", nullable = false)
   private String message;
