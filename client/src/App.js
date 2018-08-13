@@ -15,7 +15,6 @@ import MyTasks from './pages/tasks/MyTasks'
 import Employees from './pages/Employees'
 import EmployeeList from './pages/EmployeeList'
 import Vacancies from './pages/Vacancies'
-
 import WashingData from './pages/WashingData'
 import SalesNumbers from './pages/washingDate/SalesNumbers'
 import Lodgers from './pages/washingDate/Lodgers'
