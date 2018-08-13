@@ -2,7 +2,7 @@ import React from 'react'
 import InfiniteCalendar from 'react-infinite-calendar'
 import 'react-infinite-calendar/styles.css'
 
-const alendar = (props) => {
+const Calendar = (props) => {
   const {max, min, selected, minDate, maxDate} = props
 
   return (
@@ -21,4 +21,4 @@ const alendar = (props) => {
   )
 }
 
-export default alendar
+export default Calendar
