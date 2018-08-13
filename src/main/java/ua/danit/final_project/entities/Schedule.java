@@ -2,6 +2,7 @@ package ua.danit.final_project.entities;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,9 @@ public class Schedule implements Serializable {
   @JoinColumn(name = "r_id", nullable = false)
   private Role role;
 
+  @Column(name = "start")
   private Timestamp start;
+
+  @Column(name = "end")
   private Timestamp end;
 }

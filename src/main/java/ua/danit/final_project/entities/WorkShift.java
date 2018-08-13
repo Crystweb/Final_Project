@@ -2,6 +2,7 @@ package ua.danit.final_project.entities;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,5 +29,6 @@ public class WorkShift {
   @JoinColumn(name = "s_id", nullable = false)
   private Schedule schedule;
 
+  @Column(name = "date")
   private Timestamp date;
 }
