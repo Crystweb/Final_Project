@@ -10,8 +10,13 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-infinite-calendar": "^2.3.1",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-form": "^7.3.0",
+    "redux-thunk": "^2.2.0",
     "stylelint": "^8.2.0",
     "stylelint-config-standard": "^17.0.0",
     "stylelint-order": "^0.7.0"
@@ -39,5 +44,6 @@
   },
   "devDependencies": {
     "standard": "^10.0.3"
-  }
+  },
+  "proxy": "http://localhost:9000"
 }
