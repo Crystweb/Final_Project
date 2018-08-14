@@ -58,21 +58,21 @@ ul > li {
 
 .button-container {
   display: flex;
-  margin: 0 auto;
   justify-content: center;
   width: 200px;
   height: 30px;
+  margin: 0 auto;
   border: 1px solid lime;
   font-weight: 700;
   text-decoration: none;
 }
 
 .button-container button {
+  width: 200px;
+  height: 30px;
   border: none;
   background-color: transparent;
-  width: 200px;
   font-weight: 700;
-  height: 30px;
   text-decoration: none;
 }
 
