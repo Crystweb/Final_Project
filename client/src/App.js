@@ -31,7 +31,7 @@ class App extends Component {
         <Switch>
           <Route exact path= {routes.home.href} component={Home}/>
           <Route exact path= {routes.employees.href} component={Employees}/>
-          <Route exact path= {routes.employeeList.href} component={EmployeeList}/>
+          <Route exact path= {routes.employeesList.href} component={EmployeeList}/>
           <Route exact path= {routes.vacancies.href}component={Vacancies}/>
           <Route exact path= {routes.comments.href}component={Comments}/>
           <Route exact path= {routes.commentsHistory.href} component={CommentsHistory}/>
