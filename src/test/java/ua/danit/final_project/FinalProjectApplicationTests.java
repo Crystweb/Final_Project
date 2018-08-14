@@ -70,12 +70,11 @@ public class FinalProjectApplicationTests {
 
     Assert.assertEquals(expected, actual);
   }
-  
+
   @Test
   public void newVacancySave() {
-    Vacancy actual = vacancyService.create("Povar", 10000);
+    Vacancy actual = vacancyService.create("Povar", 10000, System.currentTimeMillis());
     Vacancy expected = vacancyService.findAll().get(2);
-
     Assert.assertEquals(expected, actual);
   }
 

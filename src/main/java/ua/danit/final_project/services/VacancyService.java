@@ -2,8 +2,6 @@ package ua.danit.final_project.services;
 
 
 import ua.danit.final_project.entities.Vacancy;
-
-import java.sql.Timestamp;
 import java.util.List;
 
 public interface VacancyService {
@@ -14,5 +12,5 @@ public interface VacancyService {
 
   void remove(String vacancy);
 
-  Vacancy create(String position, Integer salary);
+  Vacancy create(String position, Integer salary, Long time);
 }

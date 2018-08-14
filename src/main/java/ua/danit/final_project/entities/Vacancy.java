@@ -30,4 +30,6 @@ public class Vacancy implements Serializable {
   @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
   @Column(name = "v_publication", nullable = false)
   private Timestamp publication;
+
+
 }

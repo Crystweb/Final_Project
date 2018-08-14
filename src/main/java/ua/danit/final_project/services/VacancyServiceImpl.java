@@ -3,7 +3,6 @@ package ua.danit.final_project.services;
 import org.springframework.stereotype.Service;
 import ua.danit.final_project.entities.Vacancy;
 import ua.danit.final_project.repositories.VacancyRepo;
-
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -34,10 +33,11 @@ public class VacancyServiceImpl implements VacancyService {
   }
 
   @Override
-  public Vacancy create(String position, Integer salary) {
+  public Vacancy create(String position, Integer salary, Long time) {
     Vacancy vacancy = new Vacancy();
     vacancy.setPosition(position);
     vacancy.setSalary(salary);
+    vacancy.setPublication(new Timestamp(time));
     return vacancyRepo.save(vacancy);
   }
 }

@@ -28,6 +28,6 @@ public class VacancyController {
   @PostMapping
   public Vacancy createVacancy(@RequestParam("position") String position,
                                 @RequestParam("salary") Integer salary) {
-    return vacancyService.create(position, salary);
+    return vacancyService.create(position, salary, System.currentTimeMillis());
   }
 }
