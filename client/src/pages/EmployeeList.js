@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-class EmployeesList extends Component {
+class EmployeeList extends Component {
 
     constructor(props) {
         super(props)
@@ -30,4 +30,4 @@ class EmployeesList extends Component {
       );
     }
 }
-export default EmployeesList
+export default EmployeeList

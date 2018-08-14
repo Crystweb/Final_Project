@@ -13,7 +13,7 @@ import TasksForSecondRestaurant from './pages/tasks/TasksForSecondRestaurant'
 import TasksOfCyclic from './pages/tasks/TasksOfCyclic'
 import MyTasks from './pages/tasks/MyTasks'
 import Employees from './pages/Employees'
-import EmployeesList from './pages/EmployeesList'
+import EmployeeList from './pages/EmployeeList'
 import Vacancies from './pages/Vacancies'
 import WashingData from './pages/WashingData'
 import SalesNumbers from './pages/washingDate/SalesNumbers'
@@ -31,7 +31,7 @@ class App extends Component {
         <Switch>
           <Route exact path= {routes.home.href} component={Home}/>
           <Route exact path= {routes.employees.href} component={Employees}/>
-          <Route exact path= {routes.employeesList.href} component={EmployeesList}/>
+          <Route exact path= {routes.employeesList.href} component={EmployeeList}/>
           <Route exact path= {routes.vacancies.href}component={Vacancies}/>
           <Route exact path= {routes.comments.href}component={Comments}/>
           <Route exact path= {routes.commentsHistory.href} component={CommentsHistory}/>
