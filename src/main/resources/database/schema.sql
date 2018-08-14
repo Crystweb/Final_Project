@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS `task`;
 DROP TABLE IF EXISTS `location`;
 DROP TABLE IF EXISTS `employee`;
-DROP TABLE IF EXISTS `employee`;
 DROP TABLE IF EXISTS `comment`;
 DROP TABLE IF EXISTS `work_shift`;
 DROP TABLE IF EXISTS `schedule`;
@@ -51,16 +50,6 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
   FOREIGN KEY (`w_shift_id`) REFERENCES `work_shift`(`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-CREATE TABLE IF NOT EXISTS `employee` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT,
-  `e_forename` VARCHAR(32) NOT NULL,
-  `e_surname` VARCHAR(32) NOT NULL,
-  `e_patronymic` VARCHAR(32) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `employee` (
