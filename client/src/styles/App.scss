@@ -55,3 +55,31 @@ li > a {
 ul > li {
   margin: 20px 0;
 }
+
+.button-container{
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 200px;
+  height: 30px;
+  font-weight: 700;
+  border: 1px solid lime;
+  text-decoration: none;
+}
+
+.button-container button{
+  background-color: transparent;
+  border: none;
+  font-weight: 700;
+  width: 200px;
+  height: 30px;
+  text-decoration: none;
+}
+
+label{
+  display: flex;
+  flex-direction: column;
+}
+form{
+  padding: 15px;
+}
