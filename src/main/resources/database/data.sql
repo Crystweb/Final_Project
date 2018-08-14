@@ -1,5 +1,11 @@
-INSERT INTO `role` (`r_name`) VALUES ('admin');
+INSERT INTO `role` (`r_name`) VALUES ('owner');
+INSERT INTO `role` (`r_name`) VALUES ('managingDirector');
+INSERT INTO `role` (`r_name`) VALUES ('chef');
 INSERT INTO `role` (`r_name`) VALUES ('manager');
+INSERT INTO `role` (`r_name`) VALUES ('administrator');
+INSERT INTO `role` (`r_name`) VALUES ('seniorHousemaid');
+INSERT INTO `role` (`r_name`) VALUES ('seniorBartender');
+INSERT INTO `role` (`r_name`) VALUES ('stateFarm');
 
 INSERT INTO `user` (r_id, u_login, u_password) VALUES (1, 'rostyslav@mail.com','1');
 INSERT INTO `user` (r_id, u_login, u_password) VALUES (2, 'myroslav@mail.com','1');
