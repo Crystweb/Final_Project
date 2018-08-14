@@ -3,37 +3,36 @@ import Modal from 'react-responsive-modal';
 import axios from 'axios';
 
 class Vacancies extends Component {
+    onOpenModal = () => {
+        this.setState({open: true});
+    };
+    onCloseModal = () => {
+        this.setState({open: false});
+    };
+    handleSubmit = event => {
+        event.preventDefault();
+        axios.post(`http://localhost:9000/vacancy`, {
+            position: this.state.position,
+            salary: this.state.salary
+        })
+    };
+
     constructor(props) {
         super(props);
         this.state = {
-            position:'',
-            salary:'',
+            position: '',
+            salary: '',
             open: false
         };
         this.handlePositionChange = this.handlePositionChange.bind(this);
         this.handleSalaryChange = this.handleSalaryChange.bind(this);
     }
 
-    onOpenModal = () => {
-        this.setState({open: true});
-    };
-
-    onCloseModal = () => {
-        this.setState({open: false});
-    };
-
-    handleSubmit = event => {
-        event.preventDefault();
-        axios.post(`http://localhost:9000/vacancy`,{
-            position: this.state.position,
-            salary: this.state.salary
-        })
-    };
-
     handlePositionChange(event) {
         event.preventDefault();
         this.setState({position: event.target.value});
     }
+
     handleSalaryChange(event) {
         event.preventDefault();
         this.setState({salary: event.target.value});
@@ -49,9 +48,11 @@ class Vacancies extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             Название должности:
-                            <input type="text" name={"position"} value={this.state.position} onChange={this.handlePositionChange}/>
+                            <input type="text" name={"position"} value={this.state.position}
+                                   onChange={this.handlePositionChange}/>
                             Зарплата:
-                            <input type="number" name={"salary"} value={this.state.salary} onChange={this.handleSalaryChange}/>
+                            <input type="number" name={"salary"} value={this.state.salary}
+                                   onChange={this.handleSalaryChange}/>
                         </label>
                         <input type="submit" value="Добавить"/>
                     </form>
