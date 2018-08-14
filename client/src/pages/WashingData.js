@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import routes from "../constants/routes";
 import { Link } from 'react-router-dom'
-import '../styles/home.css'
+import '../styles/Home.css'
+import routes from '../constants/routes'
 
 class WashingData extends Component {
-  render() {
+  render () {
     return (
       <div className="container">
         <nav className="navigation">
@@ -18,4 +18,4 @@ class WashingData extends Component {
   }
 }
 
-export default WashingData;
+export default WashingData

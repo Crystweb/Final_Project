@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Calendar from '../../components/calendar'
+import Calendar from '../../components/Сalendar'
 
 class CommentsHistory extends Component {
   render () {
