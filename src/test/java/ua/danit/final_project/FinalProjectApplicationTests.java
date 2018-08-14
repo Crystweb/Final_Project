@@ -6,12 +6,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import ua.danit.final_project.entities.Employee;
 import ua.danit.final_project.entities.Role;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.repositories.CommentRepo;
+import ua.danit.final_project.repositories.EmployeeRepo;
 import ua.danit.final_project.repositories.RoleRepo;
 import ua.danit.final_project.repositories.ScheduleRepo;
 import ua.danit.final_project.repositories.UserRepo;
+import ua.danit.final_project.services.EmployeeService;
 import ua.danit.final_project.services.RoleService;
 
 import javax.persistence.EntityNotFoundException;
@@ -32,6 +35,12 @@ public class FinalProjectApplicationTests {
 
   @Autowired
   RoleService roleService;
+
+  @Autowired
+  EmployeeRepo employeeRepo;
+
+  @Autowired
+  EmployeeService employeeService;
 
   @Autowired
   ScheduleRepo scheduleRepo;
@@ -55,6 +64,20 @@ public class FinalProjectApplicationTests {
 
     Assert.assertEquals(expected, actual);
   }
+
+  @Test
+  public void newEmployeeSaved() {
+    Employee actual = employeeService.addEmployee(3L,
+            "vas",
+            "vasyl",
+            "vasylovich",
+            "0645668093",
+            "hero");
+    Employee expected = employeeService.getAll().get(2);
+
+    Assert.assertEquals(expected, actual);
+  }
+
 
   @Test
   public void newScheduleCreated() {
