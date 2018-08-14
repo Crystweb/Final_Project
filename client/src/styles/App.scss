@@ -56,30 +56,31 @@ ul > li {
   margin: 20px 0;
 }
 
-.button-container{
-  margin: 0 auto;
+.button-container {
   display: flex;
+  margin: 0 auto;
   justify-content: center;
   width: 200px;
   height: 30px;
-  font-weight: 700;
   border: 1px solid lime;
+  font-weight: 700;
   text-decoration: none;
 }
 
-.button-container button{
-  background-color: transparent;
+.button-container button {
   border: none;
-  font-weight: 700;
+  background-color: transparent;
   width: 200px;
+  font-weight: 700;
   height: 30px;
   text-decoration: none;
 }
 
-label{
+label {
   display: flex;
   flex-direction: column;
 }
-form{
+
+form {
   padding: 15px;
 }
