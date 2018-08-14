@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import routes from "../constants/routes";
 import { Link } from 'react-router-dom'
-import '../styles/home.css'
+import '../styles/Home.css'
 
 class Tasks extends Component {
     render() {
@@ -16,7 +16,7 @@ class Tasks extends Component {
                         <li><Link to={routes.tasks.cyclicTasks.href}>{routes.tasks.cyclicTasks.name}</Link></li>
                         <li><Link to={routes.tasks.myTasks.href}>{routes.tasks.myTasks.name}</Link></li>
                     </ul>
-                </nav>               
+                </nav>
             </div>
         )
     }

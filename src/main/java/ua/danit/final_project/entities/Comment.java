@@ -31,15 +31,16 @@ public class Comment implements Serializable {
   @JoinColumn(name = "u_id", nullable = false)
   private User user;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "w_shift_id")
+  private WorkShift workShift;
+
   @Column(name = "c_message", nullable = false)
   private String message;
 
   @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
   @Column(name = "c_date", nullable = false)
   private Timestamp date;
-
-
-
 
 }
 
