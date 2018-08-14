@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS `work_shift`;
 DROP TABLE IF EXISTS `schedule`;
 DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `vacancy`;
 
 CREATE TABLE IF NOT EXISTS `role` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -64,6 +65,14 @@ CREATE TABLE IF NOT EXISTS `employee` (
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS `vacancy` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `v_position` VARCHAR(100) NOT NULL,
+  `v_salary` INT NOT NULL,
+  `v_publication` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS `location` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `l_title` VARCHAR(50) NOT NULL,
@@ -86,3 +95,4 @@ CREATE TABLE IF NOT EXISTS `task` (
   FOREIGN KEY (`t_author_u_id`) REFERENCES `user`(`id`),
   FOREIGN KEY (`l_id`) REFERENCES  `location`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+

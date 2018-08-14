@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.danit.final_project.entities.Employee;
 import ua.danit.final_project.entities.Role;
+import ua.danit.final_project.entities.Vacancy;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.repositories.CommentRepo;
 import ua.danit.final_project.repositories.EmployeeRepo;
@@ -16,6 +17,7 @@ import ua.danit.final_project.repositories.ScheduleRepo;
 import ua.danit.final_project.repositories.UserRepo;
 import ua.danit.final_project.services.EmployeeService;
 import ua.danit.final_project.services.RoleService;
+import ua.danit.final_project.services.VacancyService;
 
 import javax.persistence.EntityNotFoundException;
 import java.sql.Timestamp;
@@ -37,6 +39,9 @@ public class FinalProjectApplicationTests {
   RoleService roleService;
 
   @Autowired
+  VacancyService vacancyService;
+  
+  @Autowired
   EmployeeRepo employeeRepo;
 
   @Autowired
@@ -44,6 +49,7 @@ public class FinalProjectApplicationTests {
 
   @Autowired
   ScheduleRepo scheduleRepo;
+
 
   @Test
   public void contextLoads() {
@@ -66,6 +72,13 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
+  public void newVacancySave() {
+    Vacancy actual = vacancyService.create("Povar", 10000, System.currentTimeMillis());
+    Vacancy expected = vacancyService.findAll().get(2);
+    Assert.assertEquals(expected, actual);
+  }
+
+  @Test
   public void newEmployeeSaved() {
     Employee actual = employeeService.addEmployee(3L,
             "vas",
@@ -77,7 +90,6 @@ public class FinalProjectApplicationTests {
 
     Assert.assertEquals(expected, actual);
   }
-
 
   @Test
   public void newScheduleCreated() {
