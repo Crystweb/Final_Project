@@ -84,6 +84,8 @@ CREATE TABLE IF NOT EXISTS `work_shift` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `u_id` BIGINT,
   `s_id` BIGINT NOT NULL,
+  `start` TIME NOT NULL,
+  `end` TIME NOT NULL,
   `date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
