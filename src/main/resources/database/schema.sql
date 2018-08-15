@@ -17,8 +17,6 @@ DROP TABLE IF EXISTS `role_permission`;
 DROP TABLE IF EXISTS `role`;
 DROP TABLE IF EXISTS `permission`;
 
-
-
 CREATE TABLE IF NOT EXISTS `permission` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `p_name` VARCHAR(32) NOT NULL UNIQUE,
