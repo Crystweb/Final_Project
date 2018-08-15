@@ -162,3 +162,26 @@ CREATE TABLE IF NOT EXISTS `food_supply` (
   FOREIGN KEY (`c_id`) REFERENCES `consumer`(`id`),
   FOREIGN KEY (`l_id`) REFERENCES `location`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `vacancy` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `u_id` BIGINT NOT NULL,
+  `p_id` BIGINT NOT NULL,
+  `v_salary` INT NOT NULL,
+  `v_status` VARCHAR(15) NOT NULL CHECK(`v_status` IN ('OPEN', 'CLOSE')),
+  `v_info` VARCHAR(1000) NOT NULL,
+  `p_publication` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`p_id`) REFERENCES `position` (`id`),
+  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `vacancy_comment` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `u_id` BIGINT NOT NULL,
+    `v_id` BIGINT NOT NULL,
+    `c_text` VARCHAR(500) NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`v_id`) REFERENCES `vacancy` (`id`),
+    FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
