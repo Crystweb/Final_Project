@@ -7,7 +7,7 @@ import { getLastShift } from '../../utils/Utills'
 import { connect } from 'react-redux'
 import { addShift } from '../../actions/actions'
 
-class Comments extends Component {
+class Shifts extends Component {
   componentDidMount () {
     getLastShift(data => {
       this.props.addShift(data)
@@ -53,4 +53,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comments)
+export default connect(mapStateToProps, mapDispatchToProps)(Shifts)

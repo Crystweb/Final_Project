@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import './styles/App.css'
 import Home from './pages/Home'
 import {Link, Route, Switch } from 'react-router-dom'
-import Comments from './pages/comments/Comments'
-import CommentsHistory from './pages/comments/CommentsHistory'
-import CreateNewComments from './pages/comments/CreateNewComments'
+import Comments from './pages/comments/Shifts'
+import ShiftsHistory from './pages/comments/ShiftsHistory'
+import CreateNewComments from './pages/comments/CreateNewShift'
 import Tasks from './pages/Tasks'
 import TasksForHotel from './pages/tasks/TasksForHotel'
 import TasksForKitchen from './pages/tasks/TasksForKitchen'
@@ -34,7 +34,7 @@ class App extends Component {
           <Route exact path= {routes.employeeList.href} component={EmployeeList}/>
           <Route exact path= {routes.vacancies.href}component={Vacancies}/>
           <Route exact path= {routes.comments.href}component={Comments}/>
-          <Route exact path= {routes.commentsHistory.href} component={CommentsHistory}/>
+          <Route exact path= {routes.commentsHistory.href} component={ShiftsHistory}/>
           <Route exact path= {routes.addNewComments.href}component={CreateNewComments}/>
           <Route exact path= {routes.tasks.href} component={Tasks}/>
           <Route exact path= {routes.tasks.hotelTasks.href} component={TasksForHotel}/>
