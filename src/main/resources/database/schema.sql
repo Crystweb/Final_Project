@@ -8,12 +8,16 @@ DROP TABLE IF EXISTS `shift_comment`;
 DROP TABLE IF EXISTS `work_shift`;
 DROP TABLE IF EXISTS `schedule`;
 DROP TABLE IF EXISTS `employee`;
+DROP TABLE IF EXISTS `vacancy_comment`;
+DROP TABLE IF EXISTS `vacancy`;
 DROP TABLE IF EXISTS `position`;
 DROP TABLE IF EXISTS `user_role`;
 DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `role_permission`;
 DROP TABLE IF EXISTS `role`;
 DROP TABLE IF EXISTS `permission`;
+
+
 
 CREATE TABLE IF NOT EXISTS `permission` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -170,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `vacancy` (
   `v_salary` INT NOT NULL,
   `v_status` VARCHAR(15) NOT NULL CHECK(`v_status` IN ('OPEN', 'CLOSE')),
   `v_info` VARCHAR(1000) NOT NULL,
-  `p_publication` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `p_publication` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`p_id`) REFERENCES `position` (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
