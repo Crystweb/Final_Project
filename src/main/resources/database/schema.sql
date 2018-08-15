@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `e_surname` VARCHAR(32) NOT NULL,
   `e_patronymic` VARCHAR(32),
   `e_phone_number` VARCHAR(32),
+  `e_info` VARCHAR(255),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
   FOREIGN KEY (`p_id`) REFERENCES `position`(`id`),
