@@ -37,9 +37,9 @@ class Calendar extends Component {
             showHeader: false
           }}
           onSelect={date => {
-            this.setState = {
+            this.setState({
               isDataSelected: true
-            }
+            })
             addDate(date.toLocaleString('ru', dateOptions))
           }}
           locale={{
