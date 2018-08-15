@@ -17,11 +17,12 @@ INSERT INTO `position` (p_title) VALUES ('housekeeper');
 INSERT INTO `vacancy` (p_id, v_salary) VALUES (1, 10000);
 INSERT INTO `vacancy` (p_id, v_salary) VALUES (2, 10000);
 
-INSERT  INTO  `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number) VALUES (1, 'Vasyl', 'Kit', 'Vasylovich', '+380556221486', 'admin');
-INSERT  INTO  `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number) VALUES (2, 'Mykola', 'Kit', 'Vasylovich','+380995534219', 'boss');
+INSERT  INTO  `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number) VALUES (1, 1, 'Vasyl', 'Kit', 'Vasylovich', '+380556221486');
+INSERT  INTO  `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number) VALUES (2, 2, 'Mykola', 'Kit', 'Vasylovich','+380995534219');
 
 
-INSERT INTO `schedule` (`id`, `r_id`, `start`, `end`) VALUES (1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO `schedule` (`id`, `p_id`, `start`, `end`) VALUES (1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
 
 INSERT INTO `work_shift` (id, u_id, s_id, date) VALUES (1, 1, 1, CURRENT_TIMESTAMP);
 

@@ -107,16 +107,23 @@ CREATE TABLE IF NOT EXISTS `location` (
 
 CREATE TABLE IF NOT EXISTS `vacancy` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `u_id` BIGINT NOT NULL,
   `p_id` BIGINT NOT NULL,
   `v_salary` INT NOT NULL,
+  `v_status` VARCHAR(15) NOT NULL CHECK(`v_status` IN ('open', 'close')),
+  `v_info` VARCHAR(1000) NOT NULL,
+  `p_publication` TIMESTAMP NOT NULL, DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`p_id`) REFERENCES `position` (`id`)
+  FOREIGN KEY (`p_id`) REFERENCES `position` (`id`),
+  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `vacancy_comment` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `u_id` BIGINT NOT NULL,
     `v_id` BIGINT NOT NULL,
     `v_c_text` VARCHAR(500) NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`v_id`) REFERENCES `vacancy` (`id`)
+    FOREIGN KEY (`v_id`) REFERENCES `vacancy` (`id`),
+    FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;

@@ -41,6 +41,4 @@ public class Employee implements Serializable {
   @Column(name = "e_telephone", unique = true)
   private String telephone;
 
-  @Column(name = "e_position", nullable = false)
-  private String position;
 }
