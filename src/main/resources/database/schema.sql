@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `role_permission`;
 DROP TABLE IF EXISTS `role`;
 DROP TABLE IF EXISTS `permission`;
+DROP TABLE IF EXISTS `vacancy_comment`;
+DROP TABLE IF EXISTS `vacancy`;
 
 CREATE TABLE IF NOT EXISTS `permission` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -101,4 +103,20 @@ CREATE TABLE IF NOT EXISTS `location` (
   `l_info` VARCHAR(127),
   CONSTRAINT `l_title_info` UNIQUE (`l_title`, `l_info`),
   PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `vacancy` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `p_id` BIGINT NOT NULL,
+  `v_salary` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`p_id`) REFERENCES `position` (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `vacancy_comment` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `v_id` BIGINT NOT NULL,
+    `v_c_text` VARCHAR(500) NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`v_id`) REFERENCES `vacancy` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
