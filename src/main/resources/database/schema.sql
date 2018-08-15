@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS `food_supply`;
+DROP TABLE IF EXISTS `mealtime_category`;
+DROP TABLE IF EXISTS `consumer`;
 DROP TABLE IF EXISTS `task_comment`;
 DROP TABLE IF EXISTS `task`;
 DROP TABLE IF EXISTS `location`;
@@ -129,4 +132,32 @@ CREATE TABLE IF NOT EXISTS `task_comment` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`t_id`) REFERENCES `task`(`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `consumer` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `c_name` VARCHAR(127) NOT NULL UNIQUE,
+  `c_description` VARCHAR(255),
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `mealtime_category` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `m_title` VARCHAR(127) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `food_supply` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `m_id` BIGINT NOT NULL,
+  `u_id` BIGINT NOT NULL,
+  `c_id` BIGINT NOT NULL,
+  `l_id` BIGINT,
+  `f_amount` INT NOT NULL,
+  `f_date` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`m_id`) REFERENCES `mealtime_category`(`id`),
+  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`c_id`) REFERENCES `consumer`(`id`),
+  FOREIGN KEY (`l_id`) REFERENCES `location`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
