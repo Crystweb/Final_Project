@@ -1,6 +1,7 @@
+DROP TABLE IF EXISTS `task_comment`;
 DROP TABLE IF EXISTS `task`;
 DROP TABLE IF EXISTS `location`;
-DROP TABLE IF EXISTS `comment`;
+DROP TABLE IF EXISTS `shift_comment`;
 DROP TABLE IF EXISTS `work_shift`;
 DROP TABLE IF EXISTS `schedule`;
 DROP TABLE IF EXISTS `employee`;
@@ -111,9 +112,20 @@ CREATE TABLE IF NOT EXISTS `task` (
   `l_id` BIGINT NOT NULL,
   `t_message` VARCHAR(1023),
   `t_status` VARCHAR(31) CHECK (`t_status` in ('OPENED', 'CLOSED', 'IN_PROGRESS', 'PAUSED')),
+  `t_frequency` VARCHAR(31) CHECK (`t_frequency` in ('DAILY', 'WEEKLY', 'MONTHLY')),
   `updated` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id_assignee`) REFERENCES `user`(`id`),
   FOREIGN KEY (`u_id_delegator`) REFERENCES `user`(`id`),
   FOREIGN KEY (`l_id`) REFERENCES `location`(`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `task_comment` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `t_id` BIGINT NOT NULL,
+  `u_id` BIGINT NOT NULL,
+  `c_message` VARCHAR(511),
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`t_id`) REFERENCES `task`(`id`),
+  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
