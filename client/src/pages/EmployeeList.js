@@ -1,28 +1,23 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import {connect} from "react-redux";
+import {addEmployees} from "../actions/actions";
 
 class EmployeeList extends Component {
 
-    constructor(props) {
-        super(props)
-      this.state = {
-        users: []
-      }
-    }
-
     componentDidMount() {
-      axios.get('http://localhost:9000/employee')
-        .then(response => this.setState({users: response}))
+      axios.get('/employees')
+        .then(response => {
+             this.props.addEmployees(response.data)})
     }
 
     render() {
       return (
         <ul className="employee-list">
-          {this.state.users.map(function(user) {
+          {this.props.employeesList.map( employees => {
             return (
-              <li key={user.id}>
-                <Link to="{'/users/' + user.id}">{user.name}</Link>
+              <li key={employees.u_id}>
               </li>
             );
           })}
@@ -30,4 +25,19 @@ class EmployeeList extends Component {
       );
     }
 }
-export default EmployeeList
+
+const mapStateToProps = (state) => {
+    return {
+        emloyeesList: state.employees.employeesList
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addEmployees: (data) => {
+            dispatch(addEmployees(data))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (EmployeeList)
