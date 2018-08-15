@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `task`;
 DROP TABLE IF EXISTS `location`;
 DROP TABLE IF EXISTS `comment`;
 DROP TABLE IF EXISTS `work_shift`;
@@ -84,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `work_shift` (
   FOREIGN KEY (`s_id`) REFERENCES `schedule`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS `comment` (
+CREATE TABLE IF NOT EXISTS `shift_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `u_id` BIGINT NOT NULL,
   `w_shift_id` BIGINT NOT NULL,
@@ -101,4 +102,18 @@ CREATE TABLE IF NOT EXISTS `location` (
   `l_info` VARCHAR(127),
   CONSTRAINT `l_title_info` UNIQUE (`l_title`, `l_info`),
   PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `task` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `u_id_assignee` BIGINT,
+  `u_id_delegator` BIGINT NOT NULL,
+  `l_id` BIGINT NOT NULL,
+  `t_message` VARCHAR(1023),
+  `t_status` VARCHAR(31) CHECK (`t_status` in ('OPENED', 'CLOSED', 'IN_PROGRESS', 'PAUSED')),
+  `updated` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`u_id_assignee`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`u_id_delegator`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`l_id`) REFERENCES `location`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
