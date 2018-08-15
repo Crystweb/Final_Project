@@ -124,7 +124,8 @@ CREATE TABLE IF NOT EXISTS `task_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `t_id` BIGINT NOT NULL,
   `u_id` BIGINT NOT NULL,
-  `c_message` VARCHAR(511),
+  `c_message` VARCHAR(511) NOT NULL,
+  `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`t_id`) REFERENCES `task`(`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
