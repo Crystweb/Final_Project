@@ -8,6 +8,8 @@ DROP TABLE IF EXISTS `shift_comment`;
 DROP TABLE IF EXISTS `work_shift`;
 DROP TABLE IF EXISTS `schedule`;
 DROP TABLE IF EXISTS `employee`;
+DROP TABLE IF EXISTS `vacancy_comment`;
+DROP TABLE IF EXISTS `vacancy`;
 DROP TABLE IF EXISTS `position`;
 DROP TABLE IF EXISTS `user_role`;
 DROP TABLE IF EXISTS `user`;
@@ -161,4 +163,27 @@ CREATE TABLE IF NOT EXISTS `food_supply` (
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
   FOREIGN KEY (`c_id`) REFERENCES `consumer`(`id`),
   FOREIGN KEY (`l_id`) REFERENCES `location`(`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `vacancy` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `u_id` BIGINT NOT NULL,
+  `p_id` BIGINT NOT NULL,
+  `v_salary` INT NOT NULL,
+  `v_status` VARCHAR(15) NOT NULL CHECK(`v_status` IN ('OPEN', 'CLOSE')),
+  `v_info` VARCHAR(1000) NOT NULL,
+  `p_publication` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`p_id`) REFERENCES `position` (`id`),
+  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `vacancy_comment` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `u_id` BIGINT NOT NULL,
+    `v_id` BIGINT NOT NULL,
+    `c_text` VARCHAR(500) NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`v_id`) REFERENCES `vacancy` (`id`),
+    FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
