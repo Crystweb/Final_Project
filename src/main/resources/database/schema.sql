@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `vacancy` (
   `u_id` BIGINT NOT NULL,
   `p_id` BIGINT NOT NULL,
   `v_salary` INT,
-  `v_status` VARCHAR(15) NOT NULL CHECK(`v_status` IN ('OPENED', 'ACCEPTED', 'IN_PROCESS', 'REJECTED', 'COORDINATION', 'CHANGE',  'CLOSED')),
+  `v_status` VARCHAR(15) NOT NULL CHECK(`v_status` IN ('OPENED', 'CLOSED')),
   `v_info` VARCHAR(1023) NOT NULL,
   `p_publication` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
