@@ -4,7 +4,7 @@ const initialState = {
   employees: null
 }
 
-export default function addShiftReducer (state = initialState, action) {
+export default function addEmployeesReducer (state = initialState, action) {
   switch (action.type) {
     case ADD_EMPLOYEES:
       return {...state, employees: action.employeesList}
