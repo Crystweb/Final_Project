@@ -1,5 +1,6 @@
 package ua.danit.final_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -12,11 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Time;
 
 @Entity
 @Table(name = "schedule")
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Schedule implements Serializable {
 
   @Id
@@ -27,9 +29,9 @@ public class Schedule implements Serializable {
   @JoinColumn(name = "r_id", nullable = false)
   private Role role;
 
-  @Column(name = "start")
-  private Timestamp start;
+  @Column(name = "start", nullable = false)
+  private Time start;
 
-  @Column(name = "end")
-  private Timestamp end;
+  @Column(name = "end", nullable = false)
+  private Time end;
 }

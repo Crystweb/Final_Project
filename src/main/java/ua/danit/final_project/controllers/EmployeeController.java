@@ -1,11 +1,6 @@
 package ua.danit.final_project.controllers;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ua.danit.final_project.entities.Employee;
 import ua.danit.final_project.services.EmployeeService;
 
@@ -29,13 +24,8 @@ public class EmployeeController {
   }
 
   @PostMapping
-  public Employee addEmployee(@RequestParam("uid") Long uid,
-                              @RequestParam("forename") String forename,
-                              @RequestParam("surname") String surname,
-                              @RequestParam("patronymic") String patronymic,
-                              @RequestParam("telephone") String telephone,
-                              @RequestParam("position") String position) {
-    return employeeService.addEmployee(uid, forename, surname, patronymic, telephone, position);
+  public Employee addEmployee(@RequestBody Employee employee) {
+    return employeeService.addEmployee(employee);
   }
 
 

@@ -8,11 +8,13 @@ import java.util.List;
 
 public interface EmployeeService {
   Employee addEmployee(Long uid,
+                       Long pid,
                        String forename,
                        String surname,
                        String patronymic,
-                       String telephone,
-                       String position);
+                       String phoneNumber,
+                       String info);
+
 
   List<Employee> getAll();
 }

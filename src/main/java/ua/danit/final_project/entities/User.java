@@ -26,19 +26,10 @@ public class User implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "r_id", nullable = false)
-  private Role role;
-
   @Column(name = "u_login", unique = true, nullable = false)
   private String login;
 
   @JsonIgnore
   @Column(name = "u_password", nullable = false)
   private String password;
-
-  @JsonProperty(value = "role")
-  public String getRoleValue() {
-    return role.getName();
-  }
 }

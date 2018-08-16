@@ -14,7 +14,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "role")
 @Data
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Role implements Serializable {
 
   @Id
@@ -25,4 +24,3 @@ public class Role implements Serializable {
   @Column(name = "r_name", unique = true, nullable = false)
   private String name;
 }
-

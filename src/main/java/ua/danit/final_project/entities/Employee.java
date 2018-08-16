@@ -25,9 +25,14 @@ public class Employee implements Serializable {
   private Long id;
 
   @OneToOne
-  @JoinColumn(name = "u_id", unique = true)
+  @JoinColumn(name = "u_id")
   @JsonIgnore
   private User user;
+
+  @OneToOne
+  @JoinColumn(name = "p_id")
+  @JsonIgnore
+  private Position position;
 
   @Column(name = "e_forename", nullable = false)
   private String forename;
@@ -38,9 +43,9 @@ public class Employee implements Serializable {
   @Column(name = "e_patronymic")
   private String patronymic;
 
-  @Column(name = "e_telephone", unique = true)
-  private String telephone;
+  @Column(name = "e_phone_number")
+  private String phoneNumber;
 
-  @Column(name = "e_position", nullable = false)
-  private String position;
+  @Column(name = "e_info")
+  private String info;
 }

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 @Entity
@@ -25,10 +26,12 @@ public class WorkShift {
   @JoinColumn(name = "u_id", nullable = false)
   private User user;
 
-  @ManyToOne
-  @JoinColumn(name = "s_id", nullable = false)
-  private Schedule schedule;
+  @Column(name = "start", nullable = false)
+  private Time start;
 
-  @Column(name = "date")
+  @Column(name = "end", nullable = false)
+  private Time end;
+
+  @Column(name = "date", nullable = false)
   private Timestamp date;
 }

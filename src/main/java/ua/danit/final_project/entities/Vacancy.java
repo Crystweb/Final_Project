@@ -2,12 +2,8 @@ package ua.danit.final_project.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
-import javax.persistence.GeneratedValue;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -20,15 +16,24 @@ public class Vacancy implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "v_position", nullable = false)
-  private String position;
+  @ManyToOne
+  @JoinColumn(name = "u_id")
+  private User user;
 
-  @Column(name = "v_salary", nullable = false)
+  @ManyToOne
+  @JoinColumn(name = "p_id")
+  private Position position;
+
+  @Column(name = "v_status", nullable = false)
+  private String status;
+
+  @Column(name = "v_salary")
   private Integer salary;
+
+  @Column(name = "v_info")
+  private String info;
 
   @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
   @Column(name = "v_publication", nullable = false)
   private Timestamp publication;
-
-
 }
