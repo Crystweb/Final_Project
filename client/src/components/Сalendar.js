@@ -28,7 +28,7 @@ class Calendar extends Component {
           rowHeight={60}
           max={max}
           min={min}
-          width={400}
+          width={401}
           height={600}
           selected={selected}
           minDate={minDate}
