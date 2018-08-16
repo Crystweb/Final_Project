@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {connect} from "react-redux";
+// import {connect} from "react-redux";
 import {addEmployees} from "../actions/actions";
 import {getEmployees} from "../utils/Utills";
 
@@ -24,7 +24,7 @@ class EmployeeList extends Component {
         );
     }
 }
-const mapStateToProps = (state) => {
+/*const mapStateToProps = (state) => {
     return {
         emloyeesList: new state.employees.employeesList
     }
@@ -36,6 +36,6 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(addEmployees(data))
         }
     }
-};
+};*/
 
 export default EmployeeList;
