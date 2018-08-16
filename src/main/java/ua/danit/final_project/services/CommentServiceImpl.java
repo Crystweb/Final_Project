@@ -2,7 +2,6 @@ package ua.danit.final_project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.danit.final_project.entities.Comment;
 import ua.danit.final_project.entities.User;
 import ua.danit.final_project.repositories.CommentRepo;
 import ua.danit.final_project.repositories.UserRepo;
