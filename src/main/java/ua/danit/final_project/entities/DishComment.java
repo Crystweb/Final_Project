@@ -1,0 +1,31 @@
+package ua.danit.final_project.entities;
+
+import lombok.Data;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+@Entity
+@Table(name = "dish_comment")
+@Data
+public class DishComment implements Serializable {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @ManyToOne
+  @JoinColumn(name = "u_id", nullable = false)
+  private User user;
+
+  @ManyToOne
+  @JoinColumn(name = "d_id", nullable = false)
+  private DishAccounting dishAccounting;
+
+  @Column(name = "c_message", nullable = false)
+  private String message;
+
+  @Column(name = "c_date", nullable = false)
+  private Timestamp date;
+}
