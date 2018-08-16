@@ -6,3 +6,10 @@ export function addShift (shift) {
     shift
   }
 }
+
+export function addEmployees(employeesList) {
+  return {
+    type: types.ADD_EMPLOYEES,
+      employeesList
+  }
+}

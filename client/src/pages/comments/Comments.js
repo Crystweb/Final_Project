@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { addShift } from '../../actions/actions'
 
 class Comments extends Component {
+
   componentDidMount () {
     getLastShift(data => {
       this.props.addShift(data)

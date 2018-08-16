@@ -5,3 +5,15 @@ export const getLastShift = (callback) => {
     .then(response => response.data)
     .then(callback)
 }
+
+export const getEmployees = (callback) => {
+  axios.get('/employees', {
+    params : {
+      uid:"",
+      forename:"",
+      surname:""
+    }
+  })
+    .then(response => response.data)
+    .then(callback)
+}
