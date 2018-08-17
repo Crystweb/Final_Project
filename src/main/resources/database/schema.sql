@@ -2,13 +2,14 @@ DROP TABLE IF EXISTS `dish_comment`;
 DROP TABLE IF EXISTS `dish_accounting`;
 DROP TABLE IF EXISTS `dish_balance`;
 DROP TABLE IF EXISTS `dish_type`;
+DROP TABLE IF EXISTS `wash_stats_materials`;
 DROP TABLE IF EXISTS `wash_stats`;
 DROP TABLE IF EXISTS `cleaning_material`;
 DROP TABLE IF EXISTS `wash_period`;
 DROP TABLE IF EXISTS `bed_linen_stats`;
 DROP TABLE IF EXISTS `bed_linen_type`;
-DROP TABLE IF EXISTS `vacancy`;
 DROP TABLE IF EXISTS `vacancy_comment`;
+DROP TABLE IF EXISTS `vacancy`;
 DROP TABLE IF EXISTS `food_supply`;
 DROP TABLE IF EXISTS `mealtime_category`;
 DROP TABLE IF EXISTS `consumer`;
@@ -124,14 +125,20 @@ CREATE TABLE IF NOT EXISTS `task` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `u_id_assignee` BIGINT,
   `u_id_delegator` BIGINT NOT NULL,
-  `l_id` BIGINT NOT NULL,
   `t_message` VARCHAR(1023),
-  `t_status` VARCHAR(31) CHECK (`t_status` in ('OPENED', 'CLOSED', 'IN_PROGRESS', 'PAUSED')),
+  `t_status` VARCHAR(31) CHECK (`t_status` in ('OPENED', 'CLOSED', 'REJECTED', 'PENDING','IN_PROGRESS', 'EXPIRED', 'CHANGE')),
   `t_frequency` VARCHAR(31) CHECK (`t_frequency` in ('DAILY', 'WEEKLY', 'MONTHLY')),
   `updated` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id_assignee`) REFERENCES `user`(`id`),
-  FOREIGN KEY (`u_id_delegator`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`u_id_delegator`) REFERENCES `user`(`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `task_location` (
+  `t_id` BIGINT NOT NULL,
+  `l_id` BIGINT NOT NULL,
+  PRIMARY KEY (`t_id`, `l_id`),
+  FOREIGN KEY (`t_id`) REFERENCES `task`(`id`),
   FOREIGN KEY (`l_id`) REFERENCES `location`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -179,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `vacancy` (
   `u_id` BIGINT NOT NULL,
   `p_id` BIGINT NOT NULL,
   `v_salary` INT,
-  `v_status` VARCHAR(15) NOT NULL CHECK(`v_status` IN ('OPENED', 'ACCEPTED', 'IN_PROCESS', 'REJECTED', 'COORDINATION', 'CHANGE',  'CLOSED')),
+  `v_status` VARCHAR(15) NOT NULL CHECK(`v_status` IN ('OPENED', 'CLOSED')),
   `v_info` VARCHAR(1023) NOT NULL,
   `p_publication` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
@@ -223,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `wash_period` (
 
 CREATE TABLE IF NOT EXISTS `cleaning_material` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `c_g_title` VARCHAR(31) NOT NULL UNIQUE,
+  `m_title` VARCHAR(31) NOT NULL UNIQUE,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -232,14 +239,21 @@ CREATE TABLE IF NOT EXISTS `wash_stats` (
   `u_id` BIGINT NOT NULL,
   `w_p_id` BIGINT NOT NULL,
   `c_id` BIGINT,
-  `m_id` BIGINT NOT NULL,
-  `m_amount` INT,
   `w_weight` INT,
   `date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user` (`id`),
   FOREIGN KEY (`w_p_id`) REFERENCES `wash_period`(`id`),
-  FOREIGN KEY (`c_id`) REFERENCES `consumer` (`id`),
+  FOREIGN KEY (`c_id`) REFERENCES `consumer` (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `wash_stats_materials` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `w_s_id` BIGINT NOT NULL,
+  `m_id` BIGINT NOT NULL,
+  `m_amount` INT,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`w_s_id`) REFERENCES `wash_stats` (`id`),
   FOREIGN KEY (`m_id`) REFERENCES `cleaning_material`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
