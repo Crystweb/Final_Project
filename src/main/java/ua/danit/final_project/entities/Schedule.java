@@ -26,8 +26,8 @@ public class Schedule implements Serializable {
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "r_id", nullable = false)
-  private Role role;
+  @JoinColumn(name = "p_id", nullable = false)
+  private Position position;
 
   @Column(name = "start", nullable = false)
   private Time start;

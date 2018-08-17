@@ -29,7 +29,7 @@ public class VacancyComment {
   private User user;
 
   @ManyToOne
-  @JoinColumn(name = "v_id")
+  @JoinColumn(name = "v_id", nullable = false)
   private Vacancy vacancy;
 
   @Column(name = "c_message", nullable = false)

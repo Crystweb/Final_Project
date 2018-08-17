@@ -1,7 +1,7 @@
 package ua.danit.final_project.entities;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,15 +23,15 @@ public class FoodSupply implements Serializable {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "m_id")
+  @JoinColumn(name = "m_id", nullable = false)
   private MealTimeCategory mealTimeCategory;
 
   @ManyToOne
-  @JoinColumn(name = "u_id")
+  @JoinColumn(name = "u_id", nullable = false)
   private User user;
 
   @ManyToOne
-  @JoinColumn(name = "c_id")
+  @JoinColumn(name = "c_id", nullable = false)
   private Consumer consumer;
 
   @ManyToOne

@@ -24,20 +24,20 @@ public class Vacancy implements Serializable {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "u_id")
+  @JoinColumn(name = "u_id", nullable = false)
   private User user;
 
   @ManyToOne
-  @JoinColumn(name = "p_id")
+  @JoinColumn(name = "p_id", nullable = false)
   private Position position;
-
-  @Column(name = "v_status", nullable = false)
-  private String status;
 
   @Column(name = "v_salary")
   private Integer salary;
 
-  @Column(name = "v_info")
+  @Column(name = "v_status", nullable = false)
+  private String status;
+
+  @Column(name = "v_info", nullable = false)
   private String info;
 
   @JsonFormat(pattern = "dd-MM-yyyy hh:mm")

@@ -34,7 +34,7 @@ public class DishAccounting implements Serializable {
   @JoinColumn(name = "u_id", nullable = false)
   private User user;
 
-  @Column(name = "d_amount", nullable = false)
+  @Column(name = "d_delta", nullable = false)
   private Integer delta;
 
   @Column(name = "date", nullable = false)

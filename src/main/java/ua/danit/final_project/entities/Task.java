@@ -1,7 +1,7 @@
 package ua.danit.final_project.entities;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,10 +29,6 @@ public class Task implements Serializable {
   @ManyToOne
   @JoinColumn(name = "u_id_delegator", nullable = false)
   private User delegator;
-
-  @ManyToOne
-  @JoinColumn(name = "l_id", nullable = false)
-  private Location location;
 
   @Column(name = "t_message")
   private String message;

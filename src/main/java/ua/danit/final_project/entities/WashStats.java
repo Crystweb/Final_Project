@@ -10,27 +10,32 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.sql.Time;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "work_shift")
+@Table(name = "wash_stats_materials")
 @Data
-public class WorkShift {
+public class WashStats implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "u_id")
+  @JoinColumn(name = "u_id", nullable = false)
   private User user;
 
-  @Column(name = "start", nullable = false)
-  private Time start;
+  @ManyToOne
+  @JoinColumn(name = "w_p_id", nullable = false)
+  private WashPeriod washPeriod;
 
-  @Column(name = "end", nullable = false)
-  private Time end;
+  @ManyToOne
+  @JoinColumn(name = "c_id")
+  private Consumer consumer;
+
+  @Column(name = "w_weight")
+  private Integer weight;
 
   @Column(name = "date", nullable = false)
   private Timestamp date;

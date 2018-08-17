@@ -34,6 +34,6 @@ public class BedLinenStats implements Serializable {
   @Column(name = "b_amount")
   private Integer amount;
 
-  @Column(name = "c_date")
+  @Column(name = "c_date", nullable = false)
   private Timestamp date;
 }
