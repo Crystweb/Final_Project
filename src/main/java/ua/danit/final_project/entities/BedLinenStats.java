@@ -1,10 +1,17 @@
 package ua.danit.final_project.entities;
 
-import com.sun.org.glassfish.external.statistics.TimeStatistic;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 
 @Entity
@@ -28,5 +35,5 @@ public class BedLinenStats implements Serializable {
   private Integer amount;
 
   @Column(name = "c_date")
-  private TimeStatistic date;
+  private Timestamp date;
 }
