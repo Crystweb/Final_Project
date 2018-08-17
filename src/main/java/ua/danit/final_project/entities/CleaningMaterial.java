@@ -19,6 +19,6 @@ public class CleaningMaterial implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "c_g_title", nullable = false, unique = true)
+  @Column(name = "m_title", nullable = false, unique = true)
   private String title;
 }

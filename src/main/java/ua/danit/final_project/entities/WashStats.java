@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "wash_stats_materials")
+@Table(name = "wash_stats")
 @Data
 public class WashStats implements Serializable {
 

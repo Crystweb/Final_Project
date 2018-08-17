@@ -2,13 +2,19 @@ package ua.danit.final_project.entities;
 
 import lombok.Data;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "location")
@@ -24,4 +30,11 @@ public class Location implements Serializable {
 
   @Column(name = "l_info")
   private String info;
+
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinTable(
+          name = "task_location",
+          joinColumns = {@JoinColumn(name = "l_id")},
+          inverseJoinColumns = {@JoinColumn(name = "t_id")})
+  List<Task> tasks;
 }
