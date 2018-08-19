@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS `work_shift`;
 DROP TABLE IF EXISTS `schedule`;
 DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `vacancy`;
 
 CREATE TABLE IF NOT EXISTS `role` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -54,12 +55,22 @@ CREATE TABLE IF NOT EXISTS `comment` (
 
 CREATE TABLE IF NOT EXISTS `employee` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT,
+  `u_id` BIGINT UNIQUE,
   `e_forename` VARCHAR(32) NOT NULL,
   `e_surname` VARCHAR(32) NOT NULL,
-  `e_patronymic` VARCHAR(32) NOT NULL,
+  `e_patronymic` VARCHAR(32),
+  `e_telephone` VARCHAR(15) UNIQUE,
+  `e_position` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `vacancy` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `v_position` VARCHAR(100) NOT NULL,
+  `v_salary` INT NOT NULL,
+  `v_publication` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `location` (
@@ -84,3 +95,4 @@ CREATE TABLE IF NOT EXISTS `task` (
   FOREIGN KEY (`t_author_u_id`) REFERENCES `user`(`id`),
   FOREIGN KEY (`l_id`) REFERENCES  `location`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+

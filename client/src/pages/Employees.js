@@ -8,7 +8,7 @@ class Employees extends Component {
       <div className="container">
         <nav className="navigation">
           <ul>
-            <li><Link to={routes.employeeList.href}>{routes.employeeList.name}</Link></li>
+            <li><Link to={routes.employeesList.href}>{routes.employeesList.name}</Link></li>
             <li><Link to={routes.vacancies.href}>{routes.vacancies.name}</Link></li>
           </ul>
         </nav>
