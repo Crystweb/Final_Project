@@ -47,8 +47,8 @@ INSERT INTO `work_shift` (u_id, start, end, date) VALUES (2, '10:30:10', '15:30:
 INSERT INTO `work_shift` (start, end, date) VALUES ( '13:30:10', '16:30:10', CURRENT_TIMESTAMP);
 
 INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (1, 1, 'message 1', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (2, 1, 'message 1', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (3, 2, 'message 1', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (2, 1, 'message 2', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (3, 2, 'message 3', CURRENT_TIMESTAMP);
 
 INSERT INTO `location` (l_title, l_info) VALUES ('restaurant 1', 'restaurant in hotel');
 INSERT INTO `location` (l_title, l_info) VALUES ('restaurant 2', 'restaurant outside');
