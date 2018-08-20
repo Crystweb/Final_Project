@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Calendar from '../../components/Сalendar'
 
-class CommentsHistory extends Component {
+class ShiftsHistory extends Component {
   render () {
     var today = new Date()
     var sixMonthAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 180)
@@ -13,4 +13,4 @@ class CommentsHistory extends Component {
   }
 }
 
-export default CommentsHistory
+export default ShiftsHistory

@@ -3,10 +3,12 @@ import combineReducers from 'redux/es/combineReducers'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
-import shiftReducer from '../reducers/shift'
+import shift from '../reducers/shift'
+import shiftHistorySelectedDate from '../reducers/shiftHistorySelectedDate'
 
 const reducers = {
-  shift: shiftReducer,
+  shift: shift,
+  shiftHistorySelectedDate: shiftHistorySelectedDate,
   form: formReducer
 
 }

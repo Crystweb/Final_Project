@@ -6,3 +6,10 @@ export function addShift (shift) {
     shift
   }
 }
+
+export function addSelectedDateFromCalendar (date) {
+  return {
+    type: types.GET_SELECTED_DATE,
+    date
+  }
+}
