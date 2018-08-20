@@ -36,5 +36,5 @@ public class Location implements Serializable {
           name = "task_location",
           joinColumns = {@JoinColumn(name = "l_id")},
           inverseJoinColumns = {@JoinColumn(name = "t_id")})
-  List<Task> tasks;
+  private List<Task> tasks;
 }

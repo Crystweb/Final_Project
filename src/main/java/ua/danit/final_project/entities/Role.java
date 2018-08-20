@@ -35,11 +35,11 @@ public class Role implements Serializable {
           name = "role_permission",
           joinColumns = {@JoinColumn(name = "r_id")},
           inverseJoinColumns = {@JoinColumn(name = "p_id")})
-  public List<Permission> permissions;
+  private List<Permission> permissions;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinTable(name = "user_role",
           joinColumns = {@JoinColumn(name = "r_id")},
           inverseJoinColumns = {@JoinColumn(name = "u_id")})
-  public List<User> users;
+  private List<User> users;
 }

@@ -33,7 +33,7 @@ public class Permission implements Serializable {
           name = "role_permission",
           joinColumns = {@JoinColumn(name = "p_id")},
           inverseJoinColumns = {@JoinColumn(name = "r_id")})
-  public List<Role> roles;
+  private List<Role> roles;
 
 
 }
