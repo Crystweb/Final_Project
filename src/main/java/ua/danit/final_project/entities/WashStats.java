@@ -1,6 +1,8 @@
 package ua.danit.final_project.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,14 +25,20 @@ public class WashStats implements Serializable {
   private Long id;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id", nullable = false)
   private User user;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "w_p_id", nullable = false)
   private WashPeriod washPeriod;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "c_id")
   private Consumer consumer;
 

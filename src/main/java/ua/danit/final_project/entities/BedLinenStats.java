@@ -3,6 +3,8 @@ package ua.danit.final_project.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +21,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "bed_linen_stats")
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BedLinenStats implements Serializable {
 
   @Id
@@ -26,10 +29,14 @@ public class BedLinenStats implements Serializable {
   private Long id;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id", nullable = false)
   private User user;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "b_id", nullable = false)
   private BedLinenType bedLinenType;
 

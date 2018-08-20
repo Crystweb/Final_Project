@@ -1,6 +1,9 @@
 package ua.danit.final_project.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.persistence.Id;
 
 import javax.persistence.CascadeType;
@@ -29,6 +32,8 @@ public class Permission implements Serializable {
   private String name;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinTable(
           name = "role_permission",
           joinColumns = {@JoinColumn(name = "p_id")},

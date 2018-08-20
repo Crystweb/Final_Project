@@ -1,6 +1,8 @@
 package ua.danit.final_project.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,14 +25,20 @@ public class DishAccounting implements Serializable {
   private Long id;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "d_id", nullable = false)
   private DishType dishType;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "l_id")
   private Location location;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id", nullable = false)
   private User user;
 

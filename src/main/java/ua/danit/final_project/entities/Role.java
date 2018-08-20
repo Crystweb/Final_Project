@@ -1,7 +1,10 @@
 package ua.danit.final_project.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "role")
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Role implements Serializable {
 
   @Id
@@ -31,6 +35,8 @@ public class Role implements Serializable {
   private String name;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinTable(
           name = "role_permission",
           joinColumns = {@JoinColumn(name = "r_id")},
@@ -38,6 +44,8 @@ public class Role implements Serializable {
   private List<Permission> permissions;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinTable(name = "user_role",
           joinColumns = {@JoinColumn(name = "r_id")},
           inverseJoinColumns = {@JoinColumn(name = "u_id")})

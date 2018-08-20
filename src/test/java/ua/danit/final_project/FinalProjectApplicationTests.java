@@ -170,7 +170,13 @@ public class FinalProjectApplicationTests {
     Assert.assertEquals(data, actualPUT);
 
     bedLinenStatsService.deleteById(data.getId());
-    BedLinenStats actualDELETE = bedLinenStatsService.getById(data.getId());
+    try {
+      BedLinenStats actualDELETE = bedLinenStatsService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
   }
 
   @Test
@@ -646,7 +652,7 @@ public class FinalProjectApplicationTests {
     User actualPUT = userService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    userService.deleteById(data.getId());
     try {
       User actualDELETE = userService.getById(data.getId());
       Assert.assertNull(actualDELETE);

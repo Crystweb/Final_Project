@@ -1,6 +1,9 @@
 package ua.danit.final_project.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.persistence.Id;
 
 import javax.persistence.Column;
@@ -23,10 +26,14 @@ public class TaskComment implements Serializable {
   private Long id;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "t_id", nullable = false)
   private Task task;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id", nullable = false)
   private User user;
 

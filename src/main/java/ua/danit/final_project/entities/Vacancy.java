@@ -2,6 +2,8 @@ package ua.danit.final_project.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,10 +26,14 @@ public class Vacancy implements Serializable {
   private Long id;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id", nullable = false)
   private User user;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "p_id", nullable = false)
   private Position position;
 

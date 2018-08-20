@@ -1,6 +1,8 @@
 package ua.danit.final_project.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
@@ -29,10 +31,14 @@ public class Task implements Serializable {
   private Long id;
 
   @ManyToOne //Чи можна делегувати задачу декільком працівникам?
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id_assignee")
   private User assignee;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id_delegator", nullable = false)
   private User delegator;
 
@@ -49,6 +55,8 @@ public class Task implements Serializable {
   private Timestamp updated;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinTable(
           name = "task_location",
           joinColumns = {@JoinColumn(name = "t_id")},
