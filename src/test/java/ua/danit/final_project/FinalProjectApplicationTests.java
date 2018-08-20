@@ -1,16 +1,834 @@
 package ua.danit.final_project;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.internal.verification.Times;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import ua.danit.final_project.entities.BedLinenStats;
+import ua.danit.final_project.entities.BedLinenType;
+import ua.danit.final_project.entities.CleaningMaterial;
+import ua.danit.final_project.entities.Consumer;
+import ua.danit.final_project.entities.DishAccounting;
+import ua.danit.final_project.entities.DishBalance;
+import ua.danit.final_project.entities.DishComment;
+import ua.danit.final_project.entities.DishType;
+import ua.danit.final_project.entities.Employee;
+import ua.danit.final_project.entities.FoodSupply;
+import ua.danit.final_project.entities.Location;
+import ua.danit.final_project.entities.MealTimeCategory;
+import ua.danit.final_project.entities.Permission;
+import ua.danit.final_project.entities.Position;
+import ua.danit.final_project.entities.Role;
+import ua.danit.final_project.entities.Schedule;
+import ua.danit.final_project.entities.ShiftComment;
+import ua.danit.final_project.entities.Task;
+import ua.danit.final_project.entities.TaskComment;
+import ua.danit.final_project.entities.User;
+import ua.danit.final_project.entities.Vacancy;
+import ua.danit.final_project.entities.VacancyComment;
+import ua.danit.final_project.entities.WashPeriod;
+import ua.danit.final_project.entities.WashStats;
+import ua.danit.final_project.entities.WashStatsMaterial;
+import ua.danit.final_project.entities.WorkShift;
+import ua.danit.final_project.services.BedLinenStatsService;
+import ua.danit.final_project.services.BedLinenTypeService;
+import ua.danit.final_project.services.CleaningMaterialService;
+import ua.danit.final_project.services.ConsumerService;
+import ua.danit.final_project.services.DishAccountingService;
+import ua.danit.final_project.services.DishBalanceService;
+import ua.danit.final_project.services.DishCommentService;
+import ua.danit.final_project.services.DishTypeService;
+import ua.danit.final_project.services.EmployeeService;
+import ua.danit.final_project.services.FoodSupplyService;
+import ua.danit.final_project.services.LocationService;
+import ua.danit.final_project.services.MealTimeCategoryService;
+import ua.danit.final_project.services.PermissionService;
+import ua.danit.final_project.services.PositionService;
+import ua.danit.final_project.services.RoleService;
+import ua.danit.final_project.services.ScheduleService;
+import ua.danit.final_project.services.ShiftCommentService;
+import ua.danit.final_project.services.TaskCommentService;
+import ua.danit.final_project.services.TaskService;
+import ua.danit.final_project.services.UserService;
+import ua.danit.final_project.services.VacancyCommentService;
+import ua.danit.final_project.services.VacancyService;
+import ua.danit.final_project.services.WashPeriodService;
+import ua.danit.final_project.services.WashStatsMaterialService;
+import ua.danit.final_project.services.WashStatsService;
+import ua.danit.final_project.services.WorkShiftService;
+
+import javax.persistence.EntityNotFoundException;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FinalProjectApplicationTests {
 
+  @Autowired
+  BedLinenStatsService bedLinenStatsService;
+
+  @Autowired
+  UserService userService;
+
+  @Autowired
+  BedLinenTypeService bedLinenTypeService;
+
+  @Autowired
+  CleaningMaterialService cleaningMaterialService;
+
+  @Autowired
+  ConsumerService consumerService;
+
+  @Autowired
+  DishAccountingService dishAccountingService;
+
+  @Autowired
+  DishBalanceService dishBalanceService;
+
+  @Autowired
+  DishCommentService dishCommentService;
+
+  @Autowired
+  DishTypeService dishTypeService;
+
+  @Autowired
+  EmployeeService employeeService;
+
+  @Autowired
+  FoodSupplyService foodSupplyService;
+
+  @Autowired
+  LocationService locationService;
+
+  @Autowired
+  MealTimeCategoryService mealTimeCategoryService;
+
+  @Autowired
+  PermissionService permissionService;
+
+  @Autowired
+  PositionService positionService;
+
+  @Autowired
+  RoleService roleService;
+
+  @Autowired
+  ScheduleService scheduleService;
+
+  @Autowired
+  ShiftCommentService shiftCommentService;
+
+  @Autowired
+  TaskCommentService taskCommentService;
+
+  @Autowired
+  TaskService taskService;
+
+  @Autowired
+  VacancyCommentService vacancyCommentService;
+
+  @Autowired
+  VacancyService vacancyService;
+
+  @Autowired
+  WashPeriodService washPeriodService;
+
+  @Autowired
+  WashStatsService washStatsService;
+
+  @Autowired
+  WashStatsMaterialService washStatsMaterialService;
+
+  @Autowired
+  WorkShiftService workShiftService;
+
   @Test
   public void contextLoads() {
   }
 
+  @Test
+  public void BedLinenStatsCRUD() { //json
+    BedLinenStats data = new BedLinenStats();
+    data.setUser(userService.getById(1l));
+    data.setBedLinenType(bedLinenTypeService.getById(1l));
+    data.setAmount(10);
+    data.setDate(new Timestamp(System.currentTimeMillis()));
+
+    BedLinenStats actualPOST = bedLinenStatsService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    BedLinenStats actualGET = bedLinenStatsService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setAmount(20);
+    BedLinenStats actualPUT = bedLinenStatsService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    bedLinenStatsService.deleteById(data.getId());
+    try {
+      BedLinenStats actualDELETE = bedLinenStatsService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void BedLinenTypeCRUD() {
+    BedLinenType data = new BedLinenType();
+    data.setTitle("home");
+
+    BedLinenType actualPOST = bedLinenTypeService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    BedLinenType actualGET = bedLinenTypeService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setTitle("hotel");
+    BedLinenType actualPUT = bedLinenTypeService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    bedLinenTypeService.deleteById(data.getId());
+    try {
+      BedLinenType actualDELETE = bedLinenTypeService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+  }
+
+  @Test
+  public void CleaningMaterialCRUD() {
+    CleaningMaterial data = new CleaningMaterial();
+    data.setTitle("magic");
+
+    CleaningMaterial actualPOST = cleaningMaterialService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    CleaningMaterial actualGET = cleaningMaterialService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setTitle("second level magic");
+    CleaningMaterial actualPUT = cleaningMaterialService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    cleaningMaterialService.deleteById(data.getId());
+    try {
+      CleaningMaterial actualDELETE = cleaningMaterialService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+
+  }
+
+  @Test
+  public void ConsumerCRUD() {
+    Consumer data = new Consumer();
+    data.setName("new consumer");
+    data.setDescription("bla 1");
+
+    Consumer actualPOST = consumerService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    Consumer actualGET = consumerService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setName("changed new consumer");
+    Consumer actualPUT = consumerService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    consumerService.deleteById(data.getId());
+    try {
+      Consumer actualDELETE = consumerService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+  }
+
+  @Test
+  public void DishAccountingCRUD() { //json
+    DishAccounting data = new DishAccounting();
+    data.setDishType(dishTypeService.getById(1L));
+    data.setLocation(locationService.getById(1L));
+    data.setUser(userService.getById(1l));
+    data.setDelta(20);
+    data.setDate(new Timestamp(1534763270));
+
+    DishAccounting actualPOST = dishAccountingService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    DishAccounting actualGET = dishAccountingService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setDate(new Timestamp(1534763888));
+    DishAccounting actualPUT = dishAccountingService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    dishAccountingService.deleteById(data.getId());
+    try {
+      DishAccounting actualDELETE = dishAccountingService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void DishBalanceCRUD() { //json
+    DishBalance data = new DishBalance();
+    data.setDishType(dishTypeService.getById(1l));
+    data.setLocation(locationService.getById(1l));
+    data.setUser(userService.getById(1l));
+    data.setAmount(20);
+    data.setDate(new Timestamp(1534763270));
+
+    DishBalance actualPOST = dishBalanceService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    DishBalance actualGET = dishBalanceService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setAmount(30);
+    DishBalance actualPUT = dishBalanceService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    dishBalanceService.deleteById(data.getId());
+    try {
+      DishBalance actualDELETE = dishBalanceService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void DishCommentCRUD() { //json
+    DishComment data = new DishComment();
+    data.setUser(userService.getById(1l));
+    data.setDishAccounting(dishAccountingService.getById(1l));
+    data.setMessage("message 1");
+    data.setDate(new Timestamp(1534763270));
+
+    DishComment actualPOST = dishCommentService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    DishComment actualGET = dishCommentService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setMessage("message 2");
+    DishComment actualPUT = dishCommentService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    dishCommentService.deleteById(data.getId());
+    try {
+      DishComment actualDELETE = dishCommentService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void DishTypeCRUD() {
+    DishType data = new DishType();
+    data.setTitle("title 1");
+
+    DishType actualPOST = dishTypeService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    DishType actualGET = dishTypeService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setTitle("title 2");
+    DishType actualPUT = dishTypeService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    dishTypeService.deleteById(data.getId());
+    try {
+      DishType actualDELETE = dishTypeService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void EmployeeCRUD() { // strange error because expected same as actual
+    Employee data = new Employee();
+    data.setUser(userService.getById(3l));
+    data.setPosition(positionService.getById(3l));
+    data.setForename("Mykola");
+    data.setSurname("Saint");
+    data.setPatronymic("Mykolayovych");
+
+    Employee actualPOST = employeeService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    Employee actualGET = employeeService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setPhoneNumber("457488975");
+    Employee actualPUT = employeeService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    employeeService.deleteById(data.getId());
+    try {
+      Employee actualDELETE = employeeService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void FoodSupplyCRUD() { //json
+    FoodSupply data = new FoodSupply();
+    data.setMealTimeCategory(mealTimeCategoryService.getById(1l));
+    data.setUser(userService.getById(1l));
+    data.setConsumer(consumerService.getById(1l));
+    data.setLocation(locationService.getById(1l));
+    data.setAmount(10);
+    data.setDate(new Timestamp(1534769647));
+
+    FoodSupply actualPOST = foodSupplyService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    FoodSupply actualGET = foodSupplyService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setAmount(20);
+    FoodSupply actualPUT = foodSupplyService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    foodSupplyService.deleteById(data.getId());
+    try {
+      FoodSupply actualDELETE = foodSupplyService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void LocationCRUD() { // strange error because expected same as actual
+    Location data = new Location();
+    data.setTitle("home");
+    data.setInfo("home sweet home");
+    data.setTasks(new ArrayList<Task>());
+
+    Location actualPOST = locationService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    Location actualGET = locationService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setTitle("changed home");
+    Location actualPUT = locationService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    locationService.deleteById(data.getId());
+    try {
+      Location actualDELETE = locationService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void MealTimeCategoryCRUD() {
+    MealTimeCategory data = new MealTimeCategory();
+    data.setTitle("first category");
+
+    MealTimeCategory actualPOST = mealTimeCategoryService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    MealTimeCategory actualGET = mealTimeCategoryService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setTitle("second category");
+    MealTimeCategory actualPUT = mealTimeCategoryService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    mealTimeCategoryService.deleteById(data.getId());
+    try {
+      MealTimeCategory actualDELETE = mealTimeCategoryService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void PermissionCRUD() {
+    Permission data = new Permission();
+    data.setName("first permission");
+    data.setRoles(new ArrayList<Role>());
+
+    Permission actualPOST = permissionService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    Permission actualGET = permissionService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setName("Second permission");
+    Permission actualPUT = permissionService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    permissionService.deleteById(data.getId());
+    try {
+      Permission actualDELETE = permissionService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void PositionCRUD() {
+    Position data = new Position();
+    data.setTitle("checkman");
+
+    Position actualPOST = positionService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    Position actualGET = positionService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setTitle("checkwoman");
+    Position actualPUT = positionService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    positionService.deleteById(data.getId());
+    try {
+      Position actualDELETE = positionService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void RoleCRUD() {
+    Role data = new Role();
+    data.setName("check message");
+
+    Role actualPOST = roleService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    Role actualGET = roleService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setName("check home");
+    Role actualPUT = roleService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    roleService.deleteById(data.getId());
+    try {
+      Role actualDELETE = roleService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void ScheduleCRUD() { // strange error because expected same as actual
+    Schedule data = new Schedule();
+    data.setPosition(positionService.getById(1l));
+    data.setStart(new Time(1534763270));
+    data.setEnd(new Time(1534764000));
+
+    Schedule actualPOST = scheduleService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    Schedule actualGET = scheduleService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setEnd(new Time(1534770516));
+    Schedule actualPUT = scheduleService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    scheduleService.deleteById(data.getId());
+    try {
+      Schedule actualDELETE = scheduleService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void ShiftCommentCRUD() { //json
+    ShiftComment data = new ShiftComment();
+    data.setUser(userService.getById(1l));
+    data.setWorkShift(workShiftService.getById(1l));
+    data.setMessage("message 1");
+    data.setDate(new Timestamp(1534770516));
+
+    ShiftComment actualPOST = shiftCommentService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    ShiftComment actualGET = shiftCommentService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setMessage("message 2");
+    ShiftComment actualPUT = shiftCommentService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    shiftCommentService.deleteById(data.getId());
+    try {
+      ShiftComment actualDELETE = shiftCommentService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void TaskCommentCRUD() { //json
+    TaskComment data = new TaskComment();
+    data.setTask(taskService.getById(1l));
+    data.setUser(userService.getById(1l));
+    data.setMessage("TaskComment 1");
+    data.setDate(new Timestamp(1534770516));
+
+    TaskComment actualPOST = taskCommentService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    TaskComment actualGET = taskCommentService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setMessage("TaskComment 2");
+    TaskComment actualPUT = taskCommentService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    taskCommentService.deleteById(data.getId());
+    try {
+      TaskComment actualDELETE = taskCommentService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void UserCRUD() { // strange error because expected same as actual
+    User data = new User();
+    data.setLogin("qqqqqqqqq");
+    data.setPassword("111");
+    data.setRoles(new ArrayList<Role>());
+
+    User actualPOST = userService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    User actualGET = userService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setPassword("222");
+    User actualPUT = userService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    userService.deleteById(data.getId());
+    try {
+      User actualDELETE = userService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void VacancyCommentCRUD() { // json
+    VacancyComment data = new VacancyComment();
+    data.setUser(userService.getById(1l));
+    data.setVacancy(vacancyService.getById(1l));
+    data.setMessage("message 1");
+    data.setDate(new Timestamp(1534770516));
+
+    VacancyComment actualPOST = vacancyCommentService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    VacancyComment actualGET = vacancyCommentService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setMessage("message 2");
+    VacancyComment actualPUT = vacancyCommentService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    vacancyCommentService.deleteById(data.getId());
+    try {
+      VacancyComment actualDELETE = vacancyCommentService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void VacancyCRUD() { // json
+    Vacancy data = new Vacancy();
+    data.setUser(userService.getById(1l));
+    data.setPosition(positionService.getById(1l));
+    data.setSalary(10004);
+    data.setStatus("OPENED");
+    data.setInfo("OPENED 1");
+    data.setPublication(new Timestamp(1534770516));
+
+    Vacancy actualPOST = vacancyService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    Vacancy actualGET = vacancyService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setSalary(45948563);
+    Vacancy actualPUT = vacancyService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    vacancyService.deleteById(data.getId());
+    try {
+      Vacancy actualDELETE = vacancyService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void WashPeriodCRUD() {
+    WashPeriod data = new WashPeriod();
+    data.setPeriod("never");
+
+    WashPeriod actualPOST = washPeriodService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    WashPeriod actualGET = washPeriodService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setPeriod("now");
+    WashPeriod actualPUT = washPeriodService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    washPeriodService.deleteById(data.getId());
+    try {
+      WashPeriod actualDELETE = washPeriodService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void WashStatsMaterialCRUD() { //json
+    WashStatsMaterial data = new WashStatsMaterial();
+    data.setWashStats(washStatsService.getById(1l));
+    data.setCleaningMaterial(cleaningMaterialService.getById(1l));
+    data.setAmount(10);
+
+    WashStatsMaterial actualPOST = washStatsMaterialService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    WashStatsMaterial actualGET = washStatsMaterialService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setAmount(20);
+    WashStatsMaterial actualPUT = washStatsMaterialService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    washStatsMaterialService.deleteById(data.getId());
+    try {
+      WashStatsMaterial actualDELETE = washStatsMaterialService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void WashStatsCRUD() { // json
+    WashStats data = new WashStats();
+    data.setUser(userService.getById(1l));
+    data.setWashPeriod(washPeriodService.getById(1l));
+    data.setConsumer(consumerService.getById(1l));
+    data.setWeight(10);
+    data.setDate(new Timestamp(System.currentTimeMillis()));
+
+    WashStats actualPOST = washStatsService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    WashStats actualGET = washStatsService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setWeight(20);
+    WashStats actualPUT = washStatsService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    washStatsService.deleteById(data.getId());
+    try {
+      WashStats actualDELETE = washStatsService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
+
+  @Test
+  public void WorkShiftCRUD() { //json
+    WorkShift data = new WorkShift();
+    data.setUser(userService.getById(1l));
+    data.setStart(new Time(System.currentTimeMillis()));
+    data.setEnd(new Time(System.currentTimeMillis()));
+    data.setDate(new Timestamp(System.currentTimeMillis()));
+
+    WorkShift actualPOST = workShiftService.save(data);
+    Assert.assertEquals(data, actualPOST);
+
+    WorkShift actualGET = workShiftService.getById(data.getId());
+    Assert.assertEquals(data, actualGET);
+
+    data.setDate(new Timestamp(System.currentTimeMillis() + 1000));
+    WorkShift actualPUT = workShiftService.save(data);
+    Assert.assertEquals(data, actualPUT);
+
+    workShiftService.deleteById(data.getId());
+    try {
+      WorkShift actualDELETE = workShiftService.getById(data.getId());
+      Assert.assertNull(actualDELETE);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+  }
 }
+
+
+
