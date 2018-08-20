@@ -1,2 +1,3 @@
 export const ADD_SHIFT = 'ADD_SHIFT'
 
+export const GET_SELECTED_DATE = 'GET_SELECTED_DATE'
