@@ -36,7 +36,7 @@ INSERT INTO `position` (p_title) VALUES ('cleaner');
 
 INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'blablabla1');
 INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '094586403', 'blablabla2');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic) VALUES (3,3,'Mykola', 'Saint', 'Mykolayovych');
+
 
 INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '19:30:10', '20:30:10' );
 INSERT INTO `schedule` (p_id, start, end) VALUES (1,  '21:00:30', '23:30:10' );

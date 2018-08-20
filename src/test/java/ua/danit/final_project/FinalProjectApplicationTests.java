@@ -3,6 +3,7 @@ package ua.danit.final_project;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.internal.verification.Times;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -11,15 +12,58 @@ import ua.danit.final_project.entities.BedLinenType;
 import ua.danit.final_project.entities.CleaningMaterial;
 import ua.danit.final_project.entities.Consumer;
 import ua.danit.final_project.entities.DishAccounting;
+import ua.danit.final_project.entities.DishBalance;
+import ua.danit.final_project.entities.DishComment;
+import ua.danit.final_project.entities.DishType;
+import ua.danit.final_project.entities.Employee;
+import ua.danit.final_project.entities.FoodSupply;
+import ua.danit.final_project.entities.Location;
+import ua.danit.final_project.entities.MealTimeCategory;
+import ua.danit.final_project.entities.Permission;
+import ua.danit.final_project.entities.Position;
+import ua.danit.final_project.entities.Role;
+import ua.danit.final_project.entities.Schedule;
+import ua.danit.final_project.entities.ShiftComment;
+import ua.danit.final_project.entities.Task;
+import ua.danit.final_project.entities.TaskComment;
+import ua.danit.final_project.entities.User;
+import ua.danit.final_project.entities.Vacancy;
+import ua.danit.final_project.entities.VacancyComment;
+import ua.danit.final_project.entities.WashPeriod;
+import ua.danit.final_project.entities.WashStats;
+import ua.danit.final_project.entities.WashStatsMaterial;
+import ua.danit.final_project.entities.WorkShift;
 import ua.danit.final_project.services.BedLinenStatsService;
 import ua.danit.final_project.services.BedLinenTypeService;
 import ua.danit.final_project.services.CleaningMaterialService;
 import ua.danit.final_project.services.ConsumerService;
 import ua.danit.final_project.services.DishAccountingService;
+import ua.danit.final_project.services.DishBalanceService;
+import ua.danit.final_project.services.DishCommentService;
+import ua.danit.final_project.services.DishTypeService;
+import ua.danit.final_project.services.EmployeeService;
+import ua.danit.final_project.services.FoodSupplyService;
+import ua.danit.final_project.services.LocationService;
+import ua.danit.final_project.services.MealTimeCategoryService;
+import ua.danit.final_project.services.PermissionService;
+import ua.danit.final_project.services.PositionService;
+import ua.danit.final_project.services.RoleService;
+import ua.danit.final_project.services.ScheduleService;
+import ua.danit.final_project.services.ShiftCommentService;
+import ua.danit.final_project.services.TaskCommentService;
+import ua.danit.final_project.services.TaskService;
 import ua.danit.final_project.services.UserService;
+import ua.danit.final_project.services.VacancyCommentService;
+import ua.danit.final_project.services.VacancyService;
+import ua.danit.final_project.services.WashPeriodService;
+import ua.danit.final_project.services.WashStatsMaterialService;
+import ua.danit.final_project.services.WashStatsService;
+import ua.danit.final_project.services.WorkShiftService;
 
 import javax.persistence.EntityNotFoundException;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -42,6 +86,66 @@ public class FinalProjectApplicationTests {
 
   @Autowired
   DishAccountingService dishAccountingService;
+
+  @Autowired
+  DishBalanceService dishBalanceService;
+
+  @Autowired
+  DishCommentService dishCommentService;
+
+  @Autowired
+  DishTypeService dishTypeService;
+
+  @Autowired
+  EmployeeService employeeService;
+
+  @Autowired
+  FoodSupplyService foodSupplyService;
+
+  @Autowired
+  LocationService locationService;
+
+  @Autowired
+  MealTimeCategoryService mealTimeCategoryService;
+
+  @Autowired
+  PermissionService permissionService;
+
+  @Autowired
+  PositionService positionService;
+
+  @Autowired
+  RoleService roleService;
+
+  @Autowired
+  ScheduleService scheduleService;
+
+  @Autowired
+  ShiftCommentService shiftCommentService;
+
+  @Autowired
+  TaskCommentService taskCommentService;
+
+  @Autowired
+  TaskService taskService;
+
+  @Autowired
+  VacancyCommentService vacancyCommentService;
+
+  @Autowired
+  VacancyService vacancyService;
+
+  @Autowired
+  WashPeriodService washPeriodService;
+
+  @Autowired
+  WashStatsService washStatsService;
+
+  @Autowired
+  WashStatsMaterialService washStatsMaterialService;
+
+  @Autowired
+  WorkShiftService workShiftService;
 
   @Test
   public void contextLoads() {
@@ -145,13 +249,13 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void DishAccountingCRUD() {
+  public void DishAccountingCRUD() { //json
     DishAccounting data = new DishAccounting();
-    data.setDishType();
-    data.setLocation();
-    data.setUser();
-    data.setDelta();
-    data.setDate();
+    data.setDishType(dishTypeService.getById(1L));
+    data.setLocation(locationService.getById(1L));
+    data.setUser(userService.getById(1l));
+    data.setDelta(20);
+    data.setDate(new Timestamp(1534763270));
 
     DishAccounting actualPOST = dishAccountingService.save(data);
     Assert.assertEquals(data, actualPOST);
@@ -159,7 +263,7 @@ public class FinalProjectApplicationTests {
     DishAccounting actualGET = dishAccountingService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setDate("changed new consumer");
+    data.setDate(new Timestamp(1534763888));
     DishAccounting actualPUT = dishAccountingService.save(data);
     Assert.assertEquals(data, actualPUT);
 
@@ -174,21 +278,27 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void DishBalanceCRUD() {
+  public void DishBalanceCRUD() { //json
+    DishBalance data = new DishBalance();
+    data.setDishType(dishTypeService.getById(1l));
+    data.setLocation(locationService.getById(1l));
+    data.setUser(userService.getById(1l));
+    data.setAmount(20);
+    data.setDate(new Timestamp(1534763270));
 
-    Consumer actualPOST = consumerService.save(data);
+    DishBalance actualPOST = dishBalanceService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    DishBalance actualGET = dishBalanceService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setAmount(30);
+    DishBalance actualPUT = dishBalanceService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    dishBalanceService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      DishBalance actualDELETE = dishBalanceService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -197,21 +307,26 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void DishCommentCRUD() {
+  public void DishCommentCRUD() { //json
+    DishComment data = new DishComment();
+    data.setUser(userService.getById(1l));
+    data.setDishAccounting(dishAccountingService.getById(1l));
+    data.setMessage("message 1");
+    data.setDate(new Timestamp(1534763270));
 
-    Consumer actualPOST = consumerService.save(data);
+    DishComment actualPOST = dishCommentService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    DishComment actualGET = dishCommentService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setMessage("message 2");
+    DishComment actualPUT = dishCommentService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    dishCommentService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      DishComment actualDELETE = dishCommentService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -221,20 +336,22 @@ public class FinalProjectApplicationTests {
 
   @Test
   public void DishTypeCRUD() {
+    DishType data = new DishType();
+    data.setTitle("title 1");
 
-    Consumer actualPOST = consumerService.save(data);
+    DishType actualPOST = dishTypeService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    DishType actualGET = dishTypeService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setTitle("title 2");
+    DishType actualPUT = dishTypeService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    dishTypeService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      DishType actualDELETE = dishTypeService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -243,21 +360,27 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void EmployeeCRUD() {
+  public void EmployeeCRUD() { // strange error because expected same as actual
+    Employee data = new Employee();
+    data.setUser(userService.getById(3l));
+    data.setPosition(positionService.getById(3l));
+    data.setForename("Mykola");
+    data.setSurname("Saint");
+    data.setPatronymic("Mykolayovych");
 
-    Consumer actualPOST = consumerService.save(data);
+    Employee actualPOST = employeeService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    Employee actualGET = employeeService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setPhoneNumber("457488975");
+    Employee actualPUT = employeeService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    employeeService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      Employee actualDELETE = employeeService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -266,21 +389,28 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void FoodSupplyCRUD() {
+  public void FoodSupplyCRUD() { //json
+    FoodSupply data = new FoodSupply();
+    data.setMealTimeCategory(mealTimeCategoryService.getById(1l));
+    data.setUser(userService.getById(1l));
+    data.setConsumer(consumerService.getById(1l));
+    data.setLocation(locationService.getById(1l));
+    data.setAmount(10);
+    data.setDate(new Timestamp(1534769647));
 
-    Consumer actualPOST = consumerService.save(data);
+    FoodSupply actualPOST = foodSupplyService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    FoodSupply actualGET = foodSupplyService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setAmount(20);
+    FoodSupply actualPUT = foodSupplyService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    foodSupplyService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      FoodSupply actualDELETE = foodSupplyService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -289,21 +419,25 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void LocationCRUD() {
+  public void LocationCRUD() { // strange error because expected same as actual
+    Location data = new Location();
+    data.setTitle("home");
+    data.setInfo("home sweet home");
+    data.setTasks(new ArrayList<Task>());
 
-    Consumer actualPOST = consumerService.save(data);
+    Location actualPOST = locationService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    Location actualGET = locationService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setTitle("changed home");
+    Location actualPUT = locationService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    locationService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      Location actualDELETE = locationService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -313,20 +447,22 @@ public class FinalProjectApplicationTests {
 
   @Test
   public void MealTimeCategoryCRUD() {
+    MealTimeCategory data = new MealTimeCategory();
+    data.setTitle("first category");
 
-    Consumer actualPOST = consumerService.save(data);
+    MealTimeCategory actualPOST = mealTimeCategoryService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    MealTimeCategory actualGET = mealTimeCategoryService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setTitle("second category");
+    MealTimeCategory actualPUT = mealTimeCategoryService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    mealTimeCategoryService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      MealTimeCategory actualDELETE = mealTimeCategoryService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -336,20 +472,23 @@ public class FinalProjectApplicationTests {
 
   @Test
   public void PermissionCRUD() {
+    Permission data = new Permission();
+    data.setName("first permission");
+    data.setRoles(new ArrayList<Role>());
 
-    Consumer actualPOST = consumerService.save(data);
+    Permission actualPOST = permissionService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    Permission actualGET = permissionService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setName("Second permission");
+    Permission actualPUT = permissionService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    permissionService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      Permission actualDELETE = permissionService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -359,20 +498,22 @@ public class FinalProjectApplicationTests {
 
   @Test
   public void PositionCRUD() {
+    Position data = new Position();
+    data.setTitle("checkman");
 
-    Consumer actualPOST = consumerService.save(data);
+    Position actualPOST = positionService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    Position actualGET = positionService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setTitle("checkwoman");
+    Position actualPUT = positionService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    positionService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      Position actualDELETE = positionService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -382,20 +523,22 @@ public class FinalProjectApplicationTests {
 
   @Test
   public void RoleCRUD() {
+    Role data = new Role();
+    data.setName("check message");
 
-    Consumer actualPOST = consumerService.save(data);
+    Role actualPOST = roleService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    Role actualGET = roleService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setName("check home");
+    Role actualPUT = roleService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    roleService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      Role actualDELETE = roleService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -404,21 +547,25 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void ScheduleCRUD() {
+  public void ScheduleCRUD() { // strange error because expected same as actual
+    Schedule data = new Schedule();
+    data.setPosition(positionService.getById(1l));
+    data.setStart(new Time(1534763270));
+    data.setEnd(new Time(1534764000));
 
-    Consumer actualPOST = consumerService.save(data);
+    Schedule actualPOST = scheduleService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    Schedule actualGET = scheduleService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setEnd(new Time(1534770516));
+    Schedule actualPUT = scheduleService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    scheduleService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      Schedule actualDELETE = scheduleService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -427,21 +574,26 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void ShiftCommentCRUD() {
+  public void ShiftCommentCRUD() { //json
+    ShiftComment data = new ShiftComment();
+    data.setUser(userService.getById(1l));
+    data.setWorkShift(workShiftService.getById(1l));
+    data.setMessage("message 1");
+    data.setDate(new Timestamp(1534770516));
 
-    Consumer actualPOST = consumerService.save(data);
+    ShiftComment actualPOST = shiftCommentService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    ShiftComment actualGET = shiftCommentService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setMessage("message 2");
+    ShiftComment actualPUT = shiftCommentService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    shiftCommentService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      ShiftComment actualDELETE = shiftCommentService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -450,21 +602,26 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void TaskCommentCRUD() {
+  public void TaskCommentCRUD() { //json
+    TaskComment data = new TaskComment();
+    data.setTask(taskService.getById(1l));
+    data.setUser(userService.getById(1l));
+    data.setMessage("TaskComment 1");
+    data.setDate(new Timestamp(1534770516));
 
-    Consumer actualPOST = consumerService.save(data);
+    TaskComment actualPOST = taskCommentService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    TaskComment actualGET = taskCommentService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setMessage("TaskComment 2");
+    TaskComment actualPUT = taskCommentService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    taskCommentService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      TaskComment actualDELETE = taskCommentService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -473,21 +630,25 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void UserCRUD() {
+  public void UserCRUD() { // strange error because expected same as actual
+    User data = new User();
+    data.setLogin("qqqqqqqqq");
+    data.setPassword("111");
+    data.setRoles(new ArrayList<Role>());
 
-    Consumer actualPOST = consumerService.save(data);
+    User actualPOST = userService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    User actualGET = userService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setPassword("222");
+    User actualPUT = userService.save(data);
     Assert.assertEquals(data, actualPUT);
 
     consumerService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      User actualDELETE = userService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -496,21 +657,26 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void VacancyCommentCRUD() {
+  public void VacancyCommentCRUD() { // json
+    VacancyComment data = new VacancyComment();
+    data.setUser(userService.getById(1l));
+    data.setVacancy(vacancyService.getById(1l));
+    data.setMessage("message 1");
+    data.setDate(new Timestamp(1534770516));
 
-    Consumer actualPOST = consumerService.save(data);
+    VacancyComment actualPOST = vacancyCommentService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    VacancyComment actualGET = vacancyCommentService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setMessage("message 2");
+    VacancyComment actualPUT = vacancyCommentService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    vacancyCommentService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      VacancyComment actualDELETE = vacancyCommentService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -519,21 +685,28 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void VacancyCRUD() {
+  public void VacancyCRUD() { // json
+    Vacancy data = new Vacancy();
+    data.setUser(userService.getById(1l));
+    data.setPosition(positionService.getById(1l));
+    data.setSalary(10004);
+    data.setStatus("OPENED");
+    data.setInfo("OPENED 1");
+    data.setPublication(new Timestamp(1534770516));
 
-    Consumer actualPOST = consumerService.save(data);
+    Vacancy actualPOST = vacancyService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    Vacancy actualGET = vacancyService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setSalary(45948563);
+    Vacancy actualPUT = vacancyService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    vacancyService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      Vacancy actualDELETE = vacancyService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -543,20 +716,22 @@ public class FinalProjectApplicationTests {
 
   @Test
   public void WashPeriodCRUD() {
+    WashPeriod data = new WashPeriod();
+    data.setPeriod("never");
 
-    Consumer actualPOST = consumerService.save(data);
+    WashPeriod actualPOST = washPeriodService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    WashPeriod actualGET = washPeriodService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setPeriod("now");
+    WashPeriod actualPUT = washPeriodService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    washPeriodService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      WashPeriod actualDELETE = washPeriodService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -565,21 +740,25 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void WashStatsMaterialCRUD() {
+  public void WashStatsMaterialCRUD() { //json
+    WashStatsMaterial data = new WashStatsMaterial();
+    data.setWashStats(washStatsService.getById(1l));
+    data.setCleaningMaterial(cleaningMaterialService.getById(1l));
+    data.setAmount(10);
 
-    Consumer actualPOST = consumerService.save(data);
+    WashStatsMaterial actualPOST = washStatsMaterialService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    WashStatsMaterial actualGET = washStatsMaterialService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setAmount(20);
+    WashStatsMaterial actualPUT = washStatsMaterialService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    washStatsMaterialService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      WashStatsMaterial actualDELETE = washStatsMaterialService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -588,21 +767,27 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void WashStatsCRUD() {
+  public void WashStatsCRUD() { // json
+    WashStats data = new WashStats();
+    data.setUser(userService.getById(1l));
+    data.setWashPeriod(washPeriodService.getById(1l));
+    data.setConsumer(consumerService.getById(1l));
+    data.setWeight(10);
+    data.setDate(new Timestamp(System.currentTimeMillis()));
 
-    Consumer actualPOST = consumerService.save(data);
+    WashStats actualPOST = washStatsService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    WashStats actualGET = washStatsService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setWeight(20);
+    WashStats actualPUT = washStatsService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    washStatsService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      WashStats actualDELETE = washStatsService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -611,21 +796,26 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void WorkShiftCRUD() {
+  public void WorkShiftCRUD() { //json
+    WorkShift data = new WorkShift();
+    data.setUser(userService.getById(1l));
+    data.setStart(new Time(System.currentTimeMillis()));
+    data.setEnd(new Time(System.currentTimeMillis()));
+    data.setDate(new Timestamp(System.currentTimeMillis()));
 
-    Consumer actualPOST = consumerService.save(data);
+    WorkShift actualPOST = workShiftService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Consumer actualGET = consumerService.getById(data.getId());
+    WorkShift actualGET = workShiftService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setName("changed new consumer");
-    Consumer actualPUT = consumerService.save(data);
+    data.setDate(new Timestamp(System.currentTimeMillis() + 1000));
+    WorkShift actualPUT = workShiftService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    consumerService.deleteById(data.getId());
+    workShiftService.deleteById(data.getId());
     try {
-      Consumer actualDELETE = consumerService.getById(data.getId());
+      WorkShift actualDELETE = workShiftService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
