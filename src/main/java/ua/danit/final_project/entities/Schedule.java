@@ -32,9 +32,13 @@ public class Schedule implements Serializable {
   @JoinColumn(name = "p_id", nullable = false)
   private Position position;
 
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @Column(name = "start", nullable = false)
   private Time start;
 
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @Column(name = "end", nullable = false)
   private Time end;
 }

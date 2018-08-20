@@ -30,9 +30,13 @@ public class WorkShift {
   @JoinColumn(name = "u_id")
   private User user;
 
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @Column(name = "start", nullable = false)
   private Time start;
 
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @Column(name = "end", nullable = false)
   private Time end;
 
