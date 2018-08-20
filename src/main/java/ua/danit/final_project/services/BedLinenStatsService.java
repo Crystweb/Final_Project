@@ -5,12 +5,11 @@ import ua.danit.final_project.entities.BedLinenStats;
 import java.util.List;
 
 public interface BedLinenStatsService {
+  BedLinenStats getById(Long id);
 
-   BedLinenStats getById(Long id);
+  List<BedLinenStats> getAll();
 
-   List<BedLinenStats> getAll();
+  BedLinenStats save(BedLinenStats bedLinenStats);
 
-   BedLinenStats save(BedLinenStats bedLinenStats);
-
-   void deleteById(Long id);
+  void deleteById(Long id);
 }

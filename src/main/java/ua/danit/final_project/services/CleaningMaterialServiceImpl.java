@@ -36,5 +36,5 @@ public class CleaningMaterialServiceImpl implements CleaningMaterialService {
   @Override
   public void deleteById(Long id) {
     cleaningMaterialRepository.deleteById(id);
-    }
+  }
 }
