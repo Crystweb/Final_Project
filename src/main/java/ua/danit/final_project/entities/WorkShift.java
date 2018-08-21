@@ -1,6 +1,8 @@
 package ua.danit.final_project.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,12 +25,18 @@ public class WorkShift {
   private Long id;
 
   @ManyToOne
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id")
   private User user;
 
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @Column(name = "start", nullable = false)
   private Time start;
 
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @Column(name = "end", nullable = false)
   private Time end;
 

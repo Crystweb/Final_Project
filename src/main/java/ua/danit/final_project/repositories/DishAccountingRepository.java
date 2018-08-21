@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ua.danit.final_project.entities.DishAccounting;
 
 @Repository
-public interface DishAccountiongRepository extends JpaRepository<DishAccounting, Long> {
+public interface DishAccountingRepository extends JpaRepository<DishAccounting, Long> {
 }

@@ -1,6 +1,8 @@
 package ua.danit.final_project.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
@@ -32,6 +34,8 @@ public class Location implements Serializable {
   private String info;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   @JoinTable(
           name = "task_location",
           joinColumns = {@JoinColumn(name = "l_id")},
