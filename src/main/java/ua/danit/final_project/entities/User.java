@@ -37,6 +37,7 @@ public class User implements Serializable {
   @Column(name = "u_password", nullable = false)
   private String password;
 
+  @JsonIgnore
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinTable(name = "user_role",
           joinColumns = {@JoinColumn(name = "u_id")},

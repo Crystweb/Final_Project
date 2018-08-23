@@ -1,5 +1,7 @@
 package ua.danit.final_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -27,12 +29,14 @@ public class ShiftComment implements Serializable {
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @JoinColumn(name = "u_id", nullable = false)
   private User user;
 
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
+  @JsonIgnore
   @JoinColumn(name = "w_shift_id", nullable = false)
   private WorkShift workShift;
 
