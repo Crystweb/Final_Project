@@ -19,4 +19,6 @@ public interface WorkCommentService {
   ShiftComment updateComment(ShiftComment shiftComment);
 
   List<ShiftComment> getCommentsOfLastWorkShifts();
+
+  ShiftComment getCommentById(Long commentId);
 }

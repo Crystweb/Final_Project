@@ -15,8 +15,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.danit.final_project.entities.ShiftComment;
 import ua.danit.final_project.entities.WorkShift;
 import ua.danit.final_project.services.WorkCommentService;
-import ua.danit.final_project.services.crud.ShiftCommentService;
-
 import java.net.URI;
 import java.sql.Timestamp;
 import java.util.List;
@@ -32,7 +30,7 @@ public class WorkShiftController {
     this.workCommentService = workCommentService;
   }
 
-  @GetMapping
+  @GetMapping("/")
   public List<WorkShift> getByDate(@RequestParam(value = "date", required = false) Timestamp date) { // Чому він повертає всі записи по WorkShift? Він отримав null, отже дати немає, але він бере і всі значення повертає і це не прописано у коді
     return workCommentService.getWorkShiftsByDate(date);
   }
@@ -43,8 +41,8 @@ public class WorkShiftController {
   }
 
   @GetMapping
-  public List<ShiftComment> getCommentsOfLastWorkShifts() {
-    return workCommentService.getCommentsOfLastWorkShifts();
+  public ResponseEntity<List<ShiftComment>> getCommentsOfLastWorkShifts() {
+    return ResponseEntity.ok(workCommentService.getCommentsOfLastWorkShifts());
   }
 
   @PostMapping("/{ws_id}/comment")
@@ -52,7 +50,7 @@ public class WorkShiftController {
                                                     @RequestBody ShiftComment shiftComment) {
     shiftComment = workCommentService.addComment(id, shiftComment);
 
-    URI location = ServletUriComponentsBuilder   // Даний код - не розумію призначення
+    URI location = ServletUriComponentsBuilder
             .fromCurrentRequest()
             .path("/{id}")
             .buildAndExpand(shiftComment.getId())
@@ -63,7 +61,9 @@ public class WorkShiftController {
 
   @PutMapping("/{ws_id}/comment")
   public ResponseEntity<ShiftComment> updateComment(@RequestBody ShiftComment shiftComment) {
-    return ResponseEntity.ok(workCommentService.updateComment(shiftComment));
+    ShiftComment comment = workCommentService.getCommentById(shiftComment.getId());
+    comment.setMessage(shiftComment.getMessage());
+    return ResponseEntity.ok(workCommentService.updateComment(comment));
   }
 
   @DeleteMapping("/{ws_id}/comment/{c_id}")

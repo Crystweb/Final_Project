@@ -30,8 +30,8 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   @Override
   public List<WorkShift> getWorkShiftsByDate(Timestamp date) {
     DateTime searchDate = new DateTime(date).withTimeAtStartOfDay();
-    Date from = searchDate.minusHours(4).toDate();
-    Date to = searchDate.plusHours(28).toDate();
+    Date from = searchDate.toDate();
+    Date to = searchDate.plusHours(24).toDate();
     return workShiftRepository.findAllByDateBetween(from, to);
   }
 
@@ -67,7 +67,13 @@ public class WorkCommentServiceImpl implements WorkCommentService {
 
   @Override
   public List<ShiftComment> getCommentsOfLastWorkShifts() {
-    shiftCommentRepository.
-    return null;
+    Integer id = shiftCommentRepository.getMaxId();
+    Long maxId = Long.parseLong("" + (id - 3));
+    return shiftCommentRepository.getAllByLastThreeWorkShiftId(maxId);
+  }
+
+  @Override
+  public ShiftComment getCommentById(Long commentId) {
+    return shiftCommentRepository.findById(commentId).orElseThrow(EntityNotFoundException::new);
   }
 }
