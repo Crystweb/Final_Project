@@ -38,9 +38,9 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   @Override
   public List<ShiftComment> getComments(Long workShiftId) {
     return workShiftRepository
-        .findById(workShiftId)
-        .orElseThrow(EntityNotFoundException::new)
-        .getShiftComments();
+            .findById(workShiftId)
+            .orElseThrow(EntityNotFoundException::new)
+            .getShiftComments();
   }
 
   @Override
@@ -53,5 +53,21 @@ public class WorkCommentServiceImpl implements WorkCommentService {
     shiftComment.setUser(user);
 
     return shiftCommentRepository.save(shiftComment);
+  }
+
+  @Override
+  public void deleteCommentById(Long commentId) {
+    shiftCommentRepository.deleteById(commentId);
+  }
+
+  @Override
+  public ShiftComment updateComment(ShiftComment shiftComment) {
+    return shiftCommentRepository.save(shiftComment);
+  }
+
+  @Override
+  public List<ShiftComment> getCommentsOfLastWorkShifts() {
+    shiftCommentRepository.
+    return null;
   }
 }

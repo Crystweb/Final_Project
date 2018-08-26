@@ -13,4 +13,10 @@ public interface WorkCommentService {
   List<ShiftComment> getComments(Long workShiftId);
 
   ShiftComment addComment(Long  workShiftId, ShiftComment shiftComment);
+
+  void deleteCommentById(Long commentId);
+
+  ShiftComment updateComment(ShiftComment shiftComment);
+
+  List<ShiftComment> getCommentsOfLastWorkShifts();
 }

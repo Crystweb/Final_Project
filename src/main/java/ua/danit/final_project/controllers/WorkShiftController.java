@@ -2,9 +2,11 @@ package ua.danit.final_project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.danit.final_project.entities.ShiftComment;
 import ua.danit.final_project.entities.WorkShift;
 import ua.danit.final_project.services.WorkCommentService;
+import ua.danit.final_project.services.crud.ShiftCommentService;
 
 import java.net.URI;
 import java.sql.Timestamp;
@@ -30,26 +33,42 @@ public class WorkShiftController {
   }
 
   @GetMapping
-  public List<WorkShift> getByDate(@RequestParam(required = false) Timestamp date) {
+  public List<WorkShift> getByDate(@RequestParam(value = "date", required = false) Timestamp date) { // Чому він повертає всі записи по WorkShift? Він отримав null, отже дати немає, але він бере і всі значення повертає і це не прописано у коді
     return workCommentService.getWorkShiftsByDate(date);
   }
 
-  @GetMapping("/{id}/comment")
-  public List<ShiftComment> getComments(@PathVariable("id") Long workShiftId) {
+  @GetMapping("/{ws_id}/comment")
+  public List<ShiftComment> getComments(@PathVariable("ws_id") Long workShiftId) {
     return workCommentService.getComments(workShiftId);
   }
 
-  @PostMapping("/{id}/comment")
-  public ResponseEntity<ShiftComment> createComment(@PathVariable("id") Long id,
-                                      @RequestBody ShiftComment shiftComment) {
+  @GetMapping
+  public List<ShiftComment> getCommentsOfLastWorkShifts() {
+    return workCommentService.getCommentsOfLastWorkShifts();
+  }
+
+  @PostMapping("/{ws_id}/comment")
+  public ResponseEntity<ShiftComment> createComment(@PathVariable("ws_id") Long id,
+                                                    @RequestBody ShiftComment shiftComment) {
     shiftComment = workCommentService.addComment(id, shiftComment);
 
-    URI location = ServletUriComponentsBuilder
-        .fromCurrentRequest()
-        .path("/{id}")
-        .buildAndExpand(shiftComment.getId())
-        .toUri();
+    URI location = ServletUriComponentsBuilder   // Даний код - не розумію призначення
+            .fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(shiftComment.getId())
+            .toUri();
 
     return ResponseEntity.created(location).build();
+  }
+
+  @PutMapping("/{ws_id}/comment")
+  public ResponseEntity<ShiftComment> updateComment(@RequestBody ShiftComment shiftComment) {
+    return ResponseEntity.ok(workCommentService.updateComment(shiftComment));
+  }
+
+  @DeleteMapping("/{ws_id}/comment/{c_id}")
+  public ResponseEntity<ShiftComment> deleteComment(@PathVariable("c_id") Long id) {
+    workCommentService.deleteCommentById(id);
+    return ResponseEntity.ok().build();
   }
 }
