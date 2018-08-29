@@ -40,7 +40,7 @@ class Calendar extends Component {
             this.setState({
               isDataSelected: true
             })
-            addDate(date.toLocaleString('ru', dateOptions))
+            addDate(date.getTime())
           }}
           locale={{
             locale: date_fns,
@@ -63,6 +63,7 @@ const mapStateToProps = () => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addDate: (date) => {
+      console.log(date)
       dispatch(addSelectedDateFromCalendar(date))
     }
   }
