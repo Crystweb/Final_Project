@@ -25,9 +25,16 @@ class Shifts extends Component {
       return (
         <div className="container">
           <section className="comments">
-            <h2>{this.props.lastShift.user.login}</h2>
-            <h2>{this.props.lastShift.message}</h2>
-            <h2>{this.props.lastShift.date}</h2>
+            <h2>{this.props.lastShift && this.props.lastShift.map(shift =>
+              <li key={shift.id}>
+                <h2>{shift.start} - {shift.end}</h2>
+                {shift.shiftComments.map(comment =>
+                  <li key={comment.id}>
+                    <h3>{comment.message}</h3>
+                    <h6>{comment.date}</h6>
+                  </li>)}
+              </li>
+            )}</h2>
           </section>
           <nav className="navigation">
             <ul>
