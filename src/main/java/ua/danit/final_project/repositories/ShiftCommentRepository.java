@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ua.danit.final_project.entities.ShiftComment;
+import ua.danit.final_project.entities.WorkShift;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -16,4 +18,6 @@ public interface ShiftCommentRepository extends JpaRepository<ShiftComment, Long
 
   @Query("SELECT MAX(id) FROM ShiftComment")
   Integer getMaxId();
+
+  List<ShiftComment> findAllByDateBetween(Date from, Date to);
 }

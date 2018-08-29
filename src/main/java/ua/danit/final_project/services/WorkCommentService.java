@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface WorkCommentService {
 
-  List<WorkShift> getWorkShiftsByDate(Timestamp date);
+  List<ShiftComment> getShiftCommentsByDate(Long miliseconds);
 
   List<ShiftComment> getComments(Long workShiftId);
 

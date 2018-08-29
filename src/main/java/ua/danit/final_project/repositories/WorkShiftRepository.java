@@ -10,5 +10,4 @@ import java.util.List;
 @Repository
 public interface WorkShiftRepository extends JpaRepository<WorkShift, Long> {
 
-  List<WorkShift> findAllByDateBetween(Date from, Date to);
 }

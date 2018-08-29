@@ -28,11 +28,14 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   }
 
   @Override
-  public List<WorkShift> getWorkShiftsByDate(Timestamp date) {
+  public List<ShiftComment> getShiftCommentsByDate(Long miliseconds) {
+    Timestamp date = new Timestamp(miliseconds);
     DateTime searchDate = new DateTime(date).withTimeAtStartOfDay();
     Date from = searchDate.toDate();
     Date to = searchDate.plusHours(24).toDate();
-    return workShiftRepository.findAllByDateBetween(from, to);
+    System.out.println("from: " + from.toString());
+    System.out.println("to: " + to.toString());
+    return shiftCommentRepository.findAllByDateBetween(from, to);
   }
 
   @Override

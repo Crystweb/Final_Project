@@ -30,9 +30,9 @@ public class WorkShiftController {
     this.workCommentService = workCommentService;
   }
 
-  @GetMapping("/")
-  public List<WorkShift> getByDate(@RequestParam(value = "date", required = false) Timestamp date) { // Чому він повертає всі записи по WorkShift? Він отримав null, отже дати немає, але він бере і всі значення повертає і це не прописано у коді
-    return workCommentService.getWorkShiftsByDate(date);
+  @GetMapping("/{miliseconds}")
+  public List<ShiftComment> getByDate(@PathVariable("miliseconds") Long miliseconds) {
+    return workCommentService.getShiftCommentsByDate(miliseconds);
   }
 
   @GetMapping("/{ws_id}/comment")
