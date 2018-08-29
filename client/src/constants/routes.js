@@ -5,9 +5,8 @@ const routes = {
   vacancies: {name: 'Открытые вакансии', href: '/employees/vacancies'},
   comments: {name: 'Передача смены', href: '/shifts'},
   commentsHistory: {name: 'История смен', href: '/shifts/history'},
-  shiftsHistoryForSelectedDay: {name: 'Выберете тим смены', href: '/shifts/history/selected'},
-  shiftHistoryAdmin: {name: 'Смена администратора', href: '/shifts/history/selected/admin'},
-  shiftHistoryManager: {name: 'Смена менеджера', href: '/shifts/history/selected/manager'},
+  shiftHistoryAdmin: {name: 'Смена администратора', href: '/shifts/history/admin'},
+  shiftHistoryManager: {name: 'Смена менеджера', href: '/shifts/history/manager'},
   addNewComments: {name: 'Передать смену', href: '/shift/new'},
   tasks: {
     name: 'Задачи',
