@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import 'react-infinite-calendar/styles.css'
 import '../styles/Calendar.css'
 import { connect } from 'react-redux'
 import { addSelectedDateFromCalendar } from '../actions/actions'
 import date_fns from 'date-fns/locale/ru'
-import dateOptions from '../constants/constants'
-import routes from '../constants/routes'
-import { Redirect } from 'react-router-dom'
 import InfiniteCalendar from 'react-infinite-calendar'
+import ShiftHistoryForSelectedDay from '../pages/shifts/ShiftsHistoryForSelectedDay'
 
 class Calendar extends Component {
   constructor (props) {
@@ -18,11 +16,20 @@ class Calendar extends Component {
   }
 
   render () {
+    const dateChange = () => {this.setState({isDataSelected: false})}
     const {max, min, selected, minDate, maxDate, addDate} = this.props
+    if (this.state.isDataSelected) {
+      return (
+        <Fragment>
+          <button onClick={dateChange}>
+            Выбрать другую дату
+          </button>
+          <ShiftHistoryForSelectedDay/>
+        </Fragment>
+      )
+    }
     return (
-
       <div>
-        {this.state.isDataSelected && <Redirect to={routes.shiftsHistoryForSelectedDay.href}/>}
         <InfiniteCalendar
           className="day"
           rowHeight={60}
