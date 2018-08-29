@@ -33,8 +33,6 @@ public class WorkCommentServiceImpl implements WorkCommentService {
     DateTime searchDate = new DateTime(date).withTimeAtStartOfDay();
     Date from = searchDate.toDate();
     Date to = searchDate.plusHours(24).toDate();
-    System.out.println("from: " + from.toString());
-    System.out.println("to: " + to.toString());
     return shiftCommentRepository.findAllByDateBetween(from, to);
   }
 
