@@ -28,19 +28,21 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   }
 
   @Override
-  public List<ShiftComment> getShiftCommentsByDate(Long miliseconds) {
+  public List<ShiftComment> getShiftCommentsByDate(Long miliseconds, Long workShiftId) {
     Timestamp date = new Timestamp(miliseconds);
     DateTime searchDate = new DateTime(date).withTimeAtStartOfDay();
     Date from = searchDate.toDate();
     Date to = searchDate.plusHours(24).toDate();
-    return shiftCommentRepository.findAllByDateBetween(from, to);
+    System.out.println("from: " + from);
+    System.out.println("to: " + to);
+    return shiftCommentRepository.findAllByDateBetweenAndWorkShift_Id(from, to, workShiftId);
   }
 
   @Override
   public List<ShiftComment> getComments(Long workShiftId) {
     return workShiftRepository
             .findById(workShiftId)
-            .orElseThrow(EntityNotFoundExceptiwon::new)
+            .orElseThrow(EntityNotFoundException::new)
             .getShiftComments();
   }
 
@@ -67,10 +69,11 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   }
 
   @Override
-  public List<ShiftComment> getCommentsOfLastWorkShifts() {
+  public List<ShiftComment> getCommentsOfLastWorkShifts(Long workShiftId) {
     Integer id = shiftCommentRepository.getMaxId();
     Long maxId = Long.parseLong("" + (id - 3));
-    return shiftCommentRepository.getAllByLastThreeWorkShiftId(maxId);
+
+    return shiftCommentRepository.getAllByLastThreeWorkShiftId(maxId, workShiftId);
   }
 
   @Override

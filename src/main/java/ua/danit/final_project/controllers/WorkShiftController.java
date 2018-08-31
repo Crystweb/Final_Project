@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.ShiftComment;
 import ua.danit.final_project.services.WorkCommentService;
 import java.net.URI;
@@ -27,9 +28,10 @@ public class WorkShiftController {
     this.workCommentService = workCommentService;
   }
 
-  @GetMapping("/{miliseconds}")
-  public List<ShiftComment> getByDate(@PathVariable("miliseconds") Long miliseconds) {
-    return workCommentService.getShiftCommentsByDate(miliseconds);
+  @GetMapping("/{ws_id}/{miliseconds}")
+  public List<ShiftComment> getByDate(@PathVariable("miliseconds") Long miliseconds,
+                                      @PathVariable("ws_id") Long workShiftId) {
+    return workCommentService.getShiftCommentsByDate(miliseconds, workShiftId);
   }
 
   @GetMapping("/{ws_id}/comment")
@@ -37,9 +39,9 @@ public class WorkShiftController {
     return workCommentService.getComments(workShiftId);
   }
 
-  @GetMapping
-  public ResponseEntity<List<ShiftComment>> getCommentsOfLastWorkShifts() {
-    return ResponseEntity.ok(workCommentService.getCommentsOfLastWorkShifts());
+  @GetMapping("/{ws_id}")
+  public ResponseEntity<List<ShiftComment>> getCommentsOfLastWorkShifts(@PathVariable("ws_id") Long workShiftId) {
+    return ResponseEntity.ok(workCommentService.getCommentsOfLastWorkShifts(workShiftId));
   }
 
   @PostMapping("/{ws_id}/comment")
@@ -59,12 +61,23 @@ public class WorkShiftController {
   @PutMapping("/{ws_id}/comment")
   public ResponseEntity<ShiftComment> updateComment(@RequestBody ShiftComment shiftComment) {
     ShiftComment comment = workCommentService.getCommentById(shiftComment.getId());
+
+    if (StaticCollection.getUser().getId() != comment.getUser().getId()) {
+      return ResponseEntity.notFound().build();
+    }
+
     comment.setMessage(shiftComment.getMessage());
     return ResponseEntity.ok(workCommentService.updateComment(comment));
   }
 
   @DeleteMapping("/{ws_id}/comment/{c_id}")
   public ResponseEntity<ShiftComment> deleteComment(@PathVariable("c_id") Long id) {
+    ShiftComment comment = workCommentService.getCommentById(id);
+
+    if (StaticCollection.getUser().getId() != comment.getUser().getId()) {
+      return ResponseEntity.notFound().build();
+    }
+
     workCommentService.deleteCommentById(id);
     return ResponseEntity.ok().build();
   }

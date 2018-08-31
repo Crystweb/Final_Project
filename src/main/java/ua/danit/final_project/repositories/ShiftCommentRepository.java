@@ -12,11 +12,17 @@ import java.util.List;
 @Repository
 public interface ShiftCommentRepository extends JpaRepository<ShiftComment, Long> {
 
-  @Query(value = "SELECT * FROM shift_comment WHERE id > :id", nativeQuery = true)
-  List<ShiftComment> getAllByLastThreeWorkShiftId(@Param("id") Long id);
+  @Query(value = "SELECT * FROM shift_comment WHERE id > :id AND w_shift_id = :workShiftId", nativeQuery = true)
+  List<ShiftComment> getAllByLastThreeWorkShiftId(@Param("id") Long id,
+                                                  @Param("workShiftId") Long workShiftId);
 
   @Query("SELECT MAX(id) FROM ShiftComment")
   Integer getMaxId();
 
-  List<ShiftComment> findAllByDateBetween(Date from, Date to);
+  @Query(value = "SELECT * FROM shift_comment WHERE w_shift_id = :workShiftId AND c_date BETWEEN :from AND :to",
+          nativeQuery = true)
+  List<ShiftComment> findAllByDateBetweenAndWorkShift_Id(@Param("from") Date from,
+                                                         @Param("to") Date to,
+                                                         @Param("workShiftId") Long workShiftId);
+
 }
