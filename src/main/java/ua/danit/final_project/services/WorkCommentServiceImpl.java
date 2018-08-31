@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.ShiftComment;
-import ua.danit.final_project.entities.User;
 import ua.danit.final_project.entities.WorkShift;
 import ua.danit.final_project.repositories.ShiftCommentRepository;
 import ua.danit.final_project.repositories.WorkShiftRepository;
