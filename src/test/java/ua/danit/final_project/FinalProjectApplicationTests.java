@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.BedLinenStats;
 import ua.danit.final_project.entities.BedLinenType;
 import ua.danit.final_project.entities.CleaningMaterial;
@@ -32,6 +33,7 @@ import ua.danit.final_project.entities.WashPeriod;
 import ua.danit.final_project.entities.WashStats;
 import ua.danit.final_project.entities.WashStatsMaterial;
 import ua.danit.final_project.entities.WorkShift;
+import ua.danit.final_project.services.WorkCommentService;
 import ua.danit.final_project.services.crud.BedLinenStatsService;
 import ua.danit.final_project.services.crud.BedLinenTypeService;
 import ua.danit.final_project.services.crud.CleaningMaterialService;
@@ -63,6 +65,7 @@ import javax.persistence.EntityNotFoundException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -145,6 +148,9 @@ public class FinalProjectApplicationTests {
 
   @Autowired
   WorkShiftService workShiftService;
+
+  @Autowired
+  WorkCommentService workCommentService;
 
   @Test
   public void contextLoads() {
@@ -827,6 +833,30 @@ public class FinalProjectApplicationTests {
     }
 
   }
+
+  @Test
+  public void getStaticUser() {
+    User expected = new User();
+    expected.setId(99L);
+    expected.setLogin("user_1");
+    expected.setPassword("pwd");
+    Assert.assertEquals(expected, StaticCollection.getUser());
+  }
+
+  @Test
+  public void getSizeOfListOfCommentsByDate() {
+    Integer size = workCommentService.getShiftCommentsByDate(System.currentTimeMillis(), 1l).size();
+    Assert.assertEquals(2, (int) size);
+  }
+
+  @Test
+  public void getComments() {
+    List<ShiftComment> comments = workCommentService.getComments(1l);
+    Integer size = comments.size();
+    Assert.assertEquals(2, (int) size);
+
+  }
+
 
 
 }

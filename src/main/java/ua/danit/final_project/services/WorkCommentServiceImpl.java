@@ -50,10 +50,6 @@ public class WorkCommentServiceImpl implements WorkCommentService {
     WorkShift workShift = workShiftRepository.findById(workShiftId).orElseThrow(EntityNotFoundException::new);
     shiftComment.setWorkShift(workShift);
 
-//    User user = new User();
-//    user.setId(1L);
-//    shiftComment.setUser(user);
-
     shiftComment.setUser(StaticCollection.getUser());
 
     return shiftCommentRepository.save(shiftComment);
@@ -72,7 +68,7 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   @Override
   public List<ShiftComment> getCommentsOfLastWorkShifts(Long workShiftId) {
     Integer id = shiftCommentRepository.getMaxId();
-    Long maxId = Long.parseLong("" + (id - 3));
+    Long maxId = Long.parseLong("" + (id - 2));
 
     return shiftCommentRepository.getAllByLastThreeWorkShiftId(maxId, workShiftId);
   }
