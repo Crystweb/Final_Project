@@ -1,9 +1,7 @@
 package ua.danit.final_project.services;
 
 import ua.danit.final_project.entities.ShiftComment;
-import ua.danit.final_project.entities.WorkShift;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public interface WorkCommentService {

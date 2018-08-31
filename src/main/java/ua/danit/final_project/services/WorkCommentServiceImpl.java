@@ -40,7 +40,7 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   public List<ShiftComment> getComments(Long workShiftId) {
     return workShiftRepository
             .findById(workShiftId)
-            .orElseThrow(EntityNotFoundException::new)
+            .orElseThrow(EntityNotFoundExceptiwon::new)
             .getShiftComments();
   }
 

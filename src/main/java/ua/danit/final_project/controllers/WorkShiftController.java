@@ -9,14 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.danit.final_project.entities.ShiftComment;
-import ua.danit.final_project.entities.WorkShift;
 import ua.danit.final_project.services.WorkCommentService;
 import java.net.URI;
-import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
