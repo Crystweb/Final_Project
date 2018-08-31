@@ -837,7 +837,7 @@ public class FinalProjectApplicationTests {
   @Test
   public void getStaticUser() {
     User expected = new User();
-    expected.setId(99L);
+    expected.setId(1l);
     expected.setLogin("user_1");
     expected.setPassword("pwd");
     Assert.assertEquals(expected, StaticCollection.getUser());
@@ -854,10 +854,28 @@ public class FinalProjectApplicationTests {
     List<ShiftComment> comments = workCommentService.getComments(1l);
     Integer size = comments.size();
     Assert.assertEquals(2, (int) size);
-
   }
 
+  @Test
+  public void deleteCommentByIdAndAddComment() {
+    ShiftComment commentFromDB = workCommentService.getCommentById(1l);
+    workCommentService.deleteCommentById(1l);
+    try {
+      workCommentService.getCommentById(1l);
+      Assert.assertNull(1l);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
 
+    ShiftComment insertedComment = workCommentService.addComment( commentFromDB.getWorkShift().getId(), commentFromDB);
+    Assert.assertEquals(insertedComment, workCommentService.getCommentById(insertedComment.getId()));
+  }
+
+  @Test
+  public void getCommentsOfLastWorkShifts() {
+    int size = workCommentService.getCommentsOfLastWorkShifts(1l).size();
+    Assert.assertEquals(1, size);
+  }
 
 }
 
