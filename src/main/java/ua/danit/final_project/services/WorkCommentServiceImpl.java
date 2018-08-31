@@ -3,6 +3,7 @@ package ua.danit.final_project.services;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.ShiftComment;
 import ua.danit.final_project.entities.User;
 import ua.danit.final_project.entities.WorkShift;
@@ -49,9 +50,11 @@ public class WorkCommentServiceImpl implements WorkCommentService {
     WorkShift workShift = workShiftRepository.findById(workShiftId).orElseThrow(EntityNotFoundException::new);
     shiftComment.setWorkShift(workShift);
 
-    User user = new User();
-    user.setId(1L);
-    shiftComment.setUser(user);
+//    User user = new User();
+//    user.setId(1L);
+//    shiftComment.setUser(user);
+
+    shiftComment.setUser(StaticCollection.getUser());
 
     return shiftCommentRepository.save(shiftComment);
   }
