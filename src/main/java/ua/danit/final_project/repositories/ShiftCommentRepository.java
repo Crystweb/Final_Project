@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ua.danit.final_project.entities.ShiftComment;
-import ua.danit.final_project.entities.WorkShift;
 
 import java.util.Date;
 import java.util.List;
