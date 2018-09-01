@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.BedLinenStats;
 import ua.danit.final_project.entities.BedLinenType;
 import ua.danit.final_project.entities.CleaningMaterial;
@@ -32,6 +33,7 @@ import ua.danit.final_project.entities.WashPeriod;
 import ua.danit.final_project.entities.WashStats;
 import ua.danit.final_project.entities.WashStatsMaterial;
 import ua.danit.final_project.entities.WorkShift;
+import ua.danit.final_project.services.WorkCommentService;
 import ua.danit.final_project.services.crud.BedLinenStatsService;
 import ua.danit.final_project.services.crud.BedLinenTypeService;
 import ua.danit.final_project.services.crud.CleaningMaterialService;
@@ -63,6 +65,7 @@ import javax.persistence.EntityNotFoundException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -146,12 +149,15 @@ public class FinalProjectApplicationTests {
   @Autowired
   WorkShiftService workShiftService;
 
+  @Autowired
+  WorkCommentService workCommentService;
+
   @Test
   public void contextLoads() {
   }
 
   @Test
-  public void BedLinenStatsCRUD() { //json
+  public void BedLinenStatsCRUD() {
     BedLinenStats data = new BedLinenStats();
     data.setUser(userService.getById(1l));
     data.setBedLinenType(bedLinenTypeService.getById(1l));
@@ -254,7 +260,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void DishAccountingCRUD() { //json
+  public void DishAccountingCRUD() {
     DishAccounting data = new DishAccounting();
     data.setDishType(dishTypeService.getById(1L));
     data.setLocation(locationService.getById(1L));
@@ -283,7 +289,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void DishBalanceCRUD() { //json
+  public void DishBalanceCRUD() {
     DishBalance data = new DishBalance();
     data.setDishType(dishTypeService.getById(1l));
     data.setLocation(locationService.getById(1l));
@@ -312,7 +318,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void DishCommentCRUD() { //json
+  public void DishCommentCRUD() {
     DishComment data = new DishComment();
     data.setUser(userService.getById(1l));
     data.setDishAccounting(dishAccountingService.getById(1l));
@@ -365,7 +371,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void EmployeeCRUD() { // strange error because expected same as actual
+  public void EmployeeCRUD() {
     Employee data = new Employee();
     data.setUser(userService.getById(3l));
     data.setPosition(positionService.getById(3l));
@@ -394,7 +400,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void FoodSupplyCRUD() { //json
+  public void FoodSupplyCRUD() {
     FoodSupply data = new FoodSupply();
     data.setMealTimeCategory(mealTimeCategoryService.getById(1l));
     data.setUser(userService.getById(1l));
@@ -424,7 +430,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void LocationCRUD() { // strange error because expected same as actual
+  public void LocationCRUD() {
     Location data = new Location();
     data.setTitle("home");
     data.setInfo("home sweet home");
@@ -552,7 +558,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void ScheduleCRUD() { // strange error because expected same as actual
+  public void ScheduleCRUD() {
     Schedule data = new Schedule();
     data.setPosition(positionService.getById(1l));
     data.setStart(new Time(1534763270));
@@ -579,7 +585,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void ShiftCommentCRUD() { //json
+  public void ShiftCommentCRUD() {
     ShiftComment data = new ShiftComment();
     data.setUser(userService.getById(1l));
     data.setWorkShift(workShiftService.getById(1l));
@@ -607,7 +613,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void TaskCommentCRUD() { //json
+  public void TaskCommentCRUD() {
     TaskComment data = new TaskComment();
     data.setTask(taskService.getById(1l));
     data.setUser(userService.getById(1l));
@@ -635,7 +641,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void UserCRUD() { // strange error because expected same as actual
+  public void UserCRUD() {
     User data = new User();
     data.setLogin("qqqqqqqqq");
     data.setPassword("111");
@@ -662,7 +668,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void VacancyCommentCRUD() { // json
+  public void VacancyCommentCRUD() {
     VacancyComment data = new VacancyComment();
     data.setUser(userService.getById(1l));
     data.setVacancy(vacancyService.getById(1l));
@@ -690,7 +696,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void VacancyCRUD() { // json
+  public void VacancyCRUD() {
     Vacancy data = new Vacancy();
     data.setUser(userService.getById(1l));
     data.setPosition(positionService.getById(1l));
@@ -745,7 +751,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void WashStatsMaterialCRUD() { //json
+  public void WashStatsMaterialCRUD() {
     WashStatsMaterial data = new WashStatsMaterial();
     data.setWashStats(washStatsService.getById(1l));
     data.setCleaningMaterial(cleaningMaterialService.getById(1l));
@@ -772,7 +778,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void WashStatsCRUD() { // json
+  public void WashStatsCRUD() {
     WashStats data = new WashStats();
     data.setUser(userService.getById(1l));
     data.setWashPeriod(washPeriodService.getById(1l));
@@ -801,7 +807,7 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void WorkShiftCRUD() { //json
+  public void WorkShiftCRUD() {
     WorkShift data = new WorkShift();
     data.setUser(userService.getById(1l));
     data.setStart(new Time(System.currentTimeMillis()));
@@ -827,6 +833,50 @@ public class FinalProjectApplicationTests {
     }
 
   }
+
+  @Test
+  public void getStaticUser() {
+    User expected = new User();
+    expected.setId(1L);
+    expected.setLogin("Artem");
+    expected.setPassword("pwd");
+    Assert.assertEquals(expected, StaticCollection.getUser());
+  }
+
+  @Test
+  public void getSizeOfListOfCommentsByDate() {
+    Integer size = workCommentService.getShiftCommentsByDate(System.currentTimeMillis(), 1l).size();
+    Assert.assertEquals(2, (int) size);
+  }
+
+  @Test
+  public void getComments() {
+    List<ShiftComment> comments = workCommentService.getComments(1l);
+    Integer size = comments.size();
+    Assert.assertEquals(2, (int) size);
+  }
+
+  @Test
+  public void deleteCommentByIdAndAddComment() {
+    ShiftComment commentFromDB = workCommentService.getCommentById(1l);
+    workCommentService.deleteCommentById(1l);
+    try {
+      workCommentService.getCommentById(1l);
+      Assert.assertNull(1l);
+    } catch (EntityNotFoundException ex) {
+      Assert.assertNull(null);
+    }
+
+    ShiftComment insertedComment = workCommentService.addComment( commentFromDB.getWorkShift().getId(), commentFromDB);
+    Assert.assertEquals(insertedComment, workCommentService.getCommentById(insertedComment.getId()));
+  }
+
+  @Test
+  public void getCommentsOfLastWorkShifts() {
+    int size = workCommentService.getCommentsOfLastWorkShifts(1l).size();
+    Assert.assertEquals(1, size);
+  }
+
 }
 
 

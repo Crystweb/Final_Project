@@ -8,7 +8,7 @@ public class StaticCollection {
 
   static {
     user = new User();
-    user.setId(99L);
+    user.setId(1L);
     user.setLogin("Artem");
     user.setPassword("pwd");
   }
