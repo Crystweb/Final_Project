@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './styles/App.css'
 import Home from './pages/Home'
-import { Link, Route, Switch } from 'react-router-dom'
+import { Link, Route, Switch, withRouter } from 'react-router-dom'
 import Comments from './pages/shifts/Shifts'
 import ShiftsHistory from './pages/shifts/ShiftsHistory'
 import CreateNewComments from './pages/shifts/CreateNewShift'
@@ -18,14 +18,26 @@ import Vacancies from './pages/Vacancies'
 import WashingData from './pages/WashingData'
 import SalesNumbers from './pages/washingDate/SalesNumbers'
 import Lodgers from './pages/washingDate/Lodgers'
-
 import routes from './constants/routes'
-import ShiftHistoryForSelectedDay from './pages/shifts/ShiftsHistoryForSelectedDay'
 import ShiftHistoryAdmin from './pages/shifts/ShiftHistoryAdmin'
 import ShiftHistoryManager from './pages/shifts/ShiftHistoryManager'
+import { connect } from 'react-redux'
+import { addCurrentUser } from './actions/actions'
+import axios from 'axios'
+import Preloader from './components/Preloader'
 
 class App extends Component {
+  componentDidMount () {
+    axios.get('/user')
+      .then(response => this.props.addUser(response.data))
+  }
+
   render () {
+    if (!this.props.user) {
+      return (
+        <Preloader/>
+      )
+    }
     return (
       <div className="container">
         <header className="header">
@@ -39,8 +51,6 @@ class App extends Component {
           <Route exact path={routes.comments.href} component={Comments}/>
           <Route exact path={routes.commentsHistory.href} component={ShiftsHistory}/>
           <Route exact path={routes.addNewComments.href} component={CreateNewComments}/>
-          <Route exact path={routes.shiftsHistoryForSelectedDay.href} component={ShiftHistoryForSelectedDay}/>
-          <Route exact path={routes.shiftsHistoryForSelectedDay.href} component={ShiftHistoryForSelectedDay}/>
           <Route exact path={routes.shiftHistoryAdmin.href} component={ShiftHistoryAdmin}/>
           <Route exact path={routes.shiftHistoryManager.href} component={ShiftHistoryManager}/>
           <Route exact path={routes.tasks.href} component={Tasks}/>
@@ -59,4 +69,16 @@ class App extends Component {
   }
 }
 
-export default App
+const mapStateToProps = ({user}) => {
+  return {user: user.currentUser}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addUser: (data) => {
+      dispatch(addCurrentUser(data))
+    }
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Calendar from '../../components/Сalendar'
 
 class ShiftsHistory extends Component {
+
   render () {
     var today = new Date()
     var sixMonthAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 180)
