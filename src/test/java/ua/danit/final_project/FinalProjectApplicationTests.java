@@ -843,12 +843,6 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void getSizeOfListOfCommentsByDate() {
-    Integer size = workCommentService.getShiftCommentsByDate(System.currentTimeMillis()).size();
-    Assert.assertEquals(3, (int) size);
-  }
-
-  @Test
   public void deleteCommentByIdAndAddComment() {
     ShiftComment commentFromDB = workCommentService.getCommentById(1L);
     workCommentService.deleteCommentById(1L);

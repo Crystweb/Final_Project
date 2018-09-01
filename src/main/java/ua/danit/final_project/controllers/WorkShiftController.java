@@ -35,9 +35,9 @@ public class WorkShiftController {
   }
 
 
-  @GetMapping("/{ws_id}")
-  public List<ShiftComment> getCommentsOfLastWorkShifts(@PathVariable("ws_id") Long workShiftId) {
-    return workCommentService.getCommentsOfLastWorkShifts(workShiftId);
+  @GetMapping("/")
+  public List<ShiftComment> getCommentsOfLastWorkShifts() {
+    return workCommentService.getCommentsOfLastWorkShifts();
   }
 
   @PostMapping("/{ws_id}/comment")

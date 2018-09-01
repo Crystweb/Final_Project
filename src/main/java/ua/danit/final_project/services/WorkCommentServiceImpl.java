@@ -3,10 +3,7 @@ package ua.danit.final_project.services;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.ShiftComment;
-import ua.danit.final_project.entities.WorkShift;
 import ua.danit.final_project.repositories.ShiftCommentRepository;
 import ua.danit.final_project.repositories.WorkShiftRepository;
 
@@ -36,11 +33,9 @@ public class WorkCommentServiceImpl implements WorkCommentService {
     Timestamp date = new Timestamp(milliseconds);
     DateTime searchDate = new DateTime(date).withTimeAtStartOfDay();
     Date from = searchDate.toDate();
-    Date to = searchDate.plusHours(24).toDate();
+    Date to = searchDate.minusHours(24).toDate();
     return shiftCommentRepository.findAllByDateBetween(from, to);
   }
-
-
 
   @Override
   public ShiftComment addComment(ShiftComment shiftComment) {
@@ -58,14 +53,13 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   }
 
   @Override
-  public List<ShiftComment> getCommentsOfLastWorkShifts(Long workShiftId) {
+  public List<ShiftComment> getCommentsOfLastWorkShifts() {
     Timestamp date = new Timestamp(System.currentTimeMillis());
-    DateTime searchDate = new DateTime(date).withTimeAtStartOfDay();
+    DateTime searchDate = new DateTime(date);
     Date from = searchDate.toDate();
-    Date to = searchDate.plusHours(24).toDate();
+    Date to = searchDate.minusHours(24).toDate();
 
-    return null;
-//    return shiftCommentRepository.getAllByLastThreeWorkShiftId( workShiftId);
+    return shiftCommentRepository.findAllByDateBetween(from, to);
   }
 
   @Override
