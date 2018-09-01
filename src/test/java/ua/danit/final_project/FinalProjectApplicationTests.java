@@ -838,7 +838,7 @@ public class FinalProjectApplicationTests {
   public void getStaticUser() {
     User expected = new User();
     expected.setId(1L);
-    expected.setLogin("user_1");
+    expected.setLogin("Artem");
     expected.setPassword("pwd");
     Assert.assertEquals(expected, StaticCollection.getUser());
   }
