@@ -13,3 +13,10 @@ export function addSelectedDateFromCalendar (date) {
     date
   }
 }
+
+export function addCurrentUser (user) {
+  return {
+    type: types.GET_CURRENT_USER,
+    user
+  }
+}

@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 class ShiftHistoryForSelectedDay extends Component {
 
   render () {
-    console.log(this.props.date)
     return (
       <div className="container">
         <h3>{this.props.date.getDay}</h3>

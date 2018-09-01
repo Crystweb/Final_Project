@@ -9,7 +9,7 @@ public class StaticCollection {
   static {
     user = new User();
     user.setId(1L);
-    user.setLogin("user_1");
+    user.setLogin("Artem");
     user.setPassword("pwd");
   }
 
