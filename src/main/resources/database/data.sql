@@ -49,9 +49,16 @@ INSERT INTO `work_shift` (position_id, start, end, date) VALUES (1, '23:30:10', 
 INSERT INTO `work_shift` (position_id, start, end, date) VALUES (2, '10:30:10', '15:30:10', CURRENT_TIMESTAMP);
 INSERT INTO `work_shift` (position_id, start, end, date) VALUES (2, '13:30:10', '16:30:10', CURRENT_TIMESTAMP);
 
-INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (1, 1, 'message 1', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (2, 1, 'message 2', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (3, 2, 'message 3', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'message 1', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'message 2', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'message 3', CURRENT_TIMESTAMP);
+
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (1, 1);
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (1, 2);
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (2, 2);
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (2, 1);
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (3, 3);
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (3, 1);
 
 INSERT INTO `location` (l_title, l_info) VALUES ('restaurant 1', 'restaurant in hotel');
 INSERT INTO `location` (l_title, l_info) VALUES ('restaurant 2', 'restaurant outside');

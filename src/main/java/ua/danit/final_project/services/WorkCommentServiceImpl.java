@@ -66,10 +66,12 @@ public class WorkCommentServiceImpl implements WorkCommentService {
 
   @Override
   public List<ShiftComment> getCommentsOfLastWorkShifts(Long workShiftId) {
-    Integer id = shiftCommentRepository.getMaxId();
-    Long maxId = Long.parseLong("" + (id - 2));
+    Timestamp date = new Timestamp(System.currentTimeMillis());
+    DateTime searchDate = new DateTime(date).withTimeAtStartOfDay();
+    Date from = searchDate.toDate();
+    Date to = searchDate.plusHours(24).toDate();
 
-    return shiftCommentRepository.getAllByLastThreeWorkShiftId(maxId, workShiftId);
+    return shiftCommentRepository.getAllByLastThreeWorkShiftId( workShiftId);
   }
 
   @Override
