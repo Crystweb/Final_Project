@@ -15,13 +15,10 @@ import java.util.List;
 @Service
 public class WorkCommentServiceImpl implements WorkCommentService {
 
-  private final WorkShiftRepository workShiftRepository;
   private final ShiftCommentRepository shiftCommentRepository;
 
   @Autowired
-  public WorkCommentServiceImpl(WorkShiftRepository workShiftRepository,
-                                ShiftCommentRepository shiftCommentRepository) {
-    this.workShiftRepository = workShiftRepository;
+  public WorkCommentServiceImpl(ShiftCommentRepository shiftCommentRepository) {
     this.shiftCommentRepository = shiftCommentRepository;
   }
 
