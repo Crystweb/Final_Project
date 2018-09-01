@@ -700,7 +700,7 @@ public class FinalProjectApplicationTests {
     Vacancy data = new Vacancy();
     data.setUser(userService.getById(1l));
     data.setPosition(positionService.getById(1l));
-    data.setSalary(10004);
+    data.setSalary("10004");
     data.setStatus("OPENED");
     data.setInfo("OPENED 1");
     data.setPublication(new Timestamp(1534770516));
@@ -711,7 +711,7 @@ public class FinalProjectApplicationTests {
     Vacancy actualGET = vacancyService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
-    data.setSalary(45948563);
+    data.setSalary("45948563");
     Vacancy actualPUT = vacancyService.save(data);
     Assert.assertEquals(data, actualPUT);
 
@@ -809,7 +809,7 @@ public class FinalProjectApplicationTests {
   @Test
   public void WorkShiftCRUD() {
     WorkShift data = new WorkShift();
-    data.setUser(userService.getById(1l));
+    data.setPosition(positionService.getById(1L));
     data.setStart(new Time(System.currentTimeMillis()));
     data.setEnd(new Time(System.currentTimeMillis()));
     data.setDate(new Timestamp(System.currentTimeMillis()));
