@@ -1,6 +1,5 @@
 package ua.danit.final_project.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,13 +28,6 @@ public class WorkShift {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  @ToString.Exclude
-  @EqualsAndHashCode.Exclude
-  @JsonIgnore
-  @JoinColumn(name = "u_id")
-  private User user;
-
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @Column(name = "start", nullable = false)
@@ -48,6 +40,10 @@ public class WorkShift {
 
   @Column(name = "date", nullable = false)
   private Timestamp date;
+
+  @ManyToOne
+  @JoinColumn(name = "position_id")
+  private Position position;
 
   @ToString.Exclude
   @EqualsAndHashCode.Exclude

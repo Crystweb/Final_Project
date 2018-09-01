@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS `food_supply`;
 DROP TABLE IF EXISTS `mealtime_category`;
 DROP TABLE IF EXISTS `consumer`;
 DROP TABLE IF EXISTS `task_comment`;
+DROP TABLE IF EXISTS `task_location`;
 DROP TABLE IF EXISTS `task`;
 DROP TABLE IF EXISTS `location`;
 DROP TABLE IF EXISTS `shift_comment`;
@@ -94,12 +95,12 @@ CREATE TABLE IF NOT EXISTS `schedule` (
 
 CREATE TABLE IF NOT EXISTS `work_shift` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT,
+  `position_id` BIGINT NOT NULL,
   `start` TIME NOT NULL,
   `end` TIME NOT NULL,
   `date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`position_id`) REFERENCES `position`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `shift_comment` (
@@ -185,9 +186,9 @@ CREATE TABLE IF NOT EXISTS `vacancy` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `u_id` BIGINT NOT NULL,
   `p_id` BIGINT NOT NULL,
-  `v_salary` INT,
+  `v_salary` VARCHAR(32),
   `v_status` VARCHAR(15) NOT NULL CHECK(`v_status` IN ('OPENED', 'CLOSED')),
-  `v_info` VARCHAR(1023) NOT NULL,
+  `v_info` VARCHAR(255) NOT NULL,
   `p_publication` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`p_id`) REFERENCES `position` (`id`),

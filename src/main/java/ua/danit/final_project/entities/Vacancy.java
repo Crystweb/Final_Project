@@ -38,7 +38,7 @@ public class Vacancy implements Serializable {
   private Position position;
 
   @Column(name = "v_salary")
-  private Integer salary;
+  private String salary;
 
   @Column(name = "v_status", nullable = false)
   private String status;

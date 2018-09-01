@@ -40,8 +40,8 @@ public class WorkShiftController {
   }
 
   @GetMapping("/{ws_id}")
-  public ResponseEntity<List<ShiftComment>> getCommentsOfLastWorkShifts(@PathVariable("ws_id") Long workShiftId) {
-    return ResponseEntity.ok(workCommentService.getCommentsOfLastWorkShifts(workShiftId));
+  public List<ShiftComment> getCommentsOfLastWorkShifts(@PathVariable("ws_id") Long workShiftId) {
+    return workCommentService.getCommentsOfLastWorkShifts(workShiftId);
   }
 
   @PostMapping("/{ws_id}/comment")

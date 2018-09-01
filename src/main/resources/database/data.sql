@@ -45,9 +45,9 @@ INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '19:30:10', '20:30:10' );
 INSERT INTO `schedule` (p_id, start, end) VALUES (1,  '21:00:30', '23:30:10' );
 INSERT INTO `schedule` (p_id, start, end) VALUES (3,  '08:55:10', '10:30:10' );
 
-INSERT INTO `work_shift` (u_id, start, end, date) VALUES (1, '23:30:10', '00:40:10', CURRENT_TIMESTAMP);
-INSERT INTO `work_shift` (u_id, start, end, date) VALUES (2, '10:30:10', '15:30:10', CURRENT_TIMESTAMP);
-INSERT INTO `work_shift` (start, end, date) VALUES ( '13:30:10', '16:30:10', CURRENT_TIMESTAMP);
+INSERT INTO `work_shift` (position_id, start, end, date) VALUES (1, '23:30:10', '00:40:10', CURRENT_TIMESTAMP);
+INSERT INTO `work_shift` (position_id, start, end, date) VALUES (2, '10:30:10', '15:30:10', CURRENT_TIMESTAMP);
+INSERT INTO `work_shift` (position_id, start, end, date) VALUES (2, '13:30:10', '16:30:10', CURRENT_TIMESTAMP);
 
 INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (1, 1, 'message 1', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (2, 1, 'message 2', CURRENT_TIMESTAMP);
@@ -136,4 +136,4 @@ INSERT INTO `dish_comment` (u_id, d_id, c_message, c_date) VALUES (1, 1, 'broke 
 INSERT INTO `dish_comment` (u_id, d_id, c_message, c_date) VALUES (2, 2, 'broke spoons', CURRENT_TIMESTAMP);
 INSERT INTO `dish_comment` (u_id, d_id, c_message, c_date) VALUES (3, 3, 'broke forks', CURRENT_TIMESTAMP);
 
-INSERT INTO `work_shift` (u_id, start, end, date) VALUES (1, '00:00:00', '18:00:00', CURRENT_TIMESTAMP);
+INSERT INTO `work_shift` (position_id, start, end, date) VALUES (1, '00:00:00', '18:00:00', CURRENT_TIMESTAMP);
