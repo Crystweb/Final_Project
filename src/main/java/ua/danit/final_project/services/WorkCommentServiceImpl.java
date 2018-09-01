@@ -3,6 +3,7 @@ package ua.danit.final_project.services;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.ShiftComment;
 import ua.danit.final_project.entities.WorkShift;
@@ -28,29 +29,21 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   }
 
   @Override
-  public List<ShiftComment> getShiftCommentsByDate(Long miliseconds, Long workShiftId) {
-    Timestamp date = new Timestamp(miliseconds);
+  public List<ShiftComment> getShiftCommentsByDate(Long milliseconds) {
+    if (milliseconds == null) {
+      return shiftCommentRepository.findAllByDateAfter(DateTime.now().minusDays(1).toDate());
+    }
+    Timestamp date = new Timestamp(milliseconds);
     DateTime searchDate = new DateTime(date).withTimeAtStartOfDay();
     Date from = searchDate.toDate();
     Date to = searchDate.plusHours(24).toDate();
-    return shiftCommentRepository.findAllByDateBetweenAndWorkShift_Id(from, to, workShiftId);
+    return shiftCommentRepository.findAllByDateBetween(from, to);
   }
 
-  @Override
-  public List<ShiftComment> getComments(Long workShiftId) {
-    return workShiftRepository
-            .findById(workShiftId)
-            .orElseThrow(EntityNotFoundException::new)
-            .getShiftComments();
-  }
+
 
   @Override
-  public ShiftComment addComment(Long workShiftId, ShiftComment shiftComment) {
-    WorkShift workShift = workShiftRepository.findById(workShiftId).orElseThrow(EntityNotFoundException::new);
-    shiftComment.setWorkShift(workShift);
-
-    shiftComment.setUser(StaticCollection.getUser());
-
+  public ShiftComment addComment(ShiftComment shiftComment) {
     return shiftCommentRepository.save(shiftComment);
   }
 
@@ -71,7 +64,8 @@ public class WorkCommentServiceImpl implements WorkCommentService {
     Date from = searchDate.toDate();
     Date to = searchDate.plusHours(24).toDate();
 
-    return shiftCommentRepository.getAllByLastThreeWorkShiftId( workShiftId);
+    return null;
+//    return shiftCommentRepository.getAllByLastThreeWorkShiftId( workShiftId);
   }
 
   @Override

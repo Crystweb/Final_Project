@@ -19,10 +19,7 @@ public interface ShiftCommentRepository extends JpaRepository<ShiftComment, Long
   @Query("SELECT MAX(id) FROM ShiftComment")
   Integer getMaxId();
 
-  @Query(value = "SELECT * FROM shift_comment WHERE w_shift_id = :workShiftId AND c_date BETWEEN :from AND :to",
-          nativeQuery = true)
-  List<ShiftComment> findAllByDateBetweenAndWorkShift_Id(@Param("from") Date from,
-                                                         @Param("to") Date to,
-                                                         @Param("workShiftId") Long workShiftId);
+  List<ShiftComment> findAllByDateBetween(Date from, Date to);
 
+  List<ShiftComment> findAllByDateAfter(Date date);
 }

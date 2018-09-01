@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
@@ -29,7 +30,7 @@ public class Employee implements Serializable {
   @JsonIgnore
   private User user;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "p_id")
   @JsonIgnore
   private Position position;

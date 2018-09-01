@@ -6,11 +6,9 @@ import java.util.List;
 
 public interface WorkCommentService {
 
-  List<ShiftComment> getShiftCommentsByDate(Long miliseconds, Long workShiftId);
+  List<ShiftComment> getShiftCommentsByDate(Long miliseconds);
 
-  List<ShiftComment> getComments(Long workShiftId);
-
-  ShiftComment addComment(Long  workShiftId, ShiftComment shiftComment);
+  ShiftComment addComment(ShiftComment shiftComment);
 
   void deleteCommentById(Long commentId);
 

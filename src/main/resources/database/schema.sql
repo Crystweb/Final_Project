@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `shift_comment_position` (
     PRIMARY KEY (`comment_id`, `position_id`),
     FOREIGN KEY (`comment_id`) REFERENCES `shift_comment` (`id`),
     FOREIGN KEY (`position_id`) REFERENCES `position` (`id`)
-)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `location` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,

@@ -45,9 +45,4 @@ public class WorkShift {
   @JoinColumn(name = "position_id")
   private Position position;
 
-  @ToString.Exclude
-  @EqualsAndHashCode.Exclude
-  @JsonIgnoreProperties("workShift")
-  @OneToMany(mappedBy = "workShift", fetch = FetchType.EAGER)
-  private List<ShiftComment> shiftComments;
 }
