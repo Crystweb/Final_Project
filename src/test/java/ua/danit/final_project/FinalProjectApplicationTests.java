@@ -856,6 +856,19 @@ public class FinalProjectApplicationTests {
     ShiftComment insertedComment = workCommentService.addComment(commentFromDB);
     Assert.assertEquals(insertedComment, workCommentService.getCommentById(insertedComment.getId()));
   }
+
+  @Test
+  public void getCommentById() {
+    ShiftComment expected = workCommentService.getCommentById(1L);
+    ShiftComment actual = workCommentService.getCommentById(1L);
+    Assert.assertEquals(expected, actual);
+  }
+
+  @Test
+  public void getSizeOfListPosition() {
+    int size = positionService.getAll().size();
+    Assert.assertEquals(4, size);
+  }
 }
 
 
