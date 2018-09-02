@@ -17,6 +17,7 @@ DROP TABLE IF EXISTS `task_comment`;
 DROP TABLE IF EXISTS `task_location`;
 DROP TABLE IF EXISTS `task`;
 DROP TABLE IF EXISTS `location`;
+DROP TABLE IF EXISTS `shift_comment_position`;
 DROP TABLE IF EXISTS `shift_comment`;
 DROP TABLE IF EXISTS `work_shift`;
 DROP TABLE IF EXISTS `schedule`;
@@ -106,12 +107,18 @@ CREATE TABLE IF NOT EXISTS `work_shift` (
 CREATE TABLE IF NOT EXISTS `shift_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `u_id` BIGINT NOT NULL,
-  `w_shift_id` BIGINT NOT NULL,
   `c_message` VARCHAR(511) NOT NULL,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
-  FOREIGN KEY (`w_shift_id`) REFERENCES `work_shift`(`id`)
+  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `shift_comment_position` (
+    `comment_id` BIGINT NOT NULL,
+    `position_id` BIGINT NOT NULL,
+    PRIMARY KEY (`comment_id`, `position_id`),
+    FOREIGN KEY (`comment_id`) REFERENCES `shift_comment` (`id`),
+    FOREIGN KEY (`position_id`) REFERENCES `position` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `location` (

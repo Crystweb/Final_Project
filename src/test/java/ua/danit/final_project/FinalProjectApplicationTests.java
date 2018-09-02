@@ -588,7 +588,6 @@ public class FinalProjectApplicationTests {
   public void ShiftCommentCRUD() {
     ShiftComment data = new ShiftComment();
     data.setUser(userService.getById(1l));
-    data.setWorkShift(workShiftService.getById(1l));
     data.setMessage("message 1");
     data.setDate(new Timestamp(1534770516));
 
@@ -844,39 +843,31 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void getSizeOfListOfCommentsByDate() {
-    Integer size = workCommentService.getShiftCommentsByDate(System.currentTimeMillis(), 1l).size();
-    Assert.assertEquals(2, (int) size);
-  }
-
-  @Test
-  public void getComments() {
-    List<ShiftComment> comments = workCommentService.getComments(1l);
-    Integer size = comments.size();
-    Assert.assertEquals(2, (int) size);
-  }
-
-  @Test
   public void deleteCommentByIdAndAddComment() {
-    ShiftComment commentFromDB = workCommentService.getCommentById(1l);
-    workCommentService.deleteCommentById(1l);
+    ShiftComment commentFromDB = workCommentService.getCommentById(1L);
+    workCommentService.deleteCommentById(1L);
     try {
-      workCommentService.getCommentById(1l);
-      Assert.assertNull(1l);
+      workCommentService.getCommentById(1L);
+      Assert.assertNull(1L);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
     }
 
-    ShiftComment insertedComment = workCommentService.addComment( commentFromDB.getWorkShift().getId(), commentFromDB);
+    ShiftComment insertedComment = workCommentService.addComment(commentFromDB);
     Assert.assertEquals(insertedComment, workCommentService.getCommentById(insertedComment.getId()));
   }
 
   @Test
-  public void getCommentsOfLastWorkShifts() {
-    int size = workCommentService.getCommentsOfLastWorkShifts(1l).size();
-    Assert.assertEquals(1, size);
+  public void getCommentById() {
+    ShiftComment expected = workCommentService.getCommentById(2L);
+    Assert.assertEquals(expected, expected);
   }
 
+  @Test
+  public void getSizeOfListPosition() {
+    int size = positionService.getAll().size();
+    Assert.assertEquals(4, size);
+  }
 }
 
 

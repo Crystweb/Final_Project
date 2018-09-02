@@ -3,11 +3,8 @@ package ua.danit.final_project.services;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.ShiftComment;
-import ua.danit.final_project.entities.WorkShift;
 import ua.danit.final_project.repositories.ShiftCommentRepository;
-import ua.danit.final_project.repositories.WorkShiftRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.sql.Timestamp;
@@ -17,40 +14,27 @@ import java.util.List;
 @Service
 public class WorkCommentServiceImpl implements WorkCommentService {
 
-  private final WorkShiftRepository workShiftRepository;
   private final ShiftCommentRepository shiftCommentRepository;
 
   @Autowired
-  public WorkCommentServiceImpl(WorkShiftRepository workShiftRepository,
-                                ShiftCommentRepository shiftCommentRepository) {
-    this.workShiftRepository = workShiftRepository;
+  public WorkCommentServiceImpl(ShiftCommentRepository shiftCommentRepository) {
     this.shiftCommentRepository = shiftCommentRepository;
   }
 
   @Override
-  public List<ShiftComment> getShiftCommentsByDate(Long miliseconds, Long workShiftId) {
-    Timestamp date = new Timestamp(miliseconds);
+  public List<ShiftComment> getShiftCommentsByDate(Long milliseconds) {
+    if (milliseconds == null) {
+      return shiftCommentRepository.findAllByDateAfter(DateTime.now().minusDays(1).toDate());
+    }
+    Timestamp date = new Timestamp(milliseconds);
     DateTime searchDate = new DateTime(date).withTimeAtStartOfDay();
     Date from = searchDate.toDate();
-    Date to = searchDate.plusHours(24).toDate();
-    return shiftCommentRepository.findAllByDateBetweenAndWorkShift_Id(from, to, workShiftId);
+    Date to = searchDate.minusHours(24).toDate();
+    return shiftCommentRepository.findAllByDateBetween(from, to);
   }
 
   @Override
-  public List<ShiftComment> getComments(Long workShiftId) {
-    return workShiftRepository
-            .findById(workShiftId)
-            .orElseThrow(EntityNotFoundException::new)
-            .getShiftComments();
-  }
-
-  @Override
-  public ShiftComment addComment(Long workShiftId, ShiftComment shiftComment) {
-    WorkShift workShift = workShiftRepository.findById(workShiftId).orElseThrow(EntityNotFoundException::new);
-    shiftComment.setWorkShift(workShift);
-
-    shiftComment.setUser(StaticCollection.getUser());
-
+  public ShiftComment addComment(ShiftComment shiftComment) {
     return shiftCommentRepository.save(shiftComment);
   }
 
@@ -65,11 +49,13 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   }
 
   @Override
-  public List<ShiftComment> getCommentsOfLastWorkShifts(Long workShiftId) {
-    Integer id = shiftCommentRepository.getMaxId();
-    Long maxId = Long.parseLong("" + (id - 2));
+  public List<ShiftComment> getCommentsOfLastWorkShifts() {
+    Timestamp date = new Timestamp(System.currentTimeMillis());
+    DateTime searchDate = new DateTime(date);
+    Date from = searchDate.toDate();
+    Date to = searchDate.minusHours(24).toDate();
 
-    return shiftCommentRepository.getAllByLastThreeWorkShiftId(maxId, workShiftId);
+    return shiftCommentRepository.findAllByDateBetween(from, to);
   }
 
   @Override

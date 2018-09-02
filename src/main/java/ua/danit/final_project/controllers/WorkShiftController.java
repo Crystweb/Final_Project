@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.danit.final_project.configuration.StaticCollection;
@@ -28,26 +29,21 @@ public class WorkShiftController {
     this.workCommentService = workCommentService;
   }
 
-  @GetMapping("/{ws_id}/{miliseconds}")
-  public List<ShiftComment> getByDate(@PathVariable("miliseconds") Long miliseconds,
-                                      @PathVariable("ws_id") Long workShiftId) {
-    return workCommentService.getShiftCommentsByDate(miliseconds, workShiftId);
+  @GetMapping
+  public List<ShiftComment> getByDate(@RequestParam(name = "date", required = false) Long millis) {
+    return workCommentService.getShiftCommentsByDate(millis);
   }
 
-  @GetMapping("/{ws_id}/comment")
-  public List<ShiftComment> getComments(@PathVariable("ws_id") Long workShiftId) {
-    return workCommentService.getComments(workShiftId);
-  }
 
-  @GetMapping("/{ws_id}")
-  public List<ShiftComment> getCommentsOfLastWorkShifts(@PathVariable("ws_id") Long workShiftId) {
-    return workCommentService.getCommentsOfLastWorkShifts(workShiftId);
+  @GetMapping("/")
+  public List<ShiftComment> getCommentsOfLastWorkShifts() {
+    return workCommentService.getCommentsOfLastWorkShifts();
   }
 
   @PostMapping("/{ws_id}/comment")
-  public ResponseEntity<ShiftComment> createComment(@PathVariable("ws_id") Long id,
-                                                    @RequestBody ShiftComment shiftComment) {
-    shiftComment = workCommentService.addComment(id, shiftComment);
+  public ResponseEntity<ShiftComment> createComment(@RequestBody ShiftComment shiftComment) {
+    shiftComment.setUser(StaticCollection.getUser());
+    shiftComment = workCommentService.addComment(shiftComment);
 
     URI location = ServletUriComponentsBuilder
             .fromCurrentRequest()

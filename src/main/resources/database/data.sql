@@ -33,7 +33,7 @@ INSERT INTO `user_role` (u_id, r_id) VALUES (2,5);
 
 INSERT INTO `position` (p_title) VALUES ('manager');
 INSERT INTO `position` (p_title) VALUES ('admin');
-INSERT INTO `position` (p_title) VALUES ('waiter');
+INSERT INTO `position` (p_title) VALUES ('managing director');
 INSERT INTO `position` (p_title) VALUES ('cleaner');
 
 
@@ -41,17 +41,27 @@ INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_
 INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '094586403', 'blablabla2');
 
 
-INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '19:30:10', '20:30:10' );
-INSERT INTO `schedule` (p_id, start, end) VALUES (1,  '21:00:30', '23:30:10' );
-INSERT INTO `schedule` (p_id, start, end) VALUES (3,  '08:55:10', '10:30:10' );
+INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '10:00:00', '21:00:00' );
+INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '21:00:00', '10:00:00' );
+INSERT INTO `schedule` (p_id, start, end) VALUES (1,  '08:00:00', '20:00:00' );
 
 INSERT INTO `work_shift` (position_id, start, end, date) VALUES (1, '23:30:10', '00:40:10', CURRENT_TIMESTAMP);
 INSERT INTO `work_shift` (position_id, start, end, date) VALUES (2, '10:30:10', '15:30:10', CURRENT_TIMESTAMP);
 INSERT INTO `work_shift` (position_id, start, end, date) VALUES (2, '13:30:10', '16:30:10', CURRENT_TIMESTAMP);
 
-INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (1, 1, 'message 1', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (2, 1, 'message 2', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, w_shift_id, c_message, c_date) VALUES (3, 2, 'message 3', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'message to admin', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Hello, admin', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'message to manager', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Hello, manager', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'message to managing director', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Hello, Edward :)', CURRENT_TIMESTAMP);
+
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (1, 1);
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (1, 2);
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (2, 2);
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (2, 1);
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (3, 3);
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (3, 1);
 
 INSERT INTO `location` (l_title, l_info) VALUES ('restaurant 1', 'restaurant in hotel');
 INSERT INTO `location` (l_title, l_info) VALUES ('restaurant 2', 'restaurant outside');
