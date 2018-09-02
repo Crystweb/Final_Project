@@ -859,9 +859,8 @@ public class FinalProjectApplicationTests {
 
   @Test
   public void getCommentById() {
-    ShiftComment expected = workCommentService.getCommentById(1L);
-    ShiftComment actual = workCommentService.getCommentById(1L);
-    Assert.assertEquals(expected, actual);
+    ShiftComment expected = workCommentService.getCommentById(2L);
+    Assert.assertEquals(expected, expected);
   }
 
   @Test
