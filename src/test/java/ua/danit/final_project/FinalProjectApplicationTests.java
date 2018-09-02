@@ -856,8 +856,6 @@ public class FinalProjectApplicationTests {
     ShiftComment insertedComment = workCommentService.addComment(commentFromDB);
     Assert.assertEquals(insertedComment, workCommentService.getCommentById(insertedComment.getId()));
   }
-
-
 }
 
 
