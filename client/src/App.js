@@ -22,14 +22,15 @@ import routes from './constants/routes'
 import ShiftHistoryAdmin from './pages/shifts/ShiftHistoryAdmin'
 import ShiftHistoryManager from './pages/shifts/ShiftHistoryManager'
 import { connect } from 'react-redux'
-import { addCurrentUser } from './actions/actions'
-import axios from 'axios'
+import { addAllPositions, addCurrentUser } from './actions/actions'
 import Preloader from './components/Preloader'
+import { startData } from './utils/Utills'
 
 class App extends Component {
   componentDidMount () {
-    axios.get('/user')
-      .then(response => this.props.addUser(response.data))
+    startData(
+      data => { this.props.addUser(data) },
+      data => { this.props.addAllPositions(data) })
   }
 
   render () {
@@ -77,6 +78,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addUser: (data) => {
       dispatch(addCurrentUser(data))
+    },
+    addAllPositions: (data) => {
+      dispatch(addAllPositions(data))
     }
   }
 }

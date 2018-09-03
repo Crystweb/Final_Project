@@ -10,9 +10,9 @@ INSERT INTO `role` (`r_name`) VALUES ('seniorHousemaid');
 INSERT INTO `role` (`r_name`) VALUES ('seniorBartender');
 INSERT INTO `role` (`r_name`) VALUES ('stateFarm');
 
-INSERT INTO `user` (u_login, u_password) VALUES ('rostyslav@mail.com','1');
-INSERT INTO `user` (u_login, u_password) VALUES ('myroslav@mail.com','1');
-INSERT INTO `user` (u_login, u_password) VALUES ('vas@mail.com','1');
+INSERT INTO `user` (u_login, u_password) VALUES ('Andrew Shevchenko','1');
+INSERT INTO `user` (u_login, u_password) VALUES ('Cristiano Ronaldo','1');
+INSERT INTO `user` (u_login, u_password) VALUES ('Johny Depp','1');
 
 INSERT INTO `permission` (p_name) VALUES ('change comment');
 INSERT INTO `permission` (p_name) VALUES ('create vacancy');
@@ -49,7 +49,7 @@ INSERT INTO `work_shift` (position_id, start, end, date) VALUES (1, '23:30:10', 
 INSERT INTO `work_shift` (position_id, start, end, date) VALUES (2, '10:30:10', '15:30:10', CURRENT_TIMESTAMP);
 INSERT INTO `work_shift` (position_id, start, end, date) VALUES (2, '13:30:10', '16:30:10', CURRENT_TIMESTAMP);
 
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'message to admin', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'message to admin ', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Hello, admin', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'message to manager', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Hello, manager', CURRENT_TIMESTAMP);

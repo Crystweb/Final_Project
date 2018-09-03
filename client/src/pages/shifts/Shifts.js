@@ -8,6 +8,13 @@ import { connect } from 'react-redux'
 import { addShift } from '../../actions/actions'
 
 class Shifts extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      view: 'manager'
+    }
+  }
+
   componentDidMount () {
     getLastShift(data => {
       this.props.addShift(data)
@@ -15,26 +22,28 @@ class Shifts extends Component {
   }
 
   render () {
-    if (!this.props.lastShift) {
+    if (!this.props.lastComments) {
       return (
         <div>
           <Preloader/>
         </div>
       )
     } else {
+      const {position, lastComments} = this.props
+      let positionComments = []
+      for (let i = 0; i < lastComments.length; i++) {
+        let currentComment = lastComments[i]
+        for (let i = 0; i < currentComment.length; i++) {
+          positionComments = currentComment.filter(position[i].title.contains(this.state.view))
+        }
+      }
+      const selectPositionInputs = position.map(position =>
+        <p><input name="position" type='radio' key={position.id} value={position.title} on/>{position.title}</p>)
       return (
         <div className="container">
           <section className="comments">
-            <h2>{this.props.lastShift && this.props.lastShift.map(shift =>
-              <li key={shift.id}>
-                <h2>{shift.start} - {shift.end}</h2>
-                {shift.shiftComments.map(comment =>
-                  <li key={comment.id}>
-                    <h3>{comment.message}</h3>
-                    <h6>{comment.date}</h6>
-                  </li>)}
-              </li>
-            )}</h2>
+            {selectPositionInputs}
+            {positionComments}
           </section>
           <nav className="navigation">
             <ul>
@@ -49,7 +58,10 @@ class Shifts extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {lastShift: state.shift.lastShift}
+  return {
+    lastComments: state.shift.lastComments,
+    position: state.user.positions
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

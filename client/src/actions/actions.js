@@ -20,3 +20,10 @@ export function addCurrentUser (user) {
     user
   }
 }
+
+export function addAllPositions (positions) {
+  return {
+    type: types.GET_ALL_POSITIONS,
+    positions
+  }
+}
