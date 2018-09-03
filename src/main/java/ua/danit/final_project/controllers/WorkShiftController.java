@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.danit.final_project.configuration.StaticCollection;
+import ua.danit.final_project.dto.ShiftCommentDTO;
 import ua.danit.final_project.entities.ShiftComment;
 import ua.danit.final_project.services.WorkCommentService;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/workshift")
@@ -30,8 +32,11 @@ public class WorkShiftController {
   }
 
   @GetMapping
-  public List<ShiftComment> getByDate(@RequestParam(name = "date", required = false) Long millis) {
-    return workCommentService.getShiftCommentsByDate(millis);
+  public List<ShiftCommentDTO> getByDate(@RequestParam(name = "date", required = false) Long millis) {
+    return workCommentService.getShiftCommentsByDate(millis)
+            .stream()
+            .map(ShiftCommentDTO::new)
+            .collect(Collectors.toList());
   }
 
 
@@ -42,7 +47,7 @@ public class WorkShiftController {
 
   @PostMapping("/{ws_id}/comment")
   public ResponseEntity<ShiftComment> createComment(@RequestBody ShiftComment shiftComment) {
-    shiftComment.setUser(StaticCollection.getUser());
+    shiftComment.setAuthor(StaticCollection.getUser());
     shiftComment = workCommentService.addComment(shiftComment);
 
     URI location = ServletUriComponentsBuilder
@@ -58,7 +63,7 @@ public class WorkShiftController {
   public ResponseEntity<ShiftComment> updateComment(@RequestBody ShiftComment shiftComment) {
     ShiftComment comment = workCommentService.getCommentById(shiftComment.getId());
 
-    if (StaticCollection.getUser().getId() != comment.getUser().getId()) {
+    if (StaticCollection.getUser().getId() != comment.getAuthor().getId()) {
       return ResponseEntity.notFound().build();
     }
 
@@ -70,7 +75,7 @@ public class WorkShiftController {
   public ResponseEntity<ShiftComment> deleteComment(@PathVariable("c_id") Long id) {
     ShiftComment comment = workCommentService.getCommentById(id);
 
-    if (StaticCollection.getUser().getId() != comment.getUser().getId()) {
+    if (StaticCollection.getUser().getId() != comment.getAuthor().getId()) {
       return ResponseEntity.notFound().build();
     }
 

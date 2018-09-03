@@ -10,9 +10,9 @@ INSERT INTO `role` (`r_name`) VALUES ('seniorHousemaid');
 INSERT INTO `role` (`r_name`) VALUES ('seniorBartender');
 INSERT INTO `role` (`r_name`) VALUES ('stateFarm');
 
-INSERT INTO `user` (u_login, u_password) VALUES ('rostyslav@mail.com','1');
-INSERT INTO `user` (u_login, u_password) VALUES ('myroslav@mail.com','1');
-INSERT INTO `user` (u_login, u_password) VALUES ('vas@mail.com','1');
+INSERT INTO `author` (u_login, u_password) VALUES ('rostyslav@mail.com','1');
+INSERT INTO `author` (u_login, u_password) VALUES ('myroslav@mail.com','1');
+INSERT INTO `author` (u_login, u_password) VALUES ('vas@mail.com','1');
 
 INSERT INTO `permission` (p_name) VALUES ('change comment');
 INSERT INTO `permission` (p_name) VALUES ('create vacancy');

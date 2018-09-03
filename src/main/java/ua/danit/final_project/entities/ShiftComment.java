@@ -35,7 +35,7 @@ public class ShiftComment implements Serializable {
   @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id", nullable = false)
   @JsonIgnoreProperties("roles")
-  private User user;
+  private User author;
 
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @ToString.Exclude

@@ -581,7 +581,7 @@ public class FinalProjectApplicationTests {
   @Test
   public void ShiftCommentCRUD() {
     ShiftComment data = new ShiftComment();
-    data.setUser(userService.getById(1l));
+    data.setAuthor(userService.getById(1l));
     data.setMessage("message 1");
     data.setDate(new Timestamp(1534770516));
 

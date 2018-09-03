@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `work_shift`;
 DROP TABLE IF EXISTS `schedule`;
 DROP TABLE IF EXISTS `employee`;
 DROP TABLE IF EXISTS `user_role`;
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `author`;
 DROP TABLE IF EXISTS `position`;
 DROP TABLE IF EXISTS `role_permission`;
 DROP TABLE IF EXISTS `role`;
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `position` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE IF NOT EXISTS `author` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `u_login` VARCHAR(32) NOT NULL UNIQUE,
   `u_password` VARCHAR(32) NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   `u_id` BIGINT NOT NULL,
   `r_id` BIGINT NOT NULL,
   PRIMARY KEY (`u_id`, `r_id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`u_id`) REFERENCES `author`(`id`),
   FOREIGN KEY (`r_id`) REFERENCES `role`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `e_phone_number` VARCHAR(32),
   `e_info` VARCHAR(255),
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`u_id`) REFERENCES `author`(`id`),
   FOREIGN KEY (`p_id`) REFERENCES `position`(`id`),
   CONSTRAINT `u_p_id` UNIQUE (`u_id`, `p_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `shift_comment` (
   `c_message` VARCHAR(511) NOT NULL,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`u_id`) REFERENCES `author`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `shift_comment_position` (
@@ -130,8 +130,8 @@ CREATE TABLE IF NOT EXISTS `task` (
   `t_frequency` VARCHAR(31) CHECK (`t_frequency` in ('DAILY', 'WEEKLY', 'MONTHLY')),
   `updated` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id_assignee`) REFERENCES `user`(`id`),
-  FOREIGN KEY (`u_id_delegator`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`u_id_assignee`) REFERENCES `author`(`id`),
+  FOREIGN KEY (`u_id_delegator`) REFERENCES `author`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `task_location` (
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `task_comment` (
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`t_id`) REFERENCES `task`(`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`u_id`) REFERENCES `author`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `consumer` (
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `food_supply` (
   `f_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`m_id`) REFERENCES `mealtime_category`(`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`u_id`) REFERENCES `author`(`id`),
   FOREIGN KEY (`c_id`) REFERENCES `consumer`(`id`),
   FOREIGN KEY (`l_id`) REFERENCES `location`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `vacancy` (
   `p_publication` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`p_id`) REFERENCES `position` (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
+  FOREIGN KEY (`u_id`) REFERENCES `author` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `vacancy_comment` (
@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `vacancy_comment` (
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`v_id`) REFERENCES `vacancy` (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
+  FOREIGN KEY (`u_id`) REFERENCES `author` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `bed_linen_type` (
@@ -218,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `bed_linen_stats` (
   `b_amount` INT,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`),
+  FOREIGN KEY (`u_id`) REFERENCES `author` (`id`),
   FOREIGN KEY (`b_id`) REFERENCES `bed_linen_type`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -242,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `wash_stats` (
   `w_weight` INT,
   `date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`),
+  FOREIGN KEY (`u_id`) REFERENCES `author` (`id`),
   FOREIGN KEY (`w_p_id`) REFERENCES `wash_period`(`id`),
   FOREIGN KEY (`c_id`) REFERENCES `consumer` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
@@ -273,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `dish_balance` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`d_id`) REFERENCES `dish_type`(`id`),
   FOREIGN KEY (`l_id`) REFERENCES `location`(`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`u_id`) REFERENCES `author`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `dish_accounting` (
@@ -286,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `dish_accounting` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`d_id`) REFERENCES `dish_type`(`id`),
   FOREIGN KEY (`l_id`) REFERENCES `location`(`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`u_id`) REFERENCES `author`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `dish_comment` (
@@ -297,5 +297,5 @@ CREATE TABLE IF NOT EXISTS `dish_comment` (
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`d_id`) REFERENCES `dish_accounting` (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
+  FOREIGN KEY (`u_id`) REFERENCES `author` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
