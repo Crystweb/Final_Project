@@ -47,7 +47,7 @@ public class User implements Serializable {
   @EqualsAndHashCode.Exclude
   private List<Role> roles;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "position_id")
   private Position position;
 }
