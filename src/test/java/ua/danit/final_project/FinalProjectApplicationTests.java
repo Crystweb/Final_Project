@@ -32,7 +32,6 @@ import ua.danit.final_project.entities.VacancyComment;
 import ua.danit.final_project.entities.WashPeriod;
 import ua.danit.final_project.entities.WashStats;
 import ua.danit.final_project.entities.WashStatsMaterial;
-import ua.danit.final_project.entities.WorkShift;
 import ua.danit.final_project.services.WorkCommentService;
 import ua.danit.final_project.services.crud.BedLinenStatsService;
 import ua.danit.final_project.services.crud.BedLinenTypeService;
@@ -59,13 +58,11 @@ import ua.danit.final_project.services.crud.VacancyService;
 import ua.danit.final_project.services.crud.WashPeriodService;
 import ua.danit.final_project.services.crud.WashStatsMaterialService;
 import ua.danit.final_project.services.crud.WashStatsService;
-import ua.danit.final_project.services.crud.WorkShiftService;
 
 import javax.persistence.EntityNotFoundException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -145,9 +142,6 @@ public class FinalProjectApplicationTests {
 
   @Autowired
   WashStatsMaterialService washStatsMaterialService;
-
-  @Autowired
-  WorkShiftService workShiftService;
 
   @Autowired
   WorkCommentService workCommentService;
@@ -806,34 +800,6 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void WorkShiftCRUD() {
-    WorkShift data = new WorkShift();
-    data.setPosition(positionService.getById(1L));
-    data.setStart(new Time(System.currentTimeMillis()));
-    data.setEnd(new Time(System.currentTimeMillis()));
-    data.setDate(new Timestamp(System.currentTimeMillis()));
-
-    WorkShift actualPOST = workShiftService.save(data);
-    Assert.assertEquals(data, actualPOST);
-
-    WorkShift actualGET = workShiftService.getById(data.getId());
-    Assert.assertEquals(data, actualGET);
-
-    data.setDate(new Timestamp(System.currentTimeMillis() + 1000));
-    WorkShift actualPUT = workShiftService.save(data);
-    Assert.assertEquals(data, actualPUT);
-
-    workShiftService.deleteById(data.getId());
-    try {
-      WorkShift actualDELETE = workShiftService.getById(data.getId());
-      Assert.assertNull(actualDELETE);
-    } catch (EntityNotFoundException ex) {
-      Assert.assertNull(null);
-    }
-
-  }
-
-  @Test
   public void getStaticUser() {
     User expected = new User();
     expected.setId(1L);
@@ -866,7 +832,7 @@ public class FinalProjectApplicationTests {
   @Test
   public void getSizeOfListPosition() {
     int size = positionService.getAll().size();
-    Assert.assertEquals(4, size);
+    Assert.assertEquals(3, size);
   }
 }
 
