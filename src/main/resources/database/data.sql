@@ -10,9 +10,14 @@ INSERT INTO `role` (`r_name`) VALUES ('seniorHousemaid');
 INSERT INTO `role` (`r_name`) VALUES ('seniorBartender');
 INSERT INTO `role` (`r_name`) VALUES ('stateFarm');
 
-INSERT INTO `user` (u_login, u_password) VALUES ('Andrew Shevchenko','1');
-INSERT INTO `user` (u_login, u_password) VALUES ('Cristiano Ronaldo','1');
-INSERT INTO `user` (u_login, u_password) VALUES ('Johny Depp','1');
+INSERT INTO `position` (p_title) VALUES ('manager');
+INSERT INTO `position` (p_title) VALUES ('admin');
+INSERT INTO `position` (p_title) VALUES ('managing director');
+INSERT INTO `position` (p_title) VALUES ('cleaner');
+
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Andrew Shevchenko','1', 1);
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Cristiano Ronaldo','1', 2);
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Johny Depp','1', 3);
 
 INSERT INTO `permission` (p_name) VALUES ('change comment');
 INSERT INTO `permission` (p_name) VALUES ('create vacancy');
@@ -30,12 +35,6 @@ INSERT INTO `user_role` (u_id, r_id) VALUES (1,1);
 INSERT INTO `user_role` (u_id, r_id) VALUES (1,2);
 INSERT INTO `user_role` (u_id, r_id) VALUES (2,3);
 INSERT INTO `user_role` (u_id, r_id) VALUES (2,5);
-
-INSERT INTO `position` (p_title) VALUES ('manager');
-INSERT INTO `position` (p_title) VALUES ('admin');
-INSERT INTO `position` (p_title) VALUES ('managing director');
-INSERT INTO `position` (p_title) VALUES ('cleaner');
-
 
 INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'blablabla1');
 INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '094586403', 'blablabla2');
