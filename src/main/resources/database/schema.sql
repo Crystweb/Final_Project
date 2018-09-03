@@ -96,16 +96,6 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   FOREIGN KEY (`p_id`) REFERENCES `position`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS `work_shift` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `position_id` BIGINT NOT NULL,
-  `start` TIME NOT NULL,
-  `end` TIME NOT NULL,
-  `date` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`position_id`) REFERENCES `position`(`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
 CREATE TABLE IF NOT EXISTS `shift_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `u_id` BIGINT NOT NULL,
