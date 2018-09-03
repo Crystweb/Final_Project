@@ -27,13 +27,13 @@ public class DishComment implements Serializable {
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "u_id", nullable = false)
+  @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "d_id", nullable = false)
+  @JoinColumn(name = "dish_id", nullable = false)
   private DishAccounting dishAccounting;
 
   @Column(name = "c_message", nullable = false)

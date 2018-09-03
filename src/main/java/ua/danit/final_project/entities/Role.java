@@ -39,15 +39,15 @@ public class Role implements Serializable {
   @EqualsAndHashCode.Exclude
   @JoinTable(
           name = "role_permission",
-          joinColumns = {@JoinColumn(name = "r_id")},
-          inverseJoinColumns = {@JoinColumn(name = "p_id")})
+          joinColumns = {@JoinColumn(name = "role_id")},
+          inverseJoinColumns = {@JoinColumn(name = "permission_id")})
   private List<Permission> permissions;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinTable(name = "user_role",
-          joinColumns = {@JoinColumn(name = "r_id")},
-          inverseJoinColumns = {@JoinColumn(name = "u_id")})
+          joinColumns = {@JoinColumn(name = "role_id")},
+          inverseJoinColumns = {@JoinColumn(name = "user_id")})
   private List<User> users;
 }

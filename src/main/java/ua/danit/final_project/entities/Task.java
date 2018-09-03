@@ -33,13 +33,13 @@ public class Task implements Serializable {
   @ManyToOne //Чи можна делегувати задачу декільком працівникам?
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "u_id_assignee")
+  @JoinColumn(name = "user_id_assignee")
   private User assignee;
 
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "u_id_delegator", nullable = false)
+  @JoinColumn(name = "user_id_delegator", nullable = false)
   private User delegator;
 
   @Column(name = "t_message")
@@ -60,6 +60,6 @@ public class Task implements Serializable {
   @JoinTable(
           name = "task_location",
           joinColumns = {@JoinColumn(name = "t_id")},
-          inverseJoinColumns = {@JoinColumn(name = "l_id")})
+          inverseJoinColumns = {@JoinColumn(name = "location_id")})
   private List<Location> locations;
 }

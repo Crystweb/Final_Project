@@ -30,7 +30,7 @@ public class BedLinenStats implements Serializable {
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "u_id", nullable = false)
+  @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
   @ManyToOne

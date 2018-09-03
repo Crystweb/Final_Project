@@ -36,8 +36,8 @@ public class Permission implements Serializable {
   @EqualsAndHashCode.Exclude
   @JoinTable(
           name = "role_permission",
-          joinColumns = {@JoinColumn(name = "p_id")},
-          inverseJoinColumns = {@JoinColumn(name = "r_id")})
+          joinColumns = {@JoinColumn(name = "permission_id")},
+          inverseJoinColumns = {@JoinColumn(name = "role_id")})
   private List<Role> roles;
 
 

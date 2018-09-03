@@ -41,8 +41,8 @@ public class User implements Serializable {
   @JsonIgnore
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinTable(name = "user_role",
-          joinColumns = {@JoinColumn(name = "u_id")},
-          inverseJoinColumns = {@JoinColumn(name = "r_id")})
+          joinColumns = {@JoinColumn(name = "user_id")},
+          inverseJoinColumns = {@JoinColumn(name = "role_id")})
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   private List<Role> roles;

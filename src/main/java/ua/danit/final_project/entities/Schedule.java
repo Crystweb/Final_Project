@@ -28,7 +28,7 @@ public class Schedule implements Serializable {
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "p_id", nullable = false)
+  @JoinColumn(name = "position_id", nullable = false)
   private Position position;
 
   @ToString.Exclude

@@ -38,7 +38,7 @@ public class Location implements Serializable {
   @EqualsAndHashCode.Exclude
   @JoinTable(
           name = "task_location",
-          joinColumns = {@JoinColumn(name = "l_id")},
+          joinColumns = {@JoinColumn(name = "location_id")},
           inverseJoinColumns = {@JoinColumn(name = "t_id")})
   private List<Task> tasks;
 }

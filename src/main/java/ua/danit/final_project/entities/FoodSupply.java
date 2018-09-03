@@ -34,7 +34,7 @@ public class FoodSupply implements Serializable {
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "u_id", nullable = false)
+  @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
   @ManyToOne
@@ -46,7 +46,7 @@ public class FoodSupply implements Serializable {
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "l_id")
+  @JoinColumn(name = "location_id")
   private Location location;
 
   @Column(name = "f_amount", nullable = false)

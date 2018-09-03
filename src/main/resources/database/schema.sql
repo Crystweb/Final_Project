@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS `role` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `role_permission` (
-  `r_id` BIGINT NOT NULL,
-  `p_id` BIGINT NOT NULL,
-  PRIMARY KEY (`r_id`, `p_id`),
-  FOREIGN KEY (`r_id`) REFERENCES `role`(`id`),
-  FOREIGN KEY (`p_id`) REFERENCES `permission`(`id`)
+  `role_id` BIGINT NOT NULL,
+  `permission_id` BIGINT NOT NULL,
+  PRIMARY KEY (`role_id`, `permission_id`),
+  FOREIGN KEY (`role_id`) REFERENCES `role`(`id`),
+  FOREIGN KEY (`permission_id`) REFERENCES `permission`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `position` (
@@ -65,35 +65,35 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `user_role` (
-  `u_id` BIGINT NOT NULL,
-  `r_id` BIGINT NOT NULL,
-  PRIMARY KEY (`u_id`, `r_id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
-  FOREIGN KEY (`r_id`) REFERENCES `role`(`id`)
+  `user_id` BIGINT NOT NULL,
+  `role_id` BIGINT NOT NULL,
+  PRIMARY KEY (`user_id`, `role_id`),
+  FOREIGN KEY (`user_id`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`role_id`) REFERENCES `role`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `employee` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL,
-  `p_id` BIGINT NOT NULL,
-  `e_forename` VARCHAR(32) NOT NULL,
-  `e_surname` VARCHAR(32) NOT NULL,
-  `e_patronymic` VARCHAR(32),
-  `e_phone_number` VARCHAR(32),
-  `e_info` VARCHAR(255),
+  `user_id` BIGINT NOT NULL,
+  `position_id` BIGINT NOT NULL,
+  `forename` VARCHAR(32) NOT NULL,
+  `surname` VARCHAR(32) NOT NULL,
+  `patronymic` VARCHAR(32),
+  `phone_number` VARCHAR(32),
+  `info` VARCHAR(255),
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
-  FOREIGN KEY (`p_id`) REFERENCES `position`(`id`),
-  CONSTRAINT `u_p_id` UNIQUE (`u_id`, `p_id`)
+  FOREIGN KEY (`user_id`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`position_id`) REFERENCES `position`(`id`),
+  CONSTRAINT `u_p_id` UNIQUE (`user_id`, `position_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `schedule` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `p_id` BIGINT NOT NULL,
+  `position_id` BIGINT NOT NULL,
   `start` TIME NOT NULL,
   `end` TIME NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`p_id`) REFERENCES `position`(`id`)
+  FOREIGN KEY (`position_id`) REFERENCES `position`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `work_shift` (
@@ -108,11 +108,11 @@ CREATE TABLE IF NOT EXISTS `work_shift` (
 
 CREATE TABLE IF NOT EXISTS `shift_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
   `c_message` VARCHAR(511) NOT NULL,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `shift_comment_position` (
@@ -133,34 +133,34 @@ CREATE TABLE IF NOT EXISTS `location` (
 
 CREATE TABLE IF NOT EXISTS `task` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id_assignee` BIGINT,
-  `u_id_delegator` BIGINT NOT NULL,
+  `user_id_assignee` BIGINT,
+  `user_id_delegator` BIGINT NOT NULL,
   `t_message` VARCHAR(1023),
   `t_status` VARCHAR(31) CHECK (`t_status` in ('OPENED', 'CLOSED', 'REJECTED', 'PENDING','IN_PROGRESS', 'EXPIRED', 'CHANGE')),
   `t_frequency` VARCHAR(31) CHECK (`t_frequency` in ('DAILY', 'WEEKLY', 'MONTHLY')),
   `updated` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id_assignee`) REFERENCES `user`(`id`),
-  FOREIGN KEY (`u_id_delegator`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`user_id_assignee`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`user_id_delegator`) REFERENCES `user`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `task_location` (
   `t_id` BIGINT NOT NULL,
-  `l_id` BIGINT NOT NULL,
-  PRIMARY KEY (`t_id`, `l_id`),
+  `location_id` BIGINT NOT NULL,
+  PRIMARY KEY (`t_id`, `location_id`),
   FOREIGN KEY (`t_id`) REFERENCES `task`(`id`),
-  FOREIGN KEY (`l_id`) REFERENCES `location`(`id`)
+  FOREIGN KEY (`location_id`) REFERENCES `location`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `task_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `t_id` BIGINT NOT NULL,
-  `u_id` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
   `c_message` VARCHAR(511) NOT NULL,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`t_id`) REFERENCES `task`(`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `consumer` (
@@ -179,40 +179,40 @@ CREATE TABLE IF NOT EXISTS `mealtime_category` (
 CREATE TABLE IF NOT EXISTS `food_supply` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `m_id` BIGINT NOT NULL,
-  `u_id` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
   `c_id` BIGINT NOT NULL,
-  `l_id` BIGINT,
+  `location_id` BIGINT,
   `f_amount` INT NOT NULL,
   `f_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`m_id`) REFERENCES `mealtime_category`(`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `user`(`id`),
   FOREIGN KEY (`c_id`) REFERENCES `consumer`(`id`),
-  FOREIGN KEY (`l_id`) REFERENCES `location`(`id`)
+  FOREIGN KEY (`location_id`) REFERENCES `location`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `vacancy` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL,
-  `p_id` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
+  `position_id` BIGINT NOT NULL,
   `v_salary` VARCHAR(32),
   `v_status` VARCHAR(15) NOT NULL CHECK(`v_status` IN ('OPENED', 'CLOSED')),
   `v_info` VARCHAR(255) NOT NULL,
   `p_publication` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`p_id`) REFERENCES `position` (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
+  FOREIGN KEY (`position_id`) REFERENCES `position` (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `vacancy_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
   `v_id` BIGINT NOT NULL,
   `c_message` VARCHAR(511) NOT NULL,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`v_id`) REFERENCES `vacancy` (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
+  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `bed_linen_type` (
@@ -223,12 +223,12 @@ CREATE TABLE IF NOT EXISTS `bed_linen_type` (
 
 CREATE TABLE IF NOT EXISTS `bed_linen_stats` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
   `b_id` BIGINT NOT NULL,
   `b_amount` INT,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   FOREIGN KEY (`b_id`) REFERENCES `bed_linen_type`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -246,13 +246,13 @@ CREATE TABLE IF NOT EXISTS `cleaning_material` (
 
 CREATE TABLE IF NOT EXISTS `wash_stats` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
   `w_p_id` BIGINT NOT NULL,
   `c_id` BIGINT,
   `w_weight` INT,
   `date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   FOREIGN KEY (`w_p_id`) REFERENCES `wash_period`(`id`),
   FOREIGN KEY (`c_id`) REFERENCES `consumer` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
@@ -275,37 +275,37 @@ CREATE TABLE IF NOT EXISTS `dish_type` (
 
 CREATE TABLE IF NOT EXISTS `dish_balance` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `d_id` BIGINT NOT NULL,
-  `l_id` BIGINT,
-  `u_id` BIGINT NOT NULL,
-  `d_amount` INTEGER NOT NULL,
+  `dish_id` BIGINT NOT NULL,
+  `location_id` BIGINT,
+  `user_id` BIGINT NOT NULL,
+  `dish_amount` INTEGER NOT NULL,
   `date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`d_id`) REFERENCES `dish_type`(`id`),
-  FOREIGN KEY (`l_id`) REFERENCES `location`(`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`dish_id`) REFERENCES `dish_type`(`id`),
+  FOREIGN KEY (`location_id`) REFERENCES `location`(`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `dish_accounting` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `d_id` BIGINT NOT NULL,
-  `l_id` BIGINT,
-  `u_id` BIGINT NOT NULL,
+  `dish_id` BIGINT NOT NULL,
+  `location_id` BIGINT,
+  `user_id` BIGINT NOT NULL,
   `d_delta` INTEGER NOT NULL,
   `date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`d_id`) REFERENCES `dish_type`(`id`),
-  FOREIGN KEY (`l_id`) REFERENCES `location`(`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`dish_id`) REFERENCES `dish_type`(`id`),
+  FOREIGN KEY (`location_id`) REFERENCES `location`(`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `dish_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL,
-  `d_id` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
+  `dish_id` BIGINT NOT NULL,
   `c_message` VARCHAR(511) NOT NULL,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`d_id`) REFERENCES `dish_accounting` (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
+  FOREIGN KEY (`dish_id`) REFERENCES `dish_accounting` (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;

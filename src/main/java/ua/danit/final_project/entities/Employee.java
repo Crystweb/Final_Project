@@ -26,27 +26,27 @@ public class Employee implements Serializable {
   private Long id;
 
   @OneToOne
-  @JoinColumn(name = "u_id")
+  @JoinColumn(name = "user_id")
   @JsonIgnore
   private User user;
 
   @ManyToOne
-  @JoinColumn(name = "p_id")
+  @JoinColumn(name = "position_id")
   @JsonIgnore
   private Position position;
 
-  @Column(name = "e_forename", nullable = false)
+  @Column(name = "forename", nullable = false)
   private String forename;
 
-  @Column(name = "e_surname", nullable = false)
+  @Column(name = "surname", nullable = false)
   private String surname;
 
-  @Column(name = "e_patronymic")
+  @Column(name = "patronymic")
   private String patronymic;
 
-  @Column(name = "e_phone_number")
+  @Column(name = "phone_number")
   private String phoneNumber;
 
-  @Column(name = "e_info")
+  @Column(name = "info")
   private String info;
 }
