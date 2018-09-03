@@ -28,7 +28,7 @@ import Preloader from './components/Preloader'
 
 class App extends Component {
   componentDidMount () {
-    axios.get('/user')
+    axios.get('/author')
       .then(response => this.props.addUser(response.data))
   }
 

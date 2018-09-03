@@ -17,12 +17,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "author")
 @Data
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User implements Serializable {
@@ -50,4 +51,7 @@ public class User implements Serializable {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "position_id")
   private Position position;
+
+  @OneToOne(mappedBy = "author")
+  private Employee employee;
 }
