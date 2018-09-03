@@ -22,9 +22,9 @@ DROP TABLE IF EXISTS `shift_comment`;
 DROP TABLE IF EXISTS `work_shift`;
 DROP TABLE IF EXISTS `schedule`;
 DROP TABLE IF EXISTS `employee`;
-DROP TABLE IF EXISTS `position`;
 DROP TABLE IF EXISTS `user_role`;
 DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `position`;
 DROP TABLE IF EXISTS `role_permission`;
 DROP TABLE IF EXISTS `role`;
 DROP TABLE IF EXISTS `permission`;
@@ -49,11 +49,19 @@ CREATE TABLE IF NOT EXISTS `role_permission` (
   FOREIGN KEY (`p_id`) REFERENCES `permission`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS `position` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `p_title` VARCHAR(127) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS `user` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `u_login` VARCHAR(32) NOT NULL UNIQUE,
   `u_password` VARCHAR(32) NOT NULL,
-  PRIMARY KEY (`id`)
+  `position_id` BIGINT,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`position_id`) REFERENCES `position`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `user_role` (
@@ -62,12 +70,6 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   PRIMARY KEY (`u_id`, `r_id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
   FOREIGN KEY (`r_id`) REFERENCES `role`(`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-CREATE TABLE IF NOT EXISTS `position` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `p_title` VARCHAR(127) NOT NULL UNIQUE,
-  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `employee` (
