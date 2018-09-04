@@ -4,6 +4,9 @@ package ua.danit.final_project.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -28,6 +31,8 @@ public class Employee implements Serializable {
   @OneToOne
   @JoinColumn(name = "u_id")
   @JsonIgnore
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   private User user;
 
   @ManyToOne
