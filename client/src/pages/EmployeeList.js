@@ -12,18 +12,18 @@ class EmployeeList extends Component {
   }
 
   componentDidMount () {
-    axios.get('/employee')
+    axios.get('http://localhost:9000/employee')
       .then(response => this.setState({users: response}))
   }
 
   render () {
-    if (!this.state.users.length) {
-      return (
-        <div>
-          <Preloader/>
-        </div>
-      )
-    } else {
+    // if (!this.state.users.length) {
+      // return (
+        {/*<div>*/}
+          {/*<Preloader/>*/}
+        {/*</div>*/}
+      // )
+    // } else {
       return (
         <ul className="employee-list">
           {this.state.users.map(function (user) {
@@ -36,7 +36,7 @@ class EmployeeList extends Component {
         </ul>
       )
     }
-  }
+  // }
 }
 
 export default EmployeeList

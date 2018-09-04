@@ -11,21 +11,36 @@ class Vacancies extends Component {
     };
     handleSubmit = event => {
         event.preventDefault();
-        axios.post(`http://localhost:9000/vacancy`, {
-            position: this.state.position,
-            salary: this.state.salary
+        axios({
+            url: '/vacancy',
+            method: 'POST',
+            data: {
+                user: this.state.user,
+                salary: this.state.salary,
+                info: this.state.info
+            }
+        });
+        axios({
+            url: '/position',
+            method: 'POST',
+            data: {
+                position: this.state.position
+            }
         })
     };
 
     constructor(props) {
         super(props);
         this.state = {
+            user: '',
             position: '',
             salary: '',
+            info: '',
             open: false
         };
         this.handlePositionChange = this.handlePositionChange.bind(this);
         this.handleSalaryChange = this.handleSalaryChange.bind(this);
+        this.handleInfoChange = this.handleInfoChange.bind(this);
     }
 
     handlePositionChange(event) {
@@ -36,6 +51,11 @@ class Vacancies extends Component {
     handleSalaryChange(event) {
         event.preventDefault();
         this.setState({salary: event.target.value});
+    }
+
+    handleInfoChange(event) {
+        event.preventDefault();
+        this.setState({info: event.target.value});
     }
 
     render() {
@@ -51,10 +71,13 @@ class Vacancies extends Component {
                             <input type="text" name={"position"} value={this.state.position}
                                    onChange={this.handlePositionChange}/>
                             Зарплата:
-                            <input type="number" name={"salary"} value={this.state.salary}
+                            <input type="text" name={"salary"} value={this.state.salary}
                                    onChange={this.handleSalaryChange}/>
+                            <br/>
+                            <textarea placeholder={'Введите Ваш коментарий'} name={"info"} value={this.state.info}
+                                      onChange={this.handleInfoChange}/>
                         </label>
-                        <input type="submit" value="Добавить"/>
+                        <input type="submit" value="Добавить" />
                     </form>
                 </Modal>
             </div>
