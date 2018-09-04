@@ -3,6 +3,7 @@ package ua.danit.final_project.dto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import ua.danit.final_project.entities.Employee;
 import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.ShiftComment;
 
@@ -34,8 +35,10 @@ public class ShiftCommentDTO implements Serializable {
     this.id = shiftComment.getId();
     this.text = shiftComment.getMessage();
     this.date = shiftComment.getDate();
-    this.forename = shiftComment.getUser().getEmployee().getForename();
-    this.surname = shiftComment.getUser().getEmployee().getSurname();
+
+    Employee employee = shiftComment.getUser().getEmployee();
+    this.forename = employee != null ? employee.getForename() : null;
+    this.surname = employee != null ? employee.getSurname() : null;
     this.positions = shiftComment.getPositions()
             .stream()
             .map(Position::getTitle)
