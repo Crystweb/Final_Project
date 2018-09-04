@@ -20,11 +20,9 @@ class Vacancies extends Component {
                     info: this.state.info,
                     salary: this.state.salary
                 }
-            },
-            onSubmitSuccess:{
-                open:false
             }
-        })
+
+        }).then(() => this.setState({open:false}))
     };
 
     constructor(props) {

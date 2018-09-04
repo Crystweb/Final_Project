@@ -23,7 +23,7 @@ public class VacancyController {
 
     @GetMapping
     public List<Vacancy> getVacancies() {
-        return vacancyService.getAll();
+        return vacancyService.getOpenVacancies();
     }
 
     @PostMapping

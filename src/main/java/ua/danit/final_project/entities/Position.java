@@ -1,8 +1,10 @@
 package ua.danit.final_project.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.CascadeType;
@@ -21,6 +23,8 @@ import java.util.List;
 @Entity
 @Table(name = "position")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Position {
 
   @Id
@@ -29,14 +33,4 @@ public class Position {
 
   @Column(name = "p_title", nullable = false, unique = true)
   private String title;
-
-  @JsonIgnore
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @ToString.Exclude
-  @EqualsAndHashCode.Exclude
-  @JoinTable(
-          name = "shift_comment_position",
-          joinColumns = {@JoinColumn(name = "position_id")},
-          inverseJoinColumns = {@JoinColumn(name = "comment_id")})
-  private List<ShiftComment> shiftComments;
 }

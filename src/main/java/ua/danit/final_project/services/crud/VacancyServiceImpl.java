@@ -10,10 +10,10 @@ import ua.danit.final_project.repositories.VacancyRepository;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.sql.Timestamp;
+import java.util.stream.Collectors;
 
 @Service
 public class VacancyServiceImpl implements VacancyService{
-  private User user = StaticCollection.getUser();
   private final VacancyRepository vacancyRepository;
 
   @Autowired
@@ -27,8 +27,10 @@ public class VacancyServiceImpl implements VacancyService{
   }
 
   @Override
-  public List<Vacancy> getAll() {
-    return vacancyRepository.findAll();
+  public List<Vacancy> getOpenVacancies() {
+    return vacancyRepository.findAll().stream()
+        .filter(v -> "OPENED".equals(v.getStatus()))
+        .collect(Collectors.toList());
   }
 
   @Override
@@ -40,7 +42,8 @@ public class VacancyServiceImpl implements VacancyService{
   public Vacancy save(Vacancy vacancy) {
     vacancy.setPublication(new Timestamp(System.currentTimeMillis()));
     vacancy.setStatus("OPENED");
-    vacancy.setUser(user);
-    return null;
+    vacancy.setUser(StaticCollection.getUser());
+    vacancy.setPosition(StaticCollection.getPosition());
+    return vacancyRepository.save(vacancy);
   }
 }
