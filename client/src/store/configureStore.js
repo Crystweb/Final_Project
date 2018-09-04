@@ -7,9 +7,9 @@ import shiftHistorySelectedDate from '../reducers/shiftHistorySelectedDate'
 import user from '../reducers/startData'
 
 const reducers = {
-  shift: shift,
+  comments: shift,
   shiftHistorySelectedDate: shiftHistorySelectedDate,
-  user: user
+  startData: user
 }
 
 const rootReducer = combineReducers(reducers)

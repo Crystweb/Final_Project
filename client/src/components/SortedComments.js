@@ -25,9 +25,8 @@ class PositionButtons extends Component {
       .filter(comment => comment.positions.includes(this.state.view))
       .map(comment =>
         <li key={comment.id} style={{marginBottom: 15}}>
-          <h5>{comment.forename} {comment.surname}</h5>
+          <h5>{comment.forename} {comment.surname}, {comment.authorPosition}</h5>
           <h3>{comment.text}</h3>
-          <h3>{comment.authorPosition}</h3>
           <h6>{new Date(comment.date).toDateString()}</h6>
         </li>
       )
@@ -35,9 +34,9 @@ class PositionButtons extends Component {
     const selectPositionInputs = position.map(position =>
       <li key={position.id}>
         <input name="position"
-               type='radio'
-               checked={this.state.view === position.title}
-               value={position.title}/>
+          type='radio'
+          checked={this.state.view === position.title}
+          value={position.title}/>
         {position.title}
       </li>
     )
@@ -52,9 +51,9 @@ class PositionButtons extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({startData}) => {
   return {
-    position: state.user.positions
+    position: startData.positions
   }
 }
 

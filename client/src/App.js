@@ -20,7 +20,7 @@ import SalesNumbers from './pages/washingDate/SalesNumbers'
 import Lodgers from './pages/washingDate/Lodgers'
 import routes from './constants/routes'
 import { connect } from 'react-redux'
-import { addAllPositions, addCurrentUser } from './actions/actions'
+import { addAllPositions, addAllSchedules, addCurrentUser } from './actions/actions'
 import Preloader from './components/Preloader'
 import { startData } from './utils/Utills'
 
@@ -68,8 +68,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({user}) => {
-  return {user: user.currentUser}
+const mapStateToProps = ({startData}) => {
+  return {user: startData.currentUser}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -81,7 +81,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(addAllPositions(data))
     },
     addSchedules: (data) => {
-      dispatch(addAllSchedules)
+      dispatch(addAllSchedules(data))
     }
   }
 }

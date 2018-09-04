@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom'
 import { getLastShift } from '../../utils/Utills'
 import { connect } from 'react-redux'
 import { addShift } from '../../actions/actions'
-import RadioButtons from '../../components/PositionButtons'
+import SortedComments from '../../components/SortedComments'
+import picture from '../../img/addComment.png'
 
 class Shifts extends Component {
   constructor (props) {
@@ -32,10 +33,13 @@ class Shifts extends Component {
     } else {
       return (
         <div className="container">
-          <RadioButtons comments={this.props.lastComments}/>
-          <nav className="navigation">
+          <SortedComments comments={this.props.lastComments}/>
+          <nav>
             <ul>
-              <li><Link to={routes.addNewComments.href}>{routes.addNewComments.name}</Link></li>
+              <li><Link to={routes.addNewComments.href}>
+                <img src={picture}/>
+              </Link>
+              </li>
               <li><Link to={routes.commentsHistory.href}>{routes.commentsHistory.name}</Link></li>
             </ul>
           </nav>
@@ -45,9 +49,10 @@ class Shifts extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({comments, startData}) => {
   return {
-    lastComments: state.shift.lastComments
+    lastComments: comments.lastComments,
+    currentSchedules: startData.schedules
   }
 }
 

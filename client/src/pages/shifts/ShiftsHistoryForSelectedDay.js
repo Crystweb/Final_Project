@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { addCommentForSelectedDate } from '../../actions/actions'
-import RadioButtons from '../../components/PositionButtons'
+import SortedComments from '../../components/SortedComments'
 import Preloader from '../../components/Preloader'
 
 class ShiftHistoryForSelectedDay extends Component {
@@ -17,7 +17,7 @@ class ShiftHistoryForSelectedDay extends Component {
       return (
         <div className="container">
           <nav className='navigation'>
-            <RadioButtons comments={this.props.commentsForSelectedDate}/>
+            <SortedComments comments={this.props.commentsForSelectedDate}/>
           </nav>
         </div>
       )

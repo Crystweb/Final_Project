@@ -48,7 +48,7 @@ INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Hello, admin',
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'message to manager', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Hello, manager', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'message to managing director', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Hello, Edward :)', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Hello, Edward :)', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Прибрати в кімнаті номер 23', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Викликати таксі на 7:00', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Команда Шахтар виїжджає 20 січня', CURRENT_TIMESTAMP);
@@ -92,7 +92,7 @@ INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (4, 2);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (4, 3);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (5, 1);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (5, 2);
-INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (6, 1);
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (6, 3);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (7, 1);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (7, 2);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (7, 3);
