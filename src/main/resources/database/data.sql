@@ -37,6 +37,7 @@ INSERT INTO `user_role` (u_id, r_id) VALUES (2,5);
 
 INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'blablabla1');
 INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '094586403', 'blablabla2');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '094586403', 'blablabla2');
 
 INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '10:00:00', '21:00:00' );
 INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '21:00:00', '10:00:00' );

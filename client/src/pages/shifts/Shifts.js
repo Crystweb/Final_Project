@@ -12,7 +12,7 @@ class Shifts extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      view: null
+      view: 'manager'
     }
   }
 

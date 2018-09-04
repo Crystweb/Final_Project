@@ -5,7 +5,7 @@ class PositionButtons extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      view: null
+      view: 'admin'
     }
   }
 
@@ -13,25 +13,31 @@ class PositionButtons extends Component {
     this.setState({view: event.target.value})
   }
 
+  checkPosition (position) {
+    if (position === this.state.view) {
+
+    }
+  }
+
   render () {
     const {position, comments} = this.props
-    // let positionComments = []
-    // console.log(positionComments)
-    // for (let i = 0; i < comments.length; i++) {
-    //   let currentComment = comments[i]
-    //   for (let i = 0; i < currentComment.length; i++) {
-    //     positionComments = currentComment.filter(function(position[i].title) {return position[i].title === this.state.view})
-    //   }
-    // }
+    let positionComments = comments.map(comment =>
+
+      <li key={comment.id} style={{marginBottom: 15}}>
+        <h5>{comment.forename} {comment.surname}</h5>
+        <h3>{comment.text}</h3>
+        <h3>{comment.authorPosition}</h3>
+      </li>
+    )
+    console.log(positionComments)
     const selectPositionInputs = position.map(position =>
       <li key={position.id}><input name="position" type='radio' value={position.title}/>{position.title}</li>)
-    console.log(this.state.view)
     return (
       <section className="comments">
-        <div onChange={this.setPositionView.bind(this)}>
+        <div style={{marginBottom: 10}} onChange={this.setPositionView.bind(this)}>
           {selectPositionInputs}
         </div>
-        {/*{positionComments}*/}
+        {positionComments}
       </section>
     )
   }
