@@ -17,13 +17,13 @@ class EmployeeList extends Component {
   }
 
   render () {
-    if (!this.state.users.length) {
-      return (
-        <div>
-          <Preloader/>
-        </div>
-      )
-    } else {
+    // if (!this.state.users.length) {
+      // return (
+        {/*<div>*/}
+          {/*<Preloader/>*/}
+        {/*</div>*/}
+      // )
+    // } else {
       return (
         <ul className="employee-list">
           {this.state.users.map(function (user) {
@@ -36,7 +36,7 @@ class EmployeeList extends Component {
         </ul>
       )
     }
-  }
+  // }
 }
 
 export default EmployeeList
