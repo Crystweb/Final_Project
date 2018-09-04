@@ -34,3 +34,10 @@ export function addCommentForSelectedDate (comments) {
     comments
   }
 }
+
+export function addAllSchedules (schedules) {
+  return {
+    type: types.GET_SCHEDULES,
+    schedules
+  }
+}

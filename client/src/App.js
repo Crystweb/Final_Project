@@ -28,7 +28,9 @@ class App extends Component {
   componentDidMount () {
     startData(
       data => { this.props.addUser(data) },
-      data => { this.props.addAllPositions(data) })
+      data => { this.props.addAllPositions(data) },
+      data => { this.props.addSchedules(data) }
+    )
   }
 
   render () {
@@ -77,6 +79,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     addAllPositions: (data) => {
       dispatch(addAllPositions(data))
+    },
+    addSchedules: (data) => {
+      dispatch(addAllSchedules)
     }
   }
 }
