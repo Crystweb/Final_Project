@@ -11,28 +11,31 @@ class Vacancies extends Component {
     };
     handleSubmit = event => {
         event.preventDefault();
-        axios({
-            url: '/vacancy',
-            method: 'POST',
-            data: {
-                user: this.state.user,
-                salary: this.state.salary,
-                info: this.state.info
-            }
-        });
-        axios({
-            url: '/position',
-            method: 'POST',
-            data: {
-                position: this.state.position
-            }
-        })
+        handleSubmit = event => {
+            event.preventDefault();
+            axios({
+                url: '/vacancy',
+                method: 'POST',
+                data: {
+                    data:{
+                        position:this.state.position
+                    },
+                    parameter: {
+                        info: this.state.info,
+                        salary: this.state.salary
+                    }
+                },
+                onSubmitSuccess:{
+                    open:false
+                }
+            })
+        };
+
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            user: '',
             position: '',
             salary: '',
             info: '',
