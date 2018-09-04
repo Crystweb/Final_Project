@@ -27,3 +27,10 @@ export function addAllPositions (positions) {
     positions
   }
 }
+
+export function addCommentForSelectedDate (comments) {
+  return {
+    type: types.GET_COMMETNS_FOR_SELECTED_DATE,
+    comments
+  }
+}

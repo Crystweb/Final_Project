@@ -19,8 +19,6 @@ import WashingData from './pages/WashingData'
 import SalesNumbers from './pages/washingDate/SalesNumbers'
 import Lodgers from './pages/washingDate/Lodgers'
 import routes from './constants/routes'
-import ShiftHistoryAdmin from './pages/shifts/ShiftHistoryAdmin'
-import ShiftHistoryManager from './pages/shifts/ShiftHistoryManager'
 import { connect } from 'react-redux'
 import { addAllPositions, addCurrentUser } from './actions/actions'
 import Preloader from './components/Preloader'
@@ -52,8 +50,6 @@ class App extends Component {
           <Route exact path={routes.comments.href} component={Comments}/>
           <Route exact path={routes.commentsHistory.href} component={ShiftsHistory}/>
           <Route exact path={routes.addNewComments.href} component={CreateNewComments}/>
-          <Route exact path={routes.shiftHistoryAdmin.href} component={ShiftHistoryAdmin}/>
-          <Route exact path={routes.shiftHistoryManager.href} component={ShiftHistoryManager}/>
           <Route exact path={routes.tasks.href} component={Tasks}/>
           <Route exact path={routes.tasks.hotelTasks.href} component={TasksForHotel}/>
           <Route exact path={routes.tasks.kitchenTasks.href} component={TasksForKitchen}/>

@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 class CreateNewComments extends Component {
 
+  addComment () {
+    axios.post()
+  }
   render () {
     return (
       <div className="container">
@@ -17,7 +21,7 @@ class CreateNewComments extends Component {
           <option>Смена 7</option>
         </select></p>
         <br/>
-        <p><input type="button" value=" Добавить комментарий "></input></p>
+        <p><input type="button" value=" Добавить комментарий " onClick={this.addComment}></input></p>
       </div>
     )
   }

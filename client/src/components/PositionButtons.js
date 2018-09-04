@@ -8,29 +8,30 @@ class PositionButtons extends Component {
       view: null
     }
   }
+
   setPositionView (event) {
     this.setState({view: event.target.value})
   }
 
   render () {
     const {position, comments} = this.props
-    console.log(comments)
-    let positionComments = []
-    for (let i = 0; i < comments.length; i++) {
-      let currentComment = comments[i]
-      for (let i = 0; i < currentComment.length; i++) {
-        positionComments = currentComment.filter(position[i].title.contains(this.state.view))
-      }
-    }
+    // let positionComments = []
+    // console.log(positionComments)
+    // for (let i = 0; i < comments.length; i++) {
+    //   let currentComment = comments[i]
+    //   for (let i = 0; i < currentComment.length; i++) {
+    //     positionComments = currentComment.filter(function(position[i].title) {return position[i].title === this.state.view})
+    //   }
+    // }
     const selectPositionInputs = position.map(position =>
-      <p><input name="position" type='radio' key={position.id} value={position.title}/>{position.title}</p>)
-
+      <li key={position.id}><input name="position" type='radio' value={position.title}/>{position.title}</li>)
+    console.log(this.state.view)
     return (
       <section className="comments">
         <div onChange={this.setPositionView.bind(this)}>
           {selectPositionInputs}
         </div>
-        {positionComments}
+        {/*{positionComments}*/}
       </section>
     )
   }
