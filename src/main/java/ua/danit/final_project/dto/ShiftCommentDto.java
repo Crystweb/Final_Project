@@ -1,8 +1,6 @@
 package ua.danit.final_project.dto;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 import ua.danit.final_project.entities.Employee;
 import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.ShiftComment;
@@ -12,24 +10,22 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
-@EqualsAndHashCode
-@ToString
+@Data
 public class ShiftCommentDto implements Serializable {
 
-  private final Long id;
+  private Long id;
 
-  private final String text;
+  private String text;
 
-  private final Timestamp date;
+  private Timestamp date;
 
-  private final String forename;
+  private String forename;
 
-  private final String surname;
+  private String surname;
 
-  private final List<String> positions;
+  private List<String> positions;
 
-  private final String authorPosition;
+  private String authorPosition;
 
   public ShiftCommentDto(ShiftComment shiftComment) {
     this.id = shiftComment.getId();
