@@ -10,6 +10,5 @@ import java.util.List;
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
-  List<Schedule> findDistinctByPositionNotIn(List<Position> positions);
   List<Schedule> findDistinctByPositionIn(List<Position> positions);
 }

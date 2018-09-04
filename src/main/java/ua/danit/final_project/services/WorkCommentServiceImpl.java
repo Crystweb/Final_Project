@@ -74,8 +74,6 @@ public class WorkCommentServiceImpl implements WorkCommentService {
 
   @Override
   public List<Schedule> getCurrentSchedule() {
-//    return scheduleRepository.findDistinctByPositionNotIn(new LinkedList<>());
     return scheduleRepository.findDistinctByPositionIn(positionRepository.findAll());
-//    return scheduleRepository.findAll();
   }
 }
