@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.entities.ShiftComment;
+import ua.danit.final_project.repositories.PositionRepository;
 import ua.danit.final_project.repositories.ScheduleRepository;
 import ua.danit.final_project.repositories.ShiftCommentRepository;
 
@@ -18,12 +19,15 @@ public class WorkCommentServiceImpl implements WorkCommentService {
 
   private final ShiftCommentRepository shiftCommentRepository;
   private final ScheduleRepository scheduleRepository;
+  private final PositionRepository positionRepository;
 
   @Autowired
   public WorkCommentServiceImpl(ShiftCommentRepository shiftCommentRepository,
-                                ScheduleRepository scheduleRepository) {
+                                ScheduleRepository scheduleRepository,
+                                PositionRepository positionRepository) {
     this.shiftCommentRepository = shiftCommentRepository;
     this.scheduleRepository = scheduleRepository;
+    this.positionRepository = positionRepository;
   }
 
   @Override
@@ -70,6 +74,8 @@ public class WorkCommentServiceImpl implements WorkCommentService {
 
   @Override
   public List<Schedule> getCurrentSchedule() {
-    return scheduleRepository.findDistinctByPosition();
+//    return scheduleRepository.findDistinctByPositionNotIn(new LinkedList<>());
+    return scheduleRepository.findDistinctByPositionIn(positionRepository.findAll());
+//    return scheduleRepository.findAll();
   }
 }

@@ -86,6 +86,6 @@ public class WorkShiftController {
 
   @GetMapping("/schedule")
   public List<Schedule> getSchedule() {
-    return null;
+    return workCommentService.getCurrentSchedule();
   }
 }
