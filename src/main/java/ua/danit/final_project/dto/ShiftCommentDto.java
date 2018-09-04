@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Getter
 @EqualsAndHashCode
 @ToString
-public class ShiftCommentDTO implements Serializable {
+public class ShiftCommentDto implements Serializable {
 
   private final Long id;
 
@@ -31,7 +31,7 @@ public class ShiftCommentDTO implements Serializable {
 
   private final String authorPosition;
 
-  public ShiftCommentDTO(ShiftComment shiftComment) {
+  public ShiftCommentDto(ShiftComment shiftComment) {
     this.id = shiftComment.getId();
     this.text = shiftComment.getMessage();
     this.date = shiftComment.getDate();

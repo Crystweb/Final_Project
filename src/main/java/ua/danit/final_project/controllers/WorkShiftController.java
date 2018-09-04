@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.danit.final_project.configuration.StaticCollection;
-import ua.danit.final_project.dto.ShiftCommentDTO;
+import ua.danit.final_project.dto.ShiftCommentDto;
 import ua.danit.final_project.entities.ShiftComment;
 import ua.danit.final_project.services.WorkCommentService;
 import java.net.URI;
@@ -32,10 +32,10 @@ public class WorkShiftController {
   }
 
   @GetMapping
-  public List<ShiftCommentDTO> getByDate(@RequestParam(name = "date", required = false) Long millis) {
+  public List<ShiftCommentDto> getByDate(@RequestParam(name = "date", required = false) Long millis) {
     return workCommentService.getShiftCommentsByDate(millis)
             .stream()
-            .map(ShiftCommentDTO::new)
+            .map(ShiftCommentDto::new)
             .collect(Collectors.toList());
   }
 
