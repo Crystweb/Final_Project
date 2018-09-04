@@ -15,6 +15,7 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+      write_dates_as_timestamps: true
 
 ---
 
