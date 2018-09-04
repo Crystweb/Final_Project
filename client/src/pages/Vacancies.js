@@ -10,8 +10,6 @@ class Vacancies extends Component {
         this.setState({open: false});
     };
     handleSubmit = event => {
-        event.preventDefault();
-        handleSubmit = event => {
             event.preventDefault();
             axios({
                 url: '/vacancy',
@@ -30,8 +28,6 @@ class Vacancies extends Component {
                 }
             })
         };
-
-    };
 
     constructor(props) {
         super(props);
