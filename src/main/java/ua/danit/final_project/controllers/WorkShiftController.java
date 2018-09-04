@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.danit.final_project.configuration.StaticCollection;
+import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.entities.ShiftComment;
 import ua.danit.final_project.services.WorkCommentService;
 import java.net.URI;
@@ -76,5 +77,10 @@ public class WorkShiftController {
 
     workCommentService.deleteCommentById(id);
     return ResponseEntity.ok().build();
+  }
+
+  @GetMapping("/schedule")
+  public List<Schedule> getSchedule() {
+    return null;
   }
 }

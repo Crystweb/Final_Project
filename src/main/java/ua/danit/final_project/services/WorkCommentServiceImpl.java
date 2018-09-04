@@ -3,7 +3,9 @@ package ua.danit.final_project.services;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.entities.ShiftComment;
+import ua.danit.final_project.repositories.ScheduleRepository;
 import ua.danit.final_project.repositories.ShiftCommentRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -15,10 +17,13 @@ import java.util.List;
 public class WorkCommentServiceImpl implements WorkCommentService {
 
   private final ShiftCommentRepository shiftCommentRepository;
+  private final ScheduleRepository scheduleRepository;
 
   @Autowired
-  public WorkCommentServiceImpl(ShiftCommentRepository shiftCommentRepository) {
+  public WorkCommentServiceImpl(ShiftCommentRepository shiftCommentRepository,
+                                ScheduleRepository scheduleRepository) {
     this.shiftCommentRepository = shiftCommentRepository;
+    this.scheduleRepository = scheduleRepository;
   }
 
   @Override
@@ -61,5 +66,10 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   @Override
   public ShiftComment getCommentById(Long commentId) {
     return shiftCommentRepository.findById(commentId).orElseThrow(EntityNotFoundException::new);
+  }
+
+  @Override
+  public List<Schedule> getCurrentSchedule() {
+    return scheduleRepository.findDistinctByPosition();
   }
 }
