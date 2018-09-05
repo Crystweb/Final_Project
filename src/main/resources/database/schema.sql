@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `role_permission` (
 CREATE TABLE IF NOT EXISTS `position` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `p_title` VARCHAR(127) NOT NULL UNIQUE,
+  `pinned_to_comment` bit,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 

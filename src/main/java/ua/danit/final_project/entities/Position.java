@@ -30,6 +30,8 @@ public class Position {
   @Column(name = "p_title", nullable = false, unique = true)
   private String title;
 
+  private Boolean pinnedToComment;
+
   @JsonIgnore
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude
