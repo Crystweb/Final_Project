@@ -3,12 +3,15 @@ import Modal from 'react-responsive-modal'
 import axios from 'axios'
 
 class Vacancies extends Component {
+
   onOpenModal = () => {
     this.setState({open: true})
   }
+  
   onCloseModal = () => {
     this.setState({open: false})
   }
+  
   handleSubmit = event => {
     event.preventDefault()
     axios.post(`http://localhost:9000/vacancy`, {

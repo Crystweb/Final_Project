@@ -8,7 +8,7 @@ public interface VacancyService {
 
   Vacancy getById(Long id);
 
-  List<Vacancy> getAll();
+  List<Vacancy> getOpenVacancies();
 
   Vacancy save(Vacancy vacancy);
 
