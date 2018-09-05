@@ -17,6 +17,7 @@ INSERT INTO `position` (p_title) VALUES ('managing director');
 INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Andrew Shevchenko','1', 1);
 INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Cristiano Ronaldo','1', 2);
 INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Johny Depp','1', 3);
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('newton','1', 1);
 
 INSERT INTO `permission` (p_name) VALUES ('change comment');
 INSERT INTO `permission` (p_name) VALUES ('create vacancy');
