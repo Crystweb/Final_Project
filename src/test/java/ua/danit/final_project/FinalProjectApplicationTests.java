@@ -63,6 +63,7 @@ import javax.persistence.EntityNotFoundException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -367,8 +368,8 @@ public class FinalProjectApplicationTests {
   @Test
   public void EmployeeCRUD() {
     Employee data = new Employee();
-    data.setUser(userService.getById(3l));
-    data.setPosition(positionService.getById(3l));
+    data.setUser(userService.getById(4L));
+    data.setPosition(positionService.getById(3L));
     data.setForename("Mykola");
     data.setSurname("Saint");
     data.setPatronymic("Mykolayovych");
@@ -796,15 +797,6 @@ public class FinalProjectApplicationTests {
       Assert.assertNull(null);
     }
 
-  }
-
-  @Test
-  public void getStaticUser() {
-    User expected = new User();
-    expected.setId(1L);
-    expected.setLogin("Artem");
-    expected.setPassword("pwd");
-    Assert.assertEquals(expected, StaticCollection.getUser());
   }
 
   @Test

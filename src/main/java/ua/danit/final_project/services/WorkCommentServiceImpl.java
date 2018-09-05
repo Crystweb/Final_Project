@@ -3,7 +3,10 @@ package ua.danit.final_project.services;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.entities.ShiftComment;
+import ua.danit.final_project.repositories.PositionRepository;
+import ua.danit.final_project.repositories.ScheduleRepository;
 import ua.danit.final_project.repositories.ShiftCommentRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -15,10 +18,16 @@ import java.util.List;
 public class WorkCommentServiceImpl implements WorkCommentService {
 
   private final ShiftCommentRepository shiftCommentRepository;
+  private final ScheduleRepository scheduleRepository;
+  private final PositionRepository positionRepository;
 
   @Autowired
-  public WorkCommentServiceImpl(ShiftCommentRepository shiftCommentRepository) {
+  public WorkCommentServiceImpl(ShiftCommentRepository shiftCommentRepository,
+                                ScheduleRepository scheduleRepository,
+                                PositionRepository positionRepository) {
     this.shiftCommentRepository = shiftCommentRepository;
+    this.scheduleRepository = scheduleRepository;
+    this.positionRepository = positionRepository;
   }
 
   @Override
@@ -29,7 +38,7 @@ public class WorkCommentServiceImpl implements WorkCommentService {
     Timestamp date = new Timestamp(milliseconds);
     DateTime searchDate = new DateTime(date).withTimeAtStartOfDay();
     Date from = searchDate.toDate();
-    Date to = searchDate.minusHours(24).toDate();
+    Date to = searchDate.plusHours(24).toDate();
     return shiftCommentRepository.findAllByDateBetween(from, to);
   }
 
@@ -61,5 +70,10 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   @Override
   public ShiftComment getCommentById(Long commentId) {
     return shiftCommentRepository.findById(commentId).orElseThrow(EntityNotFoundException::new);
+  }
+
+  @Override
+  public List<Schedule> getCurrentSchedule() {
+    return scheduleRepository.findDistinctByPositionIn(positionRepository.findAll());
   }
 }

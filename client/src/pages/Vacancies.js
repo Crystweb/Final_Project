@@ -3,41 +3,42 @@ import Modal from 'react-responsive-modal';
 import axios from 'axios';
 import VacanciesList from "./compon/VacanciesList";
 
+
 class Vacancies extends Component {
-    onOpenModal = () => {
-        this.setState({open: true});
-    };
-    onCloseModal = () => {
-        this.setState({open: false});
-    };
-    handleSubmit = event => {
-        event.preventDefault();
-        axios.post(`http://localhost:9000/vacancy`, {
-            position: this.state.position,
-            salary: this.state.salary
-        })
-    };
+  onOpenModal = () => {
+    this.setState({open: true})
+  }
+  onCloseModal = () => {
+    this.setState({open: false})
+  }
+  handleSubmit = event => {
+    event.preventDefault()
+    axios.post(`http://localhost:9000/vacancy`, {
+      position: this.state.position,
+      salary: this.state.salary
+    })
+  }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            position: '',
-            salary: '',
-            open: false
-        };
-        this.handlePositionChange = this.handlePositionChange.bind(this);
-        this.handleSalaryChange = this.handleSalaryChange.bind(this);
+  constructor (props) {
+    super(props)
+    this.state = {
+      position: '',
+      salary: '',
+      open: false
     }
+    this.handlePositionChange = this.handlePositionChange.bind(this)
+    this.handleSalaryChange = this.handleSalaryChange.bind(this)
+  }
 
-    handlePositionChange(event) {
-        event.preventDefault();
-        this.setState({position: event.target.value});
-    }
+  handlePositionChange (event) {
+    event.preventDefault()
+    this.setState({position: event.target.value})
+  }
 
-    handleSalaryChange(event) {
-        event.preventDefault();
-        this.setState({salary: event.target.value});
-    }
+  handleSalaryChange (event) {
+    event.preventDefault()
+    this.setState({salary: event.target.value})
+  }
 
     render() {
         const {open} = this.state;
@@ -64,6 +65,7 @@ class Vacancies extends Component {
             </Fragment>
         )
     }
+
 }
 
 export default Vacancies
