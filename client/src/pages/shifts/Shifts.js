@@ -6,8 +6,17 @@ import { Link } from 'react-router-dom'
 import { getLastShift } from '../../utils/Utills'
 import { connect } from 'react-redux'
 import { addShift } from '../../actions/actions'
+import SortedComments from '../../components/SortedComments'
+import picture from '../../img/addComment.png'
 
 class Shifts extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      view: 'manager'
+    }
+  }
+
   componentDidMount () {
     getLastShift(data => {
       this.props.addShift(data)
@@ -15,7 +24,7 @@ class Shifts extends Component {
   }
 
   render () {
-    if (!this.props.lastShift) {
+    if (!this.props.lastComments) {
       return (
         <div>
           <Preloader/>
@@ -24,21 +33,13 @@ class Shifts extends Component {
     } else {
       return (
         <div className="container">
-          <section className="comments">
-            <h2>{this.props.lastShift && this.props.lastShift.map(shift =>
-              <li key={shift.id}>
-                <h2>{shift.start} - {shift.end}</h2>
-                {shift.shiftComments.map(comment =>
-                  <li key={comment.id}>
-                    <h3>{comment.message}</h3>
-                    <h6>{comment.date}</h6>
-                  </li>)}
-              </li>
-            )}</h2>
-          </section>
-          <nav className="navigation">
+          <SortedComments comments={this.props.lastComments}/>
+          <nav>
             <ul>
-              <li><Link to={routes.addNewComments.href}>{routes.addNewComments.name}</Link></li>
+              <li><Link to={routes.addNewComments.href}>
+                <img src={picture}/>
+              </Link>
+              </li>
               <li><Link to={routes.commentsHistory.href}>{routes.commentsHistory.name}</Link></li>
             </ul>
           </nav>
@@ -48,8 +49,11 @@ class Shifts extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {lastShift: state.shift.lastShift}
+const mapStateToProps = ({comments, startData}) => {
+  return {
+    lastComments: comments.lastComments,
+    currentSchedules: startData.schedules
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

@@ -20,3 +20,24 @@ export function addCurrentUser (user) {
     user
   }
 }
+
+export function addAllPositions (positions) {
+  return {
+    type: types.GET_ALL_POSITIONS,
+    positions
+  }
+}
+
+export function addCommentForSelectedDate (comments) {
+  return {
+    type: types.GET_COMMETNS_FOR_SELECTED_DATE,
+    comments
+  }
+}
+
+export function addAllSchedules (schedules) {
+  return {
+    type: types.GET_SCHEDULES,
+    schedules
+  }
+}

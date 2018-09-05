@@ -14,6 +14,7 @@ public class StaticCollection {
     user.setId(1L);
     user.setLogin("Artem");
     user.setPassword("pwd");
+    user.setPosition(position);
   }
 
   public static User getUser() {
