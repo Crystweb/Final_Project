@@ -9,7 +9,10 @@ public class StaticCollection {
   private static Position position;
 
   static {
-    position = new Position(1L, "ADMIN");
+
+    position = new Position();
+    position.setTitle("admin");
+
     user = new User();
     user.setId(1L);
     user.setLogin("Artem");
