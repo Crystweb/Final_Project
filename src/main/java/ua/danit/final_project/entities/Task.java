@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.CascadeType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 
@@ -30,7 +32,7 @@ public class Task implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne //Чи можна делегувати задачу декільком працівникам?
+  @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id_assignee")
@@ -45,11 +47,13 @@ public class Task implements Serializable {
   @Column(name = "t_message")
   private String message;
 
+  @Enumerated(EnumType.STRING)
   @Column(name = "t_status")
-  private String status;
+  private STATUS status;
 
+  @Enumerated(EnumType.STRING)
   @Column(name = "t_frequency")
-  private String frequency;
+  private FREQUENCY frequency;
 
   @Column(name = "updated", nullable = false)
   private Timestamp updated;
@@ -62,4 +66,12 @@ public class Task implements Serializable {
           joinColumns = {@JoinColumn(name = "t_id")},
           inverseJoinColumns = {@JoinColumn(name = "l_id")})
   private List<Location> locations;
+
+  public enum STATUS {
+    OPENED, CLOSED, REJECTED, PENDING, IN_PROGRESS, EXPIRED, CHANGE
+  }
+
+  public enum FREQUENCY {
+    DAILY, WEEKLY, MONTHLY
+  }
 }
