@@ -801,15 +801,6 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void getStaticUser() {
-    User expected = new User();
-    expected.setId(1L);
-    expected.setLogin("Artem");
-    expected.setPassword("pwd");
-    Assert.assertEquals(expected, StaticCollection.getUser());
-  }
-
-  @Test
   public void deleteCommentByIdAndAddComment() {
     ShiftComment commentFromDB = workCommentService.getCommentById(1L);
     workCommentService.deleteCommentById(1L);
