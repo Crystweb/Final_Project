@@ -1,6 +1,7 @@
 package ua.danit.final_project.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -24,12 +25,6 @@ public class Vacancy implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  @ManyToOne
-  @ToString.Exclude
-  @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "u_id", nullable = false)
-  private User user;
 
   @ManyToOne
   @ToString.Exclude
