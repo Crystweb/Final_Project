@@ -692,7 +692,6 @@ public class FinalProjectApplicationTests {
   @Test
   public void VacancyCRUD() {
     Vacancy data = new Vacancy();
-    data.setUser(userService.getById(1l));
     data.setPosition(positionService.getById(1l));
     data.setSalary("10004");
     data.setStatus("OPENED");
