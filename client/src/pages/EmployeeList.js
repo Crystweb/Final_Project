@@ -26,7 +26,7 @@ class EmployeeList extends Component {
     } else {
       return (
         <ul className="employee-list">
-          {this.state.users.map(function (user) {
+          {this.state.users.map((user) => {
             return (
               <li key={user.id}>
                 <Link to="{'/users/' + user.id}">{user.name}</Link>
