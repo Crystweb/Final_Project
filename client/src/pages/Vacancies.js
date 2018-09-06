@@ -5,40 +5,55 @@ import VacanciesList from "./compon/VacanciesList";
 
 
 class Vacancies extends Component {
-  onOpenModal = () => {
-    this.setState({open: true})
-  }
-  onCloseModal = () => {
-    this.setState({open: false})
-  }
-  handleSubmit = event => {
-    event.preventDefault()
-    axios.post(`http://localhost:9000/vacancy`, {
-      position: this.state.position,
-      salary: this.state.salary
-    })
-  }
+    onOpenModal = () => {
+        this.setState({open: true});
+    };
+    onCloseModal = () => {
+        this.setState({open: false});
+    };
+    handleSubmit = event => {
+        event.preventDefault();
+        axios({
+            url: '/vacancy',
+            method: 'POST',
+            data: {
+                vacancy:{
+                    position:this.state.position,
+                    info: this.state.info,
+                    salary: this.state.salary
+                }
+            }
 
-  constructor (props) {
-    super(props)
-    this.state = {
-      position: '',
-      salary: '',
-      open: false
+        }).then(() => this.setState({open:false}))
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            position: '',
+            salary: '',
+            info: '',
+            open: false
+        };
+        this.handlePositionChange = this.handlePositionChange.bind(this);
+        this.handleSalaryChange = this.handleSalaryChange.bind(this);
+        this.handleInfoChange = this.handleInfoChange.bind(this);
     }
-    this.handlePositionChange = this.handlePositionChange.bind(this)
-    this.handleSalaryChange = this.handleSalaryChange.bind(this)
-  }
 
-  handlePositionChange (event) {
-    event.preventDefault()
-    this.setState({position: event.target.value})
-  }
+    handlePositionChange(event) {
+        event.preventDefault();
+        this.setState({position: event.target.value});
+    }
 
-  handleSalaryChange (event) {
-    event.preventDefault()
-    this.setState({salary: event.target.value})
-  }
+    handleSalaryChange(event) {
+        event.preventDefault();
+        this.setState({salary: event.target.value});
+    }
+
+    handleInfoChange(event) {
+        event.preventDefault();
+        this.setState({info: event.target.value});
+    }
 
     render() {
         const {open} = this.state;
@@ -65,7 +80,6 @@ class Vacancies extends Component {
             </Fragment>
         )
     }
-
 }
 
 export default Vacancies
