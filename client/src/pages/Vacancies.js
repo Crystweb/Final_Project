@@ -1,6 +1,7 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import Modal from 'react-responsive-modal';
 import axios from 'axios';
+import VacanciesList from "../components/VacanciesList";
 
 class Vacancies extends Component {
     onOpenModal = () => {
@@ -56,26 +57,29 @@ class Vacancies extends Component {
     render() {
         const {open} = this.state;
         return (
-            <div className="button-container" id="button">
-                <button onClick={this.onOpenModal}>Добавить вакансию</button>
-                <Modal open={open} onClose={this.onCloseModal} center
-                       closeOnOverlayClick={true}>
-                    <form onSubmit={this.handleSubmit}>
-                        <label>
-                            Название должности:
-                            <input type="text" name={"position"} value={this.state.position}
-                                   onChange={this.handlePositionChange}/>
-                            Зарплата:
-                            <input type="text" name={"salary"} value={this.state.salary}
-                                   onChange={this.handleSalaryChange}/>
-                            <br/>
-                            <textarea placeholder={'Введите Ваш коментарий'} name={"info"} value={this.state.info}
-                                      onChange={this.handleInfoChange}/>
-                        </label>
-                        <input type="submit" value="Добавить" />
-                    </form>
-                </Modal>
-            </div>
+            <Fragment>
+                <div className="button-container" id="button">
+                    <button onClick={this.onOpenModal}>Добавить вакансию</button>
+                    <Modal open={open} onClose={this.onCloseModal} center
+                           closeOnOverlayClick={true}>
+                        <form onSubmit={this.handleSubmit}>
+                            <label>
+                                Название должности:
+                                <input type="text" name={"position"} value={this.state.position}
+                                       onChange={this.handlePositionChange}/>
+                                Зарплата:
+                                <input type="text" name={"salary"} value={this.state.salary}
+                                       onChange={this.handleSalaryChange}/>
+                                <br/>
+                                <textarea placeholder={'Введите Ваш коментарий'} name={"info"} value={this.state.info}
+                                          onChange={this.handleInfoChange}/>
+                            </label>
+                            <input type="submit" value="Добавить" />
+                        </form>
+                    </Modal>
+                </div>
+                <VacanciesList/>
+            </Fragment>
         )
     }
 }
