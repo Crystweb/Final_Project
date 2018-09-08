@@ -10,6 +10,7 @@ import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.User;
 import ua.danit.final_project.entities.Vacancy;
 import ua.danit.final_project.services.crud.VacancyService;
+
 import java.util.List;
 
 
@@ -31,6 +32,6 @@ public class VacancyController {
   @PostMapping
   public Vacancy createVacancy(@RequestBody Vacancy vacancy) {
     vacancy.setUser(user);
-    return  vacancyService.save(vacancy);
+    return vacancyService.save(vacancy);
   }
 }
