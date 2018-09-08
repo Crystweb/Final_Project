@@ -8,6 +8,7 @@ import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.services.crud.PositionService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/position")
@@ -21,7 +22,9 @@ public class PositionController {
   }
 
   @GetMapping
-  public List<Position> findAll() {
-    return positionService.getAll();
+  public List<Position> getPermittedForComments() {
+    return positionService.getAll().stream()
+        .filter(Position::getPinnedToComment)
+        .collect(Collectors.toList());
   }
 }
