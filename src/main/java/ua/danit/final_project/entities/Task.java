@@ -49,11 +49,11 @@ public class Task implements Serializable {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "t_status")
-  private Status status;
+  private TaskStatus status;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "t_frequency")
-  private Frequency frequency;
+  private TaskFrequency frequency;
 
   @Column(name = "updated", nullable = false)
   private Timestamp updated;
@@ -67,11 +67,11 @@ public class Task implements Serializable {
           inverseJoinColumns = {@JoinColumn(name = "l_id")})
   private List<Location> locations;
 
-  public enum Status {
+  public enum TaskStatus {
     OPENED, CLOSED, REJECTED, PENDING, IN_PROGRESS, EXPIRED, CHANGE
   }
 
-  public enum Frequency {
+  public enum TaskFrequency {
     DAILY, WEEKLY, MONTHLY
   }
 }

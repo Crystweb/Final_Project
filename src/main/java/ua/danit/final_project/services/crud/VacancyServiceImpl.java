@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.User;
 import ua.danit.final_project.entities.Vacancy;
+import ua.danit.final_project.entities.VacancyStatus;
 import ua.danit.final_project.repositories.VacancyRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -29,7 +30,7 @@ public class VacancyServiceImpl implements VacancyService{
   @Override
   public List<Vacancy> getOpenVacancies() {
     return vacancyRepository.findAll().stream()
-        .filter(v -> "OPENED".equals(v.getStatus()))
+        .filter(v -> "OPENED".equals(v.getVacancyStatus()))
         .collect(Collectors.toList());
   }
 
@@ -41,9 +42,7 @@ public class VacancyServiceImpl implements VacancyService{
   @Override
   public Vacancy save(Vacancy vacancy) {
     vacancy.setPublication(new Timestamp(System.currentTimeMillis()));
-    vacancy.setStatus("OPENED");
     vacancy.setUser(StaticCollection.getUser());
-    vacancy.setPosition(StaticCollection.getPosition());
     return vacancyRepository.save(vacancy);
   }
 }
