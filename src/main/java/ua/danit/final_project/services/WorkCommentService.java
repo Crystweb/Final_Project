@@ -1,5 +1,6 @@
 package ua.danit.final_project.services;
 
+import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.entities.ShiftComment;
 
@@ -20,4 +21,6 @@ public interface WorkCommentService {
   ShiftComment getCommentById(Long commentId);
 
   List<Schedule> getCurrentSchedule();
+
+  List<Position> getPositionByTitleIn(List<String> titles);
 }
