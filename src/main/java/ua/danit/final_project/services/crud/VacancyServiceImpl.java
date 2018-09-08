@@ -3,9 +3,7 @@ package ua.danit.final_project.services.crud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.danit.final_project.configuration.StaticCollection;
-import ua.danit.final_project.entities.User;
 import ua.danit.final_project.entities.Vacancy;
-import ua.danit.final_project.entities.VacancyStatus;
 import ua.danit.final_project.repositories.VacancyRepository;
 
 import javax.persistence.EntityNotFoundException;

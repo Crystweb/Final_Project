@@ -46,19 +46,6 @@ public class WorkShiftController {
     return workCommentService.getCommentsOfLastWorkShifts();
   }
 
-  @PostMapping("/{ws_id}/comment")
-  public ResponseEntity<ShiftComment> createComment(@RequestBody ShiftComment shiftComment) {
-    shiftComment.setUser(StaticCollection.getUser());
-    shiftComment = workCommentService.addComment(shiftComment);
-
-    URI location = ServletUriComponentsBuilder
-            .fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(shiftComment.getId())
-            .toUri();
-
-    return ResponseEntity.created(location).build();
-  }
 
   @PostMapping("/comment")
   public ResponseEntity<ShiftCommentDto> createCommentDto(@RequestBody ShiftCommentDto shiftCommentDto) {
@@ -71,13 +58,7 @@ public class WorkShiftController {
 
     workCommentService.addComment(shiftComment);
 
-    URI location = ServletUriComponentsBuilder
-            .fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(shiftComment.getId())
-            .toUri();
-
-    return ResponseEntity.created(location).build();
+    return ResponseEntity.ok().build();
   }
 
   @PutMapping("/{ws_id}/comment")

@@ -53,6 +53,10 @@ public class Vacancy implements Serializable {
   @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
   @Column(name = "p_publication", nullable = false)
   private Timestamp publication;
+
+  public enum VacancyStatus {
+    OPENED, CLOSED
+  }
 }
 
 

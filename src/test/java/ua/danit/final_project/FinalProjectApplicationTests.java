@@ -674,7 +674,7 @@ public class FinalProjectApplicationTests {
     Vacancy data = new Vacancy();
     data.setPosition(positionService.getById(1L));
     data.setSalary("10004");
-    data.setVacancyStatus(VacancyStatus.OPENED);
+    data.setVacancyStatus(Vacancy.VacancyStatus.OPENED);
     data.setInfo("OPENED 1");
 
     Vacancy actualPOST = vacancyService.save(data);
