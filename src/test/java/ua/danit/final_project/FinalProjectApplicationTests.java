@@ -6,31 +6,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import ua.danit.final_project.entities.BedLinenStats;
-import ua.danit.final_project.entities.BedLinenType;
-import ua.danit.final_project.entities.CleaningMaterial;
-import ua.danit.final_project.entities.Consumer;
-import ua.danit.final_project.entities.DishAccounting;
-import ua.danit.final_project.entities.DishBalance;
-import ua.danit.final_project.entities.DishComment;
-import ua.danit.final_project.entities.DishType;
-import ua.danit.final_project.entities.Employee;
-import ua.danit.final_project.entities.FoodSupply;
-import ua.danit.final_project.entities.Location;
-import ua.danit.final_project.entities.MealTimeCategory;
-import ua.danit.final_project.entities.Permission;
-import ua.danit.final_project.entities.Position;
-import ua.danit.final_project.entities.Role;
-import ua.danit.final_project.entities.Schedule;
-import ua.danit.final_project.entities.ShiftComment;
-import ua.danit.final_project.entities.Task;
-import ua.danit.final_project.entities.TaskComment;
-import ua.danit.final_project.entities.User;
-import ua.danit.final_project.entities.Vacancy;
-import ua.danit.final_project.entities.VacancyComment;
-import ua.danit.final_project.entities.WashPeriod;
-import ua.danit.final_project.entities.WashStats;
-import ua.danit.final_project.entities.WashStatsMaterial;
+import ua.danit.final_project.configuration.StaticCollection;
+import ua.danit.final_project.entities.*;
+import ua.danit.final_project.repositories.PositionRepository;
 import ua.danit.final_project.services.WorkCommentService;
 import ua.danit.final_project.services.crud.BedLinenStatsService;
 import ua.danit.final_project.services.crud.BedLinenTypeService;
@@ -47,7 +25,7 @@ import ua.danit.final_project.services.crud.MealTimeCategoryService;
 import ua.danit.final_project.services.crud.PermissionService;
 import ua.danit.final_project.services.crud.PositionService;
 import ua.danit.final_project.services.crud.RoleService;
-import ua.danit.final_project.services.crud.ScheduleServiceCrud;
+import ua.danit.final_project.services.crud.ScheduleService;
 import ua.danit.final_project.services.crud.ShiftCommentService;
 import ua.danit.final_project.services.crud.TaskCommentService;
 import ua.danit.final_project.services.crud.TaskService;
@@ -62,6 +40,7 @@ import javax.persistence.EntityNotFoundException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -116,7 +95,7 @@ public class FinalProjectApplicationTests {
   RoleService roleService;
 
   @Autowired
-  ScheduleServiceCrud scheduleServiceCrud;
+  ScheduleService scheduleService;
 
   @Autowired
   ShiftCommentService shiftCommentService;
@@ -144,6 +123,9 @@ public class FinalProjectApplicationTests {
 
   @Autowired
   WorkCommentService workCommentService;
+
+  @Autowired
+  PositionRepository positionRepository;
 
   @Test
   public void contextLoads() {
@@ -557,19 +539,19 @@ public class FinalProjectApplicationTests {
     data.setStart(new Time(1534763270));
     data.setEnd(new Time(1534764000));
 
-    Schedule actualPOST = scheduleServiceCrud.save(data);
+    Schedule actualPOST = scheduleService.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Schedule actualGET = scheduleServiceCrud.getById(data.getId());
+    Schedule actualGET = scheduleService.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
     data.setEnd(new Time(1534770516));
-    Schedule actualPUT = scheduleServiceCrud.save(data);
+    Schedule actualPUT = scheduleService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    scheduleServiceCrud.deleteById(data.getId());
+    scheduleService.deleteById(data.getId());
     try {
-      Schedule actualDELETE = scheduleServiceCrud.getById(data.getId());
+      Schedule actualDELETE = scheduleService.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -690,12 +672,10 @@ public class FinalProjectApplicationTests {
   @Test
   public void VacancyCRUD() {
     Vacancy data = new Vacancy();
-    data.setUser(userService.getById(1l));
-    data.setPosition(positionService.getById(1l));
+    data.setPosition(positionService.getById(1L));
     data.setSalary("10004");
-    data.setStatus("OPENED");
+    data.setVacancyStatus(Vacancy.VacancyStatus.OPENED);
     data.setInfo("OPENED 1");
-    data.setPublication(new Timestamp(1534770516));
 
     Vacancy actualPOST = vacancyService.save(data);
     Assert.assertEquals(data, actualPOST);
@@ -823,6 +803,18 @@ public class FinalProjectApplicationTests {
   public void getSizeOfListPosition() {
     int size = positionService.getAll().size();
     Assert.assertEquals(3, size);
+  }
+
+  @Test
+  public void checkGetPositionByTitleIn() {
+    List<String> titles = new ArrayList<>();
+    titles.add("manager");
+    titles.add("admin");
+    List<Position> expected = new ArrayList<>();
+    expected.add(positionRepository.getOne(1L));
+    expected.add(positionRepository.getOne(2L));
+    List<Position> actual = positionRepository.getPositionByTitleIn(titles);
+    Assert.assertTrue(expected.containsAll(actual));
   }
 }
 

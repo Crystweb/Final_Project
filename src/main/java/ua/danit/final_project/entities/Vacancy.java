@@ -5,8 +5,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,8 +43,9 @@ public class Vacancy implements Serializable {
   @Column(name = "v_salary")
   private String salary;
 
+  @Enumerated(EnumType.STRING)
   @Column(name = "v_status", nullable = false)
-  private String status;
+  private VacancyStatus vacancyStatus;
 
   @Column(name = "v_info", nullable = false)
   private String info;
@@ -49,4 +53,10 @@ public class Vacancy implements Serializable {
   @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
   @Column(name = "p_publication", nullable = false)
   private Timestamp publication;
+
+  public enum VacancyStatus {
+    OPENED, CLOSED
+  }
 }
+
+

@@ -37,7 +37,7 @@ class Shifts extends Component {
           <nav>
             <ul>
               <li><Link to={routes.addNewComments.href}>
-                <img src={picture}/>
+                <img alt='add comment' src={picture}/>
               </Link>
               </li>
               <li><Link to={routes.commentsHistory.href}>{routes.commentsHistory.name}</Link></li>
