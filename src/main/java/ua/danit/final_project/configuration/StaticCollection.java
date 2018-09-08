@@ -1,9 +1,7 @@
 package ua.danit.final_project.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.User;
-import ua.danit.final_project.repositories.PositionRepository;
 
 public class StaticCollection {
 
