@@ -22,7 +22,7 @@ public class PositionController {
   }
 
   @GetMapping
-  public List<Position> findAll() {
+  public List<Position> getPermittedForComments() {
     return positionService.getAll().stream()
         .filter(Position::getPinnedToComment)
         .collect(Collectors.toList());
