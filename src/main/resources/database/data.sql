@@ -14,9 +14,10 @@ INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('manager', true );
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('admin', true );
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('managing director', false);
 
-INSERT INTO `user` (u_login, u_password, position_id) VALUES ('rostyslav@mail.com','1', 1);
-INSERT INTO `user` (u_login, u_password, position_id) VALUES ('myroslav@mail.com','1', 2);
-INSERT INTO `user` (u_login, u_password, position_id) VALUES ('vas@mail.com','1', 3);
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Andrew Shevchenko','1', 1);
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Cristiano Ronaldo','1', 2);
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Johny Depp','1', 3);
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('newton','1', 1);
 
 INSERT INTO `permission` (p_name) VALUES ('change comment');
 INSERT INTO `permission` (p_name) VALUES ('create vacancy');
@@ -37,17 +38,18 @@ INSERT INTO `user_role` (u_id, r_id) VALUES (2,5);
 
 INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'blablabla1');
 INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '094586403', 'blablabla2');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '094586403', 'blablabla2');
 
 INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '10:00:00', '21:00:00' );
 INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '21:00:00', '10:00:00' );
 INSERT INTO `schedule` (p_id, start, end) VALUES (1,  '08:00:00', '20:00:00' );
 
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'message to admin', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'message to admin ', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Hello, admin', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'message to manager', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Hello, manager', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'message to managing director', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Hello, Edward :)', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Hello, Edward :)', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Прибрати в кімнаті номер 23', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Викликати таксі на 7:00', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Команда Шахтар виїжджає 20 січня', CURRENT_TIMESTAMP);
@@ -91,7 +93,7 @@ INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (4, 2);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (4, 3);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (5, 1);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (5, 2);
-INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (6, 1);
+INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (6, 3);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (7, 1);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (7, 2);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (7, 3);

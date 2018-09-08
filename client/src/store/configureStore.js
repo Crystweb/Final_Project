@@ -2,14 +2,14 @@ import { applyMiddleware, createStore } from 'redux'
 import combineReducers from 'redux/es/combineReducers'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
-import shift from '../reducers/shift'
+import shift from '../reducers/comments'
 import shiftHistorySelectedDate from '../reducers/shiftHistorySelectedDate'
-import user from '../reducers/user'
+import user from '../reducers/startData'
 
 const reducers = {
-  shift: shift,
+  comments: shift,
   shiftHistorySelectedDate: shiftHistorySelectedDate,
-  user: user
+  startData: user
 }
 
 const rootReducer = combineReducers(reducers)

@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 
 CREATE TABLE IF NOT EXISTS `employee` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL,
+  `u_id` BIGINT,
   `p_id` BIGINT NOT NULL,
   `e_forename` VARCHAR(32) NOT NULL,
   `e_surname` VARCHAR(32) NOT NULL,
@@ -84,8 +84,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `e_info` VARCHAR(255),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
-  FOREIGN KEY (`p_id`) REFERENCES `position`(`id`),
-  CONSTRAINT `u_p_id` UNIQUE (`u_id`, `p_id`)
+  FOREIGN KEY (`p_id`) REFERENCES `position`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `schedule` (
