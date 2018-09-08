@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.Date;
 
 @Entity
 @Table(name = "schedule")
@@ -40,4 +41,10 @@ public class Schedule implements Serializable {
   @EqualsAndHashCode.Exclude
   @Column(name = "end", nullable = false)
   private Time end;
+
+  private String uuid;
+
+  private Date created;
+
+  private Date expired;
 }
