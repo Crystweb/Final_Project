@@ -44,7 +44,7 @@ public class Vacancy implements Serializable {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "v_status", nullable = false)
-  private STATUS status;
+  private Status status;
 
   @Column(name = "v_info", nullable = false)
   private String info;
@@ -53,7 +53,7 @@ public class Vacancy implements Serializable {
   @Column(name = "p_publication", nullable = false)
   private Timestamp publication;
 
-  public enum STATUS {
+  public enum Status {
     OPENED, CLOSED
   }
 }

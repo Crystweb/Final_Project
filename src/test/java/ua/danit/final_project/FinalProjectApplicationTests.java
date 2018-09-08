@@ -694,7 +694,7 @@ public class FinalProjectApplicationTests {
     data.setUser(userService.getById(1l));
     data.setPosition(positionService.getById(1l));
     data.setSalary("10004");
-    data.setStatus(Vacancy.STATUS.OPENED);
+    data.setStatus(Vacancy.Status.OPENED);
     data.setInfo("OPENED 1");
     data.setPublication(new Timestamp(1534770516));
 
