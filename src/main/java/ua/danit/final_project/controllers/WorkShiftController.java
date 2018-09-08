@@ -60,6 +60,26 @@ public class WorkShiftController {
     return ResponseEntity.created(location).build();
   }
 
+  @PostMapping("/comment")
+  public ResponseEntity<ShiftCommentDto> createCommentDto(@RequestBody ShiftCommentDto shiftCommentDto) {
+    ShiftComment shiftComment = new ShiftComment();
+
+    shiftComment.setMessage(shiftCommentDto.getText());
+    shiftComment.setDate(shiftCommentDto.getDate());
+    shiftComment.setUser(StaticCollection.getUser());
+    shiftComment.setPositions(workCommentService.getPositionByTitleIn(shiftCommentDto.getPositions()));
+
+    workCommentService.addComment(shiftComment);
+
+    URI location = ServletUriComponentsBuilder
+            .fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(shiftComment.getId())
+            .toUri();
+
+    return ResponseEntity.created(location).build();
+  }
+
   @PutMapping("/{ws_id}/comment")
   public ResponseEntity<ShiftComment> updateComment(@RequestBody ShiftComment shiftComment) {
     ShiftComment comment = workCommentService.getCommentById(shiftComment.getId());

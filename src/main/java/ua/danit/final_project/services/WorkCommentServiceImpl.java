@@ -3,6 +3,7 @@ package ua.danit.final_project.services;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.entities.ShiftComment;
 import ua.danit.final_project.repositories.PositionRepository;
@@ -75,5 +76,10 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   @Override
   public List<Schedule> getCurrentSchedule() {
     return scheduleRepository.findDistinctByPositionIn(positionRepository.findAll());
+  }
+
+  @Override
+  public List<Position> getPositionByTitleIn(List<String> titles) {
+    return positionRepository.getPositionByTitleIn(titles);
   }
 }

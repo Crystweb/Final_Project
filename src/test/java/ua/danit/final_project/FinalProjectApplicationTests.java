@@ -32,6 +32,7 @@ import ua.danit.final_project.entities.VacancyComment;
 import ua.danit.final_project.entities.WashPeriod;
 import ua.danit.final_project.entities.WashStats;
 import ua.danit.final_project.entities.WashStatsMaterial;
+import ua.danit.final_project.repositories.PositionRepository;
 import ua.danit.final_project.services.WorkCommentService;
 import ua.danit.final_project.services.crud.BedLinenStatsService;
 import ua.danit.final_project.services.crud.BedLinenTypeService;
@@ -63,6 +64,7 @@ import javax.persistence.EntityNotFoundException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -145,6 +147,9 @@ public class FinalProjectApplicationTests {
 
   @Autowired
   WorkCommentService workCommentService;
+
+  @Autowired
+  PositionRepository positionRepository;
 
   @Test
   public void contextLoads() {
@@ -833,6 +838,18 @@ public class FinalProjectApplicationTests {
   public void getSizeOfListPosition() {
     int size = positionService.getAll().size();
     Assert.assertEquals(3, size);
+  }
+
+  @Test
+  public void checkGetPositionByTitleIn() {
+    List<String> titles = new ArrayList<>();
+    titles.add("manager");
+    titles.add("admin");
+    List<Position> expected = new ArrayList<>();
+    expected.add(positionRepository.getOne(1L));
+    expected.add(positionRepository.getOne(2L));
+    List<Position> answer = positionRepository.getPositionByTitleIn(titles);
+    Assert.assertEquals(expected.get(1), answer.get(0));
   }
 }
 
