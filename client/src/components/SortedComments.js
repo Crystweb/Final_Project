@@ -13,12 +13,6 @@ class PositionButtons extends Component {
     this.setState({view: event.target.value})
   }
 
-  checkPosition (position) {
-    if (position === this.state.view) {
-
-    }
-  }
-
   render () {
     const {position, comments} = this.props
     let positionComments = comments
