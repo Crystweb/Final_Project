@@ -1,27 +1,47 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import routes from '../../constants/routes'
-import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { addCommentForSelectedDate } from '../../actions/actions'
+import SortedComments from '../../components/SortedComments'
+import Preloader from '../../components/Preloader'
 
 class ShiftHistoryForSelectedDay extends Component {
 
+  componentDidMount () {
+    axios.get(`/workshift?date=${this.props.date}`)
+      .then(response => this.props.addCommentsForSelectedDate(response.data))
+  }
+
   render () {
-    return (
-      <div className="container">
-        <h3>{this.props.date.getDay}</h3>
-        <nav className='navigation'>
-          <ul>
-            <li><Link to={routes.shiftHistoryManager.href}>{routes.shiftHistoryManager.name}</Link></li>
-            <li><Link to={routes.shiftHistoryAdmin.href}>{routes.shiftHistoryAdmin.name}</Link></li>
-          </ul>
-        </nav>
-      </div>
-    )
+    if (this.props.commentsForSelectedDate) {
+      return (
+        <div className="container">
+          <nav className='navigation'>
+            <SortedComments comments={this.props.commentsForSelectedDate}/>
+          </nav>
+        </div>
+      )
+    } else {
+      return (
+        <Preloader/>
+      )
+    }
   }
 }
 
 const mapStateToProps = (state) => {
-  return {date: state.shiftHistorySelectedDate.selectedDate}
+  return {
+    date: state.shiftHistorySelectedDate.selectedDate,
+    commentsForSelectedDate: state.shiftHistorySelectedDate.commentsForSelectedDates
+  }
 }
 
-export default connect(mapStateToProps)(ShiftHistoryForSelectedDay)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addCommentsForSelectedDate: (data) => {
+      dispatch(addCommentForSelectedDate(data))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShiftHistoryForSelectedDay)

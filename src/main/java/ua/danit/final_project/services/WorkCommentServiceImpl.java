@@ -83,3 +83,6 @@ public class WorkCommentServiceImpl implements WorkCommentService {
     return positionRepository.getPositionByTitleIn(titles);
   }
 }
+
+}
+

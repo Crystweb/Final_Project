@@ -5,3 +5,15 @@ export const getLastShift = (callback) => {
     .then(response => response.data)
     .then(callback)
 }
+
+export const startData = (callbackUser, callbackPosition, callbackSchedule) => {
+  axios.get('/user')
+    .then(response => response.data)
+    .then(callbackUser)
+  axios.get('/position')
+    .then(response => response.data)
+    .then(callbackPosition)
+  axios.get('/workshift/schedule')
+    .then(response => response.data)
+    .then(callbackSchedule)
+}

@@ -19,17 +19,18 @@ import WashingData from './pages/WashingData'
 import SalesNumbers from './pages/washingDate/SalesNumbers'
 import Lodgers from './pages/washingDate/Lodgers'
 import routes from './constants/routes'
-import ShiftHistoryAdmin from './pages/shifts/ShiftHistoryAdmin'
-import ShiftHistoryManager from './pages/shifts/ShiftHistoryManager'
 import { connect } from 'react-redux'
-import { addCurrentUser } from './actions/actions'
-import axios from 'axios'
+import { addAllPositions, addAllSchedules, addCurrentUser } from './actions/actions'
 import Preloader from './components/Preloader'
+import { startData } from './utils/Utills'
 
 class App extends Component {
   componentDidMount () {
-    axios.get('/user')
-      .then(response => this.props.addUser(response.data))
+    startData(
+      data => { this.props.addUser(data) },
+      data => { this.props.addAllPositions(data) },
+      data => { this.props.addSchedules(data) }
+    )
   }
 
   render () {
@@ -51,8 +52,6 @@ class App extends Component {
           <Route exact path={routes.comments.href} component={Comments}/>
           <Route exact path={routes.commentsHistory.href} component={ShiftsHistory}/>
           <Route exact path={routes.addNewComments.href} component={CreateNewComments}/>
-          <Route exact path={routes.shiftHistoryAdmin.href} component={ShiftHistoryAdmin}/>
-          <Route exact path={routes.shiftHistoryManager.href} component={ShiftHistoryManager}/>
           <Route exact path={routes.tasks.href} component={Tasks}/>
           <Route exact path={routes.tasks.hotelTasks.href} component={TasksForHotel}/>
           <Route exact path={routes.tasks.kitchenTasks.href} component={TasksForKitchen}/>
@@ -69,14 +68,20 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({user}) => {
-  return {user: user.currentUser}
+const mapStateToProps = ({startData}) => {
+  return {user: startData.currentUser}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addUser: (data) => {
       dispatch(addCurrentUser(data))
+    },
+    addAllPositions: (data) => {
+      dispatch(addAllPositions(data))
+    },
+    addSchedules: (data) => {
+      dispatch(addAllSchedules(data))
     }
   }
 }
