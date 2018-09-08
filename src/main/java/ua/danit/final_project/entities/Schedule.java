@@ -20,11 +20,7 @@ import java.util.Date;
 @Entity
 @Table(name = "schedule")
 @Data
-public class Schedule implements Serializable {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+public class Schedule extends AbstractEntity implements Serializable {
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @ToString.Exclude
@@ -43,8 +39,6 @@ public class Schedule implements Serializable {
   private Time end;
 
   private String uuid;
-
-  private Date created;
 
   private Date expired;
 }

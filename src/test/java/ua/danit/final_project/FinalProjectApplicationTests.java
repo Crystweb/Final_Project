@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.BedLinenStats;
 import ua.danit.final_project.entities.BedLinenType;
 import ua.danit.final_project.entities.CleaningMaterial;
@@ -48,7 +47,7 @@ import ua.danit.final_project.services.crud.MealTimeCategoryService;
 import ua.danit.final_project.services.crud.PermissionService;
 import ua.danit.final_project.services.crud.PositionService;
 import ua.danit.final_project.services.crud.RoleService;
-import ua.danit.final_project.services.crud.ScheduleService;
+import ua.danit.final_project.services.crud.ScheduleServiceCrud;
 import ua.danit.final_project.services.crud.ShiftCommentService;
 import ua.danit.final_project.services.crud.TaskCommentService;
 import ua.danit.final_project.services.crud.TaskService;
@@ -63,7 +62,6 @@ import javax.persistence.EntityNotFoundException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -118,7 +116,7 @@ public class FinalProjectApplicationTests {
   RoleService roleService;
 
   @Autowired
-  ScheduleService scheduleService;
+  ScheduleServiceCrud scheduleServiceCrud;
 
   @Autowired
   ShiftCommentService shiftCommentService;
@@ -559,19 +557,19 @@ public class FinalProjectApplicationTests {
     data.setStart(new Time(1534763270));
     data.setEnd(new Time(1534764000));
 
-    Schedule actualPOST = scheduleService.save(data);
+    Schedule actualPOST = scheduleServiceCrud.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Schedule actualGET = scheduleService.getById(data.getId());
+    Schedule actualGET = scheduleServiceCrud.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
     data.setEnd(new Time(1534770516));
-    Schedule actualPUT = scheduleService.save(data);
+    Schedule actualPUT = scheduleServiceCrud.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    scheduleService.deleteById(data.getId());
+    scheduleServiceCrud.deleteById(data.getId());
     try {
-      Schedule actualDELETE = scheduleService.getById(data.getId());
+      Schedule actualDELETE = scheduleServiceCrud.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);

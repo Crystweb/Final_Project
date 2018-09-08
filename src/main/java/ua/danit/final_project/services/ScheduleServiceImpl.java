@@ -1,12 +1,16 @@
 package ua.danit.final_project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.repositories.ScheduleRepository;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
+@Service
 public class ScheduleServiceImpl implements ScheduleService {
 
   private final ScheduleRepository scheduleRepository;
@@ -19,38 +23,30 @@ public class ScheduleServiceImpl implements ScheduleService {
   @Override
   public Schedule create(Schedule schedule) {
     schedule.setUuid(UUID.randomUUID().toString());
-//    List<Schedule> actualSchedule = scheduleRepository.findAll().stream()
-//        .filter(s -> s.getPosition().equals(schedule.getPosition()))
-//        .filter(s -> s.getExpired() == null)
-//        .filter(s -> s.getStart().after(schedule.getStart()))
-//        .collect(Collectors.toList());
-//
-//    List<Schedule> newSchedules = cloneSchedules(actualSchedule);
-//    Date now = new Date();
-//    actualSchedule.forEach(s -> {
-//      s.setExpired(now);
-//      scheduleRepository.save(s);
-//    });
-//
-//    newSchedules.forEach(s -> s.setSequenceNumber(s.getSequenceNumber() + 1));
-//    return null;
+    return scheduleRepository.save(schedule);
+  }
+
+  @Override
+  public Schedule update(Schedule schedule) {
+    remove(schedule);
+
+    Schedule newSchedule = new Schedule();
+    newSchedule.setUuid(schedule.getUuid());
+    newSchedule.setPosition(schedule.getPosition());
+    newSchedule.setStart(schedule.getStart());
+    newSchedule.setEnd(schedule.getEnd());
+    newSchedule.setCreatedDate(schedule.getCreatedDate());
+    return scheduleRepository.save(schedule);
   }
 
   @Override
   public Schedule remove(Schedule schedule) {
-    return null;
+    schedule.setExpired(new Date());
+    return scheduleRepository.save(schedule);
   }
 
   @Override
-  public Schedule findByPosition(Schedule schedule) {
-    return null;
-  }
-
-  private List<Schedule> cloneSchedules(List<Schedule> schedules) {
-    List<Schedule> copy = new ArrayList<>();
-    Collections.copy(schedules, copy);
-    copy.forEach(s -> s.setId(null));
-
-    return copy;
+  public List<Schedule> findByPosition(Position position) {
+    return scheduleRepository.findAllByPositionAndExpired(position, null);
   }
 }
