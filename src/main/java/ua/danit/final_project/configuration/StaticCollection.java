@@ -8,7 +8,6 @@ public class StaticCollection {
   private static User user;
   private static Position position;
 
-
   static {
 
     position = new Position();

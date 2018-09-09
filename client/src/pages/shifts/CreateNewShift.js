@@ -10,24 +10,42 @@ class CreateNewComments extends Component {
     this.state = {
       checkedPositions: [],
       textComment: null,
-      response: null,
-      error: null
+      errorText: null,
+      errorCheckedPosition: null,
+      successPost: null
     }
   }
 
   addComment () {
     const {textComment, checkedPositions} = this.state
 
-    if (_.isEmpty(textComment) || _.isEmpty(checkedPositions)) {
-this.setState
-    }
-
-    axios.post('/comment',
-      {
-        text: this.state.textComment,
-        positions: this.state.checkedPositions
+    if (_.isEmpty(textComment)) {
+      this.setState({
+        successPost: null,
+        errorCheckedPosition: null,
+        errorText: 'Введите текст'
       })
-      .then(response => this.setState({response: response.data}))
+    } else {
+      if (_.isEmpty(checkedPositions)) {
+        this.setState({
+          successPost: null,
+          errorText: null,
+          errorCheckedPosition: 'Выберите позицию'
+
+        })
+      } else {
+        axios.post('/workshift/comment',
+          {
+            text: this.state.textComment,
+            positions: this.state.checkedPositions
+          })
+          .then(() => this.setState({
+            errorText: null,
+            errorCheckedPosition: null,
+            successPost: 'Комментарий добавлен успешно'
+          }))
+      }
+    }
   }
 
   addText (event) {
@@ -70,6 +88,8 @@ this.setState
         )}
         <p><textarea placeholder={'Введите Ваш коментарий'} onChange={this.addText.bind(this)}/></p>
         <p><input type="button" value=" Добавить комментарий " onClick={this.addComment.bind(this)}/></p>
+        <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
+        <p>{this.state.successPost}</p>
       </div>
       )
     }
