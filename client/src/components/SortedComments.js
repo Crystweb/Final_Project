@@ -32,7 +32,8 @@ class PositionButtons extends Component {
         <input name="position"
           type='radio'
           checked={this.state.view === position.title}
-          value={position.title}/>
+          value={position.title}
+        />
         {position.title}
       </li>
     )

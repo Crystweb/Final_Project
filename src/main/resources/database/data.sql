@@ -12,7 +12,8 @@ INSERT INTO `role` (`r_name`) VALUES ('stateFarm');
 
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('manager', true );
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('admin', true );
-INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('managing director', false);
+INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('managing director', true);
+INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('chief', false);
 
 INSERT INTO `user` (u_login, u_password, position_id) VALUES ('login1','1', 1);
 INSERT INTO `user` (u_login, u_password, position_id) VALUES ('login2','1', 2);
