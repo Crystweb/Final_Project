@@ -35,6 +35,9 @@ public class Position {
   @Column(name = "p_title", nullable = false, unique = true)
   private String title;
 
+  @Column(name = "pinned_to_comment")
+  private Boolean pinnedToComment;
+
   @JsonIgnore
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude
