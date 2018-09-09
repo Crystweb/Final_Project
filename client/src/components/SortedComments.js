@@ -21,7 +21,9 @@ class PositionButtons extends Component {
         <li key={comment.id} style={{marginBottom: 15}}>
           <h5>{comment.forename} {comment.surname}, {comment.authorPosition}</h5>
           <h3>{comment.text}</h3>
-          <h6>{new Date(comment.date).toDateString()}</h6>
+          <h6>
+            {new Date(comment.date).toLocaleTimeString()}
+          </h6>
         </li>
       )
     console.log(positionComments)
