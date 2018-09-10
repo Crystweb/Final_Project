@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.dto.ShiftCommentDto;
 import ua.danit.final_project.entities.ShiftComment;
 import ua.danit.final_project.services.WorkCommentService;
-import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,18 +43,19 @@ public class WorkShiftController {
     return workCommentService.getCommentsOfLastWorkShifts();
   }
 
-  @PostMapping("/{ws_id}/comment")
-  public ResponseEntity<ShiftComment> createComment(@RequestBody ShiftComment shiftComment) {
+
+  @PostMapping("/comment")
+  public ResponseEntity<ShiftCommentDto> createCommentDto(@RequestBody ShiftCommentDto shiftCommentDto) {
+    ShiftComment shiftComment = new ShiftComment();
+
+    shiftComment.setMessage(shiftCommentDto.getText());
+    shiftComment.setDate(shiftCommentDto.getDate());
     shiftComment.setUser(StaticCollection.getUser());
-    shiftComment = workCommentService.addComment(shiftComment);
+    shiftComment.setPositions(workCommentService.getPositionByTitleIn(shiftCommentDto.getPositions()));
 
-    URI location = ServletUriComponentsBuilder
-            .fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(shiftComment.getId())
-            .toUri();
+    workCommentService.addComment(shiftComment);
 
-    return ResponseEntity.created(location).build();
+    return ResponseEntity.ok().build();
   }
 
   @PutMapping("/{ws_id}/comment")
