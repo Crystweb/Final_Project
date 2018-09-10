@@ -13,12 +13,6 @@ class PositionButtons extends Component {
     this.setState({view: event.target.value})
   }
 
-  checkPosition (position) {
-    if (position === this.state.view) {
-
-    }
-  }
-
   render () {
     const {position, comments} = this.props
     let positionComments = comments
@@ -27,7 +21,9 @@ class PositionButtons extends Component {
         <li key={comment.id} style={{marginBottom: 15}}>
           <h5>{comment.forename} {comment.surname}, {comment.authorPosition}</h5>
           <h3>{comment.text}</h3>
-          <h6>{new Date(comment.date).toDateString()}</h6>
+          <h6>
+            {new Date(comment.date).toLocaleTimeString()}
+          </h6>
         </li>
       )
     console.log(positionComments)
@@ -36,7 +32,8 @@ class PositionButtons extends Component {
         <input name="position"
           type='radio'
           checked={this.state.view === position.title}
-          value={position.title}/>
+          value={position.title}
+        />
         {position.title}
       </li>
     )

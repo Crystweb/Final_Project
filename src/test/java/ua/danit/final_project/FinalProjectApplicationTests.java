@@ -802,7 +802,7 @@ public class FinalProjectApplicationTests {
   @Test
   public void getSizeOfListPosition() {
     int size = positionService.getAll().size();
-    Assert.assertEquals(3, size);
+    Assert.assertEquals(4, size);
   }
 
   @Test

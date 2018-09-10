@@ -34,7 +34,7 @@ class App extends Component {
   }
 
   render () {
-    if (!this.props.user) {
+    if (!this.props.user && !this.props.schedules && !this.props.positions) {
       return (
         <Preloader/>
       )
@@ -69,7 +69,11 @@ class App extends Component {
 }
 
 const mapStateToProps = ({startData}) => {
-  return {user: startData.currentUser}
+  return {
+    user: startData.currentUser,
+    positions: startData.positions,
+    schedules: startData.schedules
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
