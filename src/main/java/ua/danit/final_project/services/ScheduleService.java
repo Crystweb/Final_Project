@@ -12,6 +12,8 @@ public interface ScheduleService {
 
   Schedule remove(Schedule schedule);
 
+  Schedule remove(Long id);
+
   Schedule update(Schedule schedule);
 
   List<Schedule> findByPosition(Position position);

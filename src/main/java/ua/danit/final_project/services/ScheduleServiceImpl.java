@@ -6,6 +6,7 @@ import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.repositories.ScheduleRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -44,6 +45,11 @@ public class ScheduleServiceImpl implements ScheduleService {
   public Schedule remove(Schedule schedule) {
     schedule.setExpired(new Date());
     return scheduleRepository.save(schedule);
+  }
+
+  @Override
+  public Schedule remove(Long id) {
+    return remove(scheduleRepository.findById(id).orElseThrow(EntityNotFoundException::new));
   }
 
   @Override
