@@ -14,4 +14,6 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
   List<Schedule> findDistinctByPositionIn(List<Position> positions);
 
   List<Schedule> findAllByPositionAndExpired(Position position, Date expired);
+
+  List<Schedule> findAllByCreatedDateBefore(Date date);
 }

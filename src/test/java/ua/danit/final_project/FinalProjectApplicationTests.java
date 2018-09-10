@@ -25,7 +25,7 @@ import ua.danit.final_project.services.crud.MealTimeCategoryService;
 import ua.danit.final_project.services.crud.PermissionService;
 import ua.danit.final_project.services.crud.PositionService;
 import ua.danit.final_project.services.crud.RoleService;
-import ua.danit.final_project.services.crud.ScheduleService;
+import ua.danit.final_project.services.crud.ScheduleServiceCrud;
 import ua.danit.final_project.services.crud.ShiftCommentService;
 import ua.danit.final_project.services.crud.TaskCommentService;
 import ua.danit.final_project.services.crud.TaskService;
@@ -95,7 +95,7 @@ public class FinalProjectApplicationTests {
   RoleService roleService;
 
   @Autowired
-  ScheduleService scheduleService;
+  ScheduleServiceCrud scheduleService;
 
   @Autowired
   ShiftCommentService shiftCommentService;

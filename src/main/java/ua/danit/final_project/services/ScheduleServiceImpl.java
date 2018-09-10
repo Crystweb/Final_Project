@@ -6,9 +6,11 @@ import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.repositories.ScheduleRepository;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
@@ -48,5 +50,12 @@ public class ScheduleServiceImpl implements ScheduleService {
   @Override
   public List<Schedule> findByPosition(Position position) {
     return scheduleRepository.findAllByPositionAndExpired(position, null);
+  }
+
+  public List<Schedule> findByDate(Date date) {
+    List<Schedule> schedules = scheduleRepository.findAllByCreatedDateBefore(date);
+    return schedules.stream()
+        .filter(s -> s.getExpired() == null || s.getExpired().after(date))
+        .collect(Collectors.toList());
   }
 }
