@@ -52,6 +52,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     return scheduleRepository.findAllByPositionAndExpired(position, null);
   }
 
+  @Override
   public List<Schedule> findByDate(Date date) {
     List<Schedule> schedules = scheduleRepository.findAllByCreatedDateBefore(date);
     return schedules.stream()
