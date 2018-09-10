@@ -6,7 +6,6 @@ import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.repositories.ScheduleRepository;
 
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;

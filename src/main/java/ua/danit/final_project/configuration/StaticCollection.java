@@ -12,6 +12,7 @@ public class StaticCollection {
 
     position = new Position();
     position.setTitle("admin");
+    position.setId(1L);
 
     user = new User();
     user.setId(5L);
