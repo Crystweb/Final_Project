@@ -35,7 +35,9 @@ public class Schedule extends AbstractEntity implements Serializable {
   @Column(name = "end", nullable = false)
   private Time end;
 
+  @Column(name = "uuid")
   private String uuid;
 
+  @Column(name = "expired")
   private Date expired;
 }
