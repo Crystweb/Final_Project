@@ -15,6 +15,7 @@ import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.dto.ShiftCommentDto;
 import ua.danit.final_project.entities.ShiftComment;
+import ua.danit.final_project.entities.User;
 import ua.danit.final_project.services.WorkCommentService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,18 +39,13 @@ public class WorkShiftController {
             .collect(Collectors.toList());
   }
 
-
-  @GetMapping("/")
-  public List<ShiftComment> getCommentsOfLastWorkShifts() {
-    return workCommentService.getCommentsOfLastWorkShifts();
-  }
-
-
   @PostMapping("/comment")
   public ResponseEntity<ShiftCommentDto> createCommentDto(@RequestBody ShiftCommentDto shiftCommentDto) {
+    User userFromToken = StaticCollection.getUser();
     ShiftComment shiftComment = new ShiftComment();
 
     shiftComment.setMessage(shiftCommentDto.getText());
+    shiftComment.setUser(userFromToken);
     shiftComment.setDate(shiftCommentDto.getDate());
     shiftComment.setUser(StaticCollection.getUser());
     shiftComment.setPositions(workCommentService.getPositionByTitleIn(shiftCommentDto.getPositions()));
@@ -59,23 +55,30 @@ public class WorkShiftController {
     return ResponseEntity.ok().build();
   }
 
-  @PutMapping("/{ws_id}/comment")
-  public ResponseEntity<ShiftComment> updateComment(@RequestBody ShiftComment shiftComment) {
-    ShiftComment comment = workCommentService.getCommentById(shiftComment.getId());
+  @PutMapping("/comment")
+  public ResponseEntity<ShiftComment> updateComment(@RequestBody ShiftCommentDto shiftCommentDto) {
+    User userFromToken = StaticCollection.getUser();
 
-    if (StaticCollection.getUser().getId() != comment.getUser().getId()) {
+    if (StaticCollection.getUser().getId() != userFromToken.getId()) {
       return ResponseEntity.notFound().build();
     }
 
-    comment.setMessage(shiftComment.getMessage());
-    return ResponseEntity.ok(workCommentService.updateComment(comment));
+    ShiftComment shiftComment = new ShiftComment();
+
+    shiftComment.setId(shiftCommentDto.getId());
+    shiftComment.setUser(userFromToken);
+    shiftComment.setMessage(shiftCommentDto.getText());
+    shiftComment.setPositions(workCommentService.getPositionByTitleIn(shiftCommentDto.getPositions()));
+    shiftComment.setDate(shiftCommentDto.getDate());
+
+    return ResponseEntity.ok(workCommentService.updateComment(shiftComment));
   }
 
-  @DeleteMapping("/{ws_id}/comment/{c_id}")
+  @DeleteMapping("/comment/{c_id}")
   public ResponseEntity<ShiftComment> deleteComment(@PathVariable("c_id") Long id) {
-    ShiftComment comment = workCommentService.getCommentById(id);
+    User userFromToken = StaticCollection.getUser();
 
-    if (StaticCollection.getUser().getId() != comment.getUser().getId()) {
+    if (StaticCollection.getUser().getId() != userFromToken.getId()) {
       return ResponseEntity.notFound().build();
     }
 
