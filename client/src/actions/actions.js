@@ -41,3 +41,10 @@ export function addAllSchedules (schedules) {
     schedules
   }
 }
+
+export function addAllLocation (locations) {
+  return {
+    type: types.GET_LOCATIONS,
+    locations
+  }
+}

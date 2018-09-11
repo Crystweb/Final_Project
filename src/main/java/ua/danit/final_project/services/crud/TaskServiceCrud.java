@@ -5,7 +5,7 @@ import ua.danit.final_project.entities.Task;
 
 import java.util.List;
 
-public interface TaskService {
+public interface TaskServiceCrud {
 
   Task getById(Long id);
 
