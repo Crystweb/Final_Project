@@ -4,55 +4,55 @@ import axios from 'axios';
 import VacanciesList from "../components/VacanciesList";
 
 class Vacancies extends Component {
-    onOpenModal = () => {
-        this.setState({open: true});
-    };
-    onCloseModal = () => {
-        this.setState({open: false});
-    };
-    handleSubmit = event => {
-        event.preventDefault();
-        axios({
-            url: '/vacancy',
-            method: 'POST',
-            data: {
-                vacancy:{
-                    position:this.state.position,
-                    info: this.state.info,
-                    salary: this.state.salary
-                }
-            }
+  onOpenModal = () => {
+    this.setState({open: true})
+  }
+  onCloseModal = () => {
+    this.setState({open: false})
+  }
+  handleSubmit = event => {
+    event.preventDefault()
+    axios({
+      url: '/vacancy',
+      method: 'POST',
+      data: {
+        vacancy: {
+          position: this.state.position,
+          info: this.state.info,
+          salary: this.state.salary
+        }
+      }
 
-        }).then(() => this.setState({open:false}))
-    };
+    }).then(() => this.setState({open: false}))
+  }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            position: '',
-            salary: '',
-            info: '',
-            open: false
-        };
-        this.handlePositionChange = this.handlePositionChange.bind(this);
-        this.handleSalaryChange = this.handleSalaryChange.bind(this);
-        this.handleInfoChange = this.handleInfoChange.bind(this);
+  constructor (props) {
+    super(props)
+    this.state = {
+      position: '',
+      salary: '',
+      info: '',
+      open: false
     }
+    this.handlePositionChange = this.handlePositionChange.bind(this)
+    this.handleSalaryChange = this.handleSalaryChange.bind(this)
+    this.handleInfoChange = this.handleInfoChange.bind(this)
+  }
 
-    handlePositionChange(event) {
-        event.preventDefault();
-        this.setState({position: event.target.value});
-    }
+  handlePositionChange (event) {
+    event.preventDefault()
+    this.setState({position: event.target.value})
+  }
 
-    handleSalaryChange(event) {
-        event.preventDefault();
-        this.setState({salary: event.target.value});
-    }
+  handleSalaryChange (event) {
+    event.preventDefault()
+    this.setState({salary: event.target.value})
+  }
 
-    handleInfoChange(event) {
-        event.preventDefault();
-        this.setState({info: event.target.value});
-    }
+  handleInfoChange (event) {
+    event.preventDefault()
+    this.setState({info: event.target.value})
+  }
 
     render() {
         const {open} = this.state;

@@ -8,11 +8,11 @@ public class StaticCollection {
   private static User user;
   private static Position position;
 
-
   static {
 
     position = new Position();
     position.setTitle("admin");
+    position.setId(1L);
 
     user = new User();
     user.setId(5L);

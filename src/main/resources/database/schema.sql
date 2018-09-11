@@ -92,6 +92,10 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   `p_id` BIGINT NOT NULL,
   `start` TIME NOT NULL,
   `end` TIME NOT NULL,
+  `uuid` VARCHAR(255),
+  `created_at` TIMESTAMP,
+  `expired` TIMESTAMP,
+  `last_update` TIMESTAMP,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`p_id`) REFERENCES `position`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
