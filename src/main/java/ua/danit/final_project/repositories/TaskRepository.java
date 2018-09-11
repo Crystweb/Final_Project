@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.entities.Task;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
