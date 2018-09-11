@@ -2,6 +2,7 @@ package ua.danit.final_project.services.tasks;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.entities.Task;
 import ua.danit.final_project.repositories.TaskRepository;
 
@@ -49,6 +50,15 @@ public class TaskServiceImpl implements TaskService {
     statuses.add(Task.TaskStatus.REMOVED);
     statuses.add(Task.TaskStatus.REJECTED);
     return taskRepository.findAllByStatusNotIn(statuses)
+        .stream()
+        .filter(t -> t.getExpired() == null || t.getExpired().after(new Date()))
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<Task> findAllByLocation(Location location) {
+
+    return taskRepository.findAllByLocationsContains(location)
         .stream()
         .filter(t -> t.getExpired() == null || t.getExpired().after(new Date()))
         .collect(Collectors.toList());

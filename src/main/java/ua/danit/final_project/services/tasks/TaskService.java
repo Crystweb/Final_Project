@@ -1,5 +1,6 @@
 package ua.danit.final_project.services.tasks;
 
+import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.entities.Task;
 
 import javax.persistence.EntityNotFoundException;
@@ -18,4 +19,6 @@ public interface TaskService {
   List<Task.TaskStatus> getStatuses();
 
   List<Task.TaskFrequency> getFrequencies();
+
+  List<Task> findAllByLocation(Location location);
 }

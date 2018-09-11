@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.entities.Task;
 import ua.danit.final_project.services.tasks.TaskService;
 
@@ -36,8 +37,12 @@ public class TaskController {
   }
 
   @GetMapping
-  public List<Task> getActiveTasks() {
-    return taskService.findAllActive();
+  public List<Task> getActiveTasks(@RequestParam(value = "location", required = false) Location location) {
+    if (location == null) {
+      return taskService.findAllActive();
+    } else {
+      return taskService.findAllByLocation(location);
+    }
   }
 
   @PostMapping
