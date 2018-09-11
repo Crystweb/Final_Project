@@ -1,3 +1,21 @@
 .test {
   margin: 0;
 }
+.position-radio-buttons {
+  display: flex;
+  justify-content: center;
+  color: #ff6300;
+  margin-bottom: 40px;
+}
+.position-radio-buttons li input:checked + li{
+  color: red;
+}
+.positionComments{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.positionComments li{
+  text-align: center;
+  margin-bottom: 20px;
+}
