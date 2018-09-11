@@ -126,9 +126,10 @@ CREATE TABLE IF NOT EXISTS `task` (
   `u_id_assignee` BIGINT,
   `u_id_delegator` BIGINT NOT NULL,
   `t_message` VARCHAR(1023),
-  `t_status` VARCHAR(31) CHECK (`t_status` in ('OPENED', 'CLOSED', 'REJECTED', 'PENDING','IN_PROGRESS', 'EXPIRED', 'CHANGE')),
-  `t_frequency` VARCHAR(31) CHECK (`t_frequency` in ('DAILY', 'WEEKLY', 'MONTHLY')),
-  `updated` TIMESTAMP NOT NULL,
+  `t_status` VARCHAR(31) CHECK (`t_status` in ('REMOVED', 'OPENED', 'CLOSED', 'REJECTED', 'PENDING','IN_PROGRESS', 'EXPIRED', 'CHANGE')),
+  `t_frequency` VARCHAR(31) CHECK (`t_frequency` in ('ONCE', 'DAILY', 'WEEKLY', 'MONTHLY')),
+  `expired` TIMESTAMP,
+  `updated` TIMESTAMP,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id_assignee`) REFERENCES `user`(`id`),
   FOREIGN KEY (`u_id_delegator`) REFERENCES `user`(`id`)
