@@ -60,7 +60,7 @@ public class RepeatableTaskExecutor {
 
           taskRepository.save(newTask);
         });
-    logger.info("New daily task are generated");
+    logger.info("New daily tasks are generated");
   }
 
   @Scheduled(cron = "0 0 0 * * 1") // every week
@@ -75,7 +75,7 @@ public class RepeatableTaskExecutor {
 
           taskRepository.save(newTask);
         });
-    logger.info("New weekly task are generated");
+    logger.info("New weekly tasks are generated");
   }
 
   @Scheduled(cron = "0 0 0 1 * *") // every month
@@ -90,7 +90,7 @@ public class RepeatableTaskExecutor {
 
           taskRepository.save(newTask);
         });
-    logger.info("New monthly task are generated");
+    logger.info("New monthly tasks are generated");
   }
 
   private Task generateNewTask(Task task) {
