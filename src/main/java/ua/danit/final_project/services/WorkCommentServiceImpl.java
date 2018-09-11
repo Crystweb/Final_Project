@@ -2,7 +2,6 @@ package ua.danit.final_project.services;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.Schedule;
