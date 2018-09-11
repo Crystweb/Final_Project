@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.BedLinenStats;
 import ua.danit.final_project.entities.BedLinenType;
 import ua.danit.final_project.entities.CleaningMaterial;
