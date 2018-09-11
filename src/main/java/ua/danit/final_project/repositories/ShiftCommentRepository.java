@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ShiftCommentRepository extends JpaRepository<ShiftComment, Long> {
 
-  @Query(value = "SELECT * FROM shift_comment WHERE id > :id AND w_shift_id = :workShiftId", nativeQuery = true)
+  @Query (value = "SELECT * FROM shift_comment WHERE id > :id AND w_shift_id = :workShiftId", nativeQuery = true)
   List<ShiftComment> getAllByLastThreeWorkShiftId(@Param("id") Long id,
                                                   @Param("workShiftId") Long workShiftId);
 
