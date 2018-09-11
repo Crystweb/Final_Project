@@ -27,6 +27,8 @@ public class ShiftCommentDto implements Serializable {
 
   private String authorPosition;
 
+  private Long authorId;
+
   public ShiftCommentDto(ShiftComment shiftComment) {
     this.id = shiftComment.getId();
     this.text = shiftComment.getMessage();
@@ -40,5 +42,6 @@ public class ShiftCommentDto implements Serializable {
             .map(Position::getTitle)
             .collect(Collectors.toList());
     this.authorPosition = shiftComment.getUser().getPosition().getTitle();
+    this.authorId = shiftComment.getUser().getId();
   }
 }
