@@ -10,17 +10,17 @@ import java.sql.Timestamp;
 @Data
 public class VacancyDto implements Serializable {
 
-  private Long id;
+  private Long id; // NOSONAR
 
-  private String position;
+  private String position; // NOSONAR
 
-  private String salary;
+  private String salary; // NOSONAR
 
-  private String status;
+  private String status; // NOSONAR
 
-  private String info;
+  private String info; // NOSONAR
 
-  private Timestamp publication;
+  private Timestamp publication; // NOSONAR
 
   public VacancyDto(Vacancy vacancy) {
     this.id = vacancy.getId();
