@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {Timeline, TimelineEvent} from 'react-event-timeline'
+import { Timeline, TimelineEvent } from 'react-event-timeline'
 
 class PositionButtons extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       view: 'admin'
     }
@@ -19,20 +19,21 @@ class PositionButtons extends Component {
 
     }
   }
-  
+
   render () {
-    const {position, comments} = this.props;
+    const {position, comments} = this.props
     let positionComments = comments
       .filter(comment => comment.positions.includes(this.state.view))
+      .reverse()
       .map(comment =>
-          <TimelineEvent createdAt={new Date(comment.date).toLocaleTimeString()}>
-        <li key={comment.id}>
-          <h5>{comment.forename} {comment.surname}, {comment.authorPosition}</h5>
-          <h3>{comment.text}</h3>
-        </li>
-          </TimelineEvent>
-      );
-    console.log(positionComments);
+        <TimelineEvent createdAt={new Date(comment.date).toLocaleTimeString()}>
+          <li key={comment.id}>
+            <h5>{comment.forename} {comment.surname}, {comment.authorPosition}</h5>
+            <h3>{comment.text}</h3>
+          </li>
+        </TimelineEvent>
+      )
+
     const selectPositionInputs = position.map(position =>
       <li key={position.id}>
         <input name="position"
@@ -41,17 +42,18 @@ class PositionButtons extends Component {
           value={position.title}/>
         {position.title}
       </li>
-    );
+    )
+
     return (
       <section className="comments">
         <div className="position-radio-buttons" onChange={this.setPositionView.bind(this)}>
           {selectPositionInputs}
         </div>
-          <Timeline animate={true}>
-        <div className="positionComments">
-        {positionComments}
-        </div>
-          </Timeline>
+        <Timeline>
+          <div className="positionComments">
+            {positionComments}
+          </div>
+        </Timeline>
       </section>
     )
   }
@@ -61,6 +63,6 @@ const mapStateToProps = ({startData}) => {
   return {
     position: startData.positions
   }
-};
+}
 
 export default connect(mapStateToProps)(PositionButtons)
