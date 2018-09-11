@@ -26,7 +26,7 @@ public class VacancyDto implements Serializable {
     this.id = vacancy.getId();
     this.position = vacancy.getPosition().getTitle();
     this.salary = vacancy.getSalary();
-    this.status = vacancy.getStatus();
+    this.status = vacancy.getVacancyStatus().toString();
     this.info = vacancy.getInfo();
     this.publication = vacancy.getPublication();
 
