@@ -20,7 +20,7 @@ import SalesNumbers from './pages/washingDate/SalesNumbers'
 import Lodgers from './pages/washingDate/Lodgers'
 import routes from './constants/routes'
 import { connect } from 'react-redux'
-import { addAllPositions, addAllSchedules, addCurrentUser } from './actions/actions'
+import { addAllLocation, addAllPositions, addAllSchedules, addCurrentUser } from './actions/actions'
 import Preloader from './components/Preloader'
 import { startData } from './utils/Utills'
 
@@ -29,7 +29,8 @@ class App extends Component {
     startData(
       data => { this.props.addUser(data) },
       data => { this.props.addAllPositions(data) },
-      data => { this.props.addSchedules(data) }
+      data => { this.props.addSchedules(data) },
+      data => { this.props.addAllLocation(data) }
     )
   }
 
@@ -86,6 +87,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     addSchedules: (data) => {
       dispatch(addAllSchedules(data))
+    },
+    addAllLocation: (data) => {
+      dispatch(addAllLocation(data))
     }
   }
 }
