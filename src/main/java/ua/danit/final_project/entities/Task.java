@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -55,7 +56,10 @@ public class Task implements Serializable {
   @Column(name = "t_frequency")
   private TaskFrequency frequency;
 
-  @Column(name = "updated", nullable = false)
+  @Column(name = "expired")
+  private Date expired;
+
+  @Column(name = "updated")
   private Timestamp updated;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -68,10 +72,10 @@ public class Task implements Serializable {
   private List<Location> locations;
 
   public enum TaskStatus {
-    OPENED, CLOSED, REJECTED, PENDING, IN_PROGRESS, EXPIRED, CHANGE
+    REMOVED ,OPENED, CLOSED, REJECTED, PENDING, IN_PROGRESS, EXPIRED, CHANGE
   }
 
   public enum TaskFrequency {
-    DAILY, WEEKLY, MONTHLY
+    ONCE, DAILY, WEEKLY, MONTHLY
   }
 }
