@@ -10,6 +10,7 @@
     "npm-watch": "^0.3.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-event-timeline": "^1.5.4",
     "react-infinite-calendar": "^2.3.1",
     "react-redux": "^5.0.7",
     "react-responsive-modal": "^3.2.0",
