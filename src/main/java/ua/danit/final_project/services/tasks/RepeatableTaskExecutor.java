@@ -18,7 +18,7 @@ import java.util.Set;
 @EnableScheduling
 public class RepeatableTaskExecutor {
 
-  private static final long UPDATE_PERIOD = 1000 * 60 * 5;
+  private static final long UPDATE_PERIOD = 1000L * 60 * 5;
 
   private final Logger logger = LoggerFactory.getLogger(RepeatableTaskExecutor.class);
 

@@ -179,7 +179,6 @@ public class FinalProjectApplicationTests {
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
     }
-
   }
 
   @Test
