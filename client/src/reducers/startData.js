@@ -1,9 +1,10 @@
-import { GET_ALL_POSITIONS, GET_CURRENT_USER, GET_SCHEDULES } from '../constants/actionTypes'
+import { GET_ALL_POSITIONS, GET_CURRENT_USER, GET_LOCATIONS, GET_SCHEDULES } from '../constants/actionTypes'
 
 const initialState = {
   currentUser: null,
   positions: null,
-  schedules: null
+  schedules: null,
+  locations: null
 }
 
 export default function addUserReducer (state = initialState, action) {
@@ -14,6 +15,8 @@ export default function addUserReducer (state = initialState, action) {
       return {...state, positions: action.positions}
     case GET_SCHEDULES:
       return {...state, schedules: action.schedules}
+    case GET_LOCATIONS:
+      return {...state, locations: action.locations}
     default:
       return state
   }

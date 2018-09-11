@@ -6,7 +6,7 @@ export const getLastShift = (callback) => {
     .then(callback)
 }
 
-export const startData = (callbackUser, callbackPosition, callbackSchedule) => {
+export const startData = (callbackUser, callbackPosition, callbackSchedule, callbackLocation) => {
   axios.get('/user')
     .then(response => response.data)
     .then(callbackUser)
@@ -16,4 +16,7 @@ export const startData = (callbackUser, callbackPosition, callbackSchedule) => {
   axios.get('/workshift/schedule')
     .then(response => response.data)
     .then(callbackSchedule)
+  axios.get('/location')
+    .then(response => response.data)
+    .then(callbackLocation)
 }

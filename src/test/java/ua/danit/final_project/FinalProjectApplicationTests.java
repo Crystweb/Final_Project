@@ -7,7 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.danit.final_project.configuration.StaticCollection;
-import ua.danit.final_project.entities.*;
+import ua.danit.final_project.entities.BedLinenStats;
+import ua.danit.final_project.entities.BedLinenType;
+import ua.danit.final_project.entities.CleaningMaterial;
+import ua.danit.final_project.entities.Consumer;
+import ua.danit.final_project.entities.DishAccounting;
+import ua.danit.final_project.entities.DishBalance;
+import ua.danit.final_project.entities.DishComment;
+import ua.danit.final_project.entities.DishType;
+import ua.danit.final_project.entities.Employee;
+import ua.danit.final_project.entities.FoodSupply;
+import ua.danit.final_project.entities.Location;
+import ua.danit.final_project.entities.MealTimeCategory;
+import ua.danit.final_project.entities.Permission;
+import ua.danit.final_project.entities.Position;
+import ua.danit.final_project.entities.Role;
+import ua.danit.final_project.entities.Schedule;
+import ua.danit.final_project.entities.ShiftComment;
+import ua.danit.final_project.entities.Task;
+import ua.danit.final_project.entities.TaskComment;
+import ua.danit.final_project.entities.User;
+import ua.danit.final_project.entities.Vacancy;
+import ua.danit.final_project.entities.VacancyComment;
+import ua.danit.final_project.entities.WashPeriod;
+import ua.danit.final_project.entities.WashStats;
+import ua.danit.final_project.entities.WashStatsMaterial;
 import ua.danit.final_project.repositories.PositionRepository;
 import ua.danit.final_project.services.ScheduleService;
 import ua.danit.final_project.services.WorkCommentService;
@@ -29,13 +53,14 @@ import ua.danit.final_project.services.crud.RoleService;
 import ua.danit.final_project.services.crud.ScheduleServiceCrud;
 import ua.danit.final_project.services.crud.ShiftCommentService;
 import ua.danit.final_project.services.crud.TaskCommentService;
-import ua.danit.final_project.services.crud.TaskService;
+import ua.danit.final_project.services.crud.TaskServiceCrud;
 import ua.danit.final_project.services.crud.UserService;
 import ua.danit.final_project.services.crud.VacancyCommentService;
 import ua.danit.final_project.services.crud.VacancyService;
 import ua.danit.final_project.services.crud.WashPeriodService;
 import ua.danit.final_project.services.crud.WashStatsMaterialService;
 import ua.danit.final_project.services.crud.WashStatsService;
+import ua.danit.final_project.services.tasks.TaskService;
 
 import javax.persistence.EntityNotFoundException;
 import java.sql.Time;
@@ -105,7 +130,7 @@ public class FinalProjectApplicationTests {
   TaskCommentService taskCommentService;
 
   @Autowired
-  TaskService taskService;
+  TaskServiceCrud taskServiceCrud;
 
   @Autowired
   VacancyCommentService vacancyCommentService;
@@ -130,6 +155,9 @@ public class FinalProjectApplicationTests {
 
   @Autowired
   ScheduleService scheduleService;
+
+  @Autowired
+  TaskService taskService;
 
   @Test
   public void contextLoads() {
@@ -160,7 +188,6 @@ public class FinalProjectApplicationTests {
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
     }
-
   }
 
   @Test
@@ -593,7 +620,7 @@ public class FinalProjectApplicationTests {
   @Test
   public void TaskCommentCRUD() {
     TaskComment data = new TaskComment();
-    data.setTask(taskService.getById(1l));
+    data.setTask(taskServiceCrud.getById(1l));
     data.setUser(userService.getById(1l));
     data.setMessage("TaskComment 1");
     data.setDate(new Timestamp(1534770516));
@@ -834,6 +861,16 @@ public class FinalProjectApplicationTests {
     Assert.assertNull(schedule.getExpired());
     Schedule removed = scheduleService.remove(schedule);
     Assert.assertNotNull(removed.getExpired());
+  }
+
+  @Test
+  public void taskCreated() {
+    Task task = new Task();
+    task.setDelegator(StaticCollection.getUser());
+    task.setMessage("Hello");
+    taskService.create(task);
+
+    Assert.assertNotNull(taskService.findAllActive());
   }
 }
 
