@@ -24,6 +24,9 @@ public class TaskServiceImpl implements TaskService {
 
   @Override
   public Task create(Task task) {
+    if (task.getStatus() == null) {
+      task.setStatus(Task.TaskStatus.OPENED);
+    }
     return taskRepository.save(task);
   }
 
@@ -47,7 +50,7 @@ public class TaskServiceImpl implements TaskService {
     statuses.add(Task.TaskStatus.REJECTED);
     return taskRepository.findAllByStatusNotIn(statuses)
         .stream()
-        .filter(t -> t.getExpired().after(new Date()))
+        .filter(t -> t.getExpired() == null || t.getExpired().after(new Date()))
         .collect(Collectors.toList());
   }
 

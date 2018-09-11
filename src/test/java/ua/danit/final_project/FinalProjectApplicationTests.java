@@ -60,6 +60,7 @@ import ua.danit.final_project.services.crud.VacancyService;
 import ua.danit.final_project.services.crud.WashPeriodService;
 import ua.danit.final_project.services.crud.WashStatsMaterialService;
 import ua.danit.final_project.services.crud.WashStatsService;
+import ua.danit.final_project.services.tasks.TaskService;
 
 import javax.persistence.EntityNotFoundException;
 import java.sql.Time;
@@ -154,6 +155,9 @@ public class FinalProjectApplicationTests {
 
   @Autowired
   ScheduleService scheduleService;
+
+  @Autowired
+  TaskService taskService;
 
   @Test
   public void contextLoads() {
@@ -857,6 +861,16 @@ public class FinalProjectApplicationTests {
     Assert.assertNull(schedule.getExpired());
     Schedule removed = scheduleService.remove(schedule);
     Assert.assertNotNull(removed.getExpired());
+  }
+
+  @Test
+  public void taskCreated() {
+    Task task = new Task();
+    task.setDelegator(StaticCollection.getUser());
+    task.setMessage("Hello");
+    taskService.create(task);
+
+    Assert.assertNotNull(taskService.findAllActive());
   }
 }
 
