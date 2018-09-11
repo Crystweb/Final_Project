@@ -1,6 +1,7 @@
 package ua.danit.final_project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,10 +60,6 @@ public class WorkShiftController {
   public ResponseEntity<ShiftComment> updateComment(@RequestBody ShiftCommentDto shiftCommentDto) {
     User userFromToken = StaticCollection.getUser();
 
-    if (StaticCollection.getUser().getId() != userFromToken.getId()) {
-      return ResponseEntity.notFound().build();
-    }
-
     ShiftComment shiftComment = new ShiftComment();
 
     shiftComment.setId(shiftCommentDto.getId());
@@ -71,18 +68,22 @@ public class WorkShiftController {
     shiftComment.setPositions(workCommentService.getPositionByTitleIn(shiftCommentDto.getPositions()));
     shiftComment.setDate(shiftCommentDto.getDate());
 
-    return ResponseEntity.ok(workCommentService.updateComment(shiftComment));
+    try {
+      return ResponseEntity.ok(workCommentService.updateComment(shiftComment, userFromToken));
+    } catch (IllegalAccessException e) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    }
   }
 
-  @DeleteMapping("/comment/{c_id}")
-  public ResponseEntity<ShiftComment> deleteComment(@PathVariable("c_id") Long id) {
+  @DeleteMapping("/comment/{id}")
+  public ResponseEntity<ShiftComment> deleteComment(@PathVariable("id") ShiftComment shiftComment) {
     User userFromToken = StaticCollection.getUser();
 
-    if (StaticCollection.getUser().getId() != userFromToken.getId()) {
-      return ResponseEntity.notFound().build();
+    try {
+      workCommentService.deleteComment(shiftComment, userFromToken);
+    } catch (IllegalAccessException e) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
-
-    workCommentService.deleteCommentById(id);
     return ResponseEntity.ok().build();
   }
 
