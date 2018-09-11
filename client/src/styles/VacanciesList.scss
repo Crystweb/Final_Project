@@ -1,59 +1,14 @@
-$lime: #c0fb10;
-
-body,
-p,
-ul,
-li,
-h1,
-h2,
-h6,
-a {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-decoration: none;
-}
-
-h3,
-h4,
-h5 {
-  display: inline-block;
-}
-
-h5 {
-  color: #31804f;
-}
-
-body {
-  min-width: 320px;
-  height: 100%;
-  overflow-x: hidden;
-}
-
-.container {
-  margin: 0 auto;
-  padding: 0 10px;
-}
-
-li > p {
-  display: inline-block;
-  width: 200px;
-  padding: 5px;
-}
-
-ul > li {
-  margin: 10px 0;
-}
-
-ul {
+.vacancyList {
   margin: 10px 0;
   border: 1px solid #1c9fff;
+
+  li {
+    margin: 10px 0;
+
+    p {
+      display: inline-block;
+      width: 200px;
+      padding: 5px;
+    }
+  }
 }
-
-
-
-.vacancy {
-
-}
-
-

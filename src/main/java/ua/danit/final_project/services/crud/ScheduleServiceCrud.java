@@ -5,7 +5,7 @@ import ua.danit.final_project.entities.Schedule;
 
 import java.util.List;
 
-public interface ScheduleService {
+public interface ScheduleServiceCrud {
 
   Schedule getById(Long id);
 

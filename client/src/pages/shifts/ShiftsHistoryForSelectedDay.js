@@ -16,6 +16,7 @@ class ShiftHistoryForSelectedDay extends Component {
     if (this.props.commentsForSelectedDate) {
       return (
         <div className="container">
+          <h4>{new Date(this.props.date).toLocaleDateString()}</h4>
           <nav className='navigation'>
             <SortedComments comments={this.props.commentsForSelectedDate}/>
           </nav>

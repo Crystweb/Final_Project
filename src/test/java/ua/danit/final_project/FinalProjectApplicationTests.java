@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.*;
 import ua.danit.final_project.repositories.PositionRepository;
+import ua.danit.final_project.services.ScheduleService;
 import ua.danit.final_project.services.WorkCommentService;
 import ua.danit.final_project.services.crud.BedLinenStatsService;
 import ua.danit.final_project.services.crud.BedLinenTypeService;
@@ -25,7 +26,7 @@ import ua.danit.final_project.services.crud.MealTimeCategoryService;
 import ua.danit.final_project.services.crud.PermissionService;
 import ua.danit.final_project.services.crud.PositionService;
 import ua.danit.final_project.services.crud.RoleService;
-import ua.danit.final_project.services.crud.ScheduleService;
+import ua.danit.final_project.services.crud.ScheduleServiceCrud;
 import ua.danit.final_project.services.crud.ShiftCommentService;
 import ua.danit.final_project.services.crud.TaskCommentService;
 import ua.danit.final_project.services.crud.TaskService;
@@ -95,7 +96,7 @@ public class FinalProjectApplicationTests {
   RoleService roleService;
 
   @Autowired
-  ScheduleService scheduleService;
+  ScheduleServiceCrud scheduleServiceCrud;
 
   @Autowired
   ShiftCommentService shiftCommentService;
@@ -126,6 +127,9 @@ public class FinalProjectApplicationTests {
 
   @Autowired
   PositionRepository positionRepository;
+
+  @Autowired
+  ScheduleService scheduleService;
 
   @Test
   public void contextLoads() {
@@ -539,19 +543,19 @@ public class FinalProjectApplicationTests {
     data.setStart(new Time(1534763270));
     data.setEnd(new Time(1534764000));
 
-    Schedule actualPOST = scheduleService.save(data);
+    Schedule actualPOST = scheduleServiceCrud.save(data);
     Assert.assertEquals(data, actualPOST);
 
-    Schedule actualGET = scheduleService.getById(data.getId());
+    Schedule actualGET = scheduleServiceCrud.getById(data.getId());
     Assert.assertEquals(data, actualGET);
 
     data.setEnd(new Time(1534770516));
-    Schedule actualPUT = scheduleService.save(data);
+    Schedule actualPUT = scheduleServiceCrud.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    scheduleService.deleteById(data.getId());
+    scheduleServiceCrud.deleteById(data.getId());
     try {
-      Schedule actualDELETE = scheduleService.getById(data.getId());
+      Schedule actualDELETE = scheduleServiceCrud.getById(data.getId());
       Assert.assertNull(actualDELETE);
     } catch (EntityNotFoundException ex) {
       Assert.assertNull(null);
@@ -802,7 +806,7 @@ public class FinalProjectApplicationTests {
   @Test
   public void getSizeOfListPosition() {
     int size = positionService.getAll().size();
-    Assert.assertEquals(3, size);
+    Assert.assertEquals(4, size);
   }
 
   @Test
@@ -815,6 +819,21 @@ public class FinalProjectApplicationTests {
     expected.add(positionRepository.getOne(2L));
     List<Position> actual = positionRepository.getPositionByTitleIn(titles);
     Assert.assertTrue(expected.containsAll(actual));
+  }
+
+  @Test
+  public void scheduleCrud() {
+    Schedule schedule = new Schedule();
+    schedule.setPosition(StaticCollection.getPosition());
+    schedule.setStart(new Time(System.currentTimeMillis() - (1000 * 60 * 60)));
+    schedule.setEnd(new Time(System.currentTimeMillis()));
+
+    schedule = scheduleService.create(schedule);
+    Assert.assertNotNull(schedule);
+
+    Assert.assertNull(schedule.getExpired());
+    Schedule removed = scheduleService.remove(schedule);
+    Assert.assertNotNull(removed.getExpired());
   }
 }
 

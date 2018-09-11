@@ -12,12 +12,13 @@ INSERT INTO `role` (`r_name`) VALUES ('stateFarm');
 
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('manager', true );
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('admin', true );
-INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('managing director', false);
+INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('managing director', true);
+INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('chief', false);
 
-INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Andrew Shevchenko','1', 1);
-INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Cristiano Ronaldo','1', 2);
-INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Johny Depp','1', 3);
-INSERT INTO `user` (u_login, u_password, position_id) VALUES ('newton','1', 1);
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('login1','1', 1);
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('login2','1', 2);
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('login 3','1', 3);
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('login 4','1', 1);
 INSERT INTO `user` (u_login, u_password, position_id) VALUES ('Artem','pwd', 2);
 
 INSERT INTO `permission` (p_name) VALUES ('change comment');
@@ -38,8 +39,9 @@ INSERT INTO `user_role` (u_id, r_id) VALUES (2,3);
 INSERT INTO `user_role` (u_id, r_id) VALUES (2,5);
 
 INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'blablabla1');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '094586403', 'blablabla2');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '094586403', 'blablabla2');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '090586403', 'blablabla2');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '092586403', 'blablabla3');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (5,3,'Artem', 'Tymchuk',  'Dmytrovich',  '094586403', 'blablabla4');
 
 INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '10:00:00', '21:00:00' );
 INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '21:00:00', '10:00:00' );
@@ -55,9 +57,9 @@ INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Прибрат
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Викликати таксі на 7:00', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Команда Шахтар виїжджає 20 січня', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Передзвонити клієнту о 19 годині', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP));
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'В кімнаті 31 зламалася дверна ручка – викликати майстра на ранок', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP));
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Попередження про відключення світла з 20 по 23 години', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP));
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Партія продуктів затримається на 3 години', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (4, 'В кімнаті 31 зламалася дверна ручка – викликати майстра на ранок', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (4, 'Попередження про відключення світла з 20 по 23 години', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (4, 'Партія продуктів затримається на 3 години', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP));
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Морозилка перестала працювати', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP));
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Перевірити кімнату номер 44 після генерального прибирання', TIMESTAMPADD(DAY, -2, CURRENT_TIMESTAMP));
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Кімната 121 поламка крану', TIMESTAMPADD(DAY, -2, CURRENT_TIMESTAMP));
