@@ -34,7 +34,7 @@ public class WorkShiftController {
   public List<ShiftCommentDto> getByDate(@RequestParam(name = "date", required = false) Long millis) {
     return workCommentService.getShiftCommentsByDate(millis)
             .stream()
-            .map(shiftComment -> new ShiftCommentDto(shiftComment))
+            .map(ShiftCommentDto::new)
             .collect(Collectors.toList());
   }
 
