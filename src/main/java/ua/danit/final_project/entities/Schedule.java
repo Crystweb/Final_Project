@@ -7,23 +7,17 @@ import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.Date;
 
 @Entity
 @Table(name = "schedule")
 @Data
-public class Schedule implements Serializable {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+public class Schedule extends AbstractEntity implements Serializable {
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @ToString.Exclude
@@ -40,4 +34,10 @@ public class Schedule implements Serializable {
   @EqualsAndHashCode.Exclude
   @Column(name = "end", nullable = false)
   private Time end;
+
+  @Column(name = "uuid")
+  private String uuid;
+
+  @Column(name = "expired")
+  private Date expired;
 }
