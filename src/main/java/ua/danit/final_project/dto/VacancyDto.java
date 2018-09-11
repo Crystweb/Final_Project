@@ -29,16 +29,5 @@ public class VacancyDto implements Serializable {
     this.status = vacancy.getVacancyStatus().toString();
     this.info = vacancy.getInfo();
     this.publication = vacancy.getPublication();
-
-/*    this.date = vacancy.getDate();
-
-    Employee employee = shiftComment.getUser().getEmployee();
-    this.forename = employee != null ? employee.getForename() : null;
-    this.surname = employee != null ? employee.getSurname() : null;
-    this.positions = shiftComment.getPositions()
-            .stream()
-            .map(Position::getTitle)
-            .collect(Collectors.toList());
-    this.authorPosition = shiftComment.getUser().getPosition().getTitle();*/
   }
 }

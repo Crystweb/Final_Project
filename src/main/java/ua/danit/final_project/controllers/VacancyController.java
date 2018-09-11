@@ -29,7 +29,7 @@ public class VacancyController {
   public List<VacancyDto> getVacanciesDto() {
     return vacancyService.getOpenVacancies()
             .stream()
-            .map(vacancy -> new VacancyDto(vacancy))
+            .map(VacancyDto::new)
             .collect(Collectors.toList());
   }
 
