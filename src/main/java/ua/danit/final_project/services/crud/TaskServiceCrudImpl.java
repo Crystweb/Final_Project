@@ -9,12 +9,12 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
-public class TaskServiceImpl implements TaskService {
+public class TaskServiceCrudImpl implements TaskServiceCrud {
 
   private final TaskRepository taskRepository;
 
   @Autowired
-  public TaskServiceImpl(TaskRepository taskRepository) {
+  public TaskServiceCrudImpl(TaskRepository taskRepository) {
     this.taskRepository = taskRepository;
   }
 

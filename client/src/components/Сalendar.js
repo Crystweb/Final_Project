@@ -9,7 +9,7 @@ import ShiftHistoryForSelectedDay from '../pages/shifts/ShiftsHistoryForSelected
 
 class Calendar extends Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       isDataSelected: false
     }
