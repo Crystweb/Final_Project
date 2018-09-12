@@ -13,19 +13,21 @@ import java.util.stream.Collectors;
 @Data
 public class ShiftCommentDto implements Serializable {
 
-  private Long id;
+  private Long id; // NOSONAR
 
-  private String text;
+  private String text; // NOSONAR
 
-  private Timestamp date;
+  private Timestamp date; // NOSONAR
 
-  private String forename;
+  private String forename; // NOSONAR
 
-  private String surname;
+  private String surname; // NOSONAR
 
-  private List<String> positions;
+  private List<String> positions; // NOSONAR
 
-  private String authorPosition;
+  private String authorPosition; // NOSONAR
+
+  private Long authorId; // NOSONAR
 
   public ShiftCommentDto(ShiftComment shiftComment) {
     this.id = shiftComment.getId();
@@ -40,5 +42,6 @@ public class ShiftCommentDto implements Serializable {
             .map(Position::getTitle)
             .collect(Collectors.toList());
     this.authorPosition = shiftComment.getUser().getPosition().getTitle();
+    this.authorId = shiftComment.getUser().getId();
   }
 }
