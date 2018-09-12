@@ -21,8 +21,8 @@ class EmployeeList extends Component {
     // if (!this.state.users.length) {
     //         return (
     //             {/*<div>*/}
-    //         {/*<Preloader/>*/}
-    //         {/*</div>*/}
+    //   {/*<Preloader/>*/}
+    //   {/*</div>*/}
     //     )
     //     } else {
             return (

@@ -7,6 +7,7 @@ import ua.danit.final_project.repositories.EmployeeRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -16,7 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Autowired
   public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
     this.employeeRepository = employeeRepository;
-  }
+}
 
   @Override
   public Employee getById(Long id) {
