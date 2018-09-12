@@ -51,26 +51,26 @@ class EmployeeList extends Component {
       // } else {
           return (
               <div>
-                  Списоk employee:
+                  <h2>Списоk сотрудников: </h2>
                   {employee.map(employee =>
-                      <ul className='employeeList'>
+                      <ul className='vacancyList'>
                           <li>
-                              <h3>{employee.position}</h3>
+                              <h4>position: <i> {employee.position}</i></h4>
                           </li>
                           <li>
-                              <h3>{employee.forename}</h3>
+                              <h4>forename: <i>{employee.forename}</i></h4>
                           </li>
                           <li>
-                              <h3>{employee.surname}</h3>
+                              <h4>surname: <i>{employee.surname}</i></h4>
                           </li>
                           <li>
-                              <h3>{employee.patronymic}</h3>
+                              <h4>patronymic: <i>{employee.patronymic}</i></h4>
                           </li>
                           <li>
-                              <h3>{employee.phoneNumber}</h3>
+                              <h4>Phone number: <i>{employee.phoneNumber}</i></h4>
                           </li>
                           <li>
-                              <h3>{employee.info}</h3>
+                              <h4>info: <i>{employee.info}</i></h4>
                           </li>
                       </ul>
                   )}
