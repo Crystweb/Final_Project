@@ -25,20 +25,59 @@ class EmployeeList extends Component {
     //   {/*</div>*/}
     //     )
     //     } else {
-            return (
-                <ul className="employee-list">
-                    {this.state.employee.map(function (employee) {
-                        return (
-                            <li key={user.id}>
-                                <Link to="{'/employee/' + employee.id}">{employee.name}</Link>
-                            </li>
+//             return (
+// //                 <ul className="employee-list">
+// //                     {this.state.employee.map(function (employee) {
+// //                         return (
+// //                             <li key={employee.id}>
+// //                                 <Link to="{'/employee/' + employee.id}">{employee.name}</Link>
+// //                             </li>
+// //
+// //                         )
+// //                     })}
+// //                 </ul>
+// //             )
+// //     }
+// //   // }
+// // }
 
-                        )
-                    })}
-                </ul>
-            )
-    }
-  // }
-}
+      const {employee} = this.state
+      // if (!this.state.date) {
+      //     return (
+      //         <div>
+      //             <Preloader/>
+      //         </div>
+      //     )
+      // } else {
+          return (
+              <div>
+                  Списоk employee:
+                  {employee.map(employee =>
+                      <ul className='employeeList'>
+                          <li>
+                              <h3>{employee.position}</h3>
+                          </li>
+                          <li>
+                              <h3>{employee.forename}</h3>
+                          </li>
+                          <li>
+                              <h3>{employee.surname}</h3>
+                          </li>
+                          <li>
+                              <h3>{employee.patronymic}</h3>
+                          </li>
+                          <li>
+                              <h3>{employee.phoneNumber}</h3>
+                          </li>
+                          <li>
+                              <h3>{employee.info}</h3>
+                          </li>
+                      </ul>
+                  )}
+              </div>
+          )
+      }
+  }
+
 
 export default EmployeeList
