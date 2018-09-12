@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.entities.ShiftComment;
+import ua.danit.final_project.entities.User;
 import ua.danit.final_project.repositories.PositionRepository;
 import ua.danit.final_project.repositories.ScheduleRepository;
 import ua.danit.final_project.repositories.ShiftCommentRepository;
@@ -49,23 +50,23 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   }
 
   @Override
-  public void deleteCommentById(Long commentId) {
-    shiftCommentRepository.deleteById(commentId);
+  public void deleteComment(ShiftComment shiftComment, User userFromToken) throws IllegalAccessException {
+    if (!shiftComment.getUser().getId().equals(userFromToken.getId())) {
+      String message = "User dont have permission to delete this message - id: " + shiftComment.getId();
+      throw new IllegalAccessException(message);
+    }
+
+    shiftCommentRepository.delete(shiftComment);
   }
 
   @Override
-  public ShiftComment updateComment(ShiftComment shiftComment) {
+  public ShiftComment updateComment(ShiftComment shiftComment, User userFromToken) throws IllegalAccessException {
+    if (!shiftComment.getUser().getId().equals(userFromToken.getId())) {
+      String message = "User dont have permission to update this message - id: " + shiftComment.getId();
+      throw new IllegalAccessException(message);
+    }
+
     return shiftCommentRepository.save(shiftComment);
-  }
-
-  @Override
-  public List<ShiftComment> getCommentsOfLastWorkShifts() {
-    Timestamp date = new Timestamp(System.currentTimeMillis());
-    DateTime searchDate = new DateTime(date);
-    Date from = searchDate.toDate();
-    Date to = searchDate.minusHours(24).toDate();
-
-    return shiftCommentRepository.findAllByDateBetween(from, to);
   }
 
   @Override

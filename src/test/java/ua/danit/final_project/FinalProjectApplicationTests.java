@@ -810,9 +810,10 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void deleteCommentByIdAndAddComment() {
+  public void deleteCommentByIdAndAddComment() throws IllegalAccessException {
+    User userFromToken = StaticCollection.getUser();
     ShiftComment commentFromDB = workCommentService.getCommentById(1L);
-    workCommentService.deleteCommentById(1L);
+    workCommentService.deleteComment(commentFromDB, commentFromDB.getUser());
     try {
       workCommentService.getCommentById(1L);
       Assert.assertNull(1L);
