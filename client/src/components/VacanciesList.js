@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import '../styles/VacanciesList.css'
 import axios from 'axios'
 import Preloader from './Preloader'
