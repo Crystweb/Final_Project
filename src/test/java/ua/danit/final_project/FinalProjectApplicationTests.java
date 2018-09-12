@@ -718,7 +718,11 @@ public class FinalProjectApplicationTests {
     Vacancy actualPUT = vacancyService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    vacancyService.deleteById(data.getId());
+    try {
+      vacancyService.deleteVacancy(data, StaticCollection.getUser());
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
+    }
     try {
       Vacancy actualDELETE = vacancyService.getById(data.getId());
       Assert.assertNull(actualDELETE);
