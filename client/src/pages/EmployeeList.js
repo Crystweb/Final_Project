@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import Preloader from '../components/Preloader'
+import EmployeeAdd from "../components/EmployeeAdd";
 
 class EmployeeList extends Component {
 
@@ -28,6 +29,10 @@ class EmployeeList extends Component {
         } else {
             return (
                 <div>
+                    <div>
+                        <EmployeeAdd />
+                    </div>
+                <div>
                     <h2>Списоk сотрудников: </h2>
                     {employee.map(employee =>
                         <ul className='vacancyList'>
@@ -52,7 +57,9 @@ class EmployeeList extends Component {
                         </ul>
                     )}
                 </div>
+                </div>
             )
+
         }
     }
 }
