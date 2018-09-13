@@ -18,29 +18,6 @@ class EmployeeList extends Component {
   }
 
   render () {
-    // if (!this.state.users.length) {
-    //         return (
-    //             {/*<div>*/}
-    //   {/*<Preloader/>*/}
-    //   {/*</div>*/}
-    //     )
-    //     } else {
-//             return (
-// //                 <ul className="employee-list">
-// //                     {this.state.employee.map(function (employee) {
-// //                         return (
-// //                             <li key={employee.id}>
-// //                                 <Link to="{'/employee/' + employee.id}">{employee.name}</Link>
-// //                             </li>
-// //
-// //                         )
-// //                     })}
-// //                 </ul>
-// //             )
-// //     }
-// //   // }
-// // }
-
       const {employee} = this.state
       // if (!this.state.date) {
       //     return (
