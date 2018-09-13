@@ -5,7 +5,7 @@
 
 
 ### Mentor: 
-   [Andrey Koziulia](https://github.com/zozich/ "Andrey Koziulia")
+   [Andrew Koziulia](https://github.com/zozich/ "Andrey Koziulia")
 
 ### Developers:
    [Artem Tymchuk](https://github.com/ArtemTymchuk/ "Artem Tymchuk")
