@@ -1,5 +1,4 @@
-import React, {Component, Fragment} from 'react'
-import {Link} from 'react-router-dom'
+import React, {Component} from 'react'
 import axios from 'axios'
 import Preloader from '../components/Preloader'
 import EmployeeAdd from "../components/EmployeeAdd";

@@ -2,34 +2,30 @@ import React, {Component, Fragment} from 'react'
 
 import '../styles/VacanciesList.css'
 import axios from 'axios'
-
 import Modal from "react-responsive-modal";
-
 class EmployeeAdd extends Component {
 
     onOpenModal = () => {
         this.setState({open: true})
     }
+
     onCloseModal = () => {
         this.setState({open: false})
     }
-    handleSubmit = event => {
-        event.preventDefault()
-        axios({
-            url: '/employee',
-            method: 'POST',
-            data: {
-                employee: {
-                    position: this.state.position,
-                    forename: this.state.forename,
-                    surname: this.state.surname,
-                    patronymic: this.state.patronymic,
-                    phoneNumber: this.state.phoneNumber,
-                    info: this.state.info
-                }
-            }
 
-        }).then(() => this.setState({open: false}))
+    handleSubmit = event => {
+        event.preventDefault();
+        axios.post(`/employee`, {
+            position: this.state.position,
+            forename: this.state.forename,
+            surname: this.state.surname,
+            patronymic: this.state.patronymic,
+            phoneNumber: this.state.phoneNumber,
+            info: this.state.info})
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            }).then(() => this.setState({open: false}))
     }
 
     constructor (props) {
@@ -49,7 +45,6 @@ class EmployeeAdd extends Component {
         this.handlePatronymicChange = this.handlePatronymicChange.bind(this)
         this.handlePhoneNumberChange = this.handlePhoneNumberChange.bind(this)
         this.handleInfoChange = this.handleInfoChange.bind(this)
-
     }
 
     handlePositionChange (event) {
@@ -61,14 +56,17 @@ class EmployeeAdd extends Component {
         event.preventDefault()
         this.setState({forename: event.target.value})
     }
+
     handleSurnameChange (event) {
         event.preventDefault()
         this.setState({surname: event.target.value})
     }
+
     handlePatronymicChange (event) {
         event.preventDefault()
         this.setState({patronymic: event.target.value})
     }
+
     handlePhoneNumberChange (event) {
         event.preventDefault()
         this.setState({phoneNumber: event.target.value})
@@ -113,7 +111,6 @@ class EmployeeAdd extends Component {
                         </form>
                     </Modal>
                 </div>
-
             </Fragment>
         )
     }

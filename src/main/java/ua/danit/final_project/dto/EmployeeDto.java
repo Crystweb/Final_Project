@@ -22,7 +22,13 @@ public class EmployeeDto implements Serializable {
 
     private String info; // NOSONAR
 
-
+//    public void deleteEmployee(Integer id) {
+//        Employee employee = (Employee).load(
+//                Employee.class, id);
+//        if (null != employee) {
+//            deleteEmployee(getId());
+//        }
+//    }
 
     public EmployeeDto(Employee employee) {
         this.id = employee.getId();
