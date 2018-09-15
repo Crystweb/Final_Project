@@ -7,7 +7,7 @@ const initialState = {
   locations: null
 }
 
-export default function addUserReducer (state = initialState, action) {
+export default function startDataReducer (state = initialState, action) {
   switch (action.type) {
     case GET_CURRENT_USER:
       return {...state, currentUser: action.user}

@@ -69,10 +69,7 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addDate: (date) => {
-      console.log(date)
-      dispatch(addSelectedDateFromCalendar(date))
-    }
+    addDate: (date) => dispatch(addSelectedDateFromCalendar(date))
   }
 }
 
