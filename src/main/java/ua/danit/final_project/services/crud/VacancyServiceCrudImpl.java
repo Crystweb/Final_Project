@@ -22,7 +22,9 @@ public class VacancyServiceCrudImpl implements VacancyServiceCrud {
   private final UserRepository userRepository;
 
   @Autowired
-  public VacancyServiceCrudImpl(VacancyRepository vacancyRepository, PositionRepository positionRepository, UserRepository userRepository) {
+  public VacancyServiceCrudImpl(VacancyRepository vacancyRepository,
+                                PositionRepository positionRepository,
+                                UserRepository userRepository) {
     this.vacancyRepository = vacancyRepository;
     this.positionRepository = positionRepository;
     this.userRepository = userRepository;
