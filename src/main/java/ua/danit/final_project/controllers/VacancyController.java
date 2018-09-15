@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 public class VacancyController {
 
   private final VacancyServiceCrud vacancyService;
-  private User user = StaticCollection.getUser();
 
   @Autowired
   public VacancyController(VacancyServiceCrud vacancyService) {
@@ -41,29 +40,48 @@ public class VacancyController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Vacancy> getVacancyById(@PathVariable("id") Long id) {
-    return ResponseEntity.ok(vacancyService.getById(id));
+  public ResponseEntity<VacancyDto> getVacancyById(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(new VacancyDto(vacancyService.getById(id)));
   }
 
   @PostMapping
-  public ResponseEntity<Vacancy> createVacancy(@RequestBody Vacancy vacancy) {
-    vacancy.setUser(user);
-    return ResponseEntity.ok(vacancyService.save(vacancy));
+  public ResponseEntity<VacancyDto> createVacancy(@RequestBody VacancyDto vacancyDto) {
+    User userFromToken = StaticCollection.getUser();
+
+    Vacancy vacancy = new Vacancy();
+
+    vacancy.setUser(userFromToken);
+    vacancy.setPosition(vacancyService.getPositionByTitle(vacancyDto.getPosition()));
+    vacancy.setSalary(vacancyDto.getSalary());
+    vacancy.setVacancyStatus(Vacancy.VacancyStatus.valueOf(vacancyDto.getStatus()));
+    vacancy.setInfo(vacancyDto.getInfo());
+    vacancy.setPublication(vacancyDto.getPublication());
+
+    return ResponseEntity.ok(new VacancyDto(vacancyService.save(vacancy)));
   }
 
   @PutMapping
-  public ResponseEntity<Vacancy> updateVacancy(@RequestBody Vacancy vacancy) {
+  public ResponseEntity<VacancyDto> updateVacancy(@RequestBody VacancyDto vacancyDto) {
     User userFromToken = StaticCollection.getUser();
 
+    Vacancy vacancy = new Vacancy();
+
+    vacancy.setUser(vacancyService.getUserByid(vacancyDto.getAuthorId()));
+    vacancy.setPosition(vacancyService.getPositionByTitle(vacancyDto.getPosition()));
+    vacancy.setSalary(vacancyDto.getSalary());
+    vacancy.setVacancyStatus(Vacancy.VacancyStatus.valueOf(vacancyDto.getStatus()));
+    vacancy.setInfo(vacancyDto.getInfo());
+    vacancy.setPublication(vacancyDto.getPublication());
+
     try {
-      return ResponseEntity.ok(vacancyService.updateVacancy(vacancy, userFromToken));
+      return ResponseEntity.ok(new VacancyDto(vacancyService.updateVacancy(vacancy, userFromToken)));
     } catch (IllegalAccessException e) {
       return  ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity deleteVacancy( @PathVariable("id") Vacancy vacancy) {
+  public ResponseEntity deleteVacancy(@PathVariable("id") Vacancy vacancy) {
     User userFromToken = StaticCollection.getUser();
 
     try {

@@ -3,8 +3,11 @@ package ua.danit.final_project.services.crud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.danit.final_project.configuration.StaticCollection;
+import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.User;
 import ua.danit.final_project.entities.Vacancy;
+import ua.danit.final_project.repositories.PositionRepository;
+import ua.danit.final_project.repositories.UserRepository;
 import ua.danit.final_project.repositories.VacancyRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -15,10 +18,14 @@ import java.util.stream.Collectors;
 @Service
 public class VacancyServiceCrudImpl implements VacancyServiceCrud {
   private final VacancyRepository vacancyRepository;
+  private final PositionRepository positionRepository;
+  private final UserRepository userRepository;
 
   @Autowired
-  public VacancyServiceCrudImpl(VacancyRepository vacancyRepository) {
+  public VacancyServiceCrudImpl(VacancyRepository vacancyRepository, PositionRepository positionRepository, UserRepository userRepository) {
     this.vacancyRepository = vacancyRepository;
+    this.positionRepository = positionRepository;
+    this.userRepository = userRepository;
   }
 
   @Override
@@ -43,7 +50,7 @@ public class VacancyServiceCrudImpl implements VacancyServiceCrud {
   @Override
   public Vacancy updateVacancy(Vacancy vacancy, User userFromToken) throws IllegalAccessException {
 
-    if (vacancy.getUser().getId().equals(userFromToken.getId())) {
+    if (!vacancy.getUser().getId().equals(userFromToken.getId())) {
       String message = "User dont have permission to update this vacancy - id: " + vacancy.getId();
       throw new IllegalAccessException(message);
     }
@@ -54,11 +61,21 @@ public class VacancyServiceCrudImpl implements VacancyServiceCrud {
   @Override
   public void deleteVacancy(Vacancy vacancy, User userFromToken) throws IllegalAccessException {
 
-    if (vacancy.getUser().getId().equals(userFromToken.getId())) {
+    if (!vacancy.getUser().getId().equals(userFromToken.getId())) {
       String message = "User dont have permission to delete this vacancy - id: " + vacancy.getId();
       throw new IllegalAccessException(message);
     }
 
     vacancyRepository.delete(vacancy);
+  }
+
+  @Override
+  public Position getPositionByTitle(String title) {
+    return positionRepository.getPositionByTitle(title);
+  }
+
+  @Override
+  public User getUserByid(Long userId) {
+    return userRepository.getOne(userId);
   }
 }
