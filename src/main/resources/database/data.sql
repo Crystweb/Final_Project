@@ -47,9 +47,9 @@ INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '10:00:00', '21:00:00' );
 INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '21:00:00', '10:00:00' );
 INSERT INTO `schedule` (p_id, start, end) VALUES (1,  '08:00:00', '20:00:00' );
 
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'message to admin ', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Hello, admin', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'message to manager', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'message to admin ', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'Hello, admin', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'message to manager', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Hello, manager', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'message to managing director', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Hello, Edward :)', CURRENT_TIMESTAMP);
@@ -81,8 +81,8 @@ INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Завтра �
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'На ресепшені закінчуються канцтовари ', TIMESTAMPADD(DAY, -5, CURRENT_TIMESTAMP));
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Потрібно оновити розмітку на автостоянці.', TIMESTAMPADD(DAY, -5, CURRENT_TIMESTAMP));
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Пропав wi-fi на третьому поверсі', TIMESTAMPADD(DAY, -5, CURRENT_TIMESTAMP));
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Завтра приїдуть англомовні клієнти', TIMESTAMPADD(DAY, -6, CURRENT_TIMESTAMP));
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Закінчуються цукерки на ресепшині', TIMESTAMPADD(DAY, -6, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Завтра приїдуть англомовні клієнти', TIMESTAMPADD(DAY, -6, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Закінчуються цукерки на ресепшині', TIMESTAMPADD(DAY, -6, CURRENT_TIMESTAMP));
 
 
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (1, 1);
@@ -171,10 +171,10 @@ INSERT INTO `food_supply` (m_id, u_id, c_id, l_id, f_amount, f_date) VALUES (2, 
 INSERT INTO `food_supply` (m_id, u_id, c_id, l_id, f_amount, f_date) VALUES (3, 3, 3, 3, 30, CURRENT_TIMESTAMP);
 
 INSERT INTO `vacancy` (u_id, p_id, v_salary, v_status, v_info, p_publication) VALUES (1, 1, 10000, @CLOSED, 'need worker 1', CURRENT_TIMESTAMP);
-INSERT INTO `vacancy` (u_id, p_id, v_salary, v_status, v_info, p_publication) VALUES (1, 2, 20000, @OPENED, 'need worker 2', CURRENT_TIMESTAMP);
+INSERT INTO `vacancy` (u_id, p_id, v_salary, v_status, v_info, p_publication) VALUES (5, 2, 20000, @OPENED, 'need worker 2', CURRENT_TIMESTAMP);
 INSERT INTO `vacancy` (u_id, p_id, v_salary, v_status, v_info, p_publication) VALUES (2, 3, 30000, @OPENED, 'need worker 3', CURRENT_TIMESTAMP );
 INSERT INTO `vacancy` (u_id, p_id, v_salary, v_status, v_info, p_publication) VALUES (3, 3, 40000, @OPENED, 'need worker 4', CURRENT_TIMESTAMP);
-INSERT INTO `vacancy` (u_id, p_id, v_salary, v_status, v_info, p_publication) VALUES (1, 2, 500000, @CLOSED, 'need worker 5', CURRENT_TIMESTAMP);
+INSERT INTO `vacancy` (u_id, p_id, v_salary, v_status, v_info, p_publication) VALUES (5, 2, 500000, @CLOSED, 'need worker 5', CURRENT_TIMESTAMP);
 
 INSERT INTO `vacancy_comment` (u_id, v_id, c_message, c_date) VALUES (1, 1, 'comment 1: we dont need him', CURRENT_TIMESTAMP);
 INSERT INTO `vacancy_comment` (u_id, v_id, c_message, c_date) VALUES (1, 1, 'comment 2: we need him but maybe later', CURRENT_TIMESTAMP);

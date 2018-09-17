@@ -12,6 +12,8 @@ public class VacancyDto implements Serializable {
 
   private Long id; // NOSONAR
 
+  private Long authorId; // NOSONAR
+
   private String position; // NOSONAR
 
   private String salary; // NOSONAR
@@ -24,6 +26,7 @@ public class VacancyDto implements Serializable {
 
   public VacancyDto(Vacancy vacancy) {
     this.id = vacancy.getId();
+    this.authorId = vacancy.getUser().getId();
     this.position = vacancy.getPosition().getTitle();
     this.salary = vacancy.getSalary();
     this.status = vacancy.getVacancyStatus().toString();

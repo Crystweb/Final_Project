@@ -22,4 +22,6 @@ public interface WorkCommentService {
   List<Schedule> getCurrentSchedule();
 
   List<Position> getPositionByTitleIn(List<String> titles);
+
+  User getUserById(Long userId);
 }
