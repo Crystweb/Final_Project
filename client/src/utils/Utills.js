@@ -17,7 +17,7 @@ export const startData = (callbackUser,
   axios.get('/position')
     .then(response => response.data)
     .then(callbackPosition)
-  axios.get('/workshift/schedule')
+  axios.get('/schedule')
     .then(response => response.data)
     .then(callbackSchedule)
   axios.get('/location')
