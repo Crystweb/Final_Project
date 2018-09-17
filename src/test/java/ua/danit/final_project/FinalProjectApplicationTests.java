@@ -56,7 +56,7 @@ import ua.danit.final_project.services.crud.TaskCommentService;
 import ua.danit.final_project.services.crud.TaskServiceCrud;
 import ua.danit.final_project.services.crud.UserService;
 import ua.danit.final_project.services.crud.VacancyCommentService;
-import ua.danit.final_project.services.crud.VacancyService;
+import ua.danit.final_project.services.crud.VacancyServiceCrud;
 import ua.danit.final_project.services.crud.WashPeriodService;
 import ua.danit.final_project.services.crud.WashStatsMaterialService;
 import ua.danit.final_project.services.crud.WashStatsService;
@@ -136,7 +136,7 @@ public class FinalProjectApplicationTests {
   VacancyCommentService vacancyCommentService;
 
   @Autowired
-  VacancyService vacancyService;
+  VacancyServiceCrud vacancyService;
 
   @Autowired
   WashPeriodService washPeriodService;
@@ -718,7 +718,11 @@ public class FinalProjectApplicationTests {
     Vacancy actualPUT = vacancyService.save(data);
     Assert.assertEquals(data, actualPUT);
 
-    vacancyService.deleteById(data.getId());
+    try {
+      vacancyService.deleteVacancy(data, StaticCollection.getUser());
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
+    }
     try {
       Vacancy actualDELETE = vacancyService.getById(data.getId());
       Assert.assertNull(actualDELETE);

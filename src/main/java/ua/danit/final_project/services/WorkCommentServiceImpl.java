@@ -10,6 +10,7 @@ import ua.danit.final_project.entities.User;
 import ua.danit.final_project.repositories.PositionRepository;
 import ua.danit.final_project.repositories.ScheduleRepository;
 import ua.danit.final_project.repositories.ShiftCommentRepository;
+import ua.danit.final_project.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.sql.Timestamp;
@@ -22,14 +23,16 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   private final ShiftCommentRepository shiftCommentRepository;
   private final ScheduleRepository scheduleRepository;
   private final PositionRepository positionRepository;
+  private final UserRepository userRepository;
 
   @Autowired
   public WorkCommentServiceImpl(ShiftCommentRepository shiftCommentRepository,
                                 ScheduleRepository scheduleRepository,
-                                PositionRepository positionRepository) {
+                                PositionRepository positionRepository, UserRepository userRepository) {
     this.shiftCommentRepository = shiftCommentRepository;
     this.scheduleRepository = scheduleRepository;
     this.positionRepository = positionRepository;
+    this.userRepository = userRepository;
   }
 
   @Override
@@ -82,6 +85,11 @@ public class WorkCommentServiceImpl implements WorkCommentService {
   @Override
   public List<Position> getPositionByTitleIn(List<String> titles) {
     return positionRepository.getPositionByTitleIn(titles);
+  }
+
+  @Override
+  public User getUserById(Long userId) {
+    return userRepository.getOne(userId);
   }
 }
 
