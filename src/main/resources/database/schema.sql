@@ -304,3 +304,35 @@ CREATE TABLE IF NOT EXISTS `dish_comment` (
   FOREIGN KEY (`d_id`) REFERENCES `dish_accounting` (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `apartment` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `issue` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL,
+  `description` VARCHAR(255),
+  `is_common` BIT NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `inspection` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `apartment_id` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
+  `date` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`apartment_id`) REFERENCES `apartment` (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `issue_inspection` (
+  `issue_id` BIGINT NOT NULL,
+  `inspection_id` BIGINT NOT NULL,
+  PRIMARY KEY (`issue_id`, `inspection_id`),
+  FOREIGN KEY (`issue_id`) REFERENCES `issue` (`id`),
+  FOREIGN KEY (`inspection_id`) REFERENCES `inspection` (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
