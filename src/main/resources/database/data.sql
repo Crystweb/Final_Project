@@ -43,9 +43,9 @@ INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_
 INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '092586403', 'blablabla3');
 INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (5,3,'Artem', 'Tymchuk',  'Dmytrovich',  '094586403', 'blablabla4');
 
-INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '10:00:00', '21:00:00' );
-INSERT INTO `schedule` (p_id, start, end) VALUES (2,  '21:00:00', '10:00:00' );
-INSERT INTO `schedule` (p_id, start, end) VALUES (1,  '08:00:00', '20:00:00' );
+INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '10:00:00', '21:00:00', TIMESTAMPADD(DAY, -3, CURRENT_TIMESTAMP) );
+INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '21:00:00', '10:00:00', TIMESTAMPADD(DAY, -2, CURRENT_TIMESTAMP) );
+INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (1,  '08:00:00', '20:00:00', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP) );
 
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'message to admin ', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'Hello, admin', CURRENT_TIMESTAMP);

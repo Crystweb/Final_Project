@@ -9,14 +9,14 @@ import ShiftHistoryForSelectedDay from '../pages/shifts/ShiftsHistoryForSelected
 
 class Calendar extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       isDataSelected: false
     }
   }
 
   render () {
-    const dateChange = () => {this.setState({isDataSelected: false})}
+    const dateChange = () => { this.setState({isDataSelected: false}) }
     const {max, min, selected, minDate, maxDate, addDate} = this.props
     if (this.state.isDataSelected) {
       return (
