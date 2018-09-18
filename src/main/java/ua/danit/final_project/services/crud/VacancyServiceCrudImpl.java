@@ -81,14 +81,9 @@ public class VacancyServiceCrudImpl implements VacancyServiceCrud {
     return userRepository.getOne(userId);
   }
 
-
-  private Boolean existsByTitleEquals(String title) {
-    return positionRepository.existsByTitleEquals(title);
-  }
-
   @Override
   public Position createIfNotExist(String title) {
-    if (existsByTitleEquals(title)) {
+    if (positionRepository.existsByTitleEquals(title)) {
       return getPositionByTitle(title);
     } else {
       Position createPosition = new Position();
