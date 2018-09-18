@@ -4,6 +4,7 @@ import axios from 'axios'
 import { addCommentForSelectedDate } from '../../actions/actions'
 import SortedComments from '../../components/SortedComments'
 import Preloader from '../../components/Preloader'
+import ShiftsHistory from './ShiftsHistory'
 
 class ShiftHistoryForSelectedDay extends Component {
   componentDidMount () {
@@ -12,7 +13,12 @@ class ShiftHistoryForSelectedDay extends Component {
   }
 
   render () {
-    if (this.props.commentsForSelectedDate && this.props.date) {
+    if (this.props.commentsForSelectedDate && this.props.commentsForSelectedDate.length === 0) {
+      window.alert('За выбранный день нет коментариев')
+      return (
+        <ShiftsHistory/>
+      )
+    } else if (this.props.commentsForSelectedDate && this.props.date) {
       return (
         <div className="container">
           <h4>{new Date(this.props.date).toLocaleDateString()}</h4>
