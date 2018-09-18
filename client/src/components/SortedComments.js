@@ -22,7 +22,7 @@ class PositionButtons extends Component {
   }
 
   deleteComment (id) {
-    if (window.confirm('Вы уверены, что хотите удали этот комментарий?')) {
+    if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
       axios.delete(`/workshift/comment/${id}`)
         .then(() => getLastShift(data => {
           this.props.addShift(data)
