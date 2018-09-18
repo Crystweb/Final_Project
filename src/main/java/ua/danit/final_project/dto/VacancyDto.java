@@ -18,7 +18,7 @@ public class VacancyDto implements Serializable {
 
   private String salary; // NOSONAR
 
-  private String status; // NOSONAR
+  private Vacancy.VacancyStatus status; // NOSONAR
 
   private String info; // NOSONAR
 
@@ -29,7 +29,7 @@ public class VacancyDto implements Serializable {
     this.authorId = vacancy.getUser().getId();
     this.position = vacancy.getPosition().getTitle();
     this.salary = vacancy.getSalary();
-    this.status = vacancy.getVacancyStatus().toString();
+    this.status = vacancy.getVacancyStatus();
     this.info = vacancy.getInfo();
     this.publication = vacancy.getPublication();
   }

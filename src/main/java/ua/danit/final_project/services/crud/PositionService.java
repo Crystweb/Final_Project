@@ -13,4 +13,6 @@ public interface PositionService {
   Position save(Position position);
 
   void deleteById(Long id);
+
+  List<Position> findAll();
 }
