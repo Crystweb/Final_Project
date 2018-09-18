@@ -27,4 +27,9 @@ public class PositionController {
         .filter(Position::getPinnedToComment)
         .collect(Collectors.toList());
   }
+
+  @GetMapping("/list")
+  public List<Position> getPositions() {
+    return positionService.findAll();
+  }
 }
