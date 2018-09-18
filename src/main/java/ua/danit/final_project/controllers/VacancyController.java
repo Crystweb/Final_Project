@@ -66,7 +66,7 @@ public class VacancyController {
 
     Vacancy vacancy = new Vacancy();
 
-    vacancy.setUser(vacancyService.getUserByid(vacancyDto.getAuthorId()));
+    vacancy.setUser(userFromToken);
     vacancy.setPosition(vacancyService.getPositionByTitle(vacancyDto.getPosition()));
     vacancy.setSalary(vacancyDto.getSalary());
     vacancy.setVacancyStatus(Vacancy.VacancyStatus.valueOf(vacancyDto.getStatus()));
