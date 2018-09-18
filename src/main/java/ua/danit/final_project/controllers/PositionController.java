@@ -27,4 +27,5 @@ public class PositionController {
         .filter(Position::getPinnedToComment)
         .collect(Collectors.toList());
   }
+
 }
