@@ -113,6 +113,31 @@ class CreateNewComments extends Component {
       return (
         <Preloader/>
       )
+    } else if (!this.state.commentForUpdate) {
+      return (<div className="container">
+        <h3>Добавить комментарий по смене</h3><br/>
+        {this.props.allPositionsForComments.map(position =>
+          <li key={position.id}>
+            <input
+              name="position"
+              type="checkbox"
+              checked={true && this.state.checkedPositions.includes(position.title)}
+              value={position.title}
+              onChange={this.setCheckedPosition.bind(this)}
+            />
+            {position.title}
+          </li>
+        )}
+        <p><textarea value={this.state.textComment}
+          placeholder={'Введите Ваш коментарий'}
+          onChange={this.addText.bind(this)}/></p>
+        <input type="button"
+          value=" Добавить комментарий "
+          onClick={this.addComment.bind(this)}/>
+        <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
+        <p>{this.state.successPost}</p>
+      </div>
+      )
     } else {
       return (<div className="container">
         {isUpdate || <h3>Добавить комментарий</h3>}
