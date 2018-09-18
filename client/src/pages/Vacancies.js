@@ -2,14 +2,18 @@ import React, { Component, Fragment } from 'react'
 import Modal from 'react-responsive-modal'
 import axios from 'axios'
 import VacanciesList from '../components/VacanciesList'
+import {connect} from "react-redux";
 
 class Vacancies extends Component {
+
   onOpenModal = () => {
     this.setState({open: true})
   }
+
   onCloseModal = () => {
     this.setState({open: false})
   }
+
   handleSubmit = event => {
     event.preventDefault()
     axios({
@@ -20,7 +24,6 @@ class Vacancies extends Component {
           info: this.state.info,
           salary: this.state.salary
       }
-
     }).then(() => this.setState({open: false}))
   }
 
@@ -30,30 +33,33 @@ class Vacancies extends Component {
       position: '',
       salary: '',
       info: '',
-      open: false
+      open: false,
+      positions: this.props.positionsFromStartData
     }
-    this.handlePositionChange = this.handlePositionChange.bind(this)
-    this.handleSalaryChange = this.handleSalaryChange.bind(this)
+
+    this.handlePositionChange = this.handlePositionChange.bind(this);
+    this.handleSalaryChange = this.handleSalaryChange.bind(this);
     this.handleInfoChange = this.handleInfoChange.bind(this)
   }
 
   handlePositionChange (event) {
-    event.preventDefault()
+    event.preventDefault();
     this.setState({position: event.target.value})
   }
 
   handleSalaryChange (event) {
-    event.preventDefault()
+    event.preventDefault();
     this.setState({salary: event.target.value})
   }
 
   handleInfoChange (event) {
-    event.preventDefault()
+    event.preventDefault();
     this.setState({info: event.target.value})
   }
 
   render () {
-    const {open} = this.state
+    console.log(this.state)
+    const {open, positions} = this.state;
     return (
       <Fragment>
         <div className="button-container" id="button">
@@ -63,8 +69,12 @@ class Vacancies extends Component {
             <form onSubmit={this.handleSubmit}>
               <label>
                 Название должности:
-                <input type="text" name={'position'} value={this.state.position}
-                  onChange={this.handlePositionChange}/>
+                <select onChange={this.handlePositionChange}>
+                    {positions.map(position =>
+                        <option type="text" name={'position'} key={position.id} value={position.title}>
+                            {position.title}
+                            </option>)}
+                </select>
                 Зарплата:
                 <input type="text" name={'salary'} value={this.state.salary}
                   onChange={this.handleSalaryChange}/>
@@ -77,9 +87,16 @@ class Vacancies extends Component {
           </Modal>
         </div>
         <VacanciesList/>
+          {console.log("after: ", this.state)}
       </Fragment>
     )
   }
 }
 
-export default Vacancies
+const mapStateToProps = ({startData}) => {
+    return {
+        positionsFromStartData: startData.positions
+    }
+}
+
+export default connect(mapStateToProps)(Vacancies)
