@@ -16,11 +16,9 @@ class Vacancies extends Component {
       url: '/vacancy',
       method: 'POST',
       data: {
-        vacancy: {
           position: this.state.position,
           info: this.state.info,
           salary: this.state.salary
-        }
       }
 
     }).then(() => this.setState({open: false}))
