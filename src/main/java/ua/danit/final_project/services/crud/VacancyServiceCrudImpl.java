@@ -45,7 +45,6 @@ public class VacancyServiceCrudImpl implements VacancyServiceCrud {
   @Override
   public Vacancy save(Vacancy vacancy) {
     vacancy.setPublication(new Timestamp(System.currentTimeMillis()));
-    vacancy.setUser(StaticCollection.getUser());
     return vacancyRepository.save(vacancy);
   }
 

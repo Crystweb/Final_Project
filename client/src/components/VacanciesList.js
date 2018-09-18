@@ -40,6 +40,9 @@ class VacanciesList extends Component {
               <li>
                 <h5>{vacancy.status}</h5>
               </li>
+              <li>
+                <h5>{vacancy.salary}</h5>
+              </li>
             </ul>
           )}
         </div>
