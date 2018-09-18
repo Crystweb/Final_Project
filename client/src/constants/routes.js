@@ -6,6 +6,7 @@ const routes = {
   comments: {name: 'Передача смены', href: '/shifts'},
   commentsHistory: {name: 'История смен', href: '/shifts/history'},
   addNewComments: {name: 'Передать смену', href: '/shift/new'},
+  updateComment: {name: 'Редактировать', href: '/shift/update/'},
   tasks: {
     name: 'Задачи',
     href: '/tasks',

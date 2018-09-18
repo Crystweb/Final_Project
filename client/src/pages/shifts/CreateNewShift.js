@@ -8,11 +8,12 @@ class CreateNewComments extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      checkedPositions: [],
-      textComment: null,
+      checkedPositions: (this.props.updateComment && this.props.updateComment.positions) || [],
+      textComment: (this.props.updateComment && this.props.updateComment.text) || null,
       errorText: null,
       errorCheckedPosition: null,
-      successPost: null
+      successPost: null,
+      commentForUpdate: this.props.updateComment || null
     }
   }
 
@@ -38,6 +39,41 @@ class CreateNewComments extends Component {
           {
             text: this.state.textComment,
             positions: this.state.checkedPositions
+
+          })
+          .then(() => this.setState({
+            errorText: null,
+            errorCheckedPosition: null,
+            successPost: 'Комментарий добавлен успешно'
+          }))
+      }
+    }
+  }
+
+  updateComment () {
+    const {textComment, checkedPositions} = this.state
+
+    if (_.isEmpty(textComment)) {
+      this.setState({
+        successPost: null,
+        errorCheckedPosition: null,
+        errorText: 'Введите текст'
+      })
+    } else {
+      if (_.isEmpty(checkedPositions)) {
+        this.setState({
+          successPost: null,
+          errorText: null,
+          errorCheckedPosition: 'Выберите позицию'
+
+        })
+      } else {
+        axios.put('/workshift/comment',
+          {
+            id: this.state.commentForUpdate.id,
+            text: this.state.textComment,
+            positions: this.state.checkedPositions,
+            date: this.state.commentForUpdate.date
           })
           .then(() => this.setState({
             errorText: null,
@@ -67,10 +103,34 @@ class CreateNewComments extends Component {
   }
 
   render () {
-    console.log(this.state.textComment)
     if (!this.props.allPositionsForComments) {
       return (
         <Preloader/>
+      )
+    } else if (!this.state.commentForUpdate) {
+      return (<div className="container">
+        <h3>Добавить комментарий по смене</h3><br/>
+        {this.props.allPositionsForComments.map(position =>
+          <li key={position.id}>
+            <input
+              name="position"
+              type="checkbox"
+              checked={true && this.state.checkedPositions.includes(position.title)}
+              value={position.title}
+              onChange={this.setCheckedPosition.bind(this)}
+            />
+            {position.title}
+          </li>
+        )}
+        <p><textarea value={this.state.textComment}
+          placeholder={'Введите Ваш коментарий'}
+          onChange={this.addText.bind(this)}/></p>
+        <input type="button"
+          value=" Добавить комментарий "
+          onClick={this.addComment.bind(this)}/>
+        <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
+        <p>{this.state.successPost}</p>
+      </div>
       )
     } else {
       return (<div className="container">
@@ -80,14 +140,19 @@ class CreateNewComments extends Component {
             <input
               name="position"
               type="checkbox"
+              checked={true && this.state.checkedPositions.includes(position.title)}
               value={position.title}
               onChange={this.setCheckedPosition.bind(this)}
             />
             {position.title}
           </li>
         )}
-        <p><textarea placeholder={'Введите Ваш коментарий'} onChange={this.addText.bind(this)}/></p>
-        <p><input type="button" value=" Добавить комментарий " onClick={this.addComment.bind(this)}/></p>
+        <p><textarea value={this.state.textComment}
+          placeholder={'Введите Ваш коментарий'}
+          onChange={this.addText.bind(this)}/></p>
+        <input type="button"
+          value="Изменить комментарий"
+          onClick={this.updateComment.bind(this)}/>
         <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
         <p>{this.state.successPost}</p>
       </div>
@@ -96,9 +161,16 @@ class CreateNewComments extends Component {
   }
 }
 
-const mapStateToProps = ({startData}) => {
-  return {
-    allPositionsForComments: startData.positions
+const mapStateToProps = ({comments, startData}, ownProps) => {
+  if (comments.lastComments) {
+    return {
+      allPositionsForComments: startData.positions,
+      updateComment: comments.lastComments.find(comment => comment.id === +ownProps.match.params.commentId)
+    }
+  } else {
+    return {
+      allPositionsForComments: startData.positions
+    }
   }
 }
 

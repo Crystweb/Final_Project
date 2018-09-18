@@ -6,14 +6,13 @@ import SortedComments from '../../components/SortedComments'
 import Preloader from '../../components/Preloader'
 
 class ShiftHistoryForSelectedDay extends Component {
-
   componentDidMount () {
     axios.get(`/workshift?date=${this.props.date}`)
       .then(response => this.props.addCommentsForSelectedDate(response.data))
   }
 
   render () {
-    if (this.props.commentsForSelectedDate) {
+    if (this.props.commentsForSelectedDate && this.props.date) {
       return (
         <div className="container">
           <h4>{new Date(this.props.date).toLocaleDateString()}</h4>
