@@ -10,7 +10,7 @@ class Shifts extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      view: 'manager'
+      view: this.props.user.position.title
     }
   }
 
@@ -40,7 +40,8 @@ class Shifts extends Component {
 const mapStateToProps = ({comments, startData}) => {
   return {
     lastComments: comments.lastComments,
-    currentSchedules: startData.schedules
+    currentSchedules: startData.schedules,
+    user: startData.currentUser
   }
 }
 

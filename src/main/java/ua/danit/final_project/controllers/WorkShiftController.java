@@ -45,6 +45,7 @@ public class WorkShiftController {
     User userFromToken = StaticCollection.getUser();
     ShiftComment shiftComment = new ShiftComment();
 
+
     shiftComment.setMessage(shiftCommentDto.getText());
     shiftComment.setUser(userFromToken);
     shiftComment.setDate(shiftCommentDto.getDate());

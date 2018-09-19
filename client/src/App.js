@@ -20,7 +20,7 @@ import SalesNumbers from './pages/washingDate/SalesNumbers'
 import Lodgers from './pages/washingDate/Lodgers'
 import routes from './constants/routes'
 import { connect } from 'react-redux'
-import { addAllLocation, addAllPositions, addAllSchedules, addCurrentUser } from './actions/actions'
+import { addAllLocation, addAllPositions, addAllSchedules, addCurrentUser, addShift } from './actions/actions'
 import Preloader from './components/Preloader'
 import { startData } from './utils/Utills'
 
@@ -30,12 +30,17 @@ class App extends Component {
       data => { this.props.addUser(data) },
       data => { this.props.addAllPositions(data) },
       data => { this.props.addSchedules(data) },
-      data => { this.props.addAllLocation(data) }
+      data => { this.props.addAllLocation(data) },
+      data => { this.props.addShift(data) }
     )
   }
 
   render () {
-    if (!this.props.user && !this.props.schedules && !this.props.positions) {
+    if (!this.props.user ||
+      !this.props.schedules ||
+      !this.props.positions ||
+      !this.props.comments ||
+      !this.props.locations) {
       return (
         <Preloader/>
       )
@@ -53,6 +58,7 @@ class App extends Component {
           <Route exact path={routes.comments.href} component={Comments}/>
           <Route exact path={routes.commentsHistory.href} component={ShiftsHistory}/>
           <Route exact path={routes.addNewComments.href} component={CreateNewComments}/>
+          <Route exact path={routes.updateComment.href + ':commentId'} component={CreateNewComments}/>
           <Route exact path={routes.tasks.href} component={Tasks}/>
           <Route exact path={routes.tasks.hotelTasks.href} component={TasksForHotel}/>
           <Route exact path={routes.tasks.kitchenTasks.href} component={TasksForKitchen}/>
@@ -69,11 +75,13 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({startData}) => {
+const mapStateToProps = ({comments, startData}) => {
   return {
     user: startData.currentUser,
     positions: startData.positions,
-    schedules: startData.schedules
+    schedules: startData.schedules,
+    comments: comments.lastComments,
+    locations: startData.locations
   }
 }
 
@@ -90,6 +98,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     addAllLocation: (data) => {
       dispatch(addAllLocation(data))
+    },
+    addShift: (data) => {
+      dispatch(addShift(data))
     }
   }
 }
