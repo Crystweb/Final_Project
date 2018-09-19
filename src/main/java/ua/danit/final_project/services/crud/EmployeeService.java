@@ -1,8 +1,6 @@
 package ua.danit.final_project.services.crud;
 
 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import ua.danit.final_project.dto.EmployeeDto;
 import ua.danit.final_project.entities.Employee;
 import ua.danit.final_project.entities.Position;
