@@ -3,7 +3,10 @@ package ua.danit.final_project.services.crud;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ua.danit.final_project.dto.EmployeeDto;
 import ua.danit.final_project.entities.Employee;
+import ua.danit.final_project.entities.Position;
+import ua.danit.final_project.entities.User;
 
 import java.util.List;
 
@@ -14,8 +17,10 @@ public interface EmployeeService {
   List<Employee> getAll();
 
   Employee save(Employee employee);
-//  @Transactional(propagation = Propagation.REQUIRED)
-//   void deleteEmployee(Long id) {
-//    employeeDao.deleteEmployee(id);
-//  }
+
+  void deleteById(Long id);
+
+  Position getPositionByTitle(String title);
+
+  User addUserIfExists(EmployeeDto employeeDto);
 }
