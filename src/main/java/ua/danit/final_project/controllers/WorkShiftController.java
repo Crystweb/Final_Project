@@ -64,7 +64,7 @@ public class WorkShiftController {
     ShiftComment shiftComment = new ShiftComment();
 
     shiftComment.setId(shiftCommentDto.getId());
-    shiftComment.setUser(workCommentService.getUserById(shiftCommentDto.getAuthorId()));
+    shiftComment.setUser(userFromToken);
     shiftComment.setMessage(shiftCommentDto.getText());
     shiftComment.setPositions(workCommentService.getPositionByTitleIn(shiftCommentDto.getPositions()));
     shiftComment.setDate(shiftCommentDto.getDate());

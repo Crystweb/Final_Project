@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Timeline, TimelineEvent } from 'react-event-timeline'
@@ -21,10 +22,12 @@ class PositionButtons extends Component {
   }
 
   deleteComment (id) {
-    axios.delete(`/workshift/comment/${id}`)
-      .then(() => getLastShift(data => {
-        this.props.addShift(data)
-      }))
+    if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
+      axios.delete(`/workshift/comment/${id}`)
+        .then(() => getLastShift(data => {
+          this.props.addShift(data)
+        }))
+    }
   }
 
   render () {

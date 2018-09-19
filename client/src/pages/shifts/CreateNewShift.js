@@ -41,11 +41,15 @@ class CreateNewComments extends Component {
             positions: this.state.checkedPositions
 
           })
-          .then(() => this.setState({
-            errorText: null,
-            errorCheckedPosition: null,
-            successPost: 'Комментарий добавлен успешно'
-          }))
+          .then(() => {
+            this.setState({
+              errorText: null,
+              errorCheckedPosition: null,
+              textComment: '',
+              checkedPositions: [],
+              successPost: 'Комментарий добавлен'
+            })
+          })
       }
     }
   }
@@ -65,7 +69,6 @@ class CreateNewComments extends Component {
           successPost: null,
           errorText: null,
           errorCheckedPosition: 'Выберите позицию'
-
         })
       } else {
         axios.put('/workshift/comment',
@@ -78,7 +81,9 @@ class CreateNewComments extends Component {
           .then(() => this.setState({
             errorText: null,
             errorCheckedPosition: null,
-            successPost: 'Комментарий добавлен успешно'
+            textComment: '',
+            checkedPositions: [],
+            successPost: 'Комментарий изменен'
           }))
       }
     }
@@ -103,6 +108,7 @@ class CreateNewComments extends Component {
   }
 
   render () {
+    let isUpdate = !!this.state.commentForUpdate
     if (!this.props.allPositionsForComments) {
       return (
         <Preloader/>
@@ -134,7 +140,8 @@ class CreateNewComments extends Component {
       )
     } else {
       return (<div className="container">
-        <h3>Добавить комментарий по смене</h3><br/>
+        {isUpdate || <h3>Добавить комментарий</h3>}
+        {isUpdate && <h3>Изменить комментарий</h3>}
         {this.props.allPositionsForComments.map(position =>
           <li key={position.id}>
             <input
@@ -148,11 +155,16 @@ class CreateNewComments extends Component {
           </li>
         )}
         <p><textarea value={this.state.textComment}
+          ref={this.textInput}
           placeholder={'Введите Ваш коментарий'}
           onChange={this.addText.bind(this)}/></p>
-        <input type="button"
+        {isUpdate || <input type="button"
+          value=" Добавить комментарий "
+          onClick={this.addComment.bind(this)}/>}
+        {isUpdate && <input type="button"
           value="Изменить комментарий"
           onClick={this.updateComment.bind(this)}/>
+        }
         <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
         <p>{this.state.successPost}</p>
       </div>

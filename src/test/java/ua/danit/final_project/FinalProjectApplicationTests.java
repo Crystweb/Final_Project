@@ -707,6 +707,7 @@ public class FinalProjectApplicationTests {
     data.setSalary("10004");
     data.setVacancyStatus(Vacancy.VacancyStatus.OPENED);
     data.setInfo("OPENED 1");
+    data.setUser(StaticCollection.getUser());
 
     Vacancy actualPOST = vacancyService.save(data);
     Assert.assertEquals(data, actualPOST);

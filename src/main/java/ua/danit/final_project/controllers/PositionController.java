@@ -28,4 +28,8 @@ public class PositionController {
         .collect(Collectors.toList());
   }
 
+  @GetMapping("/list")
+  public List<Position> getPositions() {
+    return positionService.findAll();
+  }
 }
