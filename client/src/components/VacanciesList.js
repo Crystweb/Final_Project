@@ -30,7 +30,7 @@ class VacanciesList extends Component {
         <div>
           Список вакансий:
           {date.map(vacancy =>
-            <ul className='vacancyList'>
+            <ul key={vacancy.id} className='vacancyList'>
               <li>
                 <h3>{vacancy.position}</h3>
               </li>
