@@ -1,42 +1,65 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, {Component} from 'react'
 import axios from 'axios'
 import Preloader from '../components/Preloader'
+import EmployeeAdd from "../components/EmployeeAdd";
 
 class EmployeeList extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      users: []
+
+    componentDidMount() {
+        axios.get('/employee')
+            .then(response => this.setState({employee: response.data}))
     }
-  }
 
-  componentDidMount () {
-    axios.get('/employee')
-      .then(response => this.setState({users: response}))
-  }
+    constructor(props) {
+        super(props)
+        this.state = {
+            employee: []
+        }
+    }
 
-  render () {
-    if (!this.state.users.length) {
-      return (
-        <div>
-          <Preloader/>
-        </div>
-      )
-    } else {
-      return (
-        <ul className="employee-list">
-          {this.state.users.map(function (user) {
+    render() {
+        const {employee} = this.state
+        if (!this.state.employee) {
             return (
-              <li key={user.id}>
-                <Link to="{'/users/' + user.id}">{user.name}</Link>
-              </li>
+                <div>
+                    <Preloader/>
+                </div>
             )
-          })}
-        </ul>
-      )
-    }
-  }
-}
+        } else {
+            return (
+                <div>
+                    <div>
+                        <EmployeeAdd />
+                    </div>
+                <div>
+                    <h2>Списоk сотрудников: </h2>
+                    {employee.map(employee =>
+                        <ul className='vacancyList'>
+                            <li>
+                                <h4>position: <i> {employee.position}</i></h4>
+                            </li>
+                            <li>
+                                <h4>forename: <i>{employee.forename}</i></h4>
+                            </li>
+                            <li>
+                                <h4>surname: <i>{employee.surname}</i></h4>
+                            </li>
+                            <li>
+                                <h4>patronymic: <i>{employee.patronymic}</i></h4>
+                            </li>
+                            <li>
+                                <h4>Phone number: <i>{employee.phoneNumber}</i></h4>
+                            </li>
+                            <li>
+                                <h4>info: <i>{employee.info}</i></h4>
+                            </li>
+                        </ul>
+                    )}
+                </div>
+                </div>
+            )
 
+        }
+    }
+}
 export default EmployeeList
