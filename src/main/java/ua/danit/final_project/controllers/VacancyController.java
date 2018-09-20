@@ -52,7 +52,7 @@ public class VacancyController {
 
     vacancy.setVacancyStatus(Vacancy.VacancyStatus.OPENED);
     vacancy.setUser(userFromToken);
-    vacancy.setPosition(vacancyService.getPositionByTitle(vacancyDto.getPosition()));
+    vacancy.setPosition(vacancyService.createIfNotExist(vacancyDto.getPosition()));
     vacancy.setSalary(vacancyDto.getSalary());
     vacancy.setInfo(vacancyDto.getInfo());
     vacancy.setPublication(vacancyDto.getPublication());
@@ -66,8 +66,8 @@ public class VacancyController {
 
     Vacancy vacancy = new Vacancy();
 
-    vacancy.setUser(vacancyService.getUserByid(vacancyDto.getAuthorId()));
-    vacancy.setPosition(vacancyService.getPositionByTitle(vacancyDto.getPosition()));
+    vacancy.setUser(userFromToken);
+    vacancy.setPosition(vacancyService.createIfNotExist(vacancyDto.getPosition()));
     vacancy.setSalary(vacancyDto.getSalary());
     vacancy.setVacancyStatus(vacancyDto.getStatus());
     vacancy.setInfo(vacancyDto.getInfo());
