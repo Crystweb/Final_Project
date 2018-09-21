@@ -62,6 +62,9 @@ public class Task implements Serializable {
   @Column(name = "updated")
   private Timestamp updated;
 
+  @Column
+  private Integer priority;
+
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
