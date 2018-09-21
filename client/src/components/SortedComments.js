@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import routes from "../constants/routes";
 import picture from "../img/addComment.png";
 import calendar from "../img/calendar.png";
-import { AxiosInstance as axios } from 'axios'
+import axios from 'axios'
 import { getLastShift } from '../utils/Utills'
 import { addShift } from '../actions/actions'
 

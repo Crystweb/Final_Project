@@ -20,7 +20,14 @@ import SalesNumbers from './pages/washingDate/SalesNumbers'
 import Lodgers from './pages/washingDate/Lodgers'
 import routes from './constants/routes'
 import { connect } from 'react-redux'
-import { addAllLocation, addAllPositions, addAllSchedules, addCurrentUser, addShift } from './actions/actions'
+import {
+  addAllLocation,
+  addAllPositions,
+  addAllSchedules, addAllUsers,
+  addCurrentUser, addFrequencies,
+  addShift,
+  addTaskStatuses
+} from './actions/actions'
 import Preloader from './components/Preloader'
 import { startData } from './utils/Utills'
 
@@ -31,7 +38,10 @@ class App extends Component {
       data => { this.props.addAllPositions(data) },
       data => { this.props.addSchedules(data) },
       data => { this.props.addAllLocation(data) },
-      data => { this.props.addShift(data) }
+      data => { this.props.addShift(data) },
+      data => { this.props.addStatuses(data) },
+      data => { this.props.addFrequencies(data) },
+      data => { this.props.addAllUsers(data) }
     )
   }
 
@@ -40,7 +50,9 @@ class App extends Component {
       !this.props.schedules ||
       !this.props.positions ||
       !this.props.comments ||
-      !this.props.locations) {
+      !this.props.locations ||
+      !this.props.statuses ||
+      !this.props.frequencies) {
       return (
         <Preloader/>
       )
@@ -81,7 +93,9 @@ const mapStateToProps = ({comments, startData}) => {
     positions: startData.positions,
     schedules: startData.schedules,
     comments: comments.lastComments,
-    locations: startData.locations
+    locations: startData.locations,
+    statuses: startData.statuses,
+    frequencies: startData.frequencies
   }
 }
 
@@ -101,6 +115,15 @@ const mapDispatchToProps = (dispatch) => {
     },
     addShift: (data) => {
       dispatch(addShift(data))
+    },
+    addStatuses: (data) => {
+      dispatch(addTaskStatuses(data))
+    },
+    addFrequencies: (data) => {
+      dispatch(addFrequencies(data))
+    },
+    addAllUsers: (data) => {
+      dispatch(addAllUsers(data))
     }
   }
 }

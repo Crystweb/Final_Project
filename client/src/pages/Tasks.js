@@ -2,8 +2,17 @@ import React, { Component } from 'react'
 import routes from '../constants/routes'
 import { Link } from 'react-router-dom'
 import '../styles/Home.css'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import { addTasks } from '../actions/actions'
 
 class Tasks extends Component {
+
+  componentDidMount() {
+    axios.get('/task')
+      .then(response => this.props.addTasks(response.data))
+
+  }
   render () {
     return (
       <div className="container">
@@ -21,5 +30,16 @@ class Tasks extends Component {
     )
   }
 }
-
-export default Tasks
+const mapStateToProps = ({tasks}) => {
+return {
+  tasks: tasks.allTasks
+}
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTasks: (data) => {
+      dispatch(addTasks(data))
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Tasks)

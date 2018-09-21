@@ -48,3 +48,31 @@ export function addAllLocation (locations) {
     locations
   }
 }
+
+export function addTaskStatuses (statuses) {
+  return {
+    type: types.GET_TASK_STATUSES,
+    statuses
+  }
+}
+
+export function addTasks (tasks) {
+  return {
+    type: types.GET_TASKS,
+    tasks
+  }
+}
+
+export function addFrequencies (frequencies) {
+  return {
+    type: types.GET_FREQUENCIES,
+    frequencies
+  }
+}
+
+export function addAllUsers (users) {
+  return {
+    type: types.GET_ALL_USERS,
+    users
+  }
+}
