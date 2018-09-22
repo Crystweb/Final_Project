@@ -132,6 +132,7 @@ CREATE TABLE IF NOT EXISTS `task` (
   `t_message` VARCHAR(1023),
   `t_status` VARCHAR(31) CHECK (`t_status` in ('REMOVED', 'OPENED', 'CLOSED', 'REJECTED', 'PENDING','IN_PROGRESS', 'EXPIRED', 'CHANGE')),
   `t_frequency` VARCHAR(31) CHECK (`t_frequency` in ('ONCE', 'DAILY', 'WEEKLY', 'MONTHLY')),
+  `priority` INT,
   `expired` TIMESTAMP,
   `updated` TIMESTAMP,
   PRIMARY KEY (`id`),

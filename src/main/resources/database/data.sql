@@ -151,13 +151,13 @@ INSERT INTO `location` (l_title) VALUES ('3 этаж');
 INSERT INTO `location` (l_title) VALUES ('4 этаж');
 INSERT INTO `location` (l_title) VALUES ('5 этаж');
 
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (1, 2, 'clean rooms', @OPENED, 'DAILY', CURRENT_TIMESTAMP);
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (2, 2, 'call taxi', 'IN_PROGRESS', 'WEEKLY', CURRENT_TIMESTAMP);
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (3, 3, 'look in the window', @CLOSED, 'MONTHLY', CURRENT_TIMESTAMP);
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (2, 1, 'clean some room', @OPENED, 'ONCE', CURRENT_TIMESTAMP);
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (4, 2, 'close all doors', @OPENED, 'ONCE', CURRENT_TIMESTAMP);
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (4, 2, 'close all doors', @OPENED, 'ONCE', CURRENT_TIMESTAMP);
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (4, 2, 'close all doors', @OPENED, 'ONCE', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (1, 2, 'clean rooms', @OPENED, 2, 'DAILY', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (2, 2, 'call taxi', 'IN_PROGRESS', @OPENED, 3, 'WEEKLY', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (3, 3, 'look in the window', @CLOSED, 4, 'MONTHLY', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (2, 1, 'clean some room', @OPENED, 1, 'ONCE', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (4, 2, 'close all doors', @OPENED, 5, 'ONCE', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (4, 2, 'close all doors', @OPENED, 2, 'ONCE', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (4, 2, 'close all doors', @OPENED, 3, 'ONCE', CURRENT_TIMESTAMP);
 
 INSERT INTO `task_location` (t_id, l_id) VALUES (1,2);
 INSERT INTO `task_location` (t_id, l_id) VALUES (2,1);
