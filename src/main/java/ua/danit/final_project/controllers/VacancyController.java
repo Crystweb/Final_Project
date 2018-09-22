@@ -15,6 +15,7 @@ import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.dto.VacancyDto;
 import ua.danit.final_project.entities.User;
 import ua.danit.final_project.entities.Vacancy;
+import ua.danit.final_project.services.crud.PositionService;
 import ua.danit.final_project.services.crud.VacancyServiceCrud;
 
 import java.util.List;
@@ -25,10 +26,12 @@ import java.util.stream.Collectors;
 public class VacancyController {
 
   private final VacancyServiceCrud vacancyService;
+  private final PositionService positionService;
 
   @Autowired
-  public VacancyController(VacancyServiceCrud vacancyService) {
+  public VacancyController(VacancyServiceCrud vacancyService, PositionService positionService) {
     this.vacancyService = vacancyService;
+    this.positionService = positionService;
   }
 
   @GetMapping
@@ -52,7 +55,7 @@ public class VacancyController {
 
     vacancy.setVacancyStatus(Vacancy.VacancyStatus.OPENED);
     vacancy.setUser(userFromToken);
-    vacancy.setPosition(vacancyService.getPositionByTitle(vacancyDto.getPosition()));
+    vacancy.setPosition(positionService.getById(vacancyDto.getPositionId()));
     vacancy.setSalary(vacancyDto.getSalary());
     vacancy.setInfo(vacancyDto.getInfo());
     vacancy.setPublication(vacancyDto.getPublication());
@@ -67,7 +70,7 @@ public class VacancyController {
     Vacancy vacancy = new Vacancy();
 
     vacancy.setUser(vacancyService.getUserByid(vacancyDto.getAuthorId()));
-    vacancy.setPosition(vacancyService.getPositionByTitle(vacancyDto.getPosition()));
+    vacancy.setPosition(positionService.getById(vacancyDto.getPositionId()));
     vacancy.setSalary(vacancyDto.getSalary());
     vacancy.setVacancyStatus(vacancyDto.getStatus());
     vacancy.setInfo(vacancyDto.getInfo());

@@ -10,6 +10,7 @@ import SortedComments from '../../components/SortedComments'
 import picture from '../../img/addComment.png'
 
 class Shifts extends Component {
+
   constructor (props) {
     super(props)
     this.state = {

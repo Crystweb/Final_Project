@@ -37,7 +37,7 @@ public class VacancyServiceCrudImpl implements VacancyServiceCrud {
   @Override
   public List<Vacancy> getOpenVacancies() {
     return vacancyRepository.findAll().stream()
-        .filter(v -> Vacancy.VacancyStatus.OPENED.equals(v.getVacancyStatus()))
+ /*       .filter(v -> Vacancy.VacancyStatus.OPENED.equals(v.getVacancyStatus()))*/
         .collect(Collectors.toList());
   }
 
