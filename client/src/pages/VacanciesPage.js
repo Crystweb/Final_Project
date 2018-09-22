@@ -89,7 +89,6 @@ class VacanciesPage extends Component {
       <Fragment>
         <h2 className="button-container">{`${showClosed ? 'Закрытые' : 'Открытые'}`} вакансии</h2>
         <div className="button-container" id="button">
-
           <button onClick={() => this.setState({showClosed: !showClosed})}>
             {`${showClosed ? 'Скрыть' : 'Показать'}`} закрытые вакансии
           </button>
