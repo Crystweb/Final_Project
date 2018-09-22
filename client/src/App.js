@@ -6,11 +6,6 @@ import Comments from './pages/shifts/Shifts'
 import ShiftsHistory from './pages/shifts/ShiftsHistory'
 import CreateNewComments from './pages/shifts/CreateNewShift'
 import Tasks from './pages/Tasks'
-import TasksForHotel from './pages/tasks/TasksForHotel'
-import TasksForKitchen from './pages/tasks/TasksForKitchen'
-import TasksForFirstRestaurant from './pages/tasks/TasksForFirstRestaurant'
-import TasksForSecondRestaurant from './pages/tasks/TasksForSecondRestaurant'
-import TasksOfCyclic from './pages/tasks/TasksOfCyclic'
 import MyTasks from './pages/tasks/MyTasks'
 import Employees from './pages/Employees'
 import EmployeeList from './pages/EmployeeList'
@@ -30,6 +25,7 @@ import {
 } from './actions/actions'
 import Preloader from './components/Preloader'
 import { startData } from './utils/Utills'
+import CreateNewTask from './pages/tasks/CreateNewTask'
 
 class App extends Component {
   componentDidMount () {
@@ -72,11 +68,7 @@ class App extends Component {
           <Route exact path={routes.addNewComments.href} component={CreateNewComments}/>
           <Route exact path={routes.updateComment.href + ':commentId'} component={CreateNewComments}/>
           <Route exact path={routes.tasks.href} component={Tasks}/>
-          <Route exact path={routes.tasks.hotelTasks.href} component={TasksForHotel}/>
-          <Route exact path={routes.tasks.kitchenTasks.href} component={TasksForKitchen}/>
-          <Route exact path={routes.tasks.firstRestaurantTasks.href} component={TasksForFirstRestaurant}/>
-          <Route exact path={routes.tasks.secondRestaurantTasks.href} component={TasksForSecondRestaurant}/>
-          <Route exact path={routes.tasks.cyclicTasks.href} component={TasksOfCyclic}/>
+          <Route exact path={routes.tasks.createNewTask.href} component={CreateNewTask}/>
           <Route exact path={routes.tasks.myTasks.href} component={MyTasks}/>
           <Route exact path={routes.washingData.href} component={WashingData}/>
           <Route exact path={routes.washingData.salesNumbers.href} component={SalesNumbers}/>

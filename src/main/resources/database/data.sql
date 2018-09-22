@@ -141,17 +141,31 @@ INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (33, 1);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (34, 1);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (35, 1);
 
-INSERT INTO `location` (l_title, l_info) VALUES ('restaurant 1', 'restaurant in hotel');
-INSERT INTO `location` (l_title, l_info) VALUES ('restaurant 2', 'restaurant outside');
-INSERT INTO `location` (l_title, l_info) VALUES ('laundry', 'laundry');
-INSERT INTO `location` (l_title) VALUES ('room 200');
+INSERT INTO `location` (l_title) VALUES ('Мальвы');
+INSERT INTO `location` (l_title) VALUES ('ANISE');
+INSERT INTO `location` (l_title) VALUES ('Отель');
+INSERT INTO `location` (l_title) VALUES ('Кухня');
+INSERT INTO `location` (l_title) VALUES ('1 этаж');
+INSERT INTO `location` (l_title) VALUES ('2 этаж');
+INSERT INTO `location` (l_title) VALUES ('3 этаж');
+INSERT INTO `location` (l_title) VALUES ('4 этаж');
+INSERT INTO `location` (l_title) VALUES ('5 этаж');
 
 INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (1, 2, 'clean rooms', @OPENED, 'DAILY', CURRENT_TIMESTAMP);
 INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (2, 2, 'call taxi', 'IN_PROGRESS', 'WEEKLY', CURRENT_TIMESTAMP);
 INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (3, 3, 'look in the window', @CLOSED, 'MONTHLY', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (2, 1, 'clean some room', @OPENED, 'ONCE', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (4, 2, 'close all doors', @OPENED, 'ONCE', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (4, 2, 'close all doors', @OPENED, 'ONCE', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (4, 2, 'close all doors', @OPENED, 'ONCE', CURRENT_TIMESTAMP);
 
 INSERT INTO `task_location` (t_id, l_id) VALUES (1,2);
 INSERT INTO `task_location` (t_id, l_id) VALUES (2,1);
+INSERT INTO `task_location` (t_id, l_id) VALUES (4,6);
+INSERT INTO `task_location` (t_id, l_id) VALUES (5,7);
+INSERT INTO `task_location` (t_id, l_id) VALUES (3,4);
+INSERT INTO `task_location` (t_id, l_id) VALUES (6,5);
+INSERT INTO `task_location` (t_id, l_id) VALUES (7,3);
 
 INSERT INTO `task_comment` (t_id, u_id, c_message, c_date) VALUES (1, 2, 'first comment of task_comment', CURRENT_TIMESTAMP);
 INSERT INTO `task_comment` (t_id, u_id, c_message, c_date) VALUES (2, 1, 'second comment of task_comment', CURRENT_TIMESTAMP);
