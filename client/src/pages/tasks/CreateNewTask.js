@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import routes from '../../constants/routes'
 
 class CreateNewTask extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       open: true,
@@ -12,18 +12,17 @@ class CreateNewTask extends Component {
     }
   }
 
-onCloseModal = () => {
+  onCloseModal = () => {
     this.setState({open: false, redirect: true})
-}
+  }
 
-  render() {
+  render () {
     let {open, redirect} = this.state
-    if(!redirect) {
+    if (!redirect) {
       return (
         <div className="container">
           <Modal open={open} onClose={this.onCloseModal}
-                 closeOnOverlayClick={true}>
-            <h4>defwe</h4>
+            closeOnOverlayClick={true}>
           </Modal>
         </div>
       )
@@ -35,4 +34,4 @@ onCloseModal = () => {
   }
 }
 
-export default CreateNewTask;
+export default CreateNewTask

@@ -5,7 +5,7 @@ import { Link, Route, Switch, withRouter } from 'react-router-dom'
 import Comments from './pages/shifts/Shifts'
 import ShiftsHistory from './pages/shifts/ShiftsHistory'
 import CreateNewComments from './pages/shifts/CreateNewShift'
-import Tasks from './pages/Tasks'
+import Tasks from './pages/tasks/Tasks'
 import MyTasks from './pages/tasks/MyTasks'
 import Employees from './pages/Employees'
 import EmployeeList from './pages/EmployeeList'
@@ -20,12 +20,13 @@ import {
   addAllPositions,
   addAllSchedules, addAllUsers,
   addCurrentUser, addFrequencies,
-  addShift,
+  addShift, addTasks,
   addTaskStatuses
 } from './actions/actions'
 import Preloader from './components/Preloader'
 import { startData } from './utils/Utills'
 import CreateNewTask from './pages/tasks/CreateNewTask'
+import TasksHistory from './pages/tasks/TasksHistory'
 
 class App extends Component {
   componentDidMount () {
@@ -37,7 +38,8 @@ class App extends Component {
       data => { this.props.addShift(data) },
       data => { this.props.addStatuses(data) },
       data => { this.props.addFrequencies(data) },
-      data => { this.props.addAllUsers(data) }
+      data => { this.props.addAllUsers(data) },
+      data => { this.props.addTasks(data) }
     )
   }
 
@@ -70,6 +72,7 @@ class App extends Component {
           <Route exact path={routes.tasks.href} component={Tasks}/>
           <Route exact path={routes.tasks.createNewTask.href} component={CreateNewTask}/>
           <Route exact path={routes.tasks.myTasks.href} component={MyTasks}/>
+          <Route exact path={routes.tasks.tasksHistory.href} component={TasksHistory}/>
           <Route exact path={routes.washingData.href} component={WashingData}/>
           <Route exact path={routes.washingData.salesNumbers.href} component={SalesNumbers}/>
           <Route exact path={routes.washingData.lodgers.href} component={Lodgers}/>
@@ -116,6 +119,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     addAllUsers: (data) => {
       dispatch(addAllUsers(data))
+    },
+    addTasks: (data) => {
+      dispatch(addTasks(data))
     }
   }
 }

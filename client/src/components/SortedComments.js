@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Timeline, TimelineEvent} from 'react-event-timeline'
-import {Link} from "react-router-dom";
-import routes from "../constants/routes";
-import picture from "../img/addComment.png";
-import calendar from "../img/calendar.png";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Timeline, TimelineEvent } from 'react-event-timeline'
+import { Link } from 'react-router-dom'
+import routes from '../constants/routes'
+import picture from '../img/addComment.png'
+import calendar from '../img/calendar.png'
 import axios from 'axios'
 import { getLastShift } from '../utils/Utills'
 import { addShift } from '../actions/actions'
@@ -18,9 +18,9 @@ class PositionButtons extends Component {
     }
   }
 
-    setPositionView(event) {
-        this.setState({view: event.target.value})
-    }
+  setPositionView (event) {
+    this.setState({view: event.target.value})
+  }
 
   deleteComment (id) {
     if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
@@ -62,35 +62,35 @@ class PositionButtons extends Component {
       </li>
     )
 
-        return (
-            <section className="comments">
-                <div className="radioANDbuttons">
-                    <div className="position-radio-buttons" onChange={this.setPositionView.bind(this)}>
-                        {selectPositionInputs}
-                    </div>
-                    <div className="add_and_history">
-                        <nav>
-                            <ul>
-                                <li><Link to={routes.addNewComments.href}>
-                                    <img alt="add comment" src={picture}/>
-                                </Link>
-                                </li>
-                                <li><Link to={routes.commentsHistory.href}>
-                                    <img alt="calendar is here" src={calendar}/>
-                                </Link>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <Timeline>
-                    <div className="positionComments">
-                        {positionComments}
-                    </div>
-                </Timeline>
-            </section>
-        )
-    }
+    return (
+      <section className="comments">
+        <div className="radioANDbuttons">
+          <div className="position-radio-buttons" onChange={this.setPositionView.bind(this)}>
+            {selectPositionInputs}
+          </div>
+          <div className="add_and_history">
+            <nav>
+              <ul>
+                <li><Link to={routes.addNewComments.href}>
+                  <img alt="add comment" src={picture}/>
+                </Link>
+                </li>
+                <li><Link to={routes.commentsHistory.href}>
+                  <img alt="calendar is here" src={calendar}/>
+                </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <Timeline>
+          <div className="positionComments">
+            {positionComments}
+          </div>
+        </Timeline>
+      </section>
+    )
+  }
 }
 
 const mapStateToProps = ({startData}) => {

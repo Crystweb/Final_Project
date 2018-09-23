@@ -11,7 +11,8 @@ const routes = {
     name: 'Задачи',
     href: '/tasks',
     createNewTask: {name: 'Создать задачу', href: '/tasks/add'},
-    myTasks: {name: 'Мои задачи', href: '/tasks/myTasks'}
+    myTasks: {name: 'Мои задачи', href: '/tasks/myTasks'},
+    tasksHistory: {name: 'tasksHistory', href: '/tasks/history'}
   },
   washingData: {
     name: 'Данные о стирке',

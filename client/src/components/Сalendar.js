@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import 'react-infinite-calendar/styles.css'
 import '../styles/Calendar.css'
 import { connect } from 'react-redux'
@@ -16,16 +16,10 @@ class Calendar extends Component {
   }
 
   render () {
-    const dateChange = () => { this.setState({isDataSelected: false}) }
     const {max, min, selected, minDate, maxDate, addDate} = this.props
     if (this.state.isDataSelected) {
       return (
-        <Fragment>
-          <button onClick={dateChange}>
-            Выбрать другую дату
-          </button>
-          <ShiftHistoryForSelectedDay/>
-        </Fragment>
+        <ShiftHistoryForSelectedDay/>
       )
     }
     return (
