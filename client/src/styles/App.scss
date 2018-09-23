@@ -15,12 +15,18 @@ a {
   padding: 0;
   list-style: none;
   text-decoration: none;
+  cursor: default;
+}
+
+a:visited {
+  color: #4b5461;
 }
 
 body {
   min-width: 320px;
-  max-width: 700px;
+  max-width: 600px;
   margin: 0 auto;
+  padding: 0 25px;
   overflow-x: hidden;
 }
 
@@ -35,23 +41,24 @@ body {
 
 .header {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  background-color: lime;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 25px;
 
   &__title {
     font-size: 25px;
   }
-}
 
-li > a {
-  display: inline-block;
-  width: 200px;
-  padding: 10px;
-}
+  &__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-ul > li {
-  margin: 20px 0;
+  &__pageName {
+    text-transform: uppercase;
+  }
 }
 
 .button-container {

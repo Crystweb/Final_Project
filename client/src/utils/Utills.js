@@ -1,4 +1,5 @@
 import axios from 'axios'
+import routes from '../constants/routes'
 
 export const getLastShift = (callback) => {
   axios.get('/workshift')
@@ -43,4 +44,8 @@ export const startData = (
   axios.get('/task')
     .then(response => response.data)
     .then(callbackTasks)
+}
+
+export const getPreviousRoute = (currentPath) => {
+  return Object.values(routes).find(item => item.href === currentPath)
 }

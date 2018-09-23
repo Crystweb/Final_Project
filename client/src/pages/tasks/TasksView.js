@@ -1,18 +1,19 @@
 import React, { Component, Fragment } from 'react'
+import '../../styles/Tasks.css'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
-import '../../styles/Tasks.css'
 
-class MyTasks extends Component {
+class TasksView extends Component {
   render () {
     const {showAll, tasks, currentUser} = this.props
     tasks.sort(function (a, b) {
       if (a.priority > b.priority) return 1
       if (a.priority < b.priority) return -1
+      return 0
     }).reverse()
     if (tasks && currentUser) {
       return (
-        <div className="container">
+        <Fragment>
           {tasks.map(task => {
             const isShowTask = currentUser.id === task.assignee.id
             return (
@@ -39,7 +40,7 @@ class MyTasks extends Component {
               </Fragment>
             )
           })}
-        </div>
+        </Fragment>
       )
     } else {
       return (
@@ -56,4 +57,4 @@ const mapStateToProps = ({tasks, startData}) => {
   }
 }
 
-export default connect(mapStateToProps)(MyTasks)
+export default connect(mapStateToProps)(TasksView)

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import 'react-infinite-calendar/styles.css'
 import '../styles/Calendar.css'
 import { connect } from 'react-redux'
@@ -6,6 +6,7 @@ import { addSelectedDateFromCalendar } from '../actions/actions'
 import date_fns from 'date-fns/locale/ru'
 import InfiniteCalendar from 'react-infinite-calendar'
 import ShiftHistoryForSelectedDay from '../pages/shifts/ShiftsHistoryForSelectedDay'
+import TasksView from '../pages/tasks/TasksView'
 
 class Calendar extends Component {
   constructor (props) {
@@ -16,10 +17,13 @@ class Calendar extends Component {
   }
 
   render () {
-    const {max, min, selected, minDate, maxDate, addDate} = this.props
+    const {max, min, selected, minDate, maxDate, addDate, isForComments} = this.props
     if (this.state.isDataSelected) {
       return (
-        <ShiftHistoryForSelectedDay/>
+        <Fragment>
+          {isForComments && <ShiftHistoryForSelectedDay/>}
+          {isForComments || <TasksView/>}
+        </Fragment>
       )
     }
     return (

@@ -115,7 +115,7 @@ class CreateNewComments extends Component {
       )
     } else if (!this.state.commentForUpdate) {
       return (<div className="container">
-        <h3>Добавить комментарий по смене</h3><br/>
+        <h3>Создать комментарий</h3><br/>
         {this.props.allPositionsForComments.map(position =>
           <li key={position.id}>
             <input

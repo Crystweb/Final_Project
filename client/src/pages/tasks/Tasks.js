@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import routes from '../../constants/routes'
 import { Link } from 'react-router-dom'
 import '../../styles/Home.css'
@@ -7,7 +7,7 @@ import picture from '../../img/addComment.png'
 import calendar from '../../img/calendar.png'
 import '../../styles/Tasks.css'
 import Preloader from '../../components/Preloader'
-import MyTasks from './MyTasks'
+import MyTasks from './TasksView'
 
 class Tasks extends Component {
   constructor (props) {
@@ -36,46 +36,56 @@ class Tasks extends Component {
       const showButtonsForDirector = this.props.user.position.title === 'Управляющий'
       const showButtonsForOwner = this.props.user.position.title === 'Собственник'
       return (
-        <div className="container tasks__nav">
-          <MyTasks showAll={this.state.showAll}/>
-          {(showButtonsForAdmin ||
-            showButtonsForManager ||
-            showButtonsForDirector ||
-            showButtonsForOwner) &&
-          <Link to={routes.tasks.createNewTask.href}><img src={picture} alt="add"/></Link>
-          }
-          {(showButtonsForAdmin ||
-            showButtonsForManager ||
-            showButtonsForDirector ||
-            showButtonsForOwner) &&
-          <Link to={routes.tasks.tasksHistory.href}><img src={calendar} alt="calendar"/></Link>
-          }
-          {(showButtonsForAdmin ||
-            showButtonsForManager ||
-            showButtonsForDirector ||
-            showButtonsForOwner) &&
-          <form>
-            <li>
-              <input
-                name='tasks'
-                type='radio'
-                value='allTasks'
-                defaultChecked={false}
-                onClick={this.showAllActualTasks}/>
-              Все задачи
-            </li>
-            <li>
-              <input
-                name='tasks'
-                type='radio'
-                value='myTasks'
-                onClick={this.showMyActualTasks}
-                defaultChecked={true}/>
-              Мои задачи
-            </li>
-          </form>
-          }
-        </div>
+        <Fragment>
+          <div className="tasks">
+            <MyTasks showAll={this.state.showAll}/>
+            <div className='tasks__items'>
+              <div className='control'>
+                <div className='control__buttons'>
+                  {(showButtonsForAdmin ||
+                    showButtonsForManager ||
+                    showButtonsForDirector ||
+                    showButtonsForOwner) &&
+                  <Link to={routes.createNewTask.href}><img src={picture} alt="add"/></Link>
+                  }
+                  {(showButtonsForAdmin ||
+                    showButtonsForManager ||
+                    showButtonsForDirector ||
+                    showButtonsForOwner) &&
+                  <Link to={routes.tasksHistory.href}><img src={calendar} alt="calendar"/></Link>
+                  }
+                </div>
+                <div className='control__radio'>
+                  {(showButtonsForAdmin ||
+                    showButtonsForManager ||
+                    showButtonsForDirector ||
+                    showButtonsForOwner) &&
+                  <ul>
+                    <li>
+                      <input
+                        name='tasks'
+                        type='radio'
+                        value='allTasks'
+                        defaultChecked={false}
+                        onClick={this.showAllActualTasks}/>
+                      Все задачи
+                    </li>
+                    <li>
+                      <input
+                        name='tasks'
+                        type='radio'
+                        value='myTasks'
+                        onClick={this.showMyActualTasks}
+                        defaultChecked={true}/>
+                      Мои задачи
+                    </li>
+                  </ul>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </Fragment>
       )
     } else {
       return (
