@@ -9,7 +9,7 @@ const routes = {
   updateComment: {name: 'изменить комментарий ', href: '/shift/update/', previousHref: '/shifts'},
   tasks: {name: 'Задачи', href: '/tasks', previousHref: '/'},
   createNewTask: {name: 'новая задачу', href: '/tasks/add', previousHref: '/tasks'},
-  myTasks: {name: 'Мои задачи', href: '/tasks/myTasks', previousHref: '/tasks'},
+  tasksView: {name: 'Мои задачи', href: '/tasks/myTasks', previousHref: '/tasks'},
   tasksHistory: {name: 'история задач', href: '/tasks/history', previousHref: '/tasks'},
   washingData: {name: 'стирка', href: '/washingData', previousHref: '/'},
   salesNumbers: {name: 'Продажные номера', href: '/washingData/salesNumbers', previousHref: '/washingData'},

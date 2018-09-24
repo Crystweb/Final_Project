@@ -9,7 +9,7 @@ class CreateNewComments extends Component {
     super(props)
     this.state = {
       checkedPositions: (this.props.updateComment && this.props.updateComment.positions) || [],
-      textComment: (this.props.updateComment && this.props.updateComment.text) || null,
+      textComment: (this.props.updateComment && this.props.updateComment.text) || undefined,
       errorText: null,
       errorCheckedPosition: null,
       successPost: null,
@@ -50,6 +50,7 @@ class CreateNewComments extends Component {
               successPost: 'Комментарий добавлен'
             })
           })
+          .then(() => {setTimeout(()=>this.props.history.push('/shifts'), 1500)})
       }
     }
   }
@@ -85,6 +86,7 @@ class CreateNewComments extends Component {
             checkedPositions: [],
             successPost: 'Комментарий изменен'
           }))
+          .then(() => {setTimeout(()=>this.props.history.push('/shifts'), 1500)})
       }
     }
   }

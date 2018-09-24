@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../../styles/Comments.css'
 import Preloader from '../../components/Preloader'
-import { getLastShift } from '../../utils/Utills'
+import { getLastShift } from '../../utils/utils'
 import { connect } from 'react-redux'
 import { addShift } from '../../actions/actions'
 import SortedComments from '../../components/SortedComments'

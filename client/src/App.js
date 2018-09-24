@@ -1,19 +1,6 @@
 import React, { Component } from 'react'
 import './styles/App.css'
-import Home from './pages/Home'
-import { Route, Switch, withRouter } from 'react-router-dom'
-import Comments from './pages/shifts/Shifts'
-import ShiftsHistory from './pages/shifts/ShiftsHistory'
-import CreateNewComments from './pages/shifts/CreateNewShift'
-import Tasks from './pages/tasks/Tasks'
-import MyTasks from './pages/tasks/TasksView'
-import Employees from './pages/Employees'
-import EmployeeList from './pages/EmployeeList'
-import Vacancies from './pages/Vacancies'
-import WashingData from './pages/WashingData'
-import SalesNumbers from './pages/washingDate/SalesNumbers'
-import Lodgers from './pages/washingDate/Lodgers'
-import routes from './constants/routes'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   addAllLocation,
@@ -27,10 +14,8 @@ import {
   addTaskStatuses
 } from './actions/actions'
 import Preloader from './components/Preloader'
-import { getPreviousRoute, startData } from './utils/Utills'
-import CreateNewTask from './pages/tasks/CreateNewTask'
-import TasksHistory from './pages/tasks/TasksHistory'
-import Header from './components/Header'
+import { startData } from './utils/utils'
+import Navigation from './components/Navigation'
 
 class App extends Component {
   componentDidMount () {
@@ -48,8 +33,6 @@ class App extends Component {
   }
 
   render () {
-    const currentPath = this.props.location.pathname
-
     if (!this.props.user ||
       !this.props.schedules ||
       !this.props.positions ||
@@ -63,24 +46,8 @@ class App extends Component {
     }
     return (
       <div className="container">
-        <Header previousRoute={getPreviousRoute(currentPath)}/>
-        <Switch>
-          <Route exact path={routes.home.href} component={Home}/>
-          <Route exact path={routes.employees.href} component={Employees}/>
-          <Route exact path={routes.employeesList.href} component={EmployeeList}/>
-          <Route exact path={routes.vacancies.href} component={Vacancies}/>
-          <Route exact path={routes.comments.href} component={Comments}/>
-          <Route exact path={routes.commentsHistory.href} component={ShiftsHistory}/>
-          <Route exact path={routes.addNewComments.href} component={CreateNewComments}/>
-          <Route exact path={routes.updateComment.href + ':commentId'} component={CreateNewComments}/>
-          <Route exact path={routes.tasks.href} component={Tasks}/>
-          <Route exact path={routes.createNewTask.href} component={CreateNewTask}/>
-          <Route exact path={routes.myTasks.href} component={MyTasks}/>
-          <Route exact path={routes.tasksHistory.href} component={TasksHistory}/>
-          <Route exact path={routes.washingData.href} component={WashingData}/>
-          <Route exact path={routes.salesNumbers.href} component={SalesNumbers}/>
-          <Route exact path={routes.lodgers.href} component={Lodgers}/>
-        </Switch>
+        <Navigation header={true}/>
+        <Navigation/>
       </div>
     )
   }

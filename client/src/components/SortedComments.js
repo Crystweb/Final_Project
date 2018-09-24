@@ -6,7 +6,7 @@ import routes from '../constants/routes'
 import picture from '../img/addComment.png'
 import calendar from '../img/calendar.png'
 import axios from 'axios'
-import { getLastShift } from '../utils/Utills'
+import { getLastShift } from '../utils/utils'
 import { addShift } from '../actions/actions'
 
 class PositionButtons extends Component {

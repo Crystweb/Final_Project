@@ -45,7 +45,3 @@ export const startData = (
     .then(response => response.data)
     .then(callbackTasks)
 }
-
-export const getPreviousRoute = (currentPath) => {
-  return Object.values(routes).find(item => item.href === currentPath)
-}
