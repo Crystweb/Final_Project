@@ -159,6 +159,17 @@ CREATE TABLE IF NOT EXISTS `task_comment` (
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS `task_img` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `task_id` BIGINT NOT NULL,
+  `url` VARCHAR(255) NOT NULL UNIQUE,
+  `aws_key` VARCHAR(255),
+  `created_at` TIMESTAMP,
+  `last_update` TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`task_id`) REFERENCES `task`(`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS `consumer` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `c_name` VARCHAR(127) NOT NULL UNIQUE,
