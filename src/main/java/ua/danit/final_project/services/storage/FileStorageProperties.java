@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("aws.properties")
+@PropertySource("classpath:aws.properties")
 public class FileStorageProperties {
 
   @Value("${aws.credentials.key}")

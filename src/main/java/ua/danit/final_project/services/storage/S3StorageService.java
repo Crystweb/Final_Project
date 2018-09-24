@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.util.UUID;
 
 @Service
-@PropertySource("aws.properties")
+@PropertySource("classpath:aws.properties")
 public class S3StorageService implements StorageService {
 
   private final FileStorageProperties storageProperties;
