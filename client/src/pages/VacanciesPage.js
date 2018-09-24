@@ -28,6 +28,7 @@ class VacanciesPage extends Component {
       }
     })
         .then((response) => this.setState({open: false, resData: response.data}))
+        .then(() =>  this.props.GetAllVacancies())
   };
 
   constructor (props) {
@@ -50,6 +51,14 @@ class VacanciesPage extends Component {
   }
 
   componentWillMount() {
+    const {GetAllVacancies} = this.props
+    let data = this.props.vacancies
+
+    GetAllVacancies();
+    this.setState({vacancies:data})
+  }
+
+  componentDidMount() {
     const {GetAllVacancies} = this.props
     let data = this.props.vacancies
 
