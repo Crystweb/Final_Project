@@ -132,6 +132,7 @@ CREATE TABLE IF NOT EXISTS `task` (
   `t_message` VARCHAR(1023),
   `t_status` VARCHAR(31) CHECK (`t_status` in ('REMOVED', 'OPENED', 'CLOSED', 'REJECTED', 'PENDING','IN_PROGRESS', 'EXPIRED', 'CHANGE')),
   `t_frequency` VARCHAR(31) CHECK (`t_frequency` in ('ONCE', 'DAILY', 'WEEKLY', 'MONTHLY')),
+  `priority` INT,
   `expired` TIMESTAMP,
   `updated` TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -156,6 +157,17 @@ CREATE TABLE IF NOT EXISTS `task_comment` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`t_id`) REFERENCES `task`(`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `task_img` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `task_id` BIGINT NOT NULL,
+  `url` VARCHAR(255) NOT NULL UNIQUE,
+  `aws_key` VARCHAR(255),
+  `created_at` TIMESTAMP,
+  `last_update` TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`task_id`) REFERENCES `task`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `consumer` (
