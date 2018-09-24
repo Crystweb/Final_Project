@@ -1,10 +1,19 @@
 import * as types from '../constants/actionTypes'
+import axios from "axios";
+
 
 export function addShift (shift) {
   return {
     type: types.ADD_SHIFT,
     shift
   }
+}
+
+export const getAllVacancies = () => dispatch => {
+  return (axios.get('/vacancy')
+               .then(response => response.data)
+               .then(data => dispatch( {type: types.GET_ALL_VACANCIES, payload: data} ) )
+  )
 }
 
 export function addSelectedDateFromCalendar (date) {
