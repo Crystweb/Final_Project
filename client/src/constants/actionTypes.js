@@ -12,6 +12,10 @@ export const GET_SCHEDULES = 'GET_SCHEDULES'
 
 export const GET_LOCATIONS = 'GET_LOCATIONS'
 
+export const GET_ALL_VACANCIES= 'GET_ALL_VACANCIES'
+
+export const ADD_NEW_VACANCY= 'ADD_NEW_VACANCY'
+
 export const GET_TASK_STATUSES = 'GET_TASK_STATUSES'
 
 export const GET_TASKS = 'GET_TASKS'

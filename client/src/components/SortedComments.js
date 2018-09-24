@@ -101,7 +101,7 @@ class PositionButtons extends Component {
 
 const mapStateToProps = ({startData}) => {
   return {
-    position: startData.positions,
+    position: startData.positions.filter(pos => pos.pinnedToComment),
     currentUser: startData.currentUser
   }
 }

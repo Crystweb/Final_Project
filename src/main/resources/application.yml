@@ -16,6 +16,11 @@ spring:
     serialization:
       fail-on-empty-beans: false
       write_dates_as_timestamps: true
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 10MB
+      max-file-size: 1MB
 
 ---
 
@@ -35,3 +40,8 @@ spring:
       settings:
         trace: true
         web-allow-others: true
+aws:
+  credentials:
+    key: "${S3_KEY}"
+    secret: "${S3_SECRET}"
+  bucket: "${S3_BUCKET}"

@@ -8,7 +8,6 @@ import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.services.crud.PositionService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/position")

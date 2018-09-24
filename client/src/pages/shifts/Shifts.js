@@ -7,6 +7,7 @@ import { addShift } from '../../actions/actions'
 import SortedComments from '../../components/SortedComments'
 
 class Shifts extends Component {
+
   constructor (props) {
     super(props)
     this.state = {
