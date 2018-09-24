@@ -21,4 +21,6 @@ public interface VacancyServiceCrud {
   Position getPositionByTitle(String title);
 
   User getUserByid(Long userId);
+
+  Position createIfNotExist(String title);
 }
