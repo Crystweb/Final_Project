@@ -5,10 +5,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "lodash": "^4.17.10",
+    "moment": "^2.22.2",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.1.1",
     "npm-watch": "^0.3.0",
     "react": "^16.4.1",
+    "react-datepicker": "^1.6.0",
     "react-dom": "^16.4.1",
     "react-event-timeline": "^1.5.4",
     "react-infinite-calendar": "^2.3.1",

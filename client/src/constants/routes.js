@@ -8,7 +8,7 @@ const routes = {
   addNewComments: {name: 'Передать смену', href: '/shift/new', previousHref: '/shifts'},
   updateComment: {name: 'изменить комментарий ', href: '/shift/update/', previousHref: '/shifts'},
   tasks: {name: 'Задачи', href: '/tasks', previousHref: '/'},
-  createNewTask: {name: 'новая задачу', href: '/tasks/add', previousHref: '/tasks'},
+  createNewTask: {name: 'назначить задачу', href: '/tasks/add', previousHref: '/tasks'},
   tasksView: {name: 'Мои задачи', href: '/tasks/myTasks', previousHref: '/tasks'},
   tasksHistory: {name: 'история задач', href: '/tasks/history', previousHref: '/tasks'},
   washingData: {name: 'стирка', href: '/washingData', previousHref: '/'},

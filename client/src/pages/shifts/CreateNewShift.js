@@ -50,7 +50,7 @@ class CreateNewComments extends Component {
               successPost: 'Комментарий добавлен'
             })
           })
-          .then(() => {setTimeout(()=>this.props.history.push('/shifts'), 1500)})
+          .then(() => { setTimeout(() => this.props.history.push('/shifts'), 1500) })
       }
     }
   }
@@ -86,7 +86,7 @@ class CreateNewComments extends Component {
             checkedPositions: [],
             successPost: 'Комментарий изменен'
           }))
-          .then(() => {setTimeout(()=>this.props.history.push('/shifts'), 1500)})
+          .then(() => { setTimeout(() => this.props.history.push('/shifts'), 1500) })
       }
     }
   }
@@ -118,20 +118,29 @@ class CreateNewComments extends Component {
     } else if (!this.state.commentForUpdate) {
       return (<div className="container">
         <h3>Создать комментарий</h3><br/>
-        {this.props.allPositionsForComments.map(position =>
-          <li key={position.id}>
-            <input
-              name="position"
-              type="checkbox"
-              checked={true && this.state.checkedPositions.includes(position.title)}
-              value={position.title}
-              onChange={this.setCheckedPosition.bind(this)}
-            />
-            {position.title}
-          </li>
-        )}
+        {this.props.allPositionsForComments.map(position => {
+          const isForComment = position.pinnedToComment === true
+          return (
+            <div>
+              {isForComment && <li key={position.id}>
+                <input
+                  name="position"
+                  type="checkbox"
+                  checked={true && this.state.checkedPositions.includes(position.title)}
+                  value={position.title}
+                  onChange={this.setCheckedPosition.bind(this)}
+                />
+                {position.title}
+              </li>}
+            </div>
+          )
+        }
+        )
+        }
         <p><textarea value={this.state.textComment}
           placeholder={'Введите Ваш коментарий'}
+          cols="30"
+          rows="10"
           onChange={this.addText.bind(this)}/></p>
         <input type="button"
           value=" Добавить комментарий "

@@ -1,5 +1,4 @@
 import axios from 'axios'
-import routes from '../constants/routes'
 
 export const getLastShift = (callback) => {
   axios.get('/workshift')

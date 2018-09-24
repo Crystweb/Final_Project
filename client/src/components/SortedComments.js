@@ -52,17 +52,23 @@ class PositionButtons extends Component {
         )
       })
 
-    const selectPositionInputs = position.map(position =>
-      <li key={position.id}>
-        <input name="position"
-          type='radio'
-          defaultChecked={this.state.view === position.title}
-          value={position.title}/>
-        {position.title}
-      </li>
+    const selectPositionInputs = position.map(position => {
+      const isForComment = position.pinnedToComment === true
+      return (
+        <div>
+          {isForComment && <li key={position.id}>
+            <input name="position"
+              type='radio'
+              defaultChecked={this.state.view === position.title}
+              value={position.title}/>
+            {position.title}
+          </li>}
+        </div>)
+    }
     )
 
     return (
+
       <section className="comments">
         <div className="radioANDbuttons">
           <div className="position-radio-buttons" onChange={this.setPositionView.bind(this)}>
