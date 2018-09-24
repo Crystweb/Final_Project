@@ -52,7 +52,6 @@ public class TaskController {
   public Task create(@RequestParam("task") String taskJson,
                      @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
-    System.out.println(taskJson);
     ObjectMapper mapper = new ObjectMapper();
     Task task = mapper.readValue(taskJson, Task.class);
 

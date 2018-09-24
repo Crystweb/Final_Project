@@ -44,7 +44,6 @@ public class S3StorageService implements StorageService {
 
     String key = "taskPhotos/" + UUID.randomUUID();
     InputStream is = file.getInputStream();
-    //    s3.putObject(bucket, key, is, new ObjectMetadata());
     s3.putObject(new PutObjectRequest(bucket, key, is, new ObjectMetadata())
         .withCannedAcl(CannedAccessControlList.PublicRead));
 
