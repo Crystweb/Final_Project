@@ -6,7 +6,6 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +19,6 @@ import java.io.InputStream;
 import java.util.UUID;
 
 @Service
-@PropertySource("classpath:aws.properties")
 public class S3StorageService implements StorageService {
 
   private final FileStorageProperties storageProperties;

@@ -309,4 +309,4 @@ Temporary Items
 
 !.gitignore
 
-/src/main/resources/aws.properties
+/src/main/resources/application-dev.yml

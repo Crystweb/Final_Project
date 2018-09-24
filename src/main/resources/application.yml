@@ -40,3 +40,8 @@ spring:
       settings:
         trace: true
         web-allow-others: true
+aws:
+  credentials:
+    key: "${S3_KEY}"
+    secret: "${S3_SECRET}"
+  bucket: "${S3_BUCKET}"
