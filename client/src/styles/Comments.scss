@@ -24,12 +24,73 @@
 .position-radio-buttons li input:checked + li {
   color: red; }
 
+.flex_comment{
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  line-height: 1.6;
+  padding: 0.5em 1em;
+  text-align: -webkit-auto;
+}
+
+.comment{
+
+}
+
+.comment h3{
+  height: 15px;
+  font-family: HelveticaNeue;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.07;
+  letter-spacing: normal;
+  color: #4b5461;
+}
+
+.comment h5{
+  height: 12px;
+  font-family: HelveticaNeue;
+  font-size: 11px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #9b9b9b;
+}
+
+.comment h4{
+  height: 15px;
+  font-family: HelveticaNeue;
+  font-size: 14px;
+  font-weight: 200;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.07;
+  letter-spacing: normal;
+  color: #4b5461;
+}
+
 .positionComments {
   display: flex;
   flex-direction: column;
-  justify-content: center; }
+  justify-content: center;
+}
 
 .positionComments li {
   margin-bottom: 20px;
-  text-align: center; }
+  text-align: center;
+}
+button {
+  border: none;
+  background-color: transparent;
+}
+
+@font-face {
+  font-family: HelveticaNeue;
+  src: url(/fonts/HelveticaNeue.ttf);  }
 /* stylelint-enable */
