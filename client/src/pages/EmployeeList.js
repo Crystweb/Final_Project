@@ -30,41 +30,41 @@ class EmployeeList extends Component {
             return (
                 <div>
                     <div>
-                        <EmployeeAdd />
+                        <EmployeeAdd/>
                     </div>
-                <div className='employee'>
-                    <h2>СОТРУДНИКИ</h2>
-                  <div className='employee_container'>
-                    {employee.map(employee =>
-                            <div className='employeeList'>
-                                <div className='employeeBlock'>
-                                    <div className='employeePhoto'>
-                                        <img alt='нет фото' src="https://zabavnik.club/wp-content/uploads/Kartinka_3_26040225.png"/>
-                                </div>
-                                <div className='info_box'>
-                               <h4>{employee.forename}&nbsp;
-                               {employee.surname}&nbsp;
-                               {employee.patronymic},&nbsp;
-                               {employee.position}</h4>
-                            <br/>
+                    <div className='employee'>
+                        <h2>СОТРУДНИКИ</h2>
+                        <div className='employee_container'>
+                            {employee.map(employee =>
+                                <div className='employeeList'>
+                                    <div className='employeeBlock'>
+                                        <div className='employeePhoto'>
+                                            <img alt='нет фото'
+                                                 src="https://zabavnik.club/wp-content/uploads/Kartinka_3_26040225.png"/>
+                                        </div>
+                                        <div className='info_box'>
+                                            <h4>{employee.forename}&nbsp;
+                                                {employee.surname}&nbsp;
+                                                {employee.patronymic},&nbsp;
+                                                {employee.position}</h4>
 
-                            <li>
-                                <h4>{employee.phoneNumber}</h4>
-                            </li>
-                            <li>
-                                <h4>{employee.info}</h4>
-                            </li>
+                                            <li>
+                                                <h4>{employee.phoneNumber}</h4>
+                                            </li>
+                                            <li>
+                                                <h4>{employee.info}</h4>
+                                            </li>
+                                        </div>
                                     </div>
-                            </div>
-                            </div>
-
-                    )}
-                </div>
-                </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </div>
             )
 
         }
     }
 }
+
 export default EmployeeList

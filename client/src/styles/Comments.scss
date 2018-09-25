@@ -1,6 +1,7 @@
 /* stylelint-disable */
 .test {
-  margin: 0; }
+  margin: 0;
+}
 
 .radioANDbuttons {
   display: flex;
@@ -8,7 +9,7 @@
   line-height: 35px;
 }
 
-.add_and_history nav ul li a{
+.add_and_history nav ul li a {
   width: 0;
   padding: 0;
 
@@ -22,9 +23,10 @@
 }
 
 .position-radio-buttons li input:checked + li {
-  color: red; }
+  color: red;
+}
 
-.flex_comment{
+.flex_comment {
   display: flex;
   justify-content: space-between;
   background-color: rgb(255, 255, 255);
@@ -36,11 +38,11 @@
   text-align: -webkit-auto;
 }
 
-.comment{
+.comment {
 
 }
 
-.comment h3{
+.comment h3 {
   height: 15px;
   font-family: HelveticaNeue;
   font-size: 14px;
@@ -52,7 +54,7 @@
   color: #4b5461;
 }
 
-.comment h5{
+.comment h5 {
   height: 12px;
   font-family: HelveticaNeue;
   font-size: 11px;
@@ -64,7 +66,7 @@
   color: #9b9b9b;
 }
 
-.comment h4{
+.comment h4 {
   height: 15px;
   font-family: HelveticaNeue;
   font-size: 14px;
@@ -86,6 +88,7 @@
   margin-bottom: 20px;
   text-align: center;
 }
+
 button {
   border: none;
   background-color: transparent;
@@ -94,5 +97,7 @@ button {
 
 @font-face {
   font-family: HelveticaNeue;
-  src: url(../fonts/HelveticaNeue.ttf);  }
+  src: url(../fonts/HelveticaNeue.ttf);
+}
+
 /* stylelint-enable */
