@@ -17,6 +17,9 @@ spring:
       fail-on-empty-beans: false
       write_dates_as_timestamps: true
 
+email:
+  username: hotelcaliforniaaaaa@gmail.com
+  password: server12345
 ---
 
 spring:
