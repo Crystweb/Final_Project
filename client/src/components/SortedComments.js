@@ -4,6 +4,8 @@ import {Timeline, TimelineEvent} from 'react-event-timeline'
 import {Link} from "react-router-dom";
 import routes from "../constants/routes";
 import picture from "../img/addComment.png";
+import update from "../img/update.png";
+import trash from "../img/trash.png";
 import calendar from "../img/calendar.png";
 import {AxiosInstance as axios} from 'axios'
 import {getLastShift} from '../utils/Utills'
@@ -52,40 +54,38 @@ class PositionButtons extends Component {
       })
 
     const timelineEvents = [];
-    // shiftColors = shifts.map(shift => {
-    //     shift: shift,
-    //         color: getColor(shift)
-    // })
 
-    // color => color.shift.start < i && color.shift.end > i).color
-
-
-    // 24 or new Date().getHours()
     for (let i = new Date().getHours(); i >= 0; i--) {
       const shift = schedulesWithColors.find(item => {
         const start = parseInt(item.start);
         const end = parseInt(item.end);
         return (end > start && start <= i && end > i) || (end < start && (start <= i || end > i))
       });
-      // const backgroundStyle = {
-      //   backgroundColor: shift && shift.color
-      // };
-
+      if (timelineEvents === null){return }
       timelineEvents.push(
         <TimelineEvent createdAt={`${i}:00`} key={i} title='' iconColor={shift && shift.color}>
           {comments
+            .filter(comment => comment.authorPosition === this.state.view)
             .filter(comment => new Date(comment.date).getHours() === i)
             .map(comment => {
               const showActionButtons = comment.authorId === this.state.userId
+              // const isShowing = ({comments.[0] == undefined} === true)
               return (
                 <li key={comment.id}>
-                  <h5>{comment.forename} {comment.surname}, {comment.authorPosition}</h5>
-                  <h3>{comment.text}</h3>
+                  <div className='flex_comment'>
+                  <div className='comment'>
+                  <h3>{comment.forename} {comment.surname}, {comment.authorPosition}</h3>
+                    <h5>{`${i}:00`}</h5>
+                  <h4>{comment.text}</h4>
+                  </div>
+                    <div className='ud_buttons'>
                   {showActionButtons &&
-                  <button onClick={() => this.deleteComment(comment.id)}>delete comment</button>}
+                  <button onClick={() => this.deleteComment(comment.id)}><img src={trash}/></button>}
                   {showActionButtons &&
-                  <button><Link to={routes.updateComment.href + comment.id}>update comment</Link>
+                  <button><Link to={routes.updateComment.href + comment.id}><img src={update}/></Link>
                   </button>}
+                    </div>
+                  </div>
                 </li>
               )
             })
@@ -93,24 +93,6 @@ class PositionButtons extends Component {
         </TimelineEvent>
       )
     }
-    console.log(this.state.userId)
-    // let positionComments = comments
-    //   .filter(comment => comment.positions.includes(this.state.view))
-    //   .reverse()
-    //   .map(comment => {
-    //     const showActionButtons = comment.authorId === this.state.userId
-    //     return (
-    //       <TimelineEvent key={comment.id} title='shifts' createdAt={new Date(comment.date).toLocaleTimeString()}>
-    //         <li key={comment.id}>
-    //           <h5>{comment.forename} {comment.surname}, {comment.authorPosition}</h5>
-    //           <h3>{comment.text}</h3>
-    //           {showActionButtons && <button onClick={() => this.deleteComment(comment.id)}>delete comment</button>}
-    //           {showActionButtons &&
-    //           <button><Link to={routes.updateComment.href + comment.id}>update comment</Link></button>}
-    //         </li>
-    //       </TimelineEvent>
-    //     )
-    //   })
 
     const selectPositionInputs = position.map(position =>
       <li key={position.id}>
