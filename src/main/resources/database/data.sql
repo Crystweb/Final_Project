@@ -48,14 +48,14 @@ INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '21:00:00', '1
 INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (1,  '08:00:00', '20:00:00', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP) );
 
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'message to admin ', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'Hello, admin', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'message to manager', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Hello, manager', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'message to managing director', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Hello, Edward :)', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Прибрати в кімнаті номер 23', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Викликати таксі на 7:00', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Команда Шахтар виїжджає 20 січня', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'Hello, admin', TIMESTAMPADD(HOUR,-2,CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'message to manager',TIMESTAMPADD(HOUR,-4, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Hello, manager', TIMESTAMPADD(HOUR,-5,CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'message to managing director',TIMESTAMPADD(HOUR,-7, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Hello, Edward :)',TIMESTAMPADD(HOUR,-7, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Прибрати в кімнаті номер 23',TIMESTAMPADD(HOUR,-9, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Викликати таксі на 7:00',TIMESTAMPADD(HOUR,-11, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Команда Шахтар виїжджає 20 січня',TIMESTAMPADD(HOUR,-14, CURRENT_TIMESTAMP));
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Передзвонити клієнту о 19 годині', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP));
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (4, 'В кімнаті 31 зламалася дверна ручка – викликати майстра на ранок', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP));
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (4, 'Попередження про відключення світла з 20 по 23 години', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP));
