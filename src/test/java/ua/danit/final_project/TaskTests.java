@@ -37,19 +37,13 @@ public class TaskTests {
 
   @Before
   public void init() {
-
     task = new Task();
-    task.setStatus(Task.TaskStatus.OPENED);
-    task.setFrequency(Task.TaskFrequency.ONCE);
-    task.setPriority(1);
-    task.setMessage("this is task mock");
-
+    
     Mockito.when(mockTaskRepository.save(any(Task.class))).then((Answer<Task>) invocationOnMock -> {
       Task argument = invocationOnMock.getArgument(0);
       argument.setId(++mockId);
       return argument;
     });
-
     Mockito.when(mockTaskRepository.findById(any())).thenReturn(Optional.of(task));
   }
 
