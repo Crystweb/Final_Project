@@ -1,194 +1,284 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import Preloader from '../../components/Preloader'
 import * as _ from 'lodash'
 
-class CreateNewComments extends Component {
-    constructor (props) {
+class CreateNewEmployee extends Component {
+    constructor(props) {
         super(props)
         this.state = {
-            checkedPositions: (this.props.updateComment && this.props.updateComment.positions) || [],
-            textComment: (this.props.updateComment && this.props.updateComment.text) || undefined,
+            checkedPositions: (this.props.updateEmployee && this.props.updateEmployee.positions) || [],
+            textComment: (this.props.updateEmployee && this.props.updateEmployee.text) || undefined,
             errorText: null,
             errorCheckedPosition: null,
             successPost: null,
-            commentForUpdate: this.props.updateComment || null
+            commentForUpdate: this.props.updateEmployee || null
         }
     }
 
-    addComment () {
-        const {textComment, checkedPositions} = this.state
+    addEmployee() {
+        const {
+            position,
+            forename,
+            surname,
+            patronymic,
+            phoneNumber,
+            info
+        } = this.state
 
-        if (_.isEmpty(textComment)) {
+        if (_.isEmpty(position)) {
             this.setState({
                 successPost: null,
-                errorCheckedPosition: null,
-                errorText: 'Введите текст'
+                errorText: null,
+                errorCheckedPosition: 'Выберите позицию'
             })
         } else {
-            if (_.isEmpty(checkedPositions)) {
+            if (_.isEmpty(forename)) {
                 this.setState({
                     successPost: null,
-                    errorText: null,
-                    errorCheckedPosition: 'Выберите позицию'
-
+                    errorCheckedPosition: null,
+                    errorText: 'Введите имя'
                 })
             } else {
-                axios.post('/workshift/comment',
-                    {
-                        text: this.state.textComment,
-                        positions: this.state.checkedPositions
-
-                    })
-                    .then(() => {
-                        this.setState({
-                            errorText: null,
-                            errorCheckedPosition: null,
-                            textComment: '',
-                            checkedPositions: [],
-                            successPost: 'Комментарий добавлен'
-                        })
-                    })
-                    .then(() => { setTimeout(() => this.props.history.push('/shifts'), 1500) })
-            }
-        }
-    }
-
-    updateComment () {
-        const {textComment, checkedPositions} = this.state
-
-        if (_.isEmpty(textComment)) {
-            this.setState({
-                successPost: null,
-                errorCheckedPosition: null,
-                errorText: 'Введите текст'
-            })
-        } else {
-            if (_.isEmpty(checkedPositions)) {
-                this.setState({
-                    successPost: null,
-                    errorText: null,
-                    errorCheckedPosition: 'Выберите позицию'
-                })
-            } else {
-                axios.put('/workshift/comment',
-                    {
-                        id: this.state.commentForUpdate.id,
-                        text: this.state.textComment,
-                        positions: this.state.checkedPositions,
-                        date: this.state.commentForUpdate.date
-                    })
-                    .then(() => this.setState({
-                        errorText: null,
+                if (_.isEmpty(surname)) {
+                    this.setState({
+                        successPost: null,
                         errorCheckedPosition: null,
-                        textComment: '',
-                        checkedPositions: [],
-                        successPost: 'Комментарий изменен'
-                    }))
-                    .then(() => { setTimeout(() => this.props.history.push('/shifts'), 1500) })
+                        errorText: 'Введите фамилию'
+                    })
+                } else {
+                    if (_.isEmpty(patronymic)) {
+                        this.setState({
+                            successPost: null,
+                            errorCheckedPosition: null,
+                            errorText: 'Введите отчество'
+                        })
+                    } else {
+                        if (_.isEmpty(phoneNumber)) {
+                            this.setState({
+                                successPost: null,
+                                errorCheckedPosition: null,
+                                errorText: 'Введите номер телефона'
+                            })
+                        } else {
+                            if (_.isEmpty(info)) {
+                                this.setState({
+                                    successPost: null,
+                                    errorCheckedPosition: null,
+                                    errorText: 'Введите дополнительную информацию'
+                                })
+                            } else {
+                                axios.post('/employees/list',
+                                    {
+                                        text: this.state.textComment,
+                                        positions: this.state.checkedPositions
+
+                                    })
+                                    .then(() => {
+                                        this.setState({
+                                            errorText: null,
+                                            errorCheckedPosition: null,
+                                            textComment: '',
+                                            checkedPositions: [],
+                                            successPost: 'Сотрудник добавлен'
+                                        })
+                                    })
+                                    .then(() => {
+                                        setTimeout(() => this.props.history.push('/employees/list'), 1500)
+                                    })
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 
-    addText (event) {
-        this.setState({textComment: event.target.value})
-    }
 
-    setCheckedPosition (event) {
-        let currentCheckedPosition = event.target.value
-        let checkedPositions = this.state.checkedPositions
-        if (checkedPositions.includes(currentCheckedPosition)) {
-            let positionIndex = checkedPositions.indexOf(currentCheckedPosition)
-            let firstPartPositionsArray = checkedPositions.slice(0, positionIndex)
-            let secondPartPositionsArray = checkedPositions.slice(positionIndex + 1)
-            checkedPositions = firstPartPositionsArray.concat(secondPartPositionsArray)
+    updateEmployee() {
+        const {
+            position,
+            forename,
+            surname,
+            patronymic,
+            phoneNumber,
+            info
+        } = this.state
+
+        if (_.isEmpty(position)) {
+            this.setState({
+                successPost: null,
+                errorText: null,
+                errorCheckedPosition: 'Выберите позицию'
+            })
         } else {
-            checkedPositions.push(event.target.value)
-        }
-        this.setState({checkedPositions: checkedPositions})
-    }
+            if (_.isEmpty(forename)) {
+                this.setState({
+                    successPost: null,
+                    errorCheckedPosition: null,
+                    errorText: 'Введите имя'
+                })
+            } else {
+                if (_.isEmpty(surname)) {
+                    this.setState({
+                        successPost: null,
+                        errorCheckedPosition: null,
+                        errorText: 'Введите фамилию'
+                    })
+                } else {
+                    if (_.isEmpty(patronymic)) {
+                        this.setState({
+                            successPost: null,
+                            errorCheckedPosition: null,
+                            errorText: 'Введите отчество'
+                        })
+                    } else {
+                        if (_.isEmpty(phoneNumber)) {
+                            this.setState({
+                                successPost: null,
+                                errorCheckedPosition: null,
+                                errorText: 'Введите номер телефона'
+                            })
+                        } else {
+                            if (_.isEmpty(info)) {
+                                this.setState({
+                                    successPost: null,
+                                    errorCheckedPosition: null,
+                                    errorText: 'Введите дополнительную информацию'
+                                })
+                            } else {
+                                axios.post('/employees/list',
+                                    {
+                                        text: this.state.textComment,
+                                        positions: this.state.checkedPositions
 
-    render () {
-        let isUpdate = !!this.state.commentForUpdate
-        if (!this.props.allPositionsForComments) {
-            return (
-                <Preloader/>
-            )
-        } else if (!this.state.commentForUpdate) {
-            return (<div className="container">
-                    <h3>Создать комментарий</h3><br/>
-                    {this.props.allPositionsForComments.map(position => {
-                            const isForComment = position.pinnedToComment === true
-                            return (
-                                <div>
-                                    {isForComment && <li key={position.id}>
-                                        <input
-                                            name="position"
-                                            type="checkbox"
-                                            checked={true && this.state.checkedPositions.includes(position.title)}
-                                            value={position.title}
-                                            onChange={this.setCheckedPosition.bind(this)}
-                                        />
-                                        {position.title}
-                                    </li>}
-                                </div>
-                            )
+                                    })
+                                    .then(() => {
+                                        this.setState({
+                                            errorText: null,
+                                            errorCheckedPosition: null,
+                                            textComment: '',
+                                            checkedPositions: [],
+                                            successPost: 'Сотрудник добавлен'
+                                        })
+                                    })
+                                    .then(() => {
+                                        setTimeout(() => this.props.history.push('/employees/list'), 1500)
+                                    })
+                            }
                         }
-                    )
                     }
-                    <p><textarea value={this.state.textComment}
-                                 placeholder={'Введите Ваш коментарий'}
-                                 cols="30"
-                                 rows="10"
-                                 onChange={this.addText.bind(this)}/></p>
-                    <input type="button"
-                           value=" Добавить комментарий "
-                           onClick={this.addComment.bind(this)}/>
-                    <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
-                    <p>{this.state.successPost}</p>
-                </div>
-            )
-        } else {
-            return (<div className="container">
-                    {isUpdate || <h3>Добавить комментарий</h3>}
-                    {isUpdate && <h3>Изменить комментарий</h3>}
-                    {this.props.allPositionsForComments.map(position =>
-                        <li key={position.id}>
-                            <input
-                                name="position"
-                                type="checkbox"
-                                checked={true && this.state.checkedPositions.includes(position.title)}
-                                value={position.title}
-                                onChange={this.setCheckedPosition.bind(this)}
-                            />
-                            {position.title}
-                        </li>
-                    )}
-                    <p><textarea value={this.state.textComment}
-                                 ref={this.textInput}
-                                 placeholder={'Введите Ваш коментарий'}
-                                 onChange={this.addText.bind(this)}/></p>
-                    {isUpdate || <input type="button"
-                                        value=" Добавить комментарий "
-                                        onClick={this.addComment.bind(this)}/>}
-                    {isUpdate && <input type="button"
-                                        value="Изменить комментарий"
-                                        onClick={this.updateComment.bind(this)}/>
-                    }
-                    <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
-                    <p>{this.state.successPost}</p>
-                </div>
-            )
+                }
+            }
         }
     }
+
+addText(event)
+{
+    this.setState({forename: event.target.value})
+    this.setState({surname: event.target.value})
+    this.setState({patronymic: event.target.value})
+    this.setState({phoneNumber: event.target.value})
+    this.setState({info: event.target.value})
+}
+
+setPosition(event)
+{
+    let currentPosition = event.target.value
+    let Positions = this.state.checkedPositions
+    if (Positions.includes(currentPosition)) {
+        let positionIndex = Positions.indexOf(currentPosition)
+        let firstPartPositionsArray = Positions.slice(0, positionIndex)
+        let secondPartPositionsArray = Positions.slice(positionIndex + 1)
+        Positions = firstPartPositionsArray.concat(secondPartPositionsArray)
+    } else {
+        Positions.push(event.target.value)
+    }
+    this.setState({Positions: Positions})
+}
+
+render()
+{
+    let isUpdate = !!this.state.commentForUpdate
+    if (!this.props.allPositionsForComments) {
+        return (
+            <Preloader/>
+        )
+    } else if (!this.state.commentForUpdate) {
+        return (<div className="container">
+                <h3>Создать сотрудника</h3><br/>
+                {this.props.allPositionsForComments.map(position => {
+                        const isForComment = position.pinnedToComment === true
+                        return (
+                            <div>
+                                {isForComment && <li key={position.id}>
+                                    <input
+                                        name="position"
+                                        type="checkbox"
+                                        checked={true && this.state.checkedPositions.includes(position.title)}
+                                        value={position.title}
+                                        onChange={this.setPosition.bind(this)}
+                                    />
+                                    {position.title}
+                                </li>}
+                            </div>
+                        )
+                    }
+                )
+                }
+                <p><textarea value={this.state.textComment}
+                             placeholder={'Введите Ваш коментарий'}
+                             cols="30"
+                             rows="10"
+                             onChange={this.addText.bind(this)}/></p>
+                <input type="button"
+                       value=" Добавить сотрудника "
+                       onClick={this.addEmployee.bind(this)}/>
+                <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
+                <p>{this.state.successPost}</p>
+            </div>
+        )
+    } else {
+        return (<div className="container">
+                {isUpdate || <h3>Добавить сотрудника</h3>}
+                {isUpdate && <h3>Изменить сотрудника</h3>}
+                {this.props.allPositionsForComments.map(position =>
+                    <li key={position.id}>
+                        <input
+                            name="position"
+                            type="checkbox"
+                            checked={true && this.state.checkedPositions.includes(position.title)}
+                            value={position.title}
+                            onChange={this.setPosition.bind(this)}
+                        />
+                        {position.title}
+                    </li>
+                )}
+                <p><textarea value={this.state.textComment}
+                             ref={this.textInput}
+                             placeholder={'Введите Ваш коментарий'}
+                             onChange={this.addText.bind(this)}/></p>
+                {isUpdate || <input type="button"
+                                    value=" Добавить сотрудника "
+                                    onClick={this.addEmployee.bind(this)}/>}
+                {isUpdate && <input type="button"
+                                    value="Изменить сотрудника"
+                                    onClick={this.updateEmployee.bind(this)}/>
+                }
+                <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
+                <p>{this.state.successPost}</p>
+            </div>
+        )
+    }
+}
 }
 
 const mapStateToProps = ({comments, startData}, ownProps) => {
     if (comments.lastComments) {
         return {
             allPositionsForComments: startData.positions,
-            updateComment: comments.lastComments.find(comment => comment.id === +ownProps.match.params.commentId)
+            updateEmployee: comments.lastComments.find(comment => comment.id === +ownProps.match.params.commentId)
         }
     } else {
         return {
@@ -197,4 +287,4 @@ const mapStateToProps = ({comments, startData}, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps)(CreateNewComments)
+export default connect(mapStateToProps)(CreateNewEmployee)
