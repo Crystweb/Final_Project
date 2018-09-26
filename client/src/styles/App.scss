@@ -23,11 +23,13 @@ a:visited {
 }
 
 body {
+
   min-width: 320px;
   max-width: 600px;
   margin: 0 auto;
   padding: 0 25px;
   overflow-x: hidden;
+  font-family: HelveticaNeue;
 }
 
 .container {
@@ -70,6 +72,7 @@ body {
   border: 1px solid lime;
   font-weight: 700;
   text-decoration: none;
+  font-family: HelveticaNeue;
 }
 
 .button-container button {
@@ -80,6 +83,7 @@ body {
   background-color: transparent;
   font-weight: 700;
   text-decoration: none;
+  font-family: HelveticaNeue;
 }
 
 label {
@@ -89,4 +93,9 @@ label {
 
 form {
   padding: 15px;
+}
+
+@font-face {
+  font-family: HelveticaNeue;
+  src: url(../fonts/HelveticaNeue.ttf);
 }
