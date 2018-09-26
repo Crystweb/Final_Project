@@ -14,7 +14,6 @@ INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Менеджер', 
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Администратор', true );
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Управляющий', true);
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Шеф-Повар', false);
-INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Собственник', true);
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Старшая горничная', false);
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Старший бармен', false);
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Завхоз', false);
