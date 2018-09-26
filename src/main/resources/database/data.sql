@@ -10,10 +10,13 @@ INSERT INTO `role` (`r_name`) VALUES ('seniorHousemaid');
 INSERT INTO `role` (`r_name`) VALUES ('seniorBartender');
 INSERT INTO `role` (`r_name`) VALUES ('stateFarm');
 
-INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('manager', true );
-INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('admin', true );
-INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('managing director', true);
-INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('chief', false);
+INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Менеджер', true );
+INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Администратор', true );
+INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Управляющий', true);
+INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Шеф-Повар', false);
+INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Старшая горничная', false);
+INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Старший бармен', false);
+INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Завхоз', false);
 
 INSERT INTO `user` (u_login, u_password, position_id) VALUES ('login1','1', 1);
 INSERT INTO `user` (u_login, u_password, position_id) VALUES ('login2','1', 2);
@@ -38,10 +41,11 @@ INSERT INTO `user_role` (u_id, r_id) VALUES (1,2);
 INSERT INTO `user_role` (u_id, r_id) VALUES (2,3);
 INSERT INTO `user_role` (u_id, r_id) VALUES (2,5);
 
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'Работает в дневные смены.');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '090586403', 'Работает в ресторане для ФК Динамо.');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '092586403', 'Работает в дневные смены.');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (5,3,'Artem', 'Tymchuk',  'Dmytrovich',  '094586403', 'Работает в ресторане для ФК Динамо.');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'blablabla1');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '090586403', 'blablabla2');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '092586403', 'blablabla3');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (5,3,'Artem', 'Tymchuk',  'Dmytrovich',  '094586403', 'blablabla4');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (4,3,'Rostyslav', 'Barmakov',  'Dmytrovich',  '094586003', 'blablabla5');
 
 INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '10:00:00', '21:00:00', TIMESTAMPADD(DAY, -3, CURRENT_TIMESTAMP) );
 INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '21:00:00', '10:00:00', TIMESTAMPADD(DAY, -2, CURRENT_TIMESTAMP) );
@@ -141,17 +145,32 @@ INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (33, 1);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (34, 1);
 INSERT INTO `shift_comment_position` (comment_id, position_id) VALUES (35, 1);
 
-INSERT INTO `location` (l_title, l_info) VALUES ('restaurant 1', 'restaurant in hotel');
-INSERT INTO `location` (l_title, l_info) VALUES ('restaurant 2', 'restaurant outside');
-INSERT INTO `location` (l_title, l_info) VALUES ('laundry', 'laundry');
-INSERT INTO `location` (l_title) VALUES ('room 200');
+INSERT INTO `location` (l_title) VALUES ('Мальвы');
+INSERT INTO `location` (l_title) VALUES ('ANISE');
+INSERT INTO `location` (l_title) VALUES ('Отель');
+INSERT INTO `location` (l_title) VALUES ('Кухня');
+INSERT INTO `location` (l_title) VALUES ('1 этаж');
+INSERT INTO `location` (l_title) VALUES ('2 этаж');
+INSERT INTO `location` (l_title) VALUES ('3 этаж');
+INSERT INTO `location` (l_title) VALUES ('4 этаж');
+INSERT INTO `location` (l_title) VALUES ('5 этаж');
 
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (1, 2, 'clean rooms', @OPENED, 1, 'DAILY', CURRENT_TIMESTAMP);
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (2, 2, 'call taxi', 'IN_PROGRESS', 2, 'WEEKLY', CURRENT_TIMESTAMP);
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (3, 3, 'look in the window', @CLOSED, 5, 'MONTHLY', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (1, 2, 'clean rooms', @OPENED, 2, 'DAILY', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 1, CURRENT_TIMESTAMP));
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (5, 2, 'call taxi', @OPENED, 3, 'WEEKLY', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 2, CURRENT_TIMESTAMP));
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (3, 3, 'look in the window', @CLOSED, 1, 'MONTHLY', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 1, CURRENT_TIMESTAMP));
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (2, 1, 'clean some room', @OPENED, 1, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 4, CURRENT_TIMESTAMP));
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (5, 1, 'close all windows', @OPENED, 3, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 2, CURRENT_TIMESTAMP));
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (4, 4, 'close all cats', @OPENED, 2, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 1, CURRENT_TIMESTAMP));
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (5, 3, 'close all doors', @OPENED, 1, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
 
 INSERT INTO `task_location` (t_id, l_id) VALUES (1,2);
 INSERT INTO `task_location` (t_id, l_id) VALUES (2,1);
+INSERT INTO `task_location` (t_id, l_id) VALUES (2,4);
+INSERT INTO `task_location` (t_id, l_id) VALUES (4,6);
+INSERT INTO `task_location` (t_id, l_id) VALUES (5,7);
+INSERT INTO `task_location` (t_id, l_id) VALUES (3,4);
+INSERT INTO `task_location` (t_id, l_id) VALUES (6,5);
+INSERT INTO `task_location` (t_id, l_id) VALUES (7,3);
 
 INSERT INTO `task_comment` (t_id, u_id, c_message, c_date) VALUES (1, 2, 'first comment of task_comment', CURRENT_TIMESTAMP);
 INSERT INTO `task_comment` (t_id, u_id, c_message, c_date) VALUES (2, 1, 'second comment of task_comment', CURRENT_TIMESTAMP);

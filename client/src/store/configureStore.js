@@ -5,13 +5,15 @@ import thunk from 'redux-thunk'
 import shift from '../reducers/comments'
 import shiftHistorySelectedDate from '../reducers/shiftHistorySelectedDate'
 import user from '../reducers/startData'
+import tasks from '../reducers/tasks'
 import vacanciesReducer from "../reducers/vacanciesReducer";
 
 const reducers = {
   comments: shift,
   shiftHistorySelectedDate: shiftHistorySelectedDate,
   startData: user,
-  vacancies: vacanciesReducer
+  vacancies: vacanciesReducer,
+  tasks: tasks
 }
 
 const rootReducer = combineReducers(reducers)
