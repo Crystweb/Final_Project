@@ -2,9 +2,92 @@ import React, { Component, Fragment } from 'react'
 import Modal from 'react-responsive-modal'
 import axios from 'axios'
 import '../styles/VacanciesPage.css'
-import {connect} from "react-redux";
-import {getAllVacancies} from "../actions/actions";
-import Preloader from "../components/Preloader";
+import { connect } from 'react-redux'
+import { getAllVacancies } from '../actions/actions'
+import Preloader from '../components/Preloader'
+
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import green from '@material-ui/core/colors/green'
+import Radio from '@material-ui/core/Radio'
+import Typography from '@material-ui/core/Typography'
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import Paper from '../../node_modules/@material-ui/core/Paper/Paper'
+import Card from '../../node_modules/@material-ui/core/Card/Card'
+import IconButton from '../../node_modules/@material-ui/core/IconButton/IconButton'
+import AddIcon from '@material-ui/icons/AddCircleRounded'
+import classNames from 'classnames'
+
+const styles = theme => ({
+  root: {
+    color: green[600],
+    '&$checked': {
+      color: green[500],
+    },
+  },
+  checked: {},
+  ControlsContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    marginLeft: '10%',
+    width: '100%'
+  },
+  Controls: {
+    width: '90%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  radioButton: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    height: 40,
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+  vacancyList: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '90%',
+    marginTop: 32,
+  },
+  vacancyContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginLeft: '10%',
+    borderLeft: '3px solid grey'
+  },
+  vacancyInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+    justifyContent: 'flex-start',
+    borderLeft: '3px solid grey',
+    '&:before': {
+      content: '"♥"',
+      position: 'absolute',
+      // bottom: 0,
+      left: 50,
+      width: '100%',
+      height: '1rem',
+      display: 'block',
+      background: theme.palette.background.main
+    }
+  },
+  vacancyInfoItem: {
+    padding: 8,
+  }
+})
 
 class VacanciesPage extends Component {
 
@@ -22,14 +105,14 @@ class VacanciesPage extends Component {
       url: '/vacancy',
       method: 'POST',
       data: {
-          positionId: this.state.position,
-          info: this.state.info,
-          salary: this.state.salary
+        positionId: this.state.position,
+        info: this.state.info,
+        salary: this.state.salary
       }
     })
-        .then((response) => this.setState({open: false, resData: response.data}))
-        .then(() =>  this.props.GetAllVacancies())
-  };
+      .then((response) => this.setState({open: false, resData: response.data}))
+      .then(() => this.props.GetAllVacancies())
+  }
 
   constructor (props) {
     super(props)
@@ -38,111 +121,148 @@ class VacanciesPage extends Component {
       salary: '',
       info: '',
       open: false,
-      positions: this.props.positions,
+      // positions: this.props.positions,
       data: [],
       newVac: {},
       showClosed: false,
       vacancies: {}
     }
 
-    this.handlePositionChange = this.handlePositionChange.bind(this);
-    this.handleSalaryChange = this.handleSalaryChange.bind(this);
+    this.handlePositionChange = this.handlePositionChange.bind(this)
+    this.handleSalaryChange = this.handleSalaryChange.bind(this)
     this.handleInfoChange = this.handleInfoChange.bind(this)
   }
 
-  componentWillMount() {
+  componentWillMount () {
     const {GetAllVacancies} = this.props
     let data = this.props.vacancies
 
-    GetAllVacancies();
-    this.setState({vacancies:data})
+    GetAllVacancies()
+    this.setState({vacancies: data})
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const {GetAllVacancies} = this.props
     let data = this.props.vacancies
 
-    GetAllVacancies();
-    this.setState({vacancies:data})
+    GetAllVacancies()
+    this.setState({vacancies: data})
   }
 
   handlePositionChange (event) {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({position: event.target.value})
   }
 
   handleSalaryChange (event) {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({salary: event.target.value})
   }
 
   handleInfoChange (event) {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({info: event.target.value})
   }
 
   render () {
     const {data, showClosed} = this.state
-    const {vacancies} = this.props
+    const {vacancies, classes, positions} = this.props
     let toFilterVacancies = vacancies
-    const {open, positions} = this.state
+    const {open,} = this.state
+
     if (!data) {
       return <Preloader/>
     }
 
     if (!showClosed) {
-      toFilterVacancies = vacancies.filter(vacancy => vacancy.status === "OPENED")
-    } else {toFilterVacancies = vacancies.filter(vacancy => vacancy.status === "CLOSED")}
+      toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'OPENED')
+    } else {toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'CLOSED')}
 
     return (
       <Fragment>
-        <h2 className="button-container">{`${showClosed ? 'Закрытые' : 'Открытые'}`} вакансии</h2>
-        <div className="button-container" id="button">
-          <button onClick={() => this.setState({showClosed: !showClosed})}>
-            {`${showClosed ? 'Скрыть' : 'Показать'}`} закрытые вакансии
-          </button>
-          <button onClick={this.onOpenModal}>Добавить вакансию</button>
-          <Modal open={open} onClose={this.onCloseModal} center
-            closeOnOverlayClick={true}>
-            <form onSubmit={this.handleSubmit}>
-              <label>
-                Название должности:
-                <select onChange={this.handlePositionChange}>
-                    {positions.map(position =>
-                        <option type="text" name={'position'} key={position.id} value={position.id}>
-                            {position.title}
-                            </option>)}
-                </select>
-                Зарплата:
-                <input type="text" name={'salary'} value={this.state.salary}
-                  onChange={this.handleSalaryChange}/>
-                <br/>
-                <textarea placeholder={'Введите Ваш коментарий'} name={'info'} value={this.state.info}
-                  onChange={this.handleInfoChange}/>
-              </label>
-              <input type="submit" value="Добавить"/>
-            </form>
-          </Modal>
-        </div>
+
+        <Typography align={'center'} variant={'title'}>вакансии</Typography>
+        <Card className={classes.Controls} id="button" elevation={'0'}>
+
+          <div className={classes.ControlsContainer}>
+            <RadioGroup
+              name="showClosed"
+              aria-label={this.state.showClosed}
+              value={this.state.showClosed}>
+              <Paper className={classes.radioButton} elevation={'0'}>
+                <Radio
+                  checked={!this.state.showClosed}
+                  onChange={() => this.setState({showClosed: !showClosed})}
+                  value="d"
+                  color="default"
+                  name="radio-button-demo"
+                  aria-label="Открытые вакансии">
+                </Radio>
+                <Typography variant={'caption'}>открытые вакансии</Typography>
+              </Paper>
+              <Paper className={classes.radioButton} elevation={'0'}>
+                <Radio
+                  checked={this.state.showClosed}
+                  onChange={() => this.setState({showClosed: !showClosed})}
+                  value="d"
+                  color="default"
+                  name="radio-button-demo"
+                  aria-label="Закрытые вакансии">
+                </Radio>
+                <Typography variant={'caption'}>закрытые вакансии</Typography>
+              </Paper>
+            </RadioGroup>
+            <IconButton onClick={this.onOpenModal} color="default" className={classes.button}
+                        aria-label="Добавить Вакансию">
+              <AddIcon fontSize="large"/>
+            </IconButton>
+          </div>
+        </Card>
+        <Modal open={open}
+               onClose={this.onCloseModal}
+               center
+               closeOnOverlayClick={true}>
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              Название должности:
+              <select onChange={this.handlePositionChange}>
+                {positions.map(position =>
+                  <option type="text" name={'position'} key={position.id} value={position.id}>
+                    {position.title}
+                  </option>)}
+              </select>
+              Зарплата:
+              <input type="text" name={'salary'} value={this.state.salary}
+                     onChange={this.handleSalaryChange}/>
+              <br/>
+              <textarea placeholder={'Введите Ваш коментарий'} name={'info'} value={this.state.info}
+                        onChange={this.handleInfoChange}/>
+            </label>
+            <input type="submit" value="Добавить"/>
+          </form>
+        </Modal>
         <div>
           {toFilterVacancies.map(vacancy =>
-            <ul key={vacancy.id} className='vacancyList'>
-              <li>
-                <h3>{vacancy.position}</h3>
-              </li>
-              <li>
-                <h4>{vacancy.info}</h4>
-              </li>
-              <li>
-                <h5>{vacancy.status}</h5>
-              </li>
-              <li>
-                <h5>{vacancy.salary}</h5>
-              </li>
-              <li>
-                <h5>{new Date(vacancy.publication).toDateString()}</h5>
-              </li>
-            </ul>
+            <Paper key={vacancy.id}
+                   elevation={'0'}
+                   className={classNames(
+                     {'btn-${buttonType}': this.state.info}
+                     , classes.vacancyList
+                   )}>
+              {console.log('vacancy :', vacancy)}
+              {console.log('positions :', positions)}
+              <div className={classes.vacancyContainer}>
+                <div className={classes.vacancyInfo}>
+                  <Typography className={classes.vacancyInfoItem}
+                              variant={'title'}>{positions[vacancy.positionId].title}</Typography>
+                  <Typography className={classes.vacancyInfoItem}
+                              variant={'subheading'}>{new Date(vacancy.publication).toDateString()}</Typography>
+                  <Typography className={classes.vacancyInfoItem}
+                              variant={'subheading'}>{vacancy.salary} грн.</Typography>
+                  <Typography className={classes.vacancyInfoItem} variant={'p'}>{vacancy.info}</Typography>
+                </div>
+              </div>
+            </Paper>
           )}
         </div>
       </Fragment>
@@ -163,4 +283,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(VacanciesPage)
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(VacanciesPage))
