@@ -8,6 +8,8 @@ import routes from "../../constants/routes";
 import update from "../../img/update.png";
 import trash from "../../img/trash.png";
 import {getLastShift} from "../../utils/utils";
+import {addShift} from "../../actions/actions";
+import connect from "react-redux/es/connect/connect";
 
 class EmployeeList extends Component {
 
@@ -26,8 +28,8 @@ class EmployeeList extends Component {
     deleteEmployee(id) {
         if (window.confirm('Вы уверены, что хотите удалить сотрудника?')) {
             axios.delete(`/employee/${id}`)
-                .then(() => getLastShift(data => {
-                    this.props.addShift(data)
+                .then(() => getEmployee(data => {
+                    this.props.addEmployee(data)
                 }))
         }
     }
@@ -89,4 +91,18 @@ class EmployeeList extends Component {
     }
 }
 
-export default EmployeeList
+const mapStateToProps = ({employees, startData}) => {
+  return {
+    lastEmployees: employees.lastEmployees,
+    user: startData.currentUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addEmployee: (data) => {
+      dispatch(addEmployee(data))
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeeList)

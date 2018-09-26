@@ -15,6 +15,7 @@ export const startData = (
   callbackStatus,
   callbackFrequency,
   callbackUsers,
+  callbackEmployees,
   callbackTasks) => {
   axios.get('/test/user')
     .then(response => response.data)
@@ -40,6 +41,9 @@ export const startData = (
   axios.get('/user')
     .then(response => response.data)
     .then(callbackUsers)
+  axios.get('/employee')
+    .then(response => response.data)
+    .then(callbackEmployees)
   axios.get('/task')
     .then(response => response.data)
     .then(callbackTasks)

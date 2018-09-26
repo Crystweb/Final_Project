@@ -11,7 +11,8 @@ import {
   addFrequencies,
   addShift,
   addTasks,
-  addTaskStatuses
+  addTaskStatuses,
+  addEmployee
 } from './actions/actions'
 import Preloader from './components/Preloader'
 import { startData } from './utils/utils'
@@ -28,7 +29,8 @@ class App extends Component {
       data => { this.props.addStatuses(data) },
       data => { this.props.addFrequencies(data) },
       data => { this.props.addAllUsers(data) },
-      data => { this.props.addTasks(data) }
+      data => { this.props.addTasks(data) },
+      data => { this.props.addEmployee(data) }
     )
   }
 
@@ -62,7 +64,8 @@ const mapStateToProps = ({comments, startData}) => {
     comments: comments.lastComments,
     locations: startData.locations,
     statuses: startData.statuses,
-    frequencies: startData.frequencies
+    frequencies: startData.frequencies,
+    employees: startData.employees
   }
 }
 
@@ -94,7 +97,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     addTasks: (data) => {
       dispatch(addTasks(data))
-    }
+    },
+    addEmployee: (data) => {
+      dispatch(addShift(data))
+    },
   }
 }
 

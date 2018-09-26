@@ -85,3 +85,10 @@ export function addAllUsers (users) {
     users
   }
 }
+
+export function addEmployee (employee) {
+  return {
+    type: types.ADD_EMPLOYEE,
+    employee
+  }
+}
