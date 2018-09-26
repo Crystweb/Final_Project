@@ -2,6 +2,7 @@ const routes = {
   home: {name: 'грилив отель', href: '/', previousHref: null},
   employees: {name: 'персонал', href: '/employees', previousHref: '/'},
   employeesList: {name: 'сотрудники', href: '/employees/list', previousHref: '/employees'},
+  addNewEmployee: {name: 'Создать сотрудника', href: '/employees/list/new', previousHref: '/employees/list'},
   updateEmployee: {name: 'изменить сотрудника', href: '/employees/list/update/', previousHref: '/employees/list'},
   vacancies: {name: 'вакансии', href: '/employees/vacancies', previousHref: '/employees'},
   comments: {name: 'смены', href: '/shifts', previousHref: '/'},

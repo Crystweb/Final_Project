@@ -16,6 +16,7 @@ import WashingData from '../pages/WashingData'
 import SalesNumbers from '../pages/washingDate/SalesNumbers'
 import Lodgers from '../pages/washingDate/Lodgers'
 import Header from './Header'
+import CreateNewEmployee from "../pages/employees/CreateNewEmployee";
 
 class Navigation extends Component {
   render() {
@@ -28,6 +29,8 @@ class Navigation extends Component {
                render={(props) => header ? <Header previousRoute={routes.employees} {...props}/> : <Employees {...props}/>}/>
         <Route exact path={routes.employeesList.href}
                render={(props) => header ? <Header previousRoute={routes.employeesList} {...props}/> : <EmployeeList {...props}/>}/>
+        <Route exact path={routes.addNewEmployee.href}
+                 render={(props) => header ? <Header previousRoute={routes.addNewEmployee} {...props}/> : <CreateNewEmployee {...props}/>}/>
         <Route path={routes.updateEmployee.href + ':employeeId'}
                  render={(props) => header ? <Header previousRoute={routes.updateEmployee} {...props}/> : <CreateNewEmployee {...props}/>}/>
         <Route exact path={routes.vacancies.href}

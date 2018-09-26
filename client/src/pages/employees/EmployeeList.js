@@ -4,10 +4,10 @@ import Preloader from '../../components/Preloader'
 import EmployeeAdd from "../../components/EmployeeAdd";
 import '../../styles/Employee.css'
 import {Link} from "react-router-dom";
-import routes from "../constants/routes";
-import update from "../img/update.png";
-import trash from "../img/trash.png";
-import {getLastShift} from "../utils/utils";
+import routes from "../../constants/routes";
+import update from "../../img/update.png";
+import trash from "../../img/trash.png";
+import {getLastShift} from "../../utils/utils";
 
 class EmployeeList extends Component {
 
