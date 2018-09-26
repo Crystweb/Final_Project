@@ -38,21 +38,21 @@ INSERT INTO `user_role` (u_id, r_id) VALUES (1,2);
 INSERT INTO `user_role` (u_id, r_id) VALUES (2,3);
 INSERT INTO `user_role` (u_id, r_id) VALUES (2,5);
 
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'blablabla1');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '090586403', 'blablabla2');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '092586403', 'blablabla3');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (5,3,'Artem', 'Tymchuk',  'Dmytrovich',  '094586403', 'blablabla4');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'Работает в дневные смены.');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '090586403', 'Работает в ресторане для ФК Динамо.');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '092586403', 'Работает в дневные смены.');
+INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (5,3,'Artem', 'Tymchuk',  'Dmytrovich',  '094586403', 'Работает в ресторане для ФК Динамо.');
 
 INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '10:00:00', '21:00:00', TIMESTAMPADD(DAY, -3, CURRENT_TIMESTAMP) );
 INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '21:00:00', '10:00:00', TIMESTAMPADD(DAY, -2, CURRENT_TIMESTAMP) );
 INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (1,  '08:00:00', '20:00:00', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP) );
 
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'message to admin ', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'Hello, admin', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'message to manager', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Hello, manager', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'message to managing director', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Hello, Edward :)', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'Привет, я передал смену. Сегодня все было хорошо. Я доволен. Правое крыло спокойно, левое немного бушевало. В целом рябята были довольны.', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'Ребята, много работы. Этот сентябрь начался на ура! Заселили сегодня целых две команды, кто будет смотреть со мной в пятницу футбол Польша - Италия? Жду!!!',TIMESTAMPADD(HOUR, -1, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (5, 'Сегодня немного бушевали. Мне было сложно, разламали табуретки, пришлось просить завхоза поченить. Поченил. Молодец. Если бы не завхоз пришлось бы тратиться на новые…',TIMESTAMPADD(HOUR, -4, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Привет, я передал смену. Сегодня все было хорошо. Я доволен.', TIMESTAMPADD(HOUR, -5, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Сегодня немного бушевали.', TIMESTAMPADD(HOUR, -9, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Заселили сегодня целых две команды,',TIMESTAMPADD(HOUR, -11, CURRENT_TIMESTAMP));
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (1, 'Прибрати в кімнаті номер 23', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (2, 'Викликати таксі на 7:00', CURRENT_TIMESTAMP);
 INSERT INTO `shift_comment` (u_id, c_message, c_date) VALUES (3, 'Команда Шахтар виїжджає 20 січня', CURRENT_TIMESTAMP);
