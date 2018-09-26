@@ -18,9 +18,11 @@ a {
 }
 
 body {
+
   min-width: 320px;
   height: 100%;
   overflow-x: hidden;
+  font-family: HelveticaNeue;
 }
 
 .container {
@@ -82,4 +84,9 @@ label {
 
 form {
   padding: 15px;
+}
+
+@font-face {
+  font-family: HelveticaNeue;
+  src: url(../fonts/HelveticaNeue.ttf);
 }
