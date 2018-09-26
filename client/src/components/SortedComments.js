@@ -55,7 +55,7 @@ class PositionButtons extends Component {
     const selectPositionInputs = position.map(position => {
       const isForComment = position.pinnedToComment === true
       return (
-        <div>
+        <div key={position.id}>
           {isForComment && <li key={position.id}>
             <input name="position"
               type='radio'

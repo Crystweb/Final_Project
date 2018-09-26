@@ -102,7 +102,7 @@ class CreateNewTask extends Component {
                 return (
                   <option
                     value={frequency}
-                    key={frequency.id}>
+                    key={frequency}>
                     {frequency}
                   </option>
                 )
