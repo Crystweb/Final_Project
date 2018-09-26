@@ -12,8 +12,7 @@ const reducers = {
   comments: shift,
   shiftHistorySelectedDate: shiftHistorySelectedDate,
   startData: user,
-  vacancies: vacanciesReducer
-  startData: user,
+  vacancies: vacanciesReducer,
   tasks: tasks
 }
 

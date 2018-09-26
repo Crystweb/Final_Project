@@ -8,7 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 class CreateNewTask extends Component {
   constructor (props) {
     super(props)
-    const {allUsers, allLocations, allStatuses, allFrequencies} = this.props
+    const {allUsers, allLocations} = this.props
     this.state = {
       chosenLocation: allLocations[0].id,
       textForTask: null,
