@@ -8,7 +8,7 @@ import update from "../img/update.png";
 import trash from "../img/trash.png";
 import calendar from "../img/calendar.png";
 import {AxiosInstance as axios} from 'axios'
-import {getLastShift} from '../utils/Utills'
+import {getLastShift} from '../utils/utils'
 import {addShift} from '../actions/actions'
 
 class PositionButtons extends Component {
@@ -21,9 +21,9 @@ class PositionButtons extends Component {
         }
     }
 
-    setPositionView(event) {
-        this.setState({view: event.target.value})
-    }
+  setPositionView (event) {
+    this.setState({view: event.target.value})
+  }
 
     deleteComment(id) {
         if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
@@ -98,15 +98,20 @@ class PositionButtons extends Component {
             )
         }
 
-        const selectPositionInputs = position.map(position =>
-            <li key={position.id}>
-                <input name="position"
-                       type='radio'
-                       defaultChecked={this.state.view === position.title}
-                       value={position.title}/>
-                {position.title}
-            </li>
-        )
+    const selectPositionInputs = position.map(position => {
+      const isForComment = position.pinnedToComment === true
+      return (
+        <div key={position.id}>
+          {isForComment && <li key={position.id}>
+            <input name="position"
+              type='radio'
+              defaultChecked={this.state.view === position.title}
+              value={position.title}/>
+            {position.title}
+          </li>}
+        </div>)
+    }
+    )
 
         return (
             <section className="comments">

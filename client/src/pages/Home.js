@@ -8,16 +8,13 @@ class Home extends Component {
     return (
       <div className="container">
         <nav className="navigation">
-          <ul>
-            <li><Link to={routes.comments.href}>{routes.comments.name}</Link></li>
-            <li><Link to={routes.tasks.href}>{routes.tasks.name}</Link></li>
-            <li><Link to={routes.employees.href}>{routes.employees.name}</Link></li>
-            <li><Link to={routes.washingData.href}>{routes.washingData.name}</Link></li>
-          </ul>
+          <Link to={routes.comments.href}>{routes.comments.name}</Link>
+          <Link to={routes.tasks.href}>{routes.tasks.name}</Link>
+          <Link to={routes.employees.href}>{routes.employees.name}</Link>
         </nav>
       </div>
     )
   }
 }
 
-export default Home;
+export default Home

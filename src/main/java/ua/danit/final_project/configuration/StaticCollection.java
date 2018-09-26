@@ -11,9 +11,8 @@ public class StaticCollection {
   static {
 
     position = new Position();
-    position.setTitle("admin");
+    position.setTitle("Администратор");
     position.setId(1L);
-
     user = new User();
     user.setId(5L);
     user.setLogin("Artem");
