@@ -37,7 +37,6 @@ public class VacancyServiceCrudImpl implements VacancyServiceCrud {
   @Override
   public List<Vacancy> getOpenVacancies() {
     return vacancyRepository.findAll().stream()
-        .filter(v -> Vacancy.VacancyStatus.OPENED.equals(v.getVacancyStatus()))
         .collect(Collectors.toList());
   }
 
@@ -78,4 +77,17 @@ public class VacancyServiceCrudImpl implements VacancyServiceCrud {
   public User getUserByid(Long userId) {
     return userRepository.getOne(userId);
   }
+
+  @Override
+  public Position createIfNotExist(String title) {
+    if (positionRepository.existsByTitleEquals(title)) {
+      return getPositionByTitle(title);
+    } else {
+      Position createPosition = new Position();
+      createPosition.setTitle(title);
+      return positionRepository.save(createPosition);
+    }
+  }
+
+
 }

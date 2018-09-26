@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react'
 
-import '../styles/VacanciesList.css'
 import axios from 'axios'
 import Modal from "react-responsive-modal";
+
 class EmployeeAdd extends Component {
 
     onOpenModal = () => {
@@ -21,14 +21,15 @@ class EmployeeAdd extends Component {
             surname: this.state.surname,
             patronymic: this.state.patronymic,
             phoneNumber: this.state.phoneNumber,
-            info: this.state.info})
+            info: this.state.info
+        })
             .then(res => {
                 console.log(res);
                 console.log(res.data);
             }).then(() => this.setState({open: false}))
     }
 
-    constructor (props) {
+    constructor(props) {
         super(props)
         this.state = {
             position: '',
@@ -47,32 +48,32 @@ class EmployeeAdd extends Component {
         this.handleInfoChange = this.handleInfoChange.bind(this)
     }
 
-    handlePositionChange (event) {
+    handlePositionChange(event) {
         event.preventDefault()
         this.setState({position: event.target.value})
     }
 
-    handleForenameChange (event) {
+    handleForenameChange(event) {
         event.preventDefault()
         this.setState({forename: event.target.value})
     }
 
-    handleSurnameChange (event) {
+    handleSurnameChange(event) {
         event.preventDefault()
         this.setState({surname: event.target.value})
     }
 
-    handlePatronymicChange (event) {
+    handlePatronymicChange(event) {
         event.preventDefault()
         this.setState({patronymic: event.target.value})
     }
 
-    handlePhoneNumberChange (event) {
+    handlePhoneNumberChange(event) {
         event.preventDefault()
         this.setState({phoneNumber: event.target.value})
     }
 
-    handleInfoChange (event) {
+    handleInfoChange(event) {
         event.preventDefault()
         this.setState({info: event.target.value})
     }
@@ -107,7 +108,7 @@ class EmployeeAdd extends Component {
                                 <textarea placeholder={'Введите Ваш коментарий'} name={"info"} value={this.state.info}
                                           onChange={this.handleInfoChange}/>
                             </label><br/>
-                            <input type="submit" value="Добавить" />
+                            <input type="submit" value="Добавить"/>
                         </form>
                     </Modal>
                 </div>

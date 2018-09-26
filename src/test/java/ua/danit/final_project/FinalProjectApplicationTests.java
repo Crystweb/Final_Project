@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.dto.EmployeeDto;
@@ -64,6 +65,7 @@ import ua.danit.final_project.services.crud.WashStatsService;
 import ua.danit.final_project.services.tasks.TaskService;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.IOException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -71,6 +73,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@PropertySource("aws.properties")
 public class FinalProjectApplicationTests {
 
   @Autowired
@@ -871,11 +874,11 @@ public class FinalProjectApplicationTests {
   }
 
   @Test
-  public void taskCreated() {
+  public void taskCreated() throws IOException {
     Task task = new Task();
     task.setDelegator(StaticCollection.getUser());
     task.setMessage("Hello");
-    taskService.create(task);
+    taskService.create(task, null);
 
     Assert.assertNotNull(taskService.findAllActive());
   }
