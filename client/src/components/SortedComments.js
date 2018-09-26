@@ -57,8 +57,8 @@ class PositionButtons extends Component {
 
         for (let i = new Date().getHours(); i >= 0; i--) {
             const shift = schedulesWithColors.find(item => {
-                const start = parseInt(item.start);
-                const end = parseInt(item.end);
+                const start = parseInt(item.start, 10);
+                const end = parseInt(item.end, 10);
                 return (end > start && start <= i && end > i) || (end < start && (start <= i || end > i))
             });
             if (timelineEvents === null) {
