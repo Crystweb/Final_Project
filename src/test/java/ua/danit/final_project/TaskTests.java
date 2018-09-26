@@ -38,7 +38,7 @@ public class TaskTests {
   @Before
   public void init() {
     task = new Task();
-    
+
     Mockito.when(mockTaskRepository.save(any(Task.class))).then((Answer<Task>) invocationOnMock -> {
       Task argument = invocationOnMock.getArgument(0);
       argument.setId(++mockId);
