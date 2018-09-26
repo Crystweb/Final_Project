@@ -1,8 +1,13 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import Preloader from '../components/Preloader'
-import EmployeeAdd from "../components/EmployeeAdd";
-import '../styles/Employee.css'
+import Preloader from '../../components/Preloader'
+import EmployeeAdd from "../../components/EmployeeAdd";
+import '../../styles/Employee.css'
+import {Link} from "react-router-dom";
+import routes from "../constants/routes";
+import update from "../img/update.png";
+import trash from "../img/trash.png";
+import {getLastShift} from "../utils/utils";
 
 class EmployeeList extends Component {
 
@@ -15,6 +20,15 @@ class EmployeeList extends Component {
         super(props)
         this.state = {
             employee: []
+        }
+    }
+
+    deleteEmployee(id) {
+        if (window.confirm('Вы уверены, что хотите удалить сотрудника?')) {
+            axios.delete(`/employee/${id}`)
+                .then(() => getLastShift(data => {
+                    this.props.addShift(data)
+                }))
         }
     }
 
@@ -54,6 +68,14 @@ class EmployeeList extends Component {
                                             <li>
                                                 <h4>{employee.info}</h4>
                                             </li>
+                                            <div className='ud_buttons'>
+
+                                                <button onClick={() => this.deleteEmployee(employee.id)}><img alt='trash' src={trash}/>
+                                                </button>
+
+                                                <button><Link to={routes.updateEmployee.href + employee.id}><img alt='update' src={update}/></Link>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

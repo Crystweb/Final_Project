@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import routes from '../constants/routes'
+import routes from '../../constants/routes'
 import { Link } from 'react-router-dom'
 
 class Employees extends Component {
