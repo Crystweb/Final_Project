@@ -1,43 +1,44 @@
-.employee h2{
+.employee h2 {
   display: flex;
   justify-content: center;
-  margin-top: 25px;
   height: 12px;
+  margin-top: 25px;
   font-family: HelveticaNeue;
   font-size: 17px;
-  font-weight: 800;
   font-style: normal;
+  font-weight: 800;
   font-stretch: normal;
-  line-height: 0.71;
   letter-spacing: normal;
-  text-align: center;
+  line-height: 1;
   color: #4b5461;
+  text-align: center;
 }
 
-.employee_container{
+.employee_container {
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
 }
 
-.employeeBlock{
+.employeeBlock {
   display: flex;
   padding: 20px;
 }
 
-.employeePhoto img{
-  border-radius: 50px;
+.employeePhoto img {
   max-height: 64px;
+  border-radius: 50px;
 }
-.info_box h4{
+
+.info_box h4 {
   width: 216px;
   height: 15px;
   font-family: HelveticaNeue;
   font-size: 14px;
-  font-weight: 500;
   font-style: normal;
+  font-weight: 500;
   font-stretch: normal;
-  line-height: 1.07;
-  letter-spacing: normal;
   color: #4b5461;
+  letter-spacing: normal;
+  line-height: 1.07;
 }

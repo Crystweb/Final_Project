@@ -82,10 +82,10 @@ class PositionButtons extends Component {
                                         </div>
                                         <div className='ud_buttons'>
                                             {showActionButtons &&
-                                            <button onClick={() => this.deleteComment(comment.id)}><img src={trash}/>
+                                            <button onClick={() => this.deleteComment(comment.id)}><img alt='trash' src={trash}/>
                                             </button>}
                                             {showActionButtons &&
-                                            <button><Link to={routes.updateComment.href + comment.id}><img
+                                            <button><Link to={routes.updateComment.href + comment.id}><img alt='update'
                                                 src={update}/></Link>
                                             </button>}
                                         </div>
