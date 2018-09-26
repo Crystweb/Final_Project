@@ -146,9 +146,9 @@ INSERT INTO `location` (l_title, l_info) VALUES ('restaurant 2', 'restaurant out
 INSERT INTO `location` (l_title, l_info) VALUES ('laundry', 'laundry');
 INSERT INTO `location` (l_title) VALUES ('room 200');
 
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (1, 2, 'clean rooms', @OPENED, 'DAILY', CURRENT_TIMESTAMP);
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (2, 2, 'call taxi', 'IN_PROGRESS', 'WEEKLY', CURRENT_TIMESTAMP);
-INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, t_frequency, updated) VALUES (3, 3, 'look in the window', @CLOSED, 'MONTHLY', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (1, 2, 'clean rooms', @OPENED, 1, 'DAILY', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (2, 2, 'call taxi', 'IN_PROGRESS', 2, 'WEEKLY', CURRENT_TIMESTAMP);
+INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated) VALUES (3, 3, 'look in the window', @CLOSED, 5, 'MONTHLY', CURRENT_TIMESTAMP);
 
 INSERT INTO `task_location` (t_id, l_id) VALUES (1,2);
 INSERT INTO `task_location` (t_id, l_id) VALUES (2,1);

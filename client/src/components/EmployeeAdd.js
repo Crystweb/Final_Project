@@ -1,6 +1,5 @@
 import React, {Component, Fragment} from 'react'
 
-import '../styles/VacanciesList.css'
 import axios from 'axios'
 import Modal from "react-responsive-modal";
 

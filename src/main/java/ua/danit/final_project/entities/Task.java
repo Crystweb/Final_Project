@@ -2,23 +2,25 @@ package ua.danit.final_project.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -27,6 +29,7 @@ import java.util.List;
 @Entity
 @Table(name = "task")
 @Data
+@NoArgsConstructor
 public class Task implements Serializable {
 
   @Id
@@ -62,6 +65,9 @@ public class Task implements Serializable {
   @Column(name = "updated")
   private Timestamp updated;
 
+  @Column
+  private Integer priority;
+
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
@@ -70,6 +76,9 @@ public class Task implements Serializable {
           joinColumns = {@JoinColumn(name = "t_id")},
           inverseJoinColumns = {@JoinColumn(name = "l_id")})
   private List<Location> locations;
+
+  @OneToMany(mappedBy = "task")
+  private List<TaskImage> images;
 
   public enum TaskStatus {
     REMOVED ,OPENED, CLOSED, REJECTED, PENDING, IN_PROGRESS, EXPIRED, CHANGE
