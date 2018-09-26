@@ -73,7 +73,6 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@PropertySource("aws.properties")
 public class FinalProjectApplicationTests {
 
   @Autowired
