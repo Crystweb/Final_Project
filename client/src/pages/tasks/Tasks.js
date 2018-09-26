@@ -35,6 +35,7 @@ class Tasks extends Component {
       const showButtonsForManager = this.props.user.position.title === 'Менеджер'
       const showButtonsForDirector = this.props.user.position.title === 'Управляющий'
       const showButtonsForOwner = this.props.user.position.title === 'Собственник'
+      console.log(this.props.tasks)
       return (
         <Fragment>
           <div className="tasks">

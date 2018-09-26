@@ -8,7 +8,7 @@ import update from "../img/update.png";
 import trash from "../img/trash.png";
 import calendar from "../img/calendar.png";
 import {AxiosInstance as axios} from 'axios'
-import {getLastShift} from '../utils/Utills'
+import {getLastShift} from '../utils/utils'
 import {addShift} from '../actions/actions'
 
 class PositionButtons extends Component {

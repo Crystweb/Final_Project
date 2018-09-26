@@ -43,13 +43,14 @@ class App extends Component {
       return (
         <Preloader/>
       )
+    } else {
+      return (
+        <div className="container">
+          <Navigation header={true}/>
+          <Navigation/>
+        </div>
+      )
     }
-    return (
-      <div className="container">
-        <Navigation header={true}/>
-        <Navigation/>
-      </div>
-    )
   }
 }
 
