@@ -156,12 +156,6 @@ public class FinalProjectApplicationTests {
   @Autowired
   PositionRepository positionRepository;
 
-  @Autowired
-  ScheduleService scheduleService;
-
-  @Autowired
-  TaskService taskService;
-
   @Test
   public void contextLoads() {
   }
@@ -378,35 +372,6 @@ public class FinalProjectApplicationTests {
     }
 
   }
-
-//  @Test
-//  public void EmployeeCRUD() {
-//    Employee data = new Employee();
-//    data.setUser(userService.getById(4L));
-//    data.setPosition(positionService.getById(3L));
-//    data.setForename("Mykola");
-//    data.setSurname("Saint");
-//    data.setPatronymic("Mykolayovych");
-//
-//    Employee actualPOST = employeeService.save(data);
-//    Assert.assertEquals(data, actualPOST);
-//
-//    Employee actualGET = employeeService.getById(data.getId());
-//    Assert.assertEquals(data, actualGET);
-//
-//    data.setPhoneNumber("457488975");
-//    Employee actualPUT = employeeService.save(data);
-//    Assert.assertEquals(data, actualPUT);
-
-//    employeeService.deleteById(data.getId());
-//    try {
-//      Employee actualDELETE = employeeService.getById(data.getId());
-//      Assert.assertNull(actualDELETE);
-//    } catch (EntityNotFoundException ex) {
-//      Assert.assertNull(null);
-//    }
-
-//  }
 
   @Test
   public void FoodSupplyCRUD() {
@@ -703,39 +668,6 @@ public class FinalProjectApplicationTests {
 
   }
 
-//  @Test
-//  public void VacancyCRUD() {
-//    Vacancy data = new Vacancy();
-//    data.setPosition(positionService.getById(1L));
-//    data.setSalary("10004");
-//    data.setVacancyStatus(Vacancy.VacancyStatus.OPENED);
-//    data.setInfo("OPENED 1");
-//    data.setUser(StaticCollection.getUser());
-//
-//    Vacancy actualPOST = vacancyService.save(data);
-//    Assert.assertEquals(data, actualPOST);
-//
-//    Vacancy actualGET = vacancyService.getById(data.getId());
-//    Assert.assertEquals(data, actualGET);
-//
-//    data.setSalary("45948563");
-//    Vacancy actualPUT = vacancyService.save(data);
-//    Assert.assertEquals(data, actualPUT);
-//
-//    try {
-//      vacancyService.deleteVacancy(data, StaticCollection.getUser());
-//    } catch (IllegalAccessException e) {
-//      e.printStackTrace();
-//    }
-//    try {
-//      Vacancy actualDELETE = vacancyService.getById(data.getId());
-//      Assert.assertNull(actualDELETE);
-//    } catch (EntityNotFoundException ex) {
-//      Assert.assertNull(null);
-//    }
-//
-//  }
-
   @Test
   public void WashPeriodCRUD() {
     WashPeriod data = new WashPeriod();
@@ -855,31 +787,6 @@ public class FinalProjectApplicationTests {
     expected.add(positionRepository.getOne(2L));
     List<Position> actual = positionRepository.getPositionByTitleIn(titles);
     Assert.assertTrue(expected.containsAll(actual));
-  }
-
-  @Test
-  public void scheduleCrud() {
-    Schedule schedule = new Schedule();
-    schedule.setPosition(StaticCollection.getPosition());
-    schedule.setStart(new Time(System.currentTimeMillis() - (1000 * 60 * 60)));
-    schedule.setEnd(new Time(System.currentTimeMillis()));
-
-    schedule = scheduleService.create(schedule);
-    Assert.assertNotNull(schedule);
-
-    Assert.assertNull(schedule.getExpired());
-    Schedule removed = scheduleService.remove(schedule);
-    Assert.assertNotNull(removed.getExpired());
-  }
-
-  @Test
-  public void taskCreated() throws IOException {
-    Task task = new Task();
-    task.setDelegator(StaticCollection.getUser());
-    task.setMessage("Hello");
-    taskService.create(task, null);
-
-    Assert.assertNotNull(taskService.findAllActive());
   }
 
   @Test
