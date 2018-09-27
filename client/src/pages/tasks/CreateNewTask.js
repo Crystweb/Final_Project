@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
-import DatePicker from 'react-datepicker'
+import axios from 'axios'
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
+import DatePicker from 'react-datepicker'
 
 class CreateNewTask extends Component {
   constructor (props) {
@@ -12,16 +13,18 @@ class CreateNewTask extends Component {
     this.state = {
       chosenLocation: allLocations[0].id,
       textForTask: null,
-      taskPriority: 1,
-      startDate: moment(),
-      executorId: (allUsers && allUsers[0].id)
+      taskPriority: null,
+      finishDate: moment(),
+      executorId: null,
+      frequency: 'ONCE',
+      locale: 'ru'
     }
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange (date) {
+  handleChange (day) {
     this.setState({
-      startDate: date
+      finishDate: day
     })
   }
 
@@ -41,9 +44,36 @@ class CreateNewTask extends Component {
     this.setState({executorId: event.target.value})
   }
 
+  chooseFrequency = (event) => {
+    this.setState({frequency: event.target.value})
+  }
+
+  createTask = () => {
+    // let locationForTask = {}
+    // for (let i = 0; i > this.props.allLocations.length; i++) {
+    //   if (this.props.allLocations[i].id === this.state.chosenLocation)
+    // }
+    let body = {
+      task: {
+        assignee: {id: this.state.executorId},
+        message: this.state.textForTask,
+        status: 'OPENED',
+        frequency: this.state.frequency,
+        expired: this.state.finishDate,
+        priority: this.state.taskPriority,
+        locations: this.state.chosenLocation
+      }
+    }
+    axios({
+      method: 'post',
+      url: '/task',
+      data: body
+    })
+  }
+
   render () {
     const {allUsers, allLocations, allStatuses, allFrequencies} = this.props
-    console.log(this.state.taskPriority)
+    console.log(this.state.finishDate)
 
     if (allUsers && allLocations && allStatuses && allFrequencies) {
       return (
@@ -58,7 +88,7 @@ class CreateNewTask extends Component {
                   <option
                     type='text'
                     name='location'
-                    value={location.id}
+                    value={location}
                     key={location.id}>
                     {location.title}
                   </option>
@@ -69,22 +99,25 @@ class CreateNewTask extends Component {
             <select
               id="priority"
               onChange={this.choosePriority.bind(this)}>
+              <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
             </select>
             <p>Выполнить до</p>
             <DatePicker
-              minDate={moment()}
-              selected={this.state.startDate}
+              selected={this.state.finishDate}
               onChange={this.handleChange}
             />
-            <label htmlFor="forThatUser">Исполнитель</label>
             <select
               id='forThatUser'
+              required={true}
               onChange={this.chooseExecutor.bind(this)}>
+              <option
+                disabled
+                hidden
+                selected>Исполнитель
+              </option>
               {allUsers.map(user => {
                 return (
                   <option
@@ -97,7 +130,9 @@ class CreateNewTask extends Component {
             </select>
             <label htmlFor="frequency">Повтор</label>
             <select
-              id='frequency'>
+              id='frequency'
+              onChange={this.chooseFrequency.bind(this)}
+            >
               {allFrequencies.map(frequency => {
                 return (
                   <option
@@ -114,8 +149,10 @@ class CreateNewTask extends Component {
               cols="30"
               rows="10"
               placeholder='Введите текст'
-              onChange={this.taskText.bind(this)}
-            >{this.state.textForTask}</textarea>
+              onChange={this.taskText.bind(this)}>
+              {this.state.textForTask}
+            </textarea>
+            <button onClick={this.createTask.bind(this)}>Создать</button>
           </div>
         </Fragment>
       )
