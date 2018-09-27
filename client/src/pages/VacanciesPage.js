@@ -63,7 +63,7 @@ const styles = ({
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
-    marginTop: 32,
+    marginTop: 54,
   },
   vacancyContainer: {
     display: 'flex',
@@ -231,14 +231,14 @@ class VacanciesPage extends Component {
       <Fragment>
 
         <Typography align={'center'} style={{alignSelf: 'flex-start'}} variant={'title'}>вакансии</Typography>
-        <Card className={classes.Controls} id="button" elevation={'0'}>
+        <Card className={classes.Controls} id="button" elevation={0}>
 
           <div className={classes.ControlsContainer}>
             <RadioGroup
               name="showClosed"
               aria-label={this.state.showClosed}
-              value={this.state.showClosed}>
-              <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton} elevation={'0'}>
+              value={toString(this.state.showClosed)}>
+              <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton} elevation={0}>
                 <Radio className={classes.radioButtonInner}
                   checked={!this.state.showClosed}
                   onChange={() => this.setState({showClosed: !showClosed})}
@@ -250,7 +250,7 @@ class VacanciesPage extends Component {
                 </Radio>
                 <Typography variant={'caption'}>открытые вакансии</Typography>
               </Paper>
-              <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton} elevation={'0'}>
+              <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton} elevation={0}>
                 <Radio  className={classes.radioButtonInner}
                   checked={this.state.showClosed}
                   onChange={() => this.setState({showClosed: !showClosed})}
@@ -297,10 +297,7 @@ class VacanciesPage extends Component {
           <List>
           {toFilterVacancies.map(vacancy =>
             <Paper key={vacancy.id}
-                   elevation={'0'}
-                   className={classNames(
-                     {'btn-${buttonType}': this.state.info}
-                   )}>
+                   elevation={0}>
               {console.log('vacancy :', vacancy)}
               {console.log('positions :', positions)}
               <div className={classes.vacancyContainer}>
@@ -311,9 +308,9 @@ class VacanciesPage extends Component {
                     d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" />
                 </svg>
               </div>
-                <Paper className={classes.vacancyInfo} elevation={'0'}>
+                <Paper className={classes.vacancyInfo} elevation={0}>
                   <Typography className={classes.vacancyInfoTitle}
-                              variant={'h2'}
+                              variant={'subheading'}
                               tag='title'
                               children = {positions[vacancy.positionId].title} />
                   <Typography className={classes.vacancyInfoSubTitle}
@@ -322,7 +319,7 @@ class VacanciesPage extends Component {
                               />
 
                   <Typography className={classes.vacancyInfoSalary} variant={'subheading'} children={`${vacancy.salary} грн.`} />
-                  <Typography children={vacancy.info} className={classes.vacancyInfoItem} variant={'p'} />
+                  <Typography children={vacancy.info} className={classes.vacancyInfoItem} variant={'body2'} />
 
                 </Paper>
               </div>
