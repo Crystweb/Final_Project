@@ -33,14 +33,4 @@ public class Location implements Serializable {
 
   @Column(name = "l_info")
   private String info;
-
-  @JsonIgnore
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @ToString.Exclude
-  @EqualsAndHashCode.Exclude
-  @JoinTable(
-          name = "task_location",
-          joinColumns = {@JoinColumn(name = "l_id")},
-          inverseJoinColumns = {@JoinColumn(name = "t_id")})
-  private List<Task> tasks;
 }

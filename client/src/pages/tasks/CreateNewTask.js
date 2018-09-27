@@ -9,9 +9,9 @@ import DatePicker from 'react-datepicker'
 class CreateNewTask extends Component {
   constructor (props) {
     super(props)
-    const {allUsers, allLocations} = this.props
+    const {allLocations} = this.props
     this.state = {
-      chosenLocation: allLocations[0].id,
+      chosenLocation: allLocations[0],
       textForTask: null,
       taskPriority: null,
       finishDate: moment(),
@@ -48,11 +48,6 @@ class CreateNewTask extends Component {
   }
 
   createTask = () => {
-    // let locationForTask = {}
-    // for (let i = 0; i > this.props.allLocations.length; i++) {
-    //   if (this.props.allLocations[i].id === this.state.chosenLocation)
-    // }
-
     let body = {
       assignee: {id: this.state.executorId},
       message: this.state.textForTask,
@@ -60,12 +55,12 @@ class CreateNewTask extends Component {
       frequency: this.state.frequency,
       expired: this.state.finishDate,
       priority: this.state.taskPriority,
-      locations: this.state.chosenLocation
+      locations: [this.state.chosenLocation]
     }
     axios({
       method: 'post',
       url: '/task',
-      params: {
+      data: {
         task: body
       }
     })

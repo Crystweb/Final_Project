@@ -50,13 +50,9 @@ public class TaskController {
   }
 
   @PostMapping
-  public Task create(@RequestParam("task") String taskJson,
+  public Task create(@RequestBody Task task,
                      @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
-
-    ObjectMapper mapper = new ObjectMapper();
-    Task task = mapper.readValue(taskJson, Task.class);
     task.setDelegator(StaticCollection.getUser());
-
     return taskService.create(task, file);
   }
 
