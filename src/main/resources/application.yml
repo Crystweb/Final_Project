@@ -22,6 +22,9 @@ spring:
       max-request-size: 10MB
       max-file-size: 1MB
 
+email:
+  username: hotelcaliforniaaaaa@gmail.com
+  password: server12345
 ---
 
 spring:
