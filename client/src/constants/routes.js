@@ -1,28 +1,19 @@
 const routes = {
-  home: {name: 'California', href: '/'},
-  employees: {name: 'Сотрудники', href: '/employees'},
-  employeesList: {name: 'Список сотрудников', href: '/employees/list'},
-  vacancies: {name: 'Открытые вакансии', href: '/employees/vacancies'},
-  comments: {name: 'Передача смены', href: '/shifts'},
-  commentsHistory: {name: 'История смен', href: '/shifts/history'},
-  addNewComments: {name: 'Передать смену', href: '/shift/new'},
-  updateComment: {name: 'Редактировать', href: '/shift/update/'},
-  tasks: {
-    name: 'Задачи',
-    href: '/tasks',
-    hotelTasks: {name: 'Отель', href: '/tasks/hotel'},
-    kitchenTasks: {name: 'Кухня', href: '/tasks/kitchen'},
-    firstRestaurantTasks: {name: 'Первый Ресторан', href: '/tasks/firstRestaurant'},
-    secondRestaurantTasks: {name: 'Второй Ресторан', href: '/tasks/secondRestaurant'},
-    cyclicTasks: {name: 'Циклические задачи', href: '/tasks/cyclic'},
-    myTasks: {name: 'Мои задачи', href: '/tasks/myTasks'}
-  },
-  washingData: {
-    name: 'Данные о стирке',
-    href: '/washingData',
-    salesNumbers: {name: 'Продажные номера', href: '/washingData/salesNumbers'},
-    lodgers: {name: 'Постояльцы', href: '/washingData/lodgers'}
-  }
+  home: {name: 'грилив отель', href: '/', previousHref: null},
+  employees: {name: 'персонал', href: '/employees', previousHref: '/'},
+  employeesList: {name: 'сотрудники', href: '/employees/list', previousHref: '/employees'},
+  vacancies: {name: 'вакансии', href: '/employees/vacancies', previousHref: '/employees'},
+  comments: {name: 'смены', href: '/shifts', previousHref: '/'},
+  commentsHistory: {name: 'История смен', href: '/shifts/history', previousHref: '/shifts'},
+  addNewComments: {name: 'Передать смену', href: '/shift/new', previousHref: '/shifts'},
+  updateComment: {name: 'изменить комментарий ', href: '/shift/update/', previousHref: '/shifts'},
+  tasks: {name: 'Задачи', href: '/tasks', previousHref: '/'},
+  createNewTask: {name: 'назначить задачу', href: '/tasks/add', previousHref: '/tasks'},
+  tasksView: {name: 'Мои задачи', href: '/tasks/myTasks', previousHref: '/tasks'},
+  tasksHistory: {name: 'история задач', href: '/tasks/history', previousHref: '/tasks'},
+  washingData: {name: 'стирка', href: '/washingData', previousHref: '/'},
+  salesNumbers: {name: 'Продажные номера', href: '/washingData/salesNumbers', previousHref: '/washingData'},
+  lodgers: {name: 'Постояльцы', href: '/washingData/lodgers', previousHref: '/washingData'}
 }
 
 export default routes

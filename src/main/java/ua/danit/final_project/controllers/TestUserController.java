@@ -8,7 +8,7 @@ import ua.danit.final_project.configuration.StaticCollection;
 import ua.danit.final_project.entities.User;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/test/user")
 public class TestUserController {
 
   @GetMapping
