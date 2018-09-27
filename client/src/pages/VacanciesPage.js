@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import green from '@material-ui/core/colors/green'
 import Radio from '@material-ui/core/Radio'
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography/Typography'
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import Paper from '../../node_modules/@material-ui/core/Paper/Paper'
@@ -31,7 +31,7 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    marginLeft: '10%',
+    marginLeft: '13%',
     width: '100%'
   },
   Controls: {
@@ -45,7 +45,11 @@ const styles = theme => ({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    height: 40,
+    height: 26,
+    marginTop: 6,
+  },
+  radioButtonInner:{
+    transform: 'scale(0.8)',
   },
   button: {
     margin: theme.spacing.unit,
@@ -55,38 +59,66 @@ const styles = theme => ({
   },
   vacancyList: {
     display: 'flex',
-    flexDirection: 'row',
-    width: '90%',
-    marginTop: 32,
+    flexDirection: 'column',
+    width: '100%',
+    marginTop: 44,
   },
   vacancyContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    marginLeft: '10%',
-    borderLeft: '3px solid grey'
+    marginLeft: '6.8%',
+    borderLeft: '1px solid grey'
+  },
+  vacancyInfoItem: {
+    padding: 3,
+    fontSize: 12,
+    color: "#292a2c"
+  },
+  vacancyInfoTitle: {
+    padding: 3,
+    fontWeight: 700,
+    fontSize: 13,
+    color: "#727375",
+    textTransform: 'capitalize'
+  },
+  vacancyInfoSubTitle: {
+    padding: 3,
+    fontWeight: 400,
+    fontSize: 10,
+    color: "#a5a6a8"
   },
   vacancyInfo: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'start',
     justifyContent: 'flex-start',
-    borderLeft: '3px solid grey',
-    '&:before': {
-      content: '"♥"',
-      position: 'absolute',
-      // bottom: 0,
-      left: 50,
-      width: '100%',
-      height: '1rem',
-      display: 'block',
-      background: theme.palette.background.main
-    }
+    marginLeft: 26,
+    position: 'relative',
+    top:-32,
+    paddingBottom: 16,
+    // borderLeft: '3px solid grey',
   },
-  vacancyInfoItem: {
-    padding: 8,
+  vacancySideIcon: {
+    position: 'absolute',
+    // bottom: 0,
+    // left: 25.5,
+    // marginRight: 50,
+    width: 32,
+    height: 32,
+    // width: '100%',
+    // height: '1rem',
+    display: 'block',
+  },
+  vacancySideIconSVG: {
+    position: 'relative',
+    top: -60,
+    left: -16.5,
+    fill: "#c7c8ca",
+    transform: 'scale(0.7)'
   }
+
 })
 
 class VacanciesPage extends Component {
@@ -181,7 +213,7 @@ class VacanciesPage extends Component {
     return (
       <Fragment>
 
-        <Typography align={'center'} variant={'title'}>вакансии</Typography>
+        <Typography align={'center'} style={{alignSelf: 'flex-start'}} variant={'title'}>вакансии</Typography>
         <Card className={classes.Controls} id="button" elevation={'0'}>
 
           <div className={classes.ControlsContainer}>
@@ -190,23 +222,25 @@ class VacanciesPage extends Component {
               aria-label={this.state.showClosed}
               value={this.state.showClosed}>
               <Paper className={classes.radioButton} elevation={'0'}>
-                <Radio
+                <Radio className={classes.radioButtonInner}
                   checked={!this.state.showClosed}
                   onChange={() => this.setState({showClosed: !showClosed})}
                   value="d"
                   color="default"
                   name="radio-button-demo"
+                  fontSize="small"
                   aria-label="Открытые вакансии">
                 </Radio>
                 <Typography variant={'caption'}>открытые вакансии</Typography>
               </Paper>
               <Paper className={classes.radioButton} elevation={'0'}>
-                <Radio
+                <Radio className={classes.radioButtonInner}
                   checked={this.state.showClosed}
                   onChange={() => this.setState({showClosed: !showClosed})}
                   value="d"
                   color="default"
                   name="radio-button-demo"
+                  fontSize="small"
                   aria-label="Закрытые вакансии">
                 </Radio>
                 <Typography variant={'caption'}>закрытые вакансии</Typography>
@@ -214,7 +248,7 @@ class VacanciesPage extends Component {
             </RadioGroup>
             <IconButton onClick={this.onOpenModal} color="default" className={classes.button}
                         aria-label="Добавить Вакансию">
-              <AddIcon fontSize="large"/>
+              <AddIcon fontSize="default"/>
             </IconButton>
           </div>
         </Card>
@@ -241,26 +275,37 @@ class VacanciesPage extends Component {
             <input type="submit" value="Добавить"/>
           </form>
         </Modal>
-        <div>
+        <div className={classes.vacancyList}>
           {toFilterVacancies.map(vacancy =>
             <Paper key={vacancy.id}
                    elevation={'0'}
                    className={classNames(
                      {'btn-${buttonType}': this.state.info}
-                     , classes.vacancyList
                    )}>
               {console.log('vacancy :', vacancy)}
               {console.log('positions :', positions)}
               <div className={classes.vacancyContainer}>
-                <div className={classes.vacancyInfo}>
-                  <Typography className={classes.vacancyInfoItem}
-                              variant={'title'}>{positions[vacancy.positionId].title}</Typography>
-                  <Typography className={classes.vacancyInfoItem}
-                              variant={'subheading'}>{new Date(vacancy.publication).toDateString()}</Typography>
-                  <Typography className={classes.vacancyInfoItem}
-                              variant={'subheading'}>{vacancy.salary} грн.</Typography>
-                  <Typography className={classes.vacancyInfoItem} variant={'p'}>{vacancy.info}</Typography>
-                </div>
+                <div className={classes.vacancySideIcon}>
+                <svg className={classNames("MuiSvgIcon-root-86",classes.vacancySideIconSVG)} focusable="false" viewBox="0 0 24 24" aria-hidden="true"
+                     role="presentation">
+                  <path
+                    d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                </svg>
+              </div>
+                <Paper className={classes.vacancyInfo} elevation={'0'}>
+                  <Typography className={classes.vacancyInfoTitle}
+                              variant={'h2'}
+                              tag='title'
+                              children = {positions[vacancy.positionId].title} />
+                  <Typography className={classes.vacancyInfoSubTitle}
+                              variant={'subheading'}
+                              children = {new Date(vacancy.publication).toDateString()}
+                              />
+
+                  <Typography className={classes.vacancyInfoItem} variant={'subheading'} children={`${vacancy.salary} + грн.`} />
+                  <Typography children={vacancy.info} className={classes.vacancyInfoItem} variant={'p'} />
+
+                </Paper>
               </div>
             </Paper>
           )}
