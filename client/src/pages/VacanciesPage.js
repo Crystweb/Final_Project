@@ -6,20 +6,20 @@ import { connect } from 'react-redux'
 import { getAllVacancies } from '../actions/actions'
 import Preloader from '../components/Preloader'
 
-import PropTypes from 'prop-types'
+
 import { withStyles } from '@material-ui/core/styles'
 import green from '@material-ui/core/colors/green'
 import Radio from '@material-ui/core/Radio'
 import Typography from '@material-ui/core/Typography/Typography'
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import Paper from '../../node_modules/@material-ui/core/Paper/Paper'
 import Card from '../../node_modules/@material-ui/core/Card/Card'
 import IconButton from '../../node_modules/@material-ui/core/IconButton/IconButton'
 import AddIcon from '@material-ui/icons/AddCircleRounded'
 import classNames from 'classnames'
+import List from '../../node_modules/@material-ui/core/List/List'
 
-const styles = theme => ({
+const styles = ({
   root: {
     color: green[600],
     '&$checked': {
@@ -47,29 +47,31 @@ const styles = theme => ({
     justifyContent: 'flex-start',
     height: 26,
     marginTop: 6,
+    cursor:'pointer',
   },
   radioButtonInner:{
     transform: 'scale(0.8)',
   },
   button: {
-    margin: theme.spacing.unit,
+    margin: 5,
+    transform: 'scale(0.9)',
   },
   input: {
     display: 'none',
   },
   vacancyList: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     width: '100%',
-    marginTop: 44,
+    marginTop: 32,
   },
   vacancyContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    marginLeft: '6.8%',
-    borderLeft: '1px solid grey'
+    // marginLeft: '6.8%',
+
   },
   vacancyInfoItem: {
     padding: 3,
@@ -88,6 +90,12 @@ const styles = theme => ({
     fontWeight: 400,
     fontSize: 10,
     color: "#a5a6a8"
+  },
+  vacancyInfoSalary: {
+    padding: 3,
+    fontWeight: 500,
+    fontSize: 9,
+    color: "#9b9c9e"
   },
   vacancyInfo: {
     display: 'flex',
@@ -110,13 +118,22 @@ const styles = theme => ({
     // width: '100%',
     // height: '1rem',
     display: 'block',
+    zIndex: 200,
   },
   vacancySideIconSVG: {
     position: 'relative',
-    top: -60,
+    top: -63,
     left: -16.5,
-    fill: "#c7c8ca",
-    transform: 'scale(0.7)'
+    fill: "#7b7c7e",
+    transform: 'scale(0.7)',
+    zIndex: 201,
+  },
+  lineContainer:{
+    width: "7%",
+    borderRight: '1px solid grey',
+    // background: 'grey',
+    display: 'block',
+    height: '100vh',
   }
 
 })
@@ -221,7 +238,7 @@ class VacanciesPage extends Component {
               name="showClosed"
               aria-label={this.state.showClosed}
               value={this.state.showClosed}>
-              <Paper className={classes.radioButton} elevation={'0'}>
+              <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton} elevation={'0'}>
                 <Radio className={classes.radioButtonInner}
                   checked={!this.state.showClosed}
                   onChange={() => this.setState({showClosed: !showClosed})}
@@ -233,8 +250,8 @@ class VacanciesPage extends Component {
                 </Radio>
                 <Typography variant={'caption'}>открытые вакансии</Typography>
               </Paper>
-              <Paper className={classes.radioButton} elevation={'0'}>
-                <Radio className={classes.radioButtonInner}
+              <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton} elevation={'0'}>
+                <Radio  className={classes.radioButtonInner}
                   checked={this.state.showClosed}
                   onChange={() => this.setState({showClosed: !showClosed})}
                   value="d"
@@ -248,7 +265,7 @@ class VacanciesPage extends Component {
             </RadioGroup>
             <IconButton onClick={this.onOpenModal} color="default" className={classes.button}
                         aria-label="Добавить Вакансию">
-              <AddIcon fontSize="default"/>
+              <AddIcon fontSize="large"/>
             </IconButton>
           </div>
         </Card>
@@ -261,7 +278,7 @@ class VacanciesPage extends Component {
               Название должности:
               <select onChange={this.handlePositionChange}>
                 {positions.map(position =>
-                  <option type="text" name={'position'} key={position.id} value={position.id}>
+                  <option name={'position'} key={position.id} value={position.id}>
                     {position.title}
                   </option>)}
               </select>
@@ -276,6 +293,8 @@ class VacanciesPage extends Component {
           </form>
         </Modal>
         <div className={classes.vacancyList}>
+          <div className={classes.lineContainer}/>
+          <List>
           {toFilterVacancies.map(vacancy =>
             <Paper key={vacancy.id}
                    elevation={'0'}
@@ -289,7 +308,7 @@ class VacanciesPage extends Component {
                 <svg className={classNames("MuiSvgIcon-root-86",classes.vacancySideIconSVG)} focusable="false" viewBox="0 0 24 24" aria-hidden="true"
                      role="presentation">
                   <path
-                    d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                    d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" />
                 </svg>
               </div>
                 <Paper className={classes.vacancyInfo} elevation={'0'}>
@@ -302,20 +321,22 @@ class VacanciesPage extends Component {
                               children = {new Date(vacancy.publication).toDateString()}
                               />
 
-                  <Typography className={classes.vacancyInfoItem} variant={'subheading'} children={`${vacancy.salary} + грн.`} />
+                  <Typography className={classes.vacancyInfoSalary} variant={'subheading'} children={`${vacancy.salary} грн.`} />
                   <Typography children={vacancy.info} className={classes.vacancyInfoItem} variant={'p'} />
 
                 </Paper>
               </div>
             </Paper>
+
           )}
+          </List>
         </div>
       </Fragment>
     )
   }
 }
 
-const mapStateToProps = (state, startData) => {
+const mapStateToProps = (state) => {
   return {
     vacancies: state.vacancies,
     positions: state.startData.positions
