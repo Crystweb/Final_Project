@@ -16,8 +16,7 @@ class CreateNewTask extends Component {
       taskPriority: null,
       finishDate: moment(),
       executorId: null,
-      frequency: 'ONCE',
-      locale: 'ru'
+      frequency: 'ONCE'
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -53,21 +52,22 @@ class CreateNewTask extends Component {
     // for (let i = 0; i > this.props.allLocations.length; i++) {
     //   if (this.props.allLocations[i].id === this.state.chosenLocation)
     // }
+
     let body = {
-      task: {
-        assignee: {id: this.state.executorId},
-        message: this.state.textForTask,
-        status: 'OPENED',
-        frequency: this.state.frequency,
-        expired: this.state.finishDate,
-        priority: this.state.taskPriority,
-        locations: this.state.chosenLocation
-      }
+      assignee: {id: this.state.executorId},
+      message: this.state.textForTask,
+      status: 'OPENED',
+      frequency: this.state.frequency,
+      expired: this.state.finishDate,
+      priority: this.state.taskPriority,
+      locations: this.state.chosenLocation
     }
     axios({
       method: 'post',
       url: '/task',
-      data: body
+      params: {
+        task: body
+      }
     })
   }
 
