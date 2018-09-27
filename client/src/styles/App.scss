@@ -23,13 +23,12 @@ a:visited {
 }
 
 body {
-
   min-width: 320px;
   max-width: 600px;
   margin: 0 auto;
   padding: 0 25px;
-  overflow-x: hidden;
   font-family: HelveticaNeue;
+  overflow-x: hidden;
 }
 
 .container {
@@ -70,9 +69,9 @@ body {
   height: auto;
   margin: 0 auto;
   border: 1px solid lime;
+  font-family: HelveticaNeue;
   font-weight: 700;
   text-decoration: none;
-  font-family: HelveticaNeue;
 }
 
 .button-container button {
@@ -81,9 +80,9 @@ body {
   margin: 10px;
   border: 1px solid;
   background-color: transparent;
+  font-family: HelveticaNeue;
   font-weight: 700;
   text-decoration: none;
-  font-family: HelveticaNeue;
 }
 
 label {
