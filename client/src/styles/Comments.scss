@@ -39,13 +39,13 @@
 .flex_comment {
   display: flex;
   justify-content: space-between;
-  background-color: rgb(255, 255, 255);
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px;
   margin-top: 1em;
   margin-bottom: 1em;
-  line-height: 1.6;
   padding: 0.5em 1em;
+  background-color: rgb(255, 255, 255);
+  line-height: 1.6;
   text-align: -webkit-auto;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0;
 }
 
 .comment {
@@ -54,38 +54,38 @@
 
 .comment h3 {
   height: 15px;
+  color: #4b5461;
   font-family: HelveticaNeue;
   font-size: 14px;
-  font-weight: bold;
   font-style: normal;
-  font-stretch: normal;
-  line-height: 1.07;
+  font-weight: bold;
   letter-spacing: normal;
-  color: #4b5461;
+  line-height: 1.07;
+  font-stretch: normal;
 }
 
 .comment h5 {
   height: 12px;
+  color: #9b9b9b;
   font-family: HelveticaNeue;
   font-size: 11px;
-  font-weight: normal;
   font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
+  font-weight: normal;
   letter-spacing: normal;
-  color: #9b9b9b;
+  line-height: normal;
+  font-stretch: normal;
 }
 
 .comment h4 {
   height: 15px;
+  color: #4b5461;
   font-family: HelveticaNeue;
   font-size: 14px;
-  font-weight: 200;
   font-style: normal;
-  font-stretch: normal;
-  line-height: 1.07;
+  font-weight: 200;
   letter-spacing: normal;
-  color: #4b5461;
+  line-height: 1.07;
+  font-stretch: normal;
 }
 
 .positionComments {
