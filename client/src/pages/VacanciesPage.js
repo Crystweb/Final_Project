@@ -130,7 +130,7 @@ const styles = ({
   },
   lineContainer:{
     width: "7%",
-    borderRight: '1px solid grey',
+    borderRight: '1px solid #7b7c7e',
     // background: 'grey',
     display: 'block',
     height: '100vh',

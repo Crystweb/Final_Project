@@ -310,3 +310,4 @@ Temporary Items
 !.gitignore
 
 /src/main/resources/application-dev.yml
+client/yarn.lock
