@@ -1,4 +1,31 @@
 .navigation {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 179px;
+    height: 40px;
+    margin-bottom: 25px;
+    border: solid 2px #7ff4a9;
+    border-radius: 5px;
+    color: #4b5461;
+    font-family: HelveticaNeue;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: normal;
+    line-height: .8;
+    text-align: center;
+    text-transform: uppercase;
+    font-stretch: normal;
+  }
+
+  a:hover {
+    background-color: #7ff4a9;
+  }
 }
+

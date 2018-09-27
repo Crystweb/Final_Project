@@ -115,12 +115,12 @@
     }
 
     #{$i * 15}% {
-      transform:scalex(1.3) scaley(0.7);
+      transform:scalex(1.3) scaley(.7);
       transform-origin:center bottom;
     }
 
     #{$i * 15 + 10}%, #{$i * 15 + 5}% {
-      transform:scalex(0.8) scaley(1.4);
+      transform:scalex(.8) scaley(1.4);
       transform-origin:center bottom;
     }
 
@@ -130,7 +130,7 @@
     }
 
     #{$i * 15 + 25}% {
-      transform:scalex(1.3) scaley(0.7);
+      transform:scalex(1.3) scaley(.7);
       transform-origin:center top;
     }
   }

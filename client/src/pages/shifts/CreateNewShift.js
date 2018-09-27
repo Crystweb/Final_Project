@@ -9,7 +9,7 @@ class CreateNewComments extends Component {
     super(props)
     this.state = {
       checkedPositions: (this.props.updateComment && this.props.updateComment.positions) || [],
-      textComment: (this.props.updateComment && this.props.updateComment.text) || null,
+      textComment: (this.props.updateComment && this.props.updateComment.text) || undefined,
       errorText: null,
       errorCheckedPosition: null,
       successPost: null,
@@ -50,6 +50,7 @@ class CreateNewComments extends Component {
               successPost: 'Комментарий добавлен'
             })
           })
+          .then(() => { setTimeout(() => this.props.history.push('/shifts'), 1500) })
       }
     }
   }
@@ -85,6 +86,7 @@ class CreateNewComments extends Component {
             checkedPositions: [],
             successPost: 'Комментарий изменен'
           }))
+          .then(() => { setTimeout(() => this.props.history.push('/shifts'), 1500) })
       }
     }
   }
@@ -115,21 +117,30 @@ class CreateNewComments extends Component {
       )
     } else if (!this.state.commentForUpdate) {
       return (<div className="container">
-        <h3>Добавить комментарий по смене</h3><br/>
-        {this.props.allPositionsForComments.map(position =>
-          <li key={position.id}>
-            <input
-              name="position"
-              type="checkbox"
-              checked={true && this.state.checkedPositions.includes(position.title)}
-              value={position.title}
-              onChange={this.setCheckedPosition.bind(this)}
-            />
-            {position.title}
-          </li>
-        )}
+        <h3>Создать комментарий</h3><br/>
+        {this.props.allPositionsForComments.map(position => {
+          const isForComment = position.pinnedToComment === true
+          return (
+            <div>
+              {isForComment && <li key={position.id}>
+                <input
+                  name="position"
+                  type="checkbox"
+                  checked={true && this.state.checkedPositions.includes(position.title)}
+                  value={position.title}
+                  onChange={this.setCheckedPosition.bind(this)}
+                />
+                {position.title}
+              </li>}
+            </div>
+          )
+        }
+        )
+        }
         <p><textarea value={this.state.textComment}
           placeholder={'Введите Ваш коментарий'}
+          cols="30"
+          rows="10"
           onChange={this.addText.bind(this)}/></p>
         <input type="button"
           value=" Добавить комментарий "
