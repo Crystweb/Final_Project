@@ -10,18 +10,22 @@ import * as _ from 'lodash'
 class CreateNewTask extends Component {
   constructor (props) {
     super(props)
-    const {allLocations} = this.props
     this.state = {
-      chosenLocation: allLocations[0].id,
+      chosenLocation: null,
       textForTask: null,
       taskPriority: null,
       finishDate: null,
       executorId: null,
-      frequency: 'ONCE',
+      frequency: null,
       errorExecutor: null,
-      errorText: null
+      errorText: null,
+      errorLocation: null,
+      errorFrequency: null,
+      successAdd: null,
+      photo: null
     }
     this.handleChange = this.handleChange.bind(this)
+    this.chooseLocation = this.chooseLocation.bind(this)
   }
 
   handleChange (day) {
@@ -56,34 +60,79 @@ class CreateNewTask extends Component {
     this.setState({frequency: event.target.value})
   }
 
+  makePhoto = (event) => {
+    this.setState({photo: event.target.files[0]})
+  }
+
   createTask = () => {
-    const {chosenLocation, textForTask, taskPriority, finishDate, executorId, frequency} = this.state
-    if (_.isEmpty(executorId)) {
-      this.setState({errorExecutor: 'Выберите отвественного'})
-    }
-    if (_.isEmpty(textForTask)) {
-      this.setState({errorText: 'Введите текст'})
-    } else {
-      let body = {
-        assignee: this.props.allUsers.find(user => user.id === +executorId),
-        message: textForTask,
-        status: 'OPENED',
-        updated: new Date(),
-        frequency: frequency,
-        expired: finishDate,
-        priority: taskPriority,
-        locations: [this.props.allLocations.find(location => location.id === +chosenLocation)]
-      }
-      axios({
-        method: 'post',
-        url: '/task',
-        data: body
-      }).then(() => {
-        this.setState({
-          errorExecutor: null,
-          errorText: null
-        })
+    const {chosenLocation, textForTask, taskPriority, finishDate, executorId, frequency, photo} = this.state
+    if (_.isEmpty(chosenLocation)) {
+      this.setState({
+        errorText: null,
+        successAdd: null,
+        errorExecutor: null,
+        errorFrequency: null,
+        errorLocation: 'Выберите локацию'
       })
+    } else {
+      if (_.isEmpty(executorId)) {
+        this.setState({
+          errorLocation: null,
+          errorText: null,
+          successAdd: null,
+          errorFrequency: null,
+          errorExecutor: 'Выберите отвественного'
+        })
+      } else {
+        if (_.isEmpty(frequency)) {
+          this.setState({
+            errorLocation: null,
+            errorExecutor: null,
+            successAdd: null,
+            errorText: null,
+            errorFrequency: 'Укажите повторяемость'
+          })
+        } else {
+          if (_.isEmpty(textForTask)) {
+            this.setState({
+              errorLocation: null,
+              errorExecutor: null,
+              successAdd: null,
+              errorFrequency: null,
+              errorText: 'Введите текст'
+            })
+          } else {
+            let body = {
+              assignee: this.props.allUsers.find(user => user.id === +executorId),
+              message: textForTask,
+              status: 'OPENED',
+              updated: new Date(),
+              frequency: frequency,
+              expired: finishDate,
+              priority: taskPriority,
+              locations: [this.props.allLocations.find(location => location.id === +chosenLocation)]
+            }
+            let newPhoto = photo
+            console.log(newPhoto)
+            axios({
+              method: 'post',
+              url: `/task`,
+              params: {file: newPhoto},
+              data: body
+            })
+              .then(() => {
+                this.setState({
+                  errorLocation: null,
+                  errorExecutor: null,
+                  errorText: null,
+                  errorFrequency: null,
+                  successAdd: 'Задача добавлена'
+                })
+              })
+              .then(() => { setTimeout(() => this.props.history.push('/'), 1500) })
+          }
+        }
+      }
     }
   }
 
@@ -97,7 +146,7 @@ class CreateNewTask extends Component {
             <select
               defaultValue='locationChoice'
               id='location'
-              onChange={this.chooseLocation.bind(this)}>
+              onChange={this.chooseLocation}>
               <option value="locationChoice"
                       disabled
                       hidden>
@@ -184,12 +233,20 @@ class CreateNewTask extends Component {
               onChange={this.taskText.bind(this)}>
               {this.state.textForTask}
             </textarea>
-            <input type="file" accept="image/*" capture/>
+            <input
+              type="file"
+              name="audio"
+              accept="image/*"
+              onChange={this.makePhoto.bind(this)}
+            />
             <button
               onClick={this.createTask.bind(this)}>Создать
             </button>
             {this.state.errorExecutor && <h3>{this.state.errorExecutor}</h3>}
+            {this.state.errorLocation && <h3>{this.state.errorLocation}</h3>}
             {this.state.errorText && <h3>{this.state.errorText}</h3>}
+            {this.state.errorFrequency && <h3>{this.state.errorFrequency}</h3>}
+            {this.state.successAdd && <h3>{this.state.successAdd}</h3>}
           </div>
         </Fragment>
       )
