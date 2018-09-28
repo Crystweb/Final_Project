@@ -31,7 +31,7 @@ class TasksView extends Component {
                     <p>Важность: {task.priority}</p>
                     <p>Создана: {new Date(task.updated).toLocaleDateString()}</p>
                     <p>{task.delegator.employee.forename} {task.delegator.employee.surname}</p>
-                    <p>Выполнить до: {new Date(task.expired).toLocaleDateString()}</p>
+                    {task.expired && <p>Выполнить до: {new Date(task.expired).toLocaleDateString()}</p>}
                     <p>{task.status}</p>
                   </li>
                   <button>Изменить статус</button>

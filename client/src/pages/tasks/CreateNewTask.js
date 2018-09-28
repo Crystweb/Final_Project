@@ -5,18 +5,21 @@ import axios from 'axios'
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
+import * as _ from 'lodash'
 
 class CreateNewTask extends Component {
   constructor (props) {
     super(props)
     const {allLocations} = this.props
     this.state = {
-      chosenLocation: allLocations[0],
+      chosenLocation: allLocations[0].id,
       textForTask: null,
       taskPriority: null,
-      finishDate: moment(),
+      finishDate: null,
       executorId: null,
-      frequency: 'ONCE'
+      frequency: 'ONCE',
+      errorExecutor: null,
+      errorText: null
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -32,7 +35,10 @@ class CreateNewTask extends Component {
   }
 
   taskText = (event) => {
-    this.setState({textForTask: event.target.value})
+    this.setState({
+      textForTask: event.target.value,
+      errorText: null
+    })
   }
 
   choosePriority = (event) => {
@@ -40,7 +46,10 @@ class CreateNewTask extends Component {
   }
 
   chooseExecutor = (event) => {
-    this.setState({executorId: event.target.value})
+    this.setState({
+      executorId: event.target.value,
+      errorExecutor: null
+    })
   }
 
   chooseFrequency = (event) => {
@@ -48,68 +57,92 @@ class CreateNewTask extends Component {
   }
 
   createTask = () => {
-    let body = {
-      assignee: this.props.allUsers.find(user => user.id === +this.state.executorId),
-      message: this.state.textForTask,
-      status: 'OPENED',
-      frequency: this.state.frequency,
-      expired: this.state.finishDate,
-      priority: this.state.taskPriority,
-      locations: [this.state.chosenLocation]
+    const {chosenLocation, textForTask, taskPriority, finishDate, executorId, frequency} = this.state
+    if (_.isEmpty(executorId)) {
+      this.setState({errorExecutor: 'Выберите отвественного'})
     }
-    axios({
-      method: 'post',
-      url: '/task',
-      data: body
-    })
+    if (_.isEmpty(textForTask)) {
+      this.setState({errorText: 'Введите текст'})
+    } else {
+      let body = {
+        assignee: this.props.allUsers.find(user => user.id === +executorId),
+        message: textForTask,
+        status: 'OPENED',
+        updated: new Date(),
+        frequency: frequency,
+        expired: finishDate,
+        priority: taskPriority,
+        locations: [this.props.allLocations.find(location => location.id === +chosenLocation)]
+      }
+      axios({
+        method: 'post',
+        url: '/task',
+        data: body
+      }).then(() => {
+        this.setState({
+          errorExecutor: null,
+          errorText: null
+        })
+      })
+    }
   }
 
   render () {
     const {allUsers, allLocations, allStatuses, allFrequencies} = this.props
-    console.log(this.state.finishDate)
 
     if (allUsers && allLocations && allStatuses && allFrequencies) {
       return (
         <Fragment>
           <div className="container createTask">
-            <label htmlFor='location'>Локация</label>
             <select
+              defaultValue='locationChoice'
               id='location'
               onChange={this.chooseLocation.bind(this)}>
+              <option value="locationChoice"
+                      disabled
+                      hidden>
+                Локация
+              </option>
               {allLocations.map(location => {
                 return (
                   <option
                     type='text'
                     name='location'
-                    value={location}
+                    value={location.id}
                     key={location.id}>
                     {location.title}
                   </option>
                 )
               })}
             </select>
-            <label htmlFor="priority">Приоритет</label>
             <select
+              defaultValue='0'
               id="priority"
               onChange={this.choosePriority.bind(this)}>
-              <option value="0">0</option>
+              <option value="0"
+                      disabled
+                      hidden>
+                приоритет
+              </option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
             </select>
-            <p>Выполнить до</p>
             <DatePicker
+              placeholderText='Выполнить до'
+              minDate={moment()}
               selected={this.state.finishDate}
               onChange={this.handleChange}
             />
             <select
+              defaultValue='test'
               id='forThatUser'
               required={true}
               onChange={this.chooseExecutor.bind(this)}>
               <option
                 disabled
                 hidden
-                selected>Исполнитель
+                value='test'>Исполнитель
               </option>
               {allUsers.map(user => {
                 return (
@@ -121,11 +154,17 @@ class CreateNewTask extends Component {
                 )
               })}
             </select>
-            <label htmlFor="frequency">Повтор</label>
             <select
+              defaultValue='frequencyChoice'
               id='frequency'
               onChange={this.chooseFrequency.bind(this)}
             >
+              <option
+                value="frequencyChoice"
+                hidden
+                disabled>
+                Повторяемость
+              </option>
               {allFrequencies.map(frequency => {
                 return (
                   <option
@@ -145,7 +184,12 @@ class CreateNewTask extends Component {
               onChange={this.taskText.bind(this)}>
               {this.state.textForTask}
             </textarea>
-            <button onClick={this.createTask.bind(this)}>Создать</button>
+            <input type="file" accept="image/*" capture/>
+            <button
+              onClick={this.createTask.bind(this)}>Создать
+            </button>
+            {this.state.errorExecutor && <h3>{this.state.errorExecutor}</h3>}
+            {this.state.errorText && <h3>{this.state.errorText}</h3>}
           </div>
         </Fragment>
       )
