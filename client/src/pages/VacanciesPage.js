@@ -6,9 +6,7 @@ import { connect } from 'react-redux'
 import { getAllVacancies } from '../actions/actions'
 import Preloader from '../components/Preloader'
 
-
 import { withStyles } from '@material-ui/core/styles'
-import green from '@material-ui/core/colors/green'
 import Radio from '@material-ui/core/Radio'
 import Typography from '@material-ui/core/Typography/Typography'
 import RadioGroup from '@material-ui/core/RadioGroup'
@@ -18,125 +16,7 @@ import IconButton from '../../node_modules/@material-ui/core/IconButton/IconButt
 import AddIcon from '@material-ui/icons/AddCircleRounded'
 import classNames from 'classnames'
 import List from '../../node_modules/@material-ui/core/List/List'
-
-const styles = ({
-  root: {
-    color: green[600],
-    '&$checked': {
-      color: green[500],
-    },
-  },
-  checked: {},
-  ControlsContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    marginLeft: '13%',
-    width: '100%'
-  },
-  Controls: {
-    width: '90%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  radioButton: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    height: 26,
-    marginTop: 6,
-    cursor:'pointer',
-  },
-  radioButtonInner:{
-    transform: 'scale(0.8)',
-  },
-  button: {
-    margin: 5,
-    transform: 'scale(0.9)',
-  },
-  input: {
-    display: 'none',
-  },
-  vacancyList: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    marginTop: 54,
-  },
-  vacancyContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    // marginLeft: '6.8%',
-
-  },
-  vacancyInfoItem: {
-    padding: 3,
-    fontSize: 12,
-    color: "#292a2c"
-  },
-  vacancyInfoTitle: {
-    padding: 3,
-    fontWeight: 700,
-    fontSize: 13,
-    color: "#727375",
-    textTransform: 'capitalize'
-  },
-  vacancyInfoSubTitle: {
-    padding: 3,
-    fontWeight: 400,
-    fontSize: 10,
-    color: "#a5a6a8"
-  },
-  vacancyInfoSalary: {
-    padding: 3,
-    fontWeight: 500,
-    fontSize: 9,
-    color: "#9b9c9e"
-  },
-  vacancyInfo: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'start',
-    justifyContent: 'flex-start',
-    marginLeft: 26,
-    position: 'relative',
-    top:-32,
-    paddingBottom: 16,
-    // borderLeft: '3px solid grey',
-  },
-  vacancySideIcon: {
-    position: 'absolute',
-    // bottom: 0,
-    // left: 25.5,
-    // marginRight: 50,
-    width: 32,
-    height: 32,
-    // width: '100%',
-    // height: '1rem',
-    display: 'block',
-    zIndex: 200,
-  },
-  vacancySideIconSVG: {
-    position: 'relative',
-    top: -63,
-    left: -16.5,
-    fill: "#7b7c7e",
-    transform: 'scale(0.7)',
-    zIndex: 201,
-  },
-  lineContainer:{
-    width: "7%",
-    borderRight: '1px solid #7b7c7e',
-    // background: 'grey',
-    display: 'block',
-    height: '100vh',
-  }
-
-})
+import vacancyStyles from '../constants/vacancyStylesJSS'
 
 class VacanciesPage extends Component {
 
@@ -229,10 +109,7 @@ class VacanciesPage extends Component {
 
     return (
       <Fragment>
-
-        <Typography align={'center'} style={{alignSelf: 'flex-start'}} variant={'title'}>вакансии</Typography>
         <Card className={classes.Controls} id="button" elevation={0}>
-
           <div className={classes.ControlsContainer}>
             <RadioGroup
               name="showClosed"
@@ -298,8 +175,6 @@ class VacanciesPage extends Component {
           {toFilterVacancies.map(vacancy =>
             <Paper key={vacancy.id}
                    elevation={0}>
-              {console.log('vacancy :', vacancy)}
-              {console.log('positions :', positions)}
               <div className={classes.vacancyContainer}>
                 <div className={classes.vacancySideIcon}>
                 <svg className={classNames("MuiSvgIcon-root-86",classes.vacancySideIconSVG)} focusable="false" viewBox="0 0 24 24" aria-hidden="true"
@@ -315,16 +190,12 @@ class VacanciesPage extends Component {
                               children = {positions[vacancy.positionId].title} />
                   <Typography className={classes.vacancyInfoSubTitle}
                               variant={'subheading'}
-                              children = {new Date(vacancy.publication).toDateString()}
-                              />
-
+                              children = {new Date(vacancy.publication).toDateString()}/>
                   <Typography className={classes.vacancyInfoSalary} variant={'subheading'} children={`${vacancy.salary} грн.`} />
-                  <Typography children={vacancy.info} className={classes.vacancyInfoItem} variant={'body2'} />
-
+                  <Typography children={vacancy.info} className={classes.vacancyInfoDescription} variant={'body2'} />
                 </Paper>
               </div>
             </Paper>
-
           )}
           </List>
         </div>
@@ -346,4 +217,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(VacanciesPage))
+export default withStyles(vacancyStyles)(connect(mapStateToProps, mapDispatchToProps)(VacanciesPage))
