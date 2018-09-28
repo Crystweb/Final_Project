@@ -49,7 +49,7 @@ class CreateNewTask extends Component {
 
   createTask = () => {
     let body = {
-      assignee: {id: this.state.executorId},
+      assignee: this.props.allUsers.find(user => user.id === +this.state.executorId),
       message: this.state.textForTask,
       status: 'OPENED',
       frequency: this.state.frequency,
@@ -60,9 +60,7 @@ class CreateNewTask extends Component {
     axios({
       method: 'post',
       url: '/task',
-      data: {
-        task: body
-      }
+      data: body
     })
   }
 
