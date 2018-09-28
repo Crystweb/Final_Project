@@ -81,6 +81,7 @@ class VacanciesPage extends Component {
   handlePositionChange (event) {
     event.preventDefault()
     this.setState({position: event.target.value})
+    console.log(this.state)
   }
 
   handleSalaryChange (event) {
@@ -187,7 +188,9 @@ class VacanciesPage extends Component {
                   <Typography className={classes.vacancyInfoTitle}
                               variant={'subheading'}
                               tag='title'
-                              children = {positions[vacancy.positionId].title} />
+                              children = {positions.filter(item => item.id === vacancy.positionId)[0].title} />
+                  {console.log('positions',positions)}
+                  {console.log('vacancy',vacancy)}
                   <Typography className={classes.vacancyInfoSubTitle}
                               variant={'subheading'}
                               children = {new Date(vacancy.publication).toDateString()}/>
