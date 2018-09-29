@@ -26,6 +26,13 @@ class CreateNewTask extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.chooseLocation = this.chooseLocation.bind(this)
+    this.taskText = this.taskText.bind(this)
+    this.choosePriority = this.choosePriority.bind(this)
+    this.chooseExecutor = this.chooseExecutor.bind(this)
+    this.chooseFrequency = this.chooseFrequency.bind(this)
+    this.makePhoto = this.makePhoto.bind(this)
+    this.createTask = this.createTask.bind(this)
+    this.chooseLocation = this.chooseLocation.bind(this)
   }
 
   handleChange (day) {
@@ -148,8 +155,8 @@ class CreateNewTask extends Component {
               id='location'
               onChange={this.chooseLocation}>
               <option value="locationChoice"
-                      disabled
-                      hidden>
+                disabled
+                hidden>
                 Локация
               </option>
               {allLocations.map(location => {
@@ -167,10 +174,10 @@ class CreateNewTask extends Component {
             <select
               defaultValue='0'
               id="priority"
-              onChange={this.choosePriority.bind(this)}>
+              onChange={this.choosePriority}>
               <option value="0"
-                      disabled
-                      hidden>
+                disabled
+                hidden>
                 приоритет
               </option>
               <option value="1">1</option>
@@ -187,7 +194,7 @@ class CreateNewTask extends Component {
               defaultValue='test'
               id='forThatUser'
               required={true}
-              onChange={this.chooseExecutor.bind(this)}>
+              onChange={this.chooseExecutor}>
               <option
                 disabled
                 hidden
@@ -206,7 +213,7 @@ class CreateNewTask extends Component {
             <select
               defaultValue='frequencyChoice'
               id='frequency'
-              onChange={this.chooseFrequency.bind(this)}
+              onChange={this.chooseFrequency}
             >
               <option
                 value="frequencyChoice"
@@ -230,17 +237,17 @@ class CreateNewTask extends Component {
               cols="30"
               rows="10"
               placeholder='Введите текст'
-              onChange={this.taskText.bind(this)}>
+              onChange={this.taskText}>
               {this.state.textForTask}
             </textarea>
             <input
               type="file"
               name="audio"
               accept="image/*"
-              onChange={this.makePhoto.bind(this)}
+              onChange={this.makePhoto}
             />
             <button
-              onClick={this.createTask.bind(this)}>Создать
+              onClick={this.createTask}>Создать
             </button>
             {this.state.errorExecutor && <h3>{this.state.errorExecutor}</h3>}
             {this.state.errorLocation && <h3>{this.state.errorLocation}</h3>}
