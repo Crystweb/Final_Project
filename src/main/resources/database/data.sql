@@ -155,41 +155,12 @@ INSERT INTO `location` (l_title) VALUES ('3 этаж');
 INSERT INTO `location` (l_title) VALUES ('4 этаж');
 INSERT INTO `location` (l_title) VALUES ('5 этаж');
 
-INSERT INTO `apartment` (location_id, title) VALUES (5, '1');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '2');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '3');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '4');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '5');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '6');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '7');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '8');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '9');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '10');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '11');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '12');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '13');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '14');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '15');
-INSERT INTO `apartment` (location_id, title) VALUES (5, '16');
-
-INSERT INTO `apartment` (location_id, title) VALUES (6, '1');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '2');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '3');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '4');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '5');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '6');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '7');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '8');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '9');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '10');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '11');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '12');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '13');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '14');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '15');
-INSERT INTO `apartment` (location_id, title) VALUES (6, '16');
-
-
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 1', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 2', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 3', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 4', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 5', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 6', 5);
 
 INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (1, 2, 'clean rooms', @OPENED, 2, 'DAILY', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 1, CURRENT_TIMESTAMP));
 INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (5, 2, 'call taxi', @OPENED, 3, 'WEEKLY', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 2, CURRENT_TIMESTAMP));
