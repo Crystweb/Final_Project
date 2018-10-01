@@ -200,19 +200,19 @@ setPosition(event)
 
 render()
 {
-    let isUpdate = !!this.state.commentForUpdate
-    if (!this.props.allPositionsForComments) {
+    let isUpdate = !!this.state.employeeForUpdate
+    if (!this.props.allPositionsForEmployee) {
         return (
             <Preloader/>
         )
-    } else if (!this.state.commentForUpdate) {
+    } else if (!this.state.employeeForUpdate) {
         return (<div className="container">
                 <h3>Создать сотрудника</h3><br/>
-                {this.props.allPositionsForComments.map(position => {
-                        const isForComment = position.pinnedToComment === true
+                {this.props.allPositionsForEmployee.map(position => {
+                        const isForEmployee = position.pinnedToEmployee === true
                         return (
                             <div>
-                                {isForComment && <li key={position.id}>
+                                {isForEmployee && <li key={position.id}>
                                     <input
                                         name="position"
                                         type="checkbox"
@@ -243,7 +243,7 @@ render()
         return (<div className="container">
                 {isUpdate || <h3>Добавить сотрудника</h3>}
                 {isUpdate && <h3>Изменить сотрудника</h3>}
-                {this.props.allPositionsForComments.map(position =>
+                {this.props.allPositionsForEmployee.map(position =>
                     <li key={position.id}>
                         <input
                             name="position"
@@ -277,12 +277,12 @@ render()
 const mapStateToProps = ({comments, startData}, ownProps) => {
     if (comments.lastComments) {
         return {
-            allPositionsForComments: startData.positions,
+            allPositionsForEmployee: startData.positions,
             updateEmployee: comments.lastComments.find(comment => comment.id === +ownProps.match.params.commentId)
         }
     } else {
         return {
-            allPositionsForComments: startData.positions
+            allPositionsForEmployee: startData.positions
         }
     }
 }

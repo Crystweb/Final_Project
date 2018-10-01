@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Preloader from '../../components/Preloader'
-// import EmployeeAdd from "../../components/EmployeeAdd";
+import EmployeeAdd from "../../components/EmployeeAdd";
 import '../../styles/Employee.css'
 import {Link} from "react-router-dom";
 import routes from "../../constants/routes";
@@ -45,9 +45,9 @@ class EmployeeList extends Component {
         } else {
             return (
                 <div>
-                    {/*<div>*/}
-                        {/*<EmployeeAdd/>*/}
-                    {/*</div>*/}
+                    <div>
+                        <EmployeeAdd/>
+                    </div>
                     <div className='employee'>
                         <h2>СОТРУДНИКИ</h2>
                         <div className='employee_container'>
@@ -90,7 +90,6 @@ class EmployeeList extends Component {
         }
     }
 }
-console.log(this.prop.employee)
 const mapStateToProps = ({employees, startData}) => {
   return {
     lastEmployees: employees.lastEmployees,
