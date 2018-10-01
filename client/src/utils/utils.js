@@ -5,6 +5,11 @@ export const getLastShift = (callback) => {
     .then(response => response.data)
     .then(callback)
 }
+export const getEmployee = (callback) => {
+  axios.get('/employee')
+    .then(response => response.data)
+    .then(callback)
+}
 
 export const startData = (
   callbackUser,

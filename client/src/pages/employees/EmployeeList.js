@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Preloader from '../../components/Preloader'
-import EmployeeAdd from "../../components/EmployeeAdd";
+// import EmployeeAdd from "../../components/EmployeeAdd";
 import '../../styles/Employee.css'
 import {Link} from "react-router-dom";
 import routes from "../../constants/routes";
 import update from "../../img/update.png";
 import trash from "../../img/trash.png";
-import {getLastShift} from "../../utils/utils";
-import {addShift} from "../../actions/actions";
 import connect from "react-redux/es/connect/connect";
+import { getEmployee } from "../../utils/utils";
+import { addEmployee } from "../../actions/actions";
 
 class EmployeeList extends Component {
 
@@ -45,9 +45,9 @@ class EmployeeList extends Component {
         } else {
             return (
                 <div>
-                    <div>
-                        <EmployeeAdd/>
-                    </div>
+                    {/*<div>*/}
+                        {/*<EmployeeAdd/>*/}
+                    {/*</div>*/}
                     <div className='employee'>
                         <h2>СОТРУДНИКИ</h2>
                         <div className='employee_container'>
@@ -90,7 +90,7 @@ class EmployeeList extends Component {
         }
     }
 }
-
+console.log(this.prop.employee)
 const mapStateToProps = ({employees, startData}) => {
   return {
     lastEmployees: employees.lastEmployees,

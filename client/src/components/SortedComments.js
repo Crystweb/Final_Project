@@ -71,7 +71,6 @@ class PositionButtons extends Component {
                         .filter(comment => new Date(comment.date).getHours() === i)
                         .map(comment => {
                             const showActionButtons = comment.authorId === this.state.userId
-                            // const isShowing = ({comments.[0] == undefined} === true)
                             return (
                                 <li key={comment.id}>
                                     <div className='flex_comment'>
