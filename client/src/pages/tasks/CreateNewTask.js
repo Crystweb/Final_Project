@@ -119,13 +119,18 @@ class CreateNewTask extends Component {
               priority: taskPriority,
               locations: [this.props.allLocations.find(location => location.id === +chosenLocation)]
             }
-            let newPhoto = photo
-            console.log(newPhoto)
+
+            let formData = new FormData()
+            formData.append('task', JSON.stringify(body))
+
+            if (photo) {
+              formData.append('file', photo)
+            }
+
             axios({
               method: 'post',
               url: `/task`,
-              params: {file: newPhoto},
-              data: body
+              data: formData
             })
               .then(() => {
                 this.setState({
