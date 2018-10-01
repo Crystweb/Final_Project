@@ -12,5 +12,4 @@ public class LocationDto implements Serializable {
   private String title;
   private String info;
   private Long parentId;
-  private List<Long> children;
 }
