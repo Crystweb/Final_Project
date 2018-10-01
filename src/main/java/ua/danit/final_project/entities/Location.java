@@ -1,5 +1,6 @@
 package ua.danit.final_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -31,10 +32,12 @@ public class Location implements Serializable {
   @Column(name = "l_info")
   private String info;
 
+  @JsonIgnore
   @ManyToOne
   @JoinColumn(name = "parent_location")
   private Location parentLocation;
-
+  
+  @JsonIgnore
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   @OneToMany(mappedBy = "parentLocation")
