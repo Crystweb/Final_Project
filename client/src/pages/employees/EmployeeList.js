@@ -64,12 +64,10 @@ class EmployeeList extends Component {
                                                 {employee.patronymic},&nbsp;
                                                 {employee.position}</h4>
 
-                                            <li>
                                                 <h4>{employee.phoneNumber}</h4>
-                                            </li>
-                                            <li>
+
                                                 <h4>{employee.info}</h4>
-                                            </li>
+
                                             <div className='ud_buttons'>
 
                                                 <button onClick={() => this.deleteEmployee(employee.id)}><img alt='trash' src={trash}/>
