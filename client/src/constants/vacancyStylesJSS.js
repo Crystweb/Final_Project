@@ -130,7 +130,10 @@ const vacancyStyles = ({
     justifyContent: 'space-between',
   },
   buttons: {
-    transform: 'scale(0.9)'
+    transform: 'scale(0.9)',
+    '&:hover': {
+      cursor: 'pointer',
+    }
   }
 })
 
