@@ -62,7 +62,8 @@ class EmployeeList extends Component {
                                             <h4>{employee.forename}&nbsp;
                                                 {employee.surname}&nbsp;
                                                 {employee.patronymic},&nbsp;
-                                                {employee.position}</h4>
+                                            </h4>
+                                            <h4>{employee.position} </h4>
 
                                                 <h4>{employee.phoneNumber}</h4>
 
