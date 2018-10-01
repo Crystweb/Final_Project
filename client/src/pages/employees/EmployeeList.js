@@ -8,8 +8,8 @@ import routes from "../../constants/routes";
 import update from "../../img/update.png";
 import trash from "../../img/trash.png";
 import connect from "react-redux/es/connect/connect";
-import { getEmployee } from "../../utils/utils";
-import { addEmployee } from "../../actions/actions";
+import {getEmployee} from "../../utils/utils";
+import {addEmployee} from "../../actions/actions";
 
 class EmployeeList extends Component {
 
@@ -63,21 +63,24 @@ class EmployeeList extends Component {
                                                 {employee.surname}&nbsp;
                                                 {employee.patronymic},&nbsp;
                                             </h4>
+
                                             <h4>{employee.position} </h4>
 
-                                                <h4>{employee.phoneNumber}</h4>
+                                            <h4>{employee.phoneNumber}</h4>
 
-                                                <h4>{employee.info}</h4>
-
+                                            <h4>{employee.info}</h4>
+                                        </div>
                                             <div className='ud_buttons'>
 
-                                                <button onClick={() => this.deleteEmployee(employee.id)}><img alt='trash' src={trash}/>
+                                                <button onClick={() => this.deleteEmployee(employee.id)}><img
+                                                    alt='trash' src={trash}/>
                                                 </button>
 
-                                                <button><Link to={routes.updateEmployee.href + employee.id}><img alt='update' src={update}/></Link>
+                                                <button><Link to={routes.updateEmployee.href + employee.id}><img
+                                                    alt='update' src={update}/></Link>
                                                 </button>
                                             </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             )}
@@ -89,18 +92,19 @@ class EmployeeList extends Component {
         }
     }
 }
+
 const mapStateToProps = ({employees, startData}) => {
-  return {
-    lastEmployees: employees.lastEmployees,
-    user: startData.currentUser
-  }
+    return {
+        lastEmployees: employees.lastEmployees,
+        user: startData.currentUser
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    addEmployee: (data) => {
-      dispatch(addEmployee(data))
+    return {
+        addEmployee: (data) => {
+            dispatch(addEmployee(data))
+        }
     }
-  }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeeList)

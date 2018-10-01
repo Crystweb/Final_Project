@@ -53,4 +53,7 @@ public class Employee implements Serializable {
 
   @Column(name = "e_info")
   private String info;
+
+  @Column(name = "pinned_to_employee")
+  private Boolean pinnedToEmployee;
 }
