@@ -3,7 +3,7 @@ package ua.danit.final_project.dto;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
 import org.mapstruct.ReportingPolicy;
-import ua.danit.final_project.entities.ShiftComment;
+import ua.danit.final_project.entities.Location;
 
 @Mapper(componentModel = "spring",
     uses = MapperHelper.class,
@@ -11,7 +11,5 @@ import ua.danit.final_project.entities.ShiftComment;
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface DefaultMapper {
 
-  ShiftCommentDto shiftCommentToShiftCommentDto(ShiftComment shiftComment);
-
-  ShiftComment shiftCommentDtoToShiftComment(ShiftCommentDto shiftCommentDto);
+  LocationDto locationToLocationDto(Location location);
 }
