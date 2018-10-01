@@ -125,6 +125,14 @@ CREATE TABLE IF NOT EXISTS `location` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS `apartment` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `location_id` VARCHAR(50) NOT NULL,
+  `title` VARCHAR(127),
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`location_id`) REFERENCES `location` (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS `task` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `u_id_assignee` BIGINT,
