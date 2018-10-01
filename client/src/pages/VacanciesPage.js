@@ -5,7 +5,6 @@ import '../styles/VacanciesPage.css'
 import { connect } from 'react-redux'
 import { getAllVacancies } from '../actions/actions'
 import Preloader from '../components/Preloader'
-
 import { withStyles } from '@material-ui/core/styles'
 import Radio from '@material-ui/core/Radio'
 import Typography from '@material-ui/core/Typography/Typography'
@@ -19,7 +18,6 @@ import List from '../../node_modules/@material-ui/core/List/List'
 import vacancyStyles from '../constants/vacancyStylesJSS'
 
 class VacanciesPage extends Component {
-
   onOpenModal = () => {
     this.setState({open: true})
   }
@@ -96,7 +94,7 @@ class VacanciesPage extends Component {
     const {data, showClosed} = this.state
     const {vacancies, classes, positions} = this.props
     let toFilterVacancies = vacancies
-    const {open,} = this.state
+    const {open} = this.state
 
     if (!data) {
       return <Preloader/>
@@ -104,7 +102,7 @@ class VacanciesPage extends Component {
 
     if (!showClosed) {
       toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'OPENED')
-    } else {toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'CLOSED')}
+    } else { toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'CLOSED') }
 
     return (
       <Fragment>
@@ -127,7 +125,7 @@ class VacanciesPage extends Component {
                 <Typography variant={'caption'}>открытые вакансии</Typography>
               </Paper>
               <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton} elevation={0}>
-                <Radio  className={classes.radioButtonInner}
+                <Radio className={classes.radioButtonInner}
                   checked={this.state.showClosed}
                   onChange={() => this.setState({showClosed: !showClosed})}
                   value="d"
@@ -140,15 +138,15 @@ class VacanciesPage extends Component {
               </Paper>
             </RadioGroup>
             <IconButton onClick={this.onOpenModal} color="default" className={classes.button}
-                        aria-label="Добавить Вакансию">
+              aria-label="Добавить Вакансию">
               <AddIcon fontSize="large"/>
             </IconButton>
           </div>
         </Card>
         <Modal open={open}
-               onClose={this.onCloseModal}
-               center
-               closeOnOverlayClick={true}>
+          onClose={this.onCloseModal}
+          center
+          closeOnOverlayClick={true}>
           <form onSubmit={this.handleSubmit}>
             <label>
               Название должности:
@@ -160,10 +158,10 @@ class VacanciesPage extends Component {
               </select>
               Зарплата:
               <input type="text" name={'salary'} value={this.state.salary}
-                     onChange={this.handleSalaryChange}/>
+                onChange={this.handleSalaryChange}/>
               <br/>
               <textarea placeholder={'Введите Ваш коментарий'} name={'info'} value={this.state.info}
-                        onChange={this.handleInfoChange}/>
+                onChange={this.handleInfoChange}/>
             </label>
             <input type="submit" value="Добавить"/>
           </form>
@@ -171,31 +169,31 @@ class VacanciesPage extends Component {
         <div className={classes.vacancyList}>
           <div className={classes.lineContainer}/>
           <List>
-          {toFilterVacancies.map(vacancy =>
-            <Paper key={vacancy.id}
-                   elevation={0}>
-              <div className={classes.vacancyContainer}>
-                <div className={classes.vacancySideIcon}>
-                <svg className={classNames("MuiSvgIcon-root-86",classes.vacancySideIconSVG)} focusable="false" viewBox="0 0 24 24" aria-hidden="true"
-                     role="presentation">
-                  <path
-                    d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" />
-                </svg>
-              </div>
-                <Paper className={classes.vacancyInfo} elevation={0}>
-                  <Typography className={classes.vacancyInfoTitle}
-                              variant={'subheading'}
-                              tag='title'
-                              children = {positions.filter(item => item.id === vacancy.positionId)[0].title} />
-                  <Typography className={classes.vacancyInfoSubTitle}
-                              variant={'subheading'}
-                              children = {new Date(vacancy.publication).toDateString()}/>
-                  <Typography className={classes.vacancyInfoSalary} variant={'subheading'} children={`${vacancy.salary} грн.`} />
-                  <Typography children={vacancy.info} className={classes.vacancyInfoDescription} variant={'body2'} />
-                </Paper>
-              </div>
-            </Paper>
-          )}
+            {toFilterVacancies.map(vacancy =>
+              <Paper key={vacancy.id}
+                elevation={0}>
+                <div className={classes.vacancyContainer}>
+                  <div className={classes.vacancySideIcon}>
+                    <svg className={classNames('MuiSvgIcon-root-86', classes.vacancySideIconSVG)} focusable="false" viewBox="0 0 24 24" aria-hidden="true"
+                      role="presentation">
+                      <path
+                        d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" />
+                    </svg>
+                  </div>
+                  <Paper className={classes.vacancyInfo} elevation={0}>
+                    <Typography className={classes.vacancyInfoTitle}
+                      variant={'subheading'}
+                      tag='title'
+                      children = {positions.filter(item => item.id === vacancy.positionId)[0].title} />
+                    <Typography className={classes.vacancyInfoSubTitle}
+                      variant={'subheading'}
+                      children = {new Date(vacancy.publication).toDateString()}/>
+                    <Typography className={classes.vacancyInfoSalary} variant={'subheading'} children={`${vacancy.salary} грн.`} />
+                    <Typography children={vacancy.info} className={classes.vacancyInfoDescription} variant={'body2'} />
+                  </Paper>
+                </div>
+              </Paper>
+            )}
           </List>
         </div>
       </Fragment>
