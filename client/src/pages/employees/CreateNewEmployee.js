@@ -13,7 +13,7 @@ class CreateNewEmployee extends Component {
             errorText: null,
             errorCheckedPosition: null,
             successPost: null,
-            commentForUpdate: this.props.updateEmployee || null
+            employeeForUpdate: this.props.updateEmployee || null
         }
     }
 
