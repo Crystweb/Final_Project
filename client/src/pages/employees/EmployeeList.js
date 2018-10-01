@@ -70,16 +70,16 @@ class EmployeeList extends Component {
 
                                             <h4>{employee.info}</h4>
                                         </div>
-                                            <div className='ud_buttons'>
+                                        <div className='ud_buttons'>
 
-                                                <button onClick={() => this.deleteEmployee(employee.id)}><img
-                                                    alt='trash' src={trash}/>
-                                                </button>
+                                            <button onClick={() => this.deleteEmployee(employee.id)}><img
+                                                alt='trash' src={trash}/>
+                                            </button>
 
-                                                <button><Link to={routes.updateEmployee.href + employee.id}><img
-                                                    alt='update' src={update}/></Link>
-                                                </button>
-                                            </div>
+                                            <button><Link to={routes.updateEmployee.href + employee.id}><img
+                                                alt='update' src={update}/></Link>
+                                            </button>
+                                        </div>
 
                                     </div>
                                 </div>
