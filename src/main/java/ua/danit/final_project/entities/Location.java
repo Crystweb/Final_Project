@@ -36,7 +36,7 @@ public class Location implements Serializable {
   @ManyToOne
   @JoinColumn(name = "parent_location")
   private Location parentLocation;
-  
+
   @JsonIgnore
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
