@@ -8,6 +8,7 @@ import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.entities.Role;
 import ua.danit.final_project.entities.ShiftComment;
+import ua.danit.final_project.entities.Task;
 import ua.danit.final_project.entities.User;
 
 @Mapper(componentModel = "spring",
@@ -35,4 +36,8 @@ public interface DefaultMapper {
   RoleDto roleToRoleDto(Role role);
 
   Employee employeeDtoToEmployee(EmployeeDto employeeDto);
+
+  TaskDto taskToTaskDto(Task task);
+
+  Task taskDtoToTask(TaskDto taskDto);
 }
