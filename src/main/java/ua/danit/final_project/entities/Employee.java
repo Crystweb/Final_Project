@@ -55,6 +55,6 @@ public class Employee implements Serializable {
   private String info;
 
   public boolean hasUser() {
-    return !(user == null);
+    return user != null;
   }
 }
