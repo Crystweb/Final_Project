@@ -22,7 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -39,13 +38,13 @@ public class Task implements Serializable {
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "u_id_assignee")
+  @JoinColumn(name = "e_id_assignee")
   private Employee assignee;
 
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "u_id_delegator", nullable = false)
+  @JoinColumn(name = "e_id_delegator", nullable = false)
   private Employee delegator;
 
   @Column(name = "t_message")
@@ -79,6 +78,11 @@ public class Task implements Serializable {
 
   @OneToMany(mappedBy = "task")
   private List<TaskImage> images;
+
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
+  private List<TaskComment> comments;
 
   public enum TaskStatus {
     REMOVED ,OPENED, CLOSED, REJECTED, PENDING, IN_PROGRESS, EXPIRED, CHANGE

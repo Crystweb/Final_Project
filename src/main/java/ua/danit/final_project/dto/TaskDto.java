@@ -21,4 +21,5 @@ public class TaskDto implements Serializable {
   private Integer priority; // NOSONAR
   private List<LocationDto> locations; // NOSONAR
   private List<String> imageLinks; // NOSONAR
+  private List<TaskCommentDto> comments; // NOSONAR
 }

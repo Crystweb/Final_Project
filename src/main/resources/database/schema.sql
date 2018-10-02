@@ -102,11 +102,11 @@ CREATE TABLE IF NOT EXISTS `schedule` (
 
 CREATE TABLE IF NOT EXISTS `shift_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL,
+  `employee_id` BIGINT NOT NULL,
   `c_message` VARCHAR(511) NOT NULL,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`employee_id`) REFERENCES `employee`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `shift_comment_position` (

@@ -33,4 +33,6 @@ public interface DefaultMapper {
   UserDto userToUserDto(User user);
 
   RoleDto roleToRoleDto(Role role);
+
+  Employee employeeDtoToEmployee(EmployeeDto employeeDto);
 }
