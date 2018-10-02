@@ -8,8 +8,8 @@ import java.util.List;
 @Data
 public class LocationDto implements Serializable {
 
-  private Long id;
-  private String title;
-  private String info;
-  private List<LocationDto> children;
+  private Long id; // NOSONAR
+  private String title; // NOSONAR
+  private String info; // NOSONAR
+  private List<LocationDto> children; // NOSONAR
 }
