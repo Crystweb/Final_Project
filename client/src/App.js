@@ -99,7 +99,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(addTasks(data))
     },
     addEmployee: (data) => {
-      dispatch(addShift(data))
+      dispatch(addEmployee(data))
     },
   }
 }

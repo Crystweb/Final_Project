@@ -85,8 +85,7 @@ class PositionButtons extends Component {
                                             <button onClick={() => this.deleteComment(comment.id)}><img alt='trash' src={trash}/>
                                             </button>}
                       {showActionButtons &&
-                                            <button><Link to={routes.updateComment.href + comment.id}><img alt='update'
-                                              src={update}/></Link>
+                                            <button><Link to={routes.updateComment.href + comment.id}><img alt='update' src={update}/></Link>
                                             </button>}
                     </div>
                   </div>

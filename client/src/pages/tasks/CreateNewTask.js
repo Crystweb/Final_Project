@@ -155,8 +155,8 @@ class CreateNewTask extends Component {
               id='location'
               onChange={this.chooseLocation}>
               <option value="locationChoice"
-                disabled
-                hidden>
+                      disabled
+                      hidden>
                 Локация
               </option>
               {allLocations.map(location => {
@@ -176,8 +176,8 @@ class CreateNewTask extends Component {
               id="priority"
               onChange={this.choosePriority}>
               <option value="0"
-                disabled
-                hidden>
+                      disabled
+                      hidden>
                 приоритет
               </option>
               <option value="1">1</option>

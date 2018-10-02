@@ -1,290 +1,293 @@
-import React, {Component} from 'react'
-import axios from 'axios'
-import {connect} from 'react-redux'
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
+import axios from 'axios'
+import moment from 'moment'
+import 'react-datepicker/dist/react-datepicker.css'
+import DatePicker from 'react-datepicker'
 import * as _ from 'lodash'
+import '../../styles/Tasks.css'
+import { addNewEmployee } from '../../actions/actions'
 
 class CreateNewEmployee extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            checkedPositions: (this.props.updateEmployee && this.props.updateEmployee.positions) || [],
-            textComment: (this.props.updateEmployee && this.props.updateEmployee.text) || undefined,
-            errorText: null,
-            errorCheckedPosition: null,
-            successPost: null,
-            employeeForUpdate: this.props.updateEmployee || null
-        }
+  constructor (props) {
+    super(props)
+    this.state = {
+      position: null,
+      forename: null,
+      surname: null,
+      patronymic: null,
+      phoneNumber: null,
+      info: null,
+      photo: null,
+      errorPosition: null,
+      errorForename: null,
+      errorSurname: null,
+      errorPatronymic: null,
+      errorPhoneNumber: null,
+      successAdd: null
+
     }
+    this.handleChange = this.handleChange.bind(this)
+    this.choosePosition = this.choosePosition.bind(this)
+    this.inputForename = this.inputForename.bind(this)
+    this.inputSurname = this.inputSurname.bind(this)
+    this.inputPatronymic = this.inputPatronymic.bind(this)
+    this.inputPhoneNumber = this.inputPhoneNumber.bind(this)
+    this.inputInfo = this.inputInfo.bind(this)
+    this.makePhoto = this.makePhoto.bind(this)
+    this.createEmployee = this.createEmployee.bind(this)
+  }
 
-    addEmployee() {
-        const {
-            position,
-            forename,
-            surname,
-            patronymic,
-            phoneNumber,
-            info
-        } = this.state
+  // handleChange (day) {
+  //   this.setState({
+  //     finishDate: day
+  //   })
+  // }
 
-        if (_.isEmpty(position)) {
-            this.setState({
-                successPost: null,
-                errorText: null,
-                errorCheckedPosition: 'Выберите позицию'
-            })
-        } else {
-            if (_.isEmpty(forename)) {
-                this.setState({
-                    successPost: null,
-                    errorCheckedPosition: null,
-                    errorText: 'Введите имя'
-                })
-            } else {
-                if (_.isEmpty(surname)) {
-                    this.setState({
-                        successPost: null,
-                        errorCheckedPosition: null,
-                        errorText: 'Введите фамилию'
-                    })
-                } else {
-                    if (_.isEmpty(patronymic)) {
-                        this.setState({
-                            successPost: null,
-                            errorCheckedPosition: null,
-                            errorText: 'Введите отчество'
-                        })
-                    } else {
-                        if (_.isEmpty(phoneNumber)) {
-                            this.setState({
-                                successPost: null,
-                                errorCheckedPosition: null,
-                                errorText: 'Введите номер телефона'
-                            })
-                        } else {
-                            if (_.isEmpty(info)) {
-                                this.setState({
-                                    successPost: null,
-                                    errorCheckedPosition: null,
-                                    errorText: 'Введите дополнительную информацию'
-                                })
-                            } else {
-                                axios.post('/employees/list',
-                                    {
-                                        text: this.state.textComment,
-                                        positions: this.state.checkedPositions
+  choosePosition = (event) => {
+    this.setState({
+      chosenPosition: event.target.value,
+      errorPosition: null
+    })
+  }
 
-                                    })
-                                    .then(() => {
-                                        this.setState({
-                                            errorText: null,
-                                            errorCheckedPosition: null,
-                                            textComment: '',
-                                            checkedPositions: [],
-                                            successPost: 'Сотрудник добавлен'
-                                        })
-                                    })
-                                    .then(() => {
-                                        setTimeout(() => this.props.history.push('/employees/list'), 1500)
-                                    })
-                            }
-                        }
-                    }
-                }
-            }
-        }
+  inputForename = (event) => {
+    this.setState({
+      inputForename: event.target.value,
+      errorForename: null
+    })
+  }
+
+  inputSurname = (event) => {
+    this.setState({
+      inputSurname: event.target.value,
+      errorSurname: null
+    })
+  }
+
+  inputPatronymic = (event) => {
+    this.setState({
+      inputPatronymic: event.target.value,
+      errorPatronymic: null
+    })
+  }
+
+  inputPhoneNumber = (event) => {
+    this.setState({
+      inputPhoneNumber: event.target.value,
+      errorPhoneNumber: null
+    })
+  }
+
+  inputInfo = (event) => {
+    this.setState({
+      inputInfo: event.target.value,
+    })
+  }
+
+  makePhoto = (event) => {
+    // this.setState({photo: event.target.files[0]})
+  }
+
+  createEmployee = () => {
+    const {chosenPosition, inputForename, inputSurname, finishDate, inputPatronymic, frequency, photo} = this.state
+    if (_.isEmpty(chosenLocation)) {
+      this.setState({
+        errorPosition: 'Выберите локацию'
+      })
     }
-
-
-    updateEmployee() {
-        const {
-            position,
-            forename,
-            surname,
-            patronymic,
-            phoneNumber,
-            info
-        } = this.state
-
-        if (_.isEmpty(position)) {
-            this.setState({
-                successPost: null,
-                errorText: null,
-                errorCheckedPosition: 'Выберите позицию'
-            })
-        } else {
-            if (_.isEmpty(forename)) {
-                this.setState({
-                    successPost: null,
-                    errorCheckedPosition: null,
-                    errorText: 'Введите имя'
-                })
-            } else {
-                if (_.isEmpty(surname)) {
-                    this.setState({
-                        successPost: null,
-                        errorCheckedPosition: null,
-                        errorText: 'Введите фамилию'
-                    })
-                } else {
-                    if (_.isEmpty(patronymic)) {
-                        this.setState({
-                            successPost: null,
-                            errorCheckedPosition: null,
-                            errorText: 'Введите отчество'
-                        })
-                    } else {
-                        if (_.isEmpty(phoneNumber)) {
-                            this.setState({
-                                successPost: null,
-                                errorCheckedPosition: null,
-                                errorText: 'Введите номер телефона'
-                            })
-                        } else {
-                            if (_.isEmpty(info)) {
-                                this.setState({
-                                    successPost: null,
-                                    errorCheckedPosition: null,
-                                    errorText: 'Введите дополнительную информацию'
-                                })
-                            } else {
-                                axios.post('/employees/list',
-                                    {
-                                        text: this.state.textComment,
-                                        positions: this.state.checkedPositions
-
-                                    })
-                                    .then(() => {
-                                        this.setState({
-                                            errorText: null,
-                                            errorCheckedPosition: null,
-                                            textComment: '',
-                                            checkedPositions: [],
-                                            successPost: 'Сотрудник добавлен'
-                                        })
-                                    })
-                                    .then(() => {
-                                        setTimeout(() => this.props.history.push('/employees/list'), 1500)
-                                    })
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    if (_.isEmpty(executorId)) {
+      this.setState({
+        errorPatronymic: 'Выберите отвественного'
+      })
     }
-
-addText(event)
-{
-    this.setState({forename: event.target.value})
-    this.setState({surname: event.target.value})
-    this.setState({patronymic: event.target.value})
-    this.setState({phoneNumber: event.target.value})
-    this.setState({info: event.target.value})
-}
-
-setPosition(event)
-{
-    let currentPosition = event.target.value
-    let Positions = this.state.checkedPositions
-    if (Positions.includes(currentPosition)) {
-        let positionIndex = Positions.indexOf(currentPosition)
-        let firstPartPositionsArray = Positions.slice(0, positionIndex)
-        let secondPartPositionsArray = Positions.slice(positionIndex + 1)
-        Positions = firstPartPositionsArray.concat(secondPartPositionsArray)
-    } else {
-        Positions.push(event.target.value)
+    if (_.isEmpty(frequency)) {
+      this.setState({
+        errorFrequency: 'Укажите повторяемость'
+      })
     }
-    this.setState({Positions: Positions})
-}
+    if (_.isEmpty(textForTask)) {
+      this.setState({
+        errorForename: 'Введите текст'
+      })
+    }
+    if (!_.isEmpty(textForTask) && !_.isEmpty(frequency) && !_.isEmpty(executorId) && !_.isEmpty(chosenLocation)) {
+      let body = {
+        assignee: this.props.allUsers.find(user => user.id === +executorId),
+        message: textForTask,
+        status: 'OPENED',
+        updated: new Date(),
+        frequency: frequency,
+        expired: finishDate,
+        priority: taskPriority,
+        locations: [this.props.allLocations.find(location => location.id === +chosenLocation)]
+      }
+      let formData = new FormData()
+      formData.append('task', JSON.stringify(body))
+      if (photo) {
+        formData.append('file', photo)
+      }
+      axios({
+        method: 'post',
+        url: `/task`,
+        data: formData
+      })
+        .then((response) => this.props.addTask(response.data))
+        .then(() => {
+          this.setState({
+            successAdd: 'Задача добавлена'
+          })
+        })
+        .then(() => { setTimeout(() => this.props.history.push('/tasks'), 1500) })
+    }
+  }
 
-render()
-{
-    let isUpdate = !!this.state.employeeForUpdate
-    if (!this.props.allPositionsForEmployee) {
-        return (
-            <Preloader/>
-        )
-    } else if (!this.state.employeeForUpdate) {
-        return (<div className="container">
-                <h3>Создать сотрудника</h3><br/>
-                {this.props.allPositionsForEmployee.map(position => {
-                        const isForEmployee = position.pinnedToEmployee === true
-                        return (
-                            <div>
-                                {isForEmployee && <li key={position.id}>
-                                    <input
-                                        name="position"
-                                        type="checkbox"
-                                        checked={true && this.state.checkedPositions.includes(position.title)}
-                                        value={position.title}
-                                        onChange={this.setPosition.bind(this)}
-                                    />
-                                    {position.title}
-                                </li>}
-                            </div>
-                        )
-                    }
+  render () {
+    const {allUsers, allLocations, allStatuses, allFrequencies} = this.props
+
+    if (allUsers && allLocations && allStatuses && allFrequencies) {
+      return (
+        <Fragment>
+          <div className="container createTask">
+            <select
+              name='locationsList'
+              defaultValue='locationChoice'
+              id='location'
+              onChange={this.choosePosition}>
+              <option
+                value="locationChoice"
+                disabled
+                hidden>
+                Локация
+              </option>
+              {allLocations.map(location => {
+                return (
+                  <option
+                    type='text'
+                    name='location'
+                    value={location.id}
+                    key={location.id}>
+                    {location.title}
+                  </option>
                 )
-                }
-                <p><textarea value={this.state.textComment}
-                             placeholder={'Введите Ваш коментарий'}
-                             cols="30"
-                             rows="10"
-                             onChange={this.addText.bind(this)}/></p>
-                <input type="button"
-                       value=" Добавить сотрудника "
-                       onClick={this.addEmployee.bind(this)}/>
-                <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
-                <p>{this.state.successPost}</p>
-            </div>
-        )
+              })}
+            </select>
+            {this.state.errorPosition &&
+            <label className='task_errors' htmlFor='locationsList'>{this.state.errorPosition}</label>}
+            <select
+              defaultValue='0'
+              id="priority"
+              onChange={this.inputSurname}>
+              <option
+                value="0"
+                disabled
+                hidden>
+                приоритет
+              </option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            <DatePicker
+              placeholderText='Выполнить до'
+              minDate={moment()}
+              selected={this.state.finishDate}
+              onChange={this.handleChange}
+            />
+            <select
+              name='executors'
+              defaultValue='test'
+              id='forThatUser'
+              required={true}
+              onChange={this.inputPatronymic}>
+              <option
+                disabled
+                hidden
+                value='test'>Исполнитель
+              </option>
+              {allUsers.map(user => {
+                return (
+                  <option
+                    value={user.id}
+                    key={user.id}>
+                    {user.employee.forename} {user.employee.forename}, {user.position.title}
+                  </option>
+                )
+              })}
+            </select>
+            {this.state.errorPatronymic &&
+            <label className='task_errors' htmlFor='executors'>{this.state.errorPatronymic}</label>}
+            <select
+              name='frequencies'
+              defaultValue='frequencyChoice'
+              id='frequency'
+              onChange={this.inputPhoneNumber}
+            >
+              <option
+                value="frequencyChoice"
+                hidden
+                disabled>
+                Повторяемость
+              </option>
+              {allFrequencies.map(frequency => {
+                return (
+                  <option
+                    value={frequency}
+                    key={frequency}>
+                    {frequency}
+                  </option>
+                )
+              })}
+            </select>
+            {this.state.errorFrequency &&
+            <label className='task_errors' htmlFor='frequencies'>{this.state.errorFrequency}</label>}
+            <textarea
+              name="task"
+              id="task"
+              cols="30"
+              rows="10"
+              placeholder='Введите текст'
+              onChange={this.inputForename}>
+              {this.state.inputForename}
+            </textarea>
+            {this.state.errorForename && <label className='task_errors' htmlFor='task'>{this.state.errorForename}</label>}
+            <input
+              type="file"
+              name="audio"
+              accept="image/*"
+              onChange={this.makePhoto}
+            />
+            <button
+              onClick={this.createEmployee}>Создать
+            </button>
+            {this.state.successAdd && <h3>{this.state.successAdd}</h3>}
+          </div>
+        </Fragment>
+      )
     } else {
-        return (<div className="container">
-                {isUpdate || <h3>Добавить сотрудника</h3>}
-                {isUpdate && <h3>Изменить сотрудника</h3>}
-                {this.props.allPositionsForEmployee.map(position =>
-                    <li key={position.id}>
-                        <input
-                            name="position"
-                            type="checkbox"
-                            checked={true && this.state.checkedPositions.includes(position.title)}
-                            value={position.title}
-                            onChange={this.setPosition.bind(this)}
-                        />
-                        {position.title}
-                    </li>
-                )}
-                <p><textarea value={this.state.textComment}
-                             ref={this.textInput}
-                             placeholder={'Введите Ваш коментарий'}
-                             onChange={this.addText.bind(this)}/></p>
-                {isUpdate || <input type="button"
-                                    value=" Добавить сотрудника "
-                                    onClick={this.addEmployee.bind(this)}/>}
-                {isUpdate && <input type="button"
-                                    value="Изменить сотрудника"
-                                    onClick={this.updateEmployee.bind(this)}/>
-                }
-                <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
-                <p>{this.state.successPost}</p>
-            </div>
-        )
+      return (
+        <Preloader/>
+      )
     }
-}
+  }
 }
 
-const mapStateToProps = ({comments, startData}, ownProps) => {
-    if (comments.lastComments) {
-        return {
-            allPositionsForEmployee: startData.positions,
-            updateEmployee: comments.lastComments.find(comment => comment.id === +ownProps.match.params.commentId)
-        }
-    } else {
-        return {
-            allPositionsForEmployee: startData.positions
-        }
-    }
+const mapStateToProps = ({startData}) => {
+  return {
+    allUsers: startData.users,
+    allLocations: startData.locations,
+    allStatuses: startData.statuses,
+    allFrequencies: startData.frequencies
+  }
 }
 
-export default connect(mapStateToProps)(CreateNewEmployee)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTask: (data) => {
+      dispatch(addNewTask(data))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewEmployee)

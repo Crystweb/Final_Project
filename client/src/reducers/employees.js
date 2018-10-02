@@ -1,13 +1,13 @@
 import { ADD_EMPLOYEE } from '../constants/actionTypes'
 
 const initialState = {
-  lastEmployees: null
+  employeesList: null
 }
 
 export default function addEmployeeReducer (state = initialState, action) {
   switch (action.type) {
     case ADD_EMPLOYEE:
-      return {...state, lastEmployees: action.employee}
+      return {...state, employeesList: action.employee}
     default:
       return state
   }

@@ -10,7 +10,7 @@ class CreateNewComments extends Component {
     this.state = {
       checkedPositions: (this.props.updateComment && this.props.updateComment.positions) || [],
       textComment: (this.props.updateComment && this.props.updateComment.text) || undefined,
-      errorText: null,
+      errorForename: null,
       errorCheckedPosition: null,
       successPost: null,
       commentForUpdate: this.props.updateComment || null
@@ -24,13 +24,13 @@ class CreateNewComments extends Component {
       this.setState({
         successPost: null,
         errorCheckedPosition: null,
-        errorText: 'Введите текст'
+        errorForename: 'Введите текст'
       })
     } else {
       if (_.isEmpty(checkedPositions)) {
         this.setState({
           successPost: null,
-          errorText: null,
+          errorForename: null,
           errorCheckedPosition: 'Выберите позицию'
 
         })
@@ -43,7 +43,7 @@ class CreateNewComments extends Component {
           })
           .then(() => {
             this.setState({
-              errorText: null,
+              errorForename: null,
               errorCheckedPosition: null,
               textComment: '',
               checkedPositions: [],
@@ -62,13 +62,13 @@ class CreateNewComments extends Component {
       this.setState({
         successPost: null,
         errorCheckedPosition: null,
-        errorText: 'Введите текст'
+        errorForename: 'Введите текст'
       })
     } else {
       if (_.isEmpty(checkedPositions)) {
         this.setState({
           successPost: null,
-          errorText: null,
+          errorForename: null,
           errorCheckedPosition: 'Выберите позицию'
         })
       } else {
@@ -80,7 +80,7 @@ class CreateNewComments extends Component {
             date: this.state.commentForUpdate.date
           })
           .then(() => this.setState({
-            errorText: null,
+            errorForename: null,
             errorCheckedPosition: null,
             textComment: '',
             checkedPositions: [],
@@ -145,7 +145,7 @@ class CreateNewComments extends Component {
         <input type="button"
           value=" Добавить комментарий "
           onClick={this.addComment.bind(this)}/>
-        <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
+        <p>{this.state.errorCheckedPosition || this.state.errorForename}</p>
         <p>{this.state.successPost}</p>
       </div>
       )
@@ -183,7 +183,7 @@ class CreateNewComments extends Component {
           value="Изменить комментарий"
           onClick={this.updateComment.bind(this)}/>
         }
-        <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
+        <p>{this.state.errorCheckedPosition || this.state.errorForename}</p>
         <p>{this.state.successPost}</p>
       </div>
       )
