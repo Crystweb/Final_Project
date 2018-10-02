@@ -1,5 +1,6 @@
 package ua.danit.final_project.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import ua.danit.final_project.entities.Location;
@@ -22,10 +24,12 @@ import java.util.List;
 public class TaskController {
 
   private final TaskService taskService;
+  private final ObjectMapper objectMapper;
 
   @Autowired
-  public TaskController(TaskService taskService) {
+  public TaskController(TaskService taskService, ObjectMapper objectMapper) {
     this.taskService = taskService;
+    this.objectMapper = objectMapper;
   }
 
   @GetMapping("/status")
@@ -48,8 +52,9 @@ public class TaskController {
   }
 
   @PostMapping
-  public Task create(@RequestBody Task task,
-                     @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+  public Task create(@RequestPart(name = "file", required = false) MultipartFile file,
+                     @RequestParam(name = "task") String taskString) throws IOException {
+    Task task = objectMapper.readValue(taskString, Task.class);
     return taskService.create(task, file);
   }
 

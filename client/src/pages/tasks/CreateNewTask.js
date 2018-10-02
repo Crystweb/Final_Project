@@ -6,6 +6,8 @@ import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 import * as _ from 'lodash'
+import '../../styles/Tasks.css'
+import { addNewTask } from '../../actions/actions'
 
 class CreateNewTask extends Component {
   constructor (props) {
@@ -42,7 +44,10 @@ class CreateNewTask extends Component {
   }
 
   chooseLocation = (event) => {
-    this.setState({chosenLocation: event.target.value})
+    this.setState({
+      chosenLocation: event.target.value,
+      errorLocation: null
+    })
   }
 
   taskText = (event) => {
@@ -53,7 +58,9 @@ class CreateNewTask extends Component {
   }
 
   choosePriority = (event) => {
-    this.setState({taskPriority: event.target.value})
+    this.setState({
+      taskPriority: event.target.value
+    })
   }
 
   chooseExecutor = (event) => {
@@ -64,7 +71,10 @@ class CreateNewTask extends Component {
   }
 
   chooseFrequency = (event) => {
-    this.setState({frequency: event.target.value})
+    this.setState({
+      frequency: event.target.value,
+      errorFrequency: null
+    })
   }
 
   makePhoto = (event) => {
@@ -75,71 +85,52 @@ class CreateNewTask extends Component {
     const {chosenLocation, textForTask, taskPriority, finishDate, executorId, frequency, photo} = this.state
     if (_.isEmpty(chosenLocation)) {
       this.setState({
-        errorText: null,
-        successAdd: null,
-        errorExecutor: null,
-        errorFrequency: null,
         errorLocation: 'Выберите локацию'
       })
-    } else {
-      if (_.isEmpty(executorId)) {
-        this.setState({
-          errorLocation: null,
-          errorText: null,
-          successAdd: null,
-          errorFrequency: null,
-          errorExecutor: 'Выберите отвественного'
-        })
-      } else {
-        if (_.isEmpty(frequency)) {
-          this.setState({
-            errorLocation: null,
-            errorExecutor: null,
-            successAdd: null,
-            errorText: null,
-            errorFrequency: 'Укажите повторяемость'
-          })
-        } else {
-          if (_.isEmpty(textForTask)) {
-            this.setState({
-              errorLocation: null,
-              errorExecutor: null,
-              successAdd: null,
-              errorFrequency: null,
-              errorText: 'Введите текст'
-            })
-          } else {
-            let body = {
-              assignee: this.props.allUsers.find(user => user.id === +executorId),
-              message: textForTask,
-              status: 'OPENED',
-              updated: new Date(),
-              frequency: frequency,
-              expired: finishDate,
-              priority: taskPriority,
-              locations: [this.props.allLocations.find(location => location.id === +chosenLocation)]
-            }
-            let newPhoto = photo
-            console.log(newPhoto)
-            axios({
-              method: 'post',
-              url: `/task`,
-              params: {file: newPhoto},
-              data: body
-            })
-              .then(() => {
-                this.setState({
-                  errorLocation: null,
-                  errorExecutor: null,
-                  errorText: null,
-                  errorFrequency: null,
-                  successAdd: 'Задача добавлена'
-                })
-              })
-              .then(() => { setTimeout(() => this.props.history.push('/'), 1500) })
-          }
-        }
+    }
+    if (_.isEmpty(executorId)) {
+      this.setState({
+        errorExecutor: 'Выберите отвественного'
+      })
+    }
+    if (_.isEmpty(frequency)) {
+      this.setState({
+        errorFrequency: 'Укажите повторяемость'
+      })
+    }
+    if (_.isEmpty(textForTask)) {
+      this.setState({
+        errorText: 'Введите текст'
+      })
+    }
+    if (!_.isEmpty(textForTask) && !_.isEmpty(frequency) && !_.isEmpty(executorId) && !_.isEmpty(chosenLocation)) {
+      let body = {
+        assignee: this.props.allUsers.find(user => user.id === +executorId),
+        message: textForTask,
+        status: 'OPENED',
+        updated: new Date(),
+        frequency: frequency,
+        expired: finishDate,
+        priority: taskPriority,
+        locations: [this.props.allLocations.find(location => location.id === +chosenLocation)]
       }
+      let formData = new FormData()
+      formData.append('task', JSON.stringify(body))
+      if (photo) {
+        formData.append('file', photo)
+      }
+      axios({
+        method: 'post',
+        url: `/task`,
+        data: formData
+      })
+        .then((response) => this.props.addTask(response.data))
+        .then(() => {
+          this.setState({
+            successAdd: 'Задача добавлена'
+          })
+        })
+        .then(() => { setTimeout(() => this.props.history.push('/tasks'), 1500) })
     }
   }
 
@@ -151,10 +142,12 @@ class CreateNewTask extends Component {
         <Fragment>
           <div className="container createTask">
             <select
+              name='locationsList'
               defaultValue='locationChoice'
               id='location'
               onChange={this.chooseLocation}>
-              <option value="locationChoice"
+              <option
+                value="locationChoice"
                 disabled
                 hidden>
                 Локация
@@ -171,11 +164,14 @@ class CreateNewTask extends Component {
                 )
               })}
             </select>
+            {this.state.errorLocation &&
+            <label className='task_errors' htmlFor='locationsList'>{this.state.errorLocation}</label>}
             <select
               defaultValue='0'
               id="priority"
               onChange={this.choosePriority}>
-              <option value="0"
+              <option
+                value="0"
                 disabled
                 hidden>
                 приоритет
@@ -191,6 +187,7 @@ class CreateNewTask extends Component {
               onChange={this.handleChange}
             />
             <select
+              name='executors'
               defaultValue='test'
               id='forThatUser'
               required={true}
@@ -210,7 +207,10 @@ class CreateNewTask extends Component {
                 )
               })}
             </select>
+            {this.state.errorExecutor &&
+            <label className='task_errors' htmlFor='executors'>{this.state.errorExecutor}</label>}
             <select
+              name='frequencies'
               defaultValue='frequencyChoice'
               id='frequency'
               onChange={this.chooseFrequency}
@@ -231,6 +231,8 @@ class CreateNewTask extends Component {
                 )
               })}
             </select>
+            {this.state.errorFrequency &&
+            <label className='task_errors' htmlFor='frequencies'>{this.state.errorFrequency}</label>}
             <textarea
               name="task"
               id="task"
@@ -240,6 +242,7 @@ class CreateNewTask extends Component {
               onChange={this.taskText}>
               {this.state.textForTask}
             </textarea>
+            {this.state.errorText && <label className='task_errors' htmlFor='task'>{this.state.errorText}</label>}
             <input
               type="file"
               name="audio"
@@ -249,10 +252,6 @@ class CreateNewTask extends Component {
             <button
               onClick={this.createTask}>Создать
             </button>
-            {this.state.errorExecutor && <h3>{this.state.errorExecutor}</h3>}
-            {this.state.errorLocation && <h3>{this.state.errorLocation}</h3>}
-            {this.state.errorText && <h3>{this.state.errorText}</h3>}
-            {this.state.errorFrequency && <h3>{this.state.errorFrequency}</h3>}
             {this.state.successAdd && <h3>{this.state.successAdd}</h3>}
           </div>
         </Fragment>
@@ -274,4 +273,12 @@ const mapStateToProps = ({startData}) => {
   }
 }
 
-export default connect(mapStateToProps)(CreateNewTask)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTask: (data) => {
+      dispatch(addNewTask(data))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewTask)
