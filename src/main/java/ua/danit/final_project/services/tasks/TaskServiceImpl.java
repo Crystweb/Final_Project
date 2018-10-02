@@ -3,6 +3,7 @@ package ua.danit.final_project.services.tasks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ua.danit.final_project.configuration.SessionAware;
 import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.entities.Task;
 import ua.danit.final_project.repositories.TaskRepository;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class TaskServiceImpl implements TaskService {
+public class TaskServiceImpl extends SessionAware implements TaskService {
 
   private final TaskRepository taskRepository;
   private final StorageService storageService;
@@ -31,6 +32,8 @@ public class TaskServiceImpl implements TaskService {
 
   @Override
   public Task create(Task task, MultipartFile file) throws IOException {
+    task.setDelegator(getCurrentUser());
+
     if (task.getStatus() == null) {
       task.setStatus(Task.TaskStatus.OPENED);
     }

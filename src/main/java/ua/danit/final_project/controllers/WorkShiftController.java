@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ua.danit.final_project.configuration.StaticCollection;
+import ua.danit.final_project.configuration.SessionAware;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.dto.ShiftCommentDto;
 import ua.danit.final_project.entities.ShiftComment;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/workshift")
-public class WorkShiftController {
+public class WorkShiftController extends SessionAware {
 
   private final WorkCommentService workCommentService;
 
@@ -42,14 +42,14 @@ public class WorkShiftController {
 
   @PostMapping("/comment")
   public ResponseEntity<ShiftCommentDto> createCommentDto(@RequestBody ShiftCommentDto shiftCommentDto) {
-    User userFromToken = StaticCollection.getUser();
+    User userFromToken = getCurrentUser();
     ShiftComment shiftComment = new ShiftComment();
 
 
     shiftComment.setMessage(shiftCommentDto.getText());
     shiftComment.setUser(userFromToken);
     shiftComment.setDate(shiftCommentDto.getDate());
-    shiftComment.setUser(StaticCollection.getUser());
+    shiftComment.setUser(getCurrentUser());
     shiftComment.setPositions(workCommentService.getPositionByTitleIn(shiftCommentDto.getPositions()));
 
     workCommentService.addComment(shiftComment);
@@ -59,7 +59,7 @@ public class WorkShiftController {
 
   @PutMapping("/comment")
   public ResponseEntity<ShiftComment> updateComment(@RequestBody ShiftCommentDto shiftCommentDto) {
-    User userFromToken = StaticCollection.getUser();
+    User userFromToken = getCurrentUser();
 
     ShiftComment shiftComment = new ShiftComment();
 
@@ -78,7 +78,7 @@ public class WorkShiftController {
 
   @DeleteMapping("/comment/{id}")
   public ResponseEntity<ShiftComment> deleteComment(@PathVariable("id") ShiftComment shiftComment) {
-    User userFromToken = StaticCollection.getUser();
+    User userFromToken = getCurrentUser();
 
     try {
       workCommentService.deleteComment(shiftComment, userFromToken);

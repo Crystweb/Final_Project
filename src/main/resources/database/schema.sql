@@ -121,8 +121,10 @@ CREATE TABLE IF NOT EXISTS `location` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `l_title` VARCHAR(50) NOT NULL,
   `l_info` VARCHAR(127),
+  `parent_location` BIGINT,
   CONSTRAINT `l_title_info` UNIQUE (`l_title`, `l_info`),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`parent_location`) REFERENCES `location` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `task` (
