@@ -6,7 +6,6 @@ import org.mapstruct.ReportingPolicy;
 import ua.danit.final_project.entities.Location;
 
 @Mapper(componentModel = "spring",
-    uses = MapperHelper.class,
     nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL,
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface DefaultMapper {

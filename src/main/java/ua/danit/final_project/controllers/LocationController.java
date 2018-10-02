@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.danit.final_project.dto.DefaultMapper;
 import ua.danit.final_project.dto.LocationDto;
-import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.services.crud.LocationService;
 
 import java.util.List;
