@@ -35,7 +35,7 @@ public class TaskComment implements Serializable {
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id", nullable = false)
-  private User user;
+  private Employee user;
 
   @Column(name = "c_message", nullable = false)
   private String message;

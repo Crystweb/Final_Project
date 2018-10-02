@@ -1,55 +1,34 @@
 package ua.danit.final_project.dto;
 
+import org.mapstruct.AfterMapping;
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
+import ua.danit.final_project.entities.Employee;
+import ua.danit.final_project.entities.Task;
+import ua.danit.final_project.entities.TaskImage;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class MapperHelper {
-  private final ContentRepository contentRepository;
-  private final S3ObjectService s3ObjectService;
 
-  @Value("${contentDelivery.baseUrl}")
-  private String contentDeliveryBaseUrl;
+  @AfterMapping
+  public void mapUserId(Employee employee, @MappingTarget EmployeeDto employeeDto) {
+    final Long userId = employee.hasUser()
+        ? employee.getUser().getId()
+        : null;
 
-  @Value("${contentDelivery.publicS3Link:false}")
-  private boolean isReturnPublicS3Link;
-
-  @Autowired
-  public MapperHelper(@NonNull ContentRepository contentRepository,
-                      @NonNull S3ObjectService s3ObjectService) {
-    this.contentRepository = contentRepository;
-    this.s3ObjectService = s3ObjectService;
+    employeeDto.setUserId(userId);
   }
 
   @AfterMapping
-  public void mapLink(AssetV1 asset, @MappingTarget AssetResponseV1 response) {
-    final String link = isReturnPublicS3Link
-        ? s3ObjectService.generateUrl(asset.getData().getObjectKey()).toString()
-        : String.format(ASSET_V1_DOWNLOAD_FORMAT, contentDeliveryBaseUrl, asset.getId());
-
-    response.setLink(link);
-  }
-
-  @AfterMapping
-  public void mapUrl(FileMetadata fileMetadata, @MappingTarget FileMetadataResponse fileMetadataResponse) {
-    final String url = isReturnPublicS3Link
-        ? s3ObjectService.generateUrl(fileMetadata.getObjectKey()).toString()
-        : String.format(ASSET_V2_DOWNLOAD_FORMAT, contentDeliveryBaseUrl, fileMetadata.getObjectKey());
-
-    fileMetadataResponse.setUrl(url);
-  }
-
-  @AfterMapping
-  public void addRelatedPublications(Publication publication,
-                                     @MappingTarget PublicationResponse response,
-                                     @Context MappingContext context) {
-    if (Utils.isNotEmpty(publication.getLibraryIds())) {
-      response.setRelatedPublications(publication.getLibraryIds().stream()
-          .map(context.getRelatedPublications()::get)
-          .flatMap(Collection::stream)
-          .distinct()
-          .filter(p -> !p.getId().equals(publication.getId())
-              && Objects.equals(p.getState(), publication.getState().getCurrentState().asString()))
-          .collect(Collectors.toList()));
-    }
+  public void mapImageLinks(Task task, @MappingTarget TaskDto taskDto) {
+    List<TaskImage> images = task.getImages();
+    taskDto.setImageLinks(images
+        .stream()
+        .map(TaskImage::getUrl)
+        .collect(Collectors.toList())
+    );
   }
 }

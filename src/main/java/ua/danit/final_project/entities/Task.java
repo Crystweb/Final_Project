@@ -40,13 +40,13 @@ public class Task implements Serializable {
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id_assignee")
-  private User assignee;
+  private Employee assignee;
 
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinColumn(name = "u_id_delegator", nullable = false)
-  private User delegator;
+  private Employee delegator;
 
   @Column(name = "t_message")
   private String message;
@@ -63,7 +63,7 @@ public class Task implements Serializable {
   private Date expired;
 
   @Column(name = "updated")
-  private Timestamp updated;
+  private Date updated;
 
   @Column
   private Integer priority;
