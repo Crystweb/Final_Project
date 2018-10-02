@@ -11,6 +11,8 @@ import ua.danit.final_project.entities.ShiftComment;
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface DefaultMapper {
 
+  LocationDto locationToLocationDto(Location location);
+
   ShiftCommentDto shiftCommentToShiftCommentDto(ShiftComment shiftComment);
 
   ShiftComment shiftCommentDtoToShiftComment(ShiftCommentDto shiftCommentDto);
