@@ -61,10 +61,12 @@ public class MapperHelper {
   @AfterMapping
   public void mapImageLinks(Task task, @MappingTarget TaskDto taskDto) {
     List<TaskImage> images = task.getImages();
-    taskDto.setImageLinks(images
-        .stream()
-        .map(TaskImage::getUrl)
-        .collect(Collectors.toList())
-    );
+    if (images != null) {
+      taskDto.setImageLinks(images
+          .stream()
+          .map(TaskImage::getUrl)
+          .collect(Collectors.toList())
+      );
+    }
   }
 }
