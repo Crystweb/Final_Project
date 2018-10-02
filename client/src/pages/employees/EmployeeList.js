@@ -61,7 +61,7 @@ class EmployeeList extends Component {
                                         <div className='info_box'>
                                             <h4>{employee.forename}&nbsp;
                                                 {employee.surname}&nbsp;
-                                                {employee.patronymic},&nbsp;
+                                                {employee.patronymic}&nbsp;
                                             </h4>
 
                                             <h4>{employee.position} </h4>
