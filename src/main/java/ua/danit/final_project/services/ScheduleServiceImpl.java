@@ -38,7 +38,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     newSchedule.setStart(schedule.getStart());
     newSchedule.setEnd(schedule.getEnd());
     newSchedule.setCreatedDate(schedule.getCreatedDate());
-    return scheduleRepository.save(schedule);
+    return scheduleRepository.save(newSchedule);
   }
 
   @Override
