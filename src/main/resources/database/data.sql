@@ -231,6 +231,23 @@ INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 614', 9);
 INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 615', 9);
 INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 616', 9);
 
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 1', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 2', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 3', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 4', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 5', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 6', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 7', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 8', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 9', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 10', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 11', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 12', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 13', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 14', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 15', 5);
+INSERT INTO `location` (l_title, parent_location) VALUES ('Номер 16', 5);
+
 INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (1, 2, 'clean rooms', @OPENED, 2, 'DAILY', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 1, CURRENT_TIMESTAMP));
 INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (5, 2, 'call taxi', @OPENED, 3, 'WEEKLY', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 2, CURRENT_TIMESTAMP));
 INSERT INTO `task` (u_id_assignee, u_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (3, 3, 'look in the window', @CLOSED, 1, 'MONTHLY', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 1, CURRENT_TIMESTAMP));
