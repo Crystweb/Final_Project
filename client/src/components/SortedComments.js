@@ -73,13 +73,9 @@ class PositionButtons extends Component {
         let areCommentsMustbeInsideSchedule = false;
         let arrayOfReadyComments = [];
         
-        if (typeof currentSchedule !== 'undefined' && currentSchedule !== null) {
-
+        if (typeof currentSchedule !== 'undefined' && currentSchedule !== null && arrayOfReadyComments !== null) {
 
             while (arrayOfSchedules.length >= 0) {
-                if (arrayOfReadyComments === null) {
-                    return
-                }
 
                 if (!areCommentsMustbeInsideSchedule) {
                     arrayOfReadyComments.push(
@@ -87,7 +83,14 @@ class PositionButtons extends Component {
                             <h2 className="schedule-elem__title">Без смены</h2>
                             <ul className="comment-list">
                                 {comments
-                                    .filter(comment => comment.authorPosition === this.state.view)
+                                    .filter(comment => {
+                                        for (let i = 0; i < comment.positions.length; i++) {
+                                            if (comment.positions[i] === this.state.view)  {
+                                                return true;
+                                            }
+                                        }
+                                        return false;
+                                    })
                                     .filter(comment => {
                                         let commentStartHours = new Date(comment.date).getHours();
 
@@ -106,10 +109,10 @@ class PositionButtons extends Component {
                                                 buttons = (
                                                     <div className="comment-list__elem-buttons">
                                                         <a className="comment-list__elem-buttons-change" href="#">
-                                                            <img src="#" alt="#"/>
+                                                            <img src={update} alt="#"/>
                                                         </a>
                                                         <a className="comment-list__elem-buttons-delete" href="#">
-                                                            <img src="#" alt="#"/>
+                                                            <img src={trash} alt="#"/>
                                                         </a>
                                                     </div>)
                                             }
@@ -150,7 +153,14 @@ class PositionButtons extends Component {
                                 с {currentSchedule.start} до {currentSchedule.end}</h2>
                             <ul className="comment-list">
                                 {comments
-                                    .filter(comment => comment.authorPosition === this.state.view)
+                                    .filter(comment => {
+                                        for (let i = 0; i < comment.positions.length; i++) {
+                                            if (comment.positions[i] === this.state.view)  {
+                                                return true;
+                                            }
+                                        }
+                                        return false;
+                                    })
                                     .filter(comment => {
                                         let commentStartHours = new Date(comment.date).getHours();
 
@@ -168,10 +178,10 @@ class PositionButtons extends Component {
                                             buttons = (
                                                 <div className="comment-list__elem-buttons">
                                                     <a className="comment-list__elem-buttons-change" href="#">
-                                                        <img src="#" alt="#"/>
+                                                        <img src={update} alt="#"/>
                                                     </a>
                                                     <a className="comment-list__elem-buttons-delete" href="#">
-                                                        <img src="#" alt="#"/>
+                                                        <img src={trash} alt="#"/>
                                                     </a>
                                                 </div>)
                                         }
@@ -218,7 +228,14 @@ class PositionButtons extends Component {
                     <h2 className="schedule-elem__title">Без смены</h2>
                     <ul className="comment-list">
                         {comments
-                            .filter(comment => comment.authorPosition === this.state.view)
+                            .filter(comment => {
+                                for (let i = 0; i < comment.positions.length; i++) {
+                                    if (comment.positions[i] === this.state.view)  {
+                                        return true;
+                                    }
+                                }
+                                return false;
+                            })
                             .filter(comment => {
                                 let commentStartHours = new Date(comment.date).getHours();
 
@@ -237,10 +254,10 @@ class PositionButtons extends Component {
                                     buttons = (
                                         <div className="comment-list__elem-buttons">
                                             <a className="comment-list__elem-buttons-change" href="#">
-                                                <img src="#" alt="#"/>
+                                                <img src={update} alt="#"/>
                                             </a>
                                             <a className="comment-list__elem-buttons-delete" href="#">
-                                                <img src="#" alt="#"/>
+                                                <img src={trash} alt="#"/>
                                             </a>
                                         </div>)
                                 }
@@ -269,12 +286,14 @@ class PositionButtons extends Component {
                     </ul>
                 </div>
             );
-
         } else {
+            arrayOfReadyComments = [];
             arrayOfReadyComments.push(
                 <h1>None</h1>
             )
         }
+
+        console.log(comments)
 
 
 
@@ -293,7 +312,7 @@ class PositionButtons extends Component {
             timelineEvents.push(
                 <TimelineEvent createdAt={`${i}:00`} key={i} title='' iconColor={shift && shift.color}>
                     {comments
-                        .filter(comment => comment.authorPosition === this.state.view)
+                        .filter(comment => comment.authorPosition === this.state.view) // need another algorithm
                         .filter(comment => new Date(comment.date).getHours() === i)
                         .map(comment => {
                             const showActionButtons = comment.authorId === this.state.userId
@@ -360,11 +379,11 @@ class PositionButtons extends Component {
                         </nav>
                     </div>
                 </div>
-                <Timeline>
+
                     <div className="positionComments">
                         {arrayOfReadyComments}
                     </div>
-                </Timeline>
+
             </section>
         )
     }
