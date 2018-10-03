@@ -33,7 +33,6 @@ class VacanciesPage extends Component {
   componentWillMount() {
     const {GetAllVacancies} = this.props
     let data = this.props.vacancies
-
     GetAllVacancies()
     this.setState({vacancies: data})
   }
