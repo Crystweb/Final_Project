@@ -35,11 +35,12 @@ public class S3StorageService implements StorageService {
 
 
   @Override
-  public String storeFile(@NotNull MultipartFile file, Task task) throws IOException {
+  public TaskImage storeTaskImage(@NotNull MultipartFile file, Task task) throws IOException {
 
     AmazonS3 s3 = storageProperties.getAmazonS3();
 
     String key = "taskPhotos/" + UUID.randomUUID();
+    key += getOriginalFileExtension(file);
     InputStream is = file.getInputStream();
     s3.putObject(new PutObjectRequest(bucket, key, is, new ObjectMetadata())
         .withCannedAcl(CannedAccessControlList.PublicRead));
@@ -51,8 +52,20 @@ public class S3StorageService implements StorageService {
     img.setAwsKey(key);
     img.setTask(task);
 
-    taskImageRepository.save(img);
+    return taskImageRepository.save(img);
+  }
 
-    return url;
+  private String getOriginalFileExtension(@NotNull MultipartFile file) {
+    String originalFilename = file.getOriginalFilename();
+    String extension = null;
+
+    if (originalFilename != null) {
+      String[] nameParts = originalFilename.split("\\.");
+
+      extension = nameParts.length > 1
+          ? "." + nameParts[nameParts.length - 1]
+          : null;
+    }
+    return extension;
   }
 }

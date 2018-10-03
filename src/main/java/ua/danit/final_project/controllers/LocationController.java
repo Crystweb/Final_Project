@@ -32,4 +32,12 @@ public class LocationController {
         .map(mapper::locationToLocationDto)
         .collect(Collectors.toList());
   }
+
+  @GetMapping("/main")
+  public List<LocationDto> getMainLocations() {
+    return locationService.getMainLocations()
+        .stream()
+        .map(mapper::locationToLocationDto)
+        .collect(Collectors.toList());
+  }
 }

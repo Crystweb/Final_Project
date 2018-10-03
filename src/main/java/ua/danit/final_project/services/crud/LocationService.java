@@ -13,4 +13,6 @@ public interface LocationService {
   Location save(Location location);
 
   void deleteById(Long id);
+
+  List<Location> getMainLocations();
 }

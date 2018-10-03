@@ -37,4 +37,9 @@ public class LocationServiceImpl implements LocationService {
   public void deleteById(Long id) {
     locationRepository.deleteById(id);
   }
+
+  @Override
+  public List<Location> getMainLocations() {
+    return locationRepository.findLocationsWithoutParent();
+  }
 }
