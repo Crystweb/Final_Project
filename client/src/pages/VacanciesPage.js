@@ -1,6 +1,4 @@
 import React, {Component, Fragment} from 'react'
-import Modal from 'react-responsive-modal'
-import axios from 'axios'
 import '../styles/VacanciesPage.css'
 import {connect} from 'react-redux'
 import {getAllVacancies} from '../actions/actions'
@@ -20,28 +18,6 @@ import routes from "../constants/routes";
 import {Link} from "react-router-dom";
 
 class VacanciesPage extends Component {
-  onOpenModal = () => {
-    this.setState({open: true})
-  }
-
-  onCloseModal = () => {
-    this.setState({open: false})
-  }
-
-  handleSubmit = event => {
-    event.preventDefault()
-    axios({
-      url: '/vacancy',
-      method: 'POST',
-      data: {
-        positionId: this.state.position,
-        info: this.state.info,
-        salary: this.state.salary
-      }
-    })
-      .then((response) => this.setState({open: false, resData: response.data}))
-      .then(() => this.props.GetAllVacancies())
-  }
 
   constructor(props) {
     super(props)
@@ -49,16 +25,9 @@ class VacanciesPage extends Component {
       position: this.props.positions[0].id,
       salary: '',
       info: '',
-      open: false,
       data: [],
-      newVac: {},
-      showClosed: false,
-      vacancies: {}
+      showClosedVacancies: false,
     }
-
-    this.handlePositionChange = this.handlePositionChange.bind(this)
-    this.handleSalaryChange = this.handleSalaryChange.bind(this)
-    this.handleInfoChange = this.handleInfoChange.bind(this)
   }
 
   componentWillMount() {
@@ -69,40 +38,16 @@ class VacanciesPage extends Component {
     this.setState({vacancies: data})
   }
 
-  componentDidMount() {
-    const {GetAllVacancies} = this.props
-    let data = this.props.vacancies
-
-    GetAllVacancies()
-    this.setState({vacancies: data})
-  }
-
-  handlePositionChange(event) {
-    event.preventDefault()
-    this.setState({position: event.target.value})
-  }
-
-  handleSalaryChange(event) {
-    event.preventDefault()
-    this.setState({salary: event.target.value})
-  }
-
-  handleInfoChange(event) {
-    event.preventDefault()
-    this.setState({info: event.target.value})
-  }
-
   render() {
-    const {data, showClosed} = this.state
+    const {data, showClosedVacancies} = this.state
     const {vacancies, classes, positions} = this.props
     let toFilterVacancies = vacancies
-    const {open} = this.state
 
     if (!data) {
       return <Preloader/>
     }
 
-    if (!showClosed) {
+    if (!showClosedVacancies) {
       toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'OPENED')
     } else { toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'CLOSED') }
 
@@ -111,14 +56,14 @@ class VacanciesPage extends Component {
         <Card className={classes.Controls} id="button" elevation={0}>
           <div className={classes.ControlsContainer}>
             <RadioGroup
-              name="showClosed"
-              aria-label={this.state.showClosed}
-              value={toString(this.state.showClosed)}>
-              <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton}
+              name="showClosedVacancies"
+              aria-label={this.state.showClosedVacancies}
+              value={toString(this.state.showClosedVacancies)}>
+              <Paper onClick={() => this.setState({showClosedVacancies: !showClosedVacancies})} className={classes.radioButton}
                      elevation={0}>
                 <Radio className={classes.radioButtonInner}
-                       checked={!this.state.showClosed}
-                       onChange={() => this.setState({showClosed: !showClosed})}
+                       checked={!this.state.showClosedVacancies}
+                       onChange={() => this.setState({showClosedVacancies: !showClosedVacancies})}
                        value="d"
                        color="default"
                        name="radio-button-demo"
@@ -127,10 +72,10 @@ class VacanciesPage extends Component {
                 </Radio>
                 <Typography variant={'caption'}>открытые вакансии</Typography>
               </Paper>
-              <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton} elevation={0}>
+              <Paper onClick={() => this.setState({showClosedVacancies: !showClosedVacancies})} className={classes.radioButton} elevation={0}>
                 <Radio className={classes.radioButtonInner}
-                  checked={this.state.showClosed}
-                  onChange={() => this.setState({showClosed: !showClosed})}
+                  checked={this.state.showClosedVacancies}
+                  onChange={() => this.setState({showClosedVacancies: !showClosedVacancies})}
                   value="d"
                   color="default"
                   name="radio-button-demo"
@@ -140,35 +85,14 @@ class VacanciesPage extends Component {
                 <Typography variant={'caption'}>закрытые вакансии</Typography>
               </Paper>
             </RadioGroup>
-            <IconButton onClick={this.onOpenModal} color="default" className={classes.button}
+            <IconButton color="default" className={classes.button}
               aria-label="Добавить Вакансию">
-              <AddIcon fontSize="large"/>
+              <Link to={routes.updateVacancy.href}>
+                <AddIcon fontSize="large"/>
+              </Link>
             </IconButton>
           </div>
         </Card>
-        <Modal open={open}
-          onClose={this.onCloseModal}
-          center
-          closeOnOverlayClick={true}>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Название должности:
-              <select onChange={this.handlePositionChange}>
-                {positions.map(position =>
-                  <option name={'position'} key={position.id} value={position.id}>
-                    {position.title}
-                  </option>)}
-              </select>
-              Зарплата:
-              <input type="text" name={'salary'} value={this.state.salary}
-                onChange={this.handleSalaryChange}/>
-              <br/>
-              <textarea placeholder={'Введите Ваш коментарий'} name={'info'} value={this.state.info}
-                onChange={this.handleInfoChange}/>
-            </label>
-            <input type="submit" value="Добавить"/>
-          </form>
-        </Modal>
         <div className={classes.vacancyList}>
           <div className={classes.lineContainer}/>
           <List className={classes.vacancyListInner}>
