@@ -32,7 +32,7 @@ public class TaskServiceImpl extends SessionAware implements TaskService {
 
   @Override
   public Task create(Task task, MultipartFile file) throws IOException {
-    task.setDelegator(getCurrentUser());
+    task.setDelegator(getEmployee());
 
     if (task.getStatus() == null) {
       task.setStatus(Task.TaskStatus.OPENED);

@@ -5,7 +5,6 @@ import '../styles/VacanciesPage.css'
 import {connect} from 'react-redux'
 import {getAllVacancies} from '../actions/actions'
 import Preloader from '../components/Preloader'
-
 import {withStyles} from '@material-ui/core/styles'
 import Radio from '@material-ui/core/Radio'
 import Typography from '@material-ui/core/Typography/Typography'
@@ -21,7 +20,6 @@ import routes from "../constants/routes";
 import {Link} from "react-router-dom";
 
 class VacanciesPage extends Component {
-
   onOpenModal = () => {
     this.setState({open: true})
   }
@@ -98,7 +96,7 @@ class VacanciesPage extends Component {
     const {data, showClosed} = this.state
     const {vacancies, classes, positions} = this.props
     let toFilterVacancies = vacancies
-    const {open,} = this.state
+    const {open} = this.state
 
     if (!data) {
       return <Preloader/>
@@ -106,9 +104,7 @@ class VacanciesPage extends Component {
 
     if (!showClosed) {
       toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'OPENED')
-    } else {
-      toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'CLOSED')
-    }
+    } else { toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'CLOSED') }
 
     return (
       <Fragment>
@@ -131,30 +127,29 @@ class VacanciesPage extends Component {
                 </Radio>
                 <Typography variant={'caption'}>открытые вакансии</Typography>
               </Paper>
-              <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton}
-                     elevation={0}>
+              <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton} elevation={0}>
                 <Radio className={classes.radioButtonInner}
-                       checked={this.state.showClosed}
-                       onChange={() => this.setState({showClosed: !showClosed})}
-                       value="d"
-                       color="default"
-                       name="radio-button-demo"
-                       fontSize="small"
-                       aria-label="Закрытые вакансии">
+                  checked={this.state.showClosed}
+                  onChange={() => this.setState({showClosed: !showClosed})}
+                  value="d"
+                  color="default"
+                  name="radio-button-demo"
+                  fontSize="small"
+                  aria-label="Закрытые вакансии">
                 </Radio>
                 <Typography variant={'caption'}>закрытые вакансии</Typography>
               </Paper>
             </RadioGroup>
             <IconButton onClick={this.onOpenModal} color="default" className={classes.button}
-                        aria-label="Добавить Вакансию">
+              aria-label="Добавить Вакансию">
               <AddIcon fontSize="large"/>
             </IconButton>
           </div>
         </Card>
         <Modal open={open}
-               onClose={this.onCloseModal}
-               center
-               closeOnOverlayClick={true}>
+          onClose={this.onCloseModal}
+          center
+          closeOnOverlayClick={true}>
           <form onSubmit={this.handleSubmit}>
             <label>
               Название должности:
@@ -166,10 +161,10 @@ class VacanciesPage extends Component {
               </select>
               Зарплата:
               <input type="text" name={'salary'} value={this.state.salary}
-                     onChange={this.handleSalaryChange}/>
+                onChange={this.handleSalaryChange}/>
               <br/>
               <textarea placeholder={'Введите Ваш коментарий'} name={'info'} value={this.state.info}
-                        onChange={this.handleInfoChange}/>
+                onChange={this.handleInfoChange}/>
             </label>
             <input type="submit" value="Добавить"/>
           </form>
