@@ -23,6 +23,7 @@ import javax.persistence.Table;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -77,7 +78,7 @@ public class Task implements Serializable {
   private List<Location> locations;
 
   @OneToMany(mappedBy = "task")
-  private List<TaskImage> images;
+  private List<TaskImage> images = new LinkedList<>();
 
   @EqualsAndHashCode.Exclude
   @ToString.Exclude

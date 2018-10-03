@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.danit.final_project.configuration.SessionAware;
 import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.entities.Task;
+import ua.danit.final_project.entities.TaskImage;
 import ua.danit.final_project.repositories.TaskRepository;
 import ua.danit.final_project.services.storage.StorageService;
 
@@ -40,7 +41,8 @@ public class TaskServiceImpl extends SessionAware implements TaskService {
     task = taskRepository.save(task);
 
     if (file != null) {
-      storageService.storeFile(file, task);
+      TaskImage img = storageService.storeTaskImage(file, task);
+      task.getImages().add(img);
     }
 
     return task;
