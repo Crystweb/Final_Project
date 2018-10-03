@@ -54,10 +54,9 @@ class PositionButtons extends Component {
             })
 
         let arrayOfSchedules = [];
-        let copyOfSchedules = Object.assign({}, schedulesWithColors);
 
-        for (let key in copyOfSchedules) {
-            arrayOfSchedules.push(copyOfSchedules[key]);
+        for (let key in schedulesWithColors) {
+            arrayOfSchedules.push(schedulesWithColors[key]);
         }
 
         arrayOfSchedules.map(item => {
@@ -66,42 +65,125 @@ class PositionButtons extends Component {
 
             item.start = parseInt(stringNumberStart);
             item.end = parseInt(stringNumberEnd);
-        }).sort( (item1, item2) => item2.start - item1.start);
+        }).sort( (item1, item2) => item1.start - item2.start);
 
         let currentSchedule = arrayOfSchedules.pop();
         let startTime = 0;
         let areCommentsMustbeInsideSchedule = false;
         let arrayOfReadyComments = [];
+        let colorForCommentsWithoutSchedule = "#c7c8ca";
         
-        if (typeof currentSchedule !== 'undefined' && currentSchedule !== null && arrayOfReadyComments !== null) {
+        if (typeof currentSchedule !== 'undefined' && currentSchedule !== null && arrayOfReadyComments !== null && arrayOfReadyComments.length <= 0) {
 
             while (arrayOfSchedules.length >= 0) {
 
                 if (!areCommentsMustbeInsideSchedule) {
-                    arrayOfReadyComments.push(
-                        <div className="schedule-elem">
-                            <h2 className="schedule-elem__title">Без смены</h2>
-                            <ul className="comment-list">
-                                {comments
-                                    .filter(comment => {
-                                        for (let i = 0; i < comment.positions.length; i++) {
-                                            if (comment.positions[i] === this.state.view)  {
-                                                return true;
+
+                    let sortedComments = comments
+                        .filter(comment => {
+                            for (let i = 0; i < comment.positions.length; i++) {
+                                if (comment.positions[i] === this.state.view) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        })
+                        .filter(comment => {
+                            let commentStartHours = new Date(comment.date).getHours();
+
+                            return commentStartHours >= startTime && commentStartHours < currentSchedule.start
+
+                        }).sort((comment1, comment2) => {
+                            let comment1StartHours = new Date(comment1.date).getHours();
+                            let comment2StartHours = new Date(comment2.date).getHours();
+
+                            return comment1StartHours - comment2StartHours;
+                        });
+
+                    if (sortedComments.length > 0) {
+                        arrayOfReadyComments.push(
+                            <div className="schedule-elem">
+                                <h2 className="schedule-elem__title">Без смены</h2>
+                                <ul className="comment-list">
+                                    {sortedComments
+                                        .map(comment => {
+                                                const showActionButtons = comment.authorId === this.state.userId;
+                                                let buttons = "";
+
+                                                if (showActionButtons) {
+                                                    buttons = (
+                                                        <div className="comment-list__elem-buttons">
+                                                            <a className="comment-list__elem-buttons-change" href="#">
+                                                                <img src={update} alt="#"/>
+                                                            </a>
+                                                            <a className="comment-list__elem-buttons-delete" href="#">
+                                                                <img src={trash} alt="#"/>
+                                                            </a>
+                                                        </div>)
+                                                }
+
+
+                                                return (
+                                                    <li className="comment-list__elem">
+                                                        <h3 className="comment-list__elem-title">
+                                                            {comment.forename} {comment.surname}, {comment.authorPosition}
+                                                        </h3>
+                                                        <div className="comment-list__elem-point">
+                                                            <div className="comment-list__elem-line"></div>
+                                                            <div className="point-big" style={{backgroundColor: colorForCommentsWithoutSchedule}}>
+                                                                <div className="point-small"></div>
+                                                            </div>
+                                                        </div>
+                                                        <h4 className="comment-list__elem-subtitle">
+                                                            {new Date(parseInt(comment.date)).getHours()}
+                                                        </h4>
+                                                        <p className="comment-list__elem-info">
+                                                            {comment.text}
+                                                        </p>
+                                                        {buttons}
+                                                    </li>
+                                                )
                                             }
-                                        }
-                                        return false;
-                                    })
-                                    .filter(comment => {
-                                        let commentStartHours = new Date(comment.date).getHours();
+                                        )
 
-                                        return commentStartHours >= startTime && commentStartHours < currentSchedule.start
+                                    }
+                                </ul>
+                            </div>
+                        )
+                    }
+                    areCommentsMustbeInsideSchedule = !areCommentsMustbeInsideSchedule;
+                } else {
 
-                                    }).sort((comment1, comment2) => {
-                                        let comment1StartHours = new Date(comment1.date).getHours();
-                                        let comment2StartHours = new Date(comment2.date).getHours();
+                    let sortedComments = comments
+                        .filter(comment => {
+                            for (let i = 0; i < comment.positions.length; i++) {
+                                if (comment.positions[i] === this.state.view) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        })
+                        .filter(comment => {
+                            let commentStartHours = new Date(comment.date).getHours();
 
-                                        return comment1StartHours - comment2StartHours;
-                                    }).map(comment => {
+                            return commentStartHours >= currentSchedule.start && commentStartHours < currentSchedule.end;
+
+                        }).sort((comment1, comment2) => {
+                            let comment1StartHours = new Date(comment1.date).getHours();
+                            let comment2StartHours = new Date(comment2.date).getHours();
+
+                            return comment1StartHours - comment2StartHours;
+                        });
+
+                    if (sortedComments.length > 0) {
+
+                        arrayOfReadyComments.push(
+                            <div className="schedule-elem">
+                                <h2 className="schedule-elem__title">Смена
+                                    с {currentSchedule.start} до {currentSchedule.end}</h2>
+                                <ul className="comment-list">
+                                    {sortedComments
+                                        .map(comment => {
                                             const showActionButtons = comment.authorId === this.state.userId;
                                             let buttons = "";
 
@@ -117,19 +199,20 @@ class PositionButtons extends Component {
                                                     </div>)
                                             }
 
+                                            let colorSchedule = currentSchedule.color
                                             return (
                                                 <li className="comment-list__elem">
                                                     <h3 className="comment-list__elem-title">
                                                         {comment.forename} {comment.surname}, {comment.authorPosition}
                                                     </h3>
-                                                    <div className="comment-list__elem-point">
+                                                    <div className="comment-list__elem-point" >
                                                         <div className="comment-list__elem-line"></div>
-                                                        <div className="point-big">
+                                                        <div className="point-big" style={{backgroundColor: colorSchedule}}>
                                                             <div className="point-small"></div>
                                                         </div>
                                                     </div>
                                                     <h4 className="comment-list__elem-subtitle">
-                                                        {new Date(parseInt(comment.date)).toDateString()}
+                                                        {new Date(parseInt(comment.date)).getHours()}
                                                     </h4>
                                                     <p className="comment-list__elem-info">
                                                         {comment.text}
@@ -137,155 +220,100 @@ class PositionButtons extends Component {
                                                     {buttons}
                                                 </li>
                                             )
-                                        }
-                                    )
+                                        })
+                                    }
+                                </ul>
+                            </div>
+                        );
 
-                                }
-                            </ul>
-                        </div>
-                    )
-                    areCommentsMustbeInsideSchedule = !areCommentsMustbeInsideSchedule;
-                } else {
+                        areCommentsMustbeInsideSchedule = !areCommentsMustbeInsideSchedule;
+                        startTime = currentSchedule.end;
 
-                    arrayOfReadyComments.push(
-                        <div className="schedule-elem">
-                            <h2 className="schedule-elem__title">Смена
-                                с {currentSchedule.start} до {currentSchedule.end}</h2>
-                            <ul className="comment-list">
-                                {comments
-                                    .filter(comment => {
-                                        for (let i = 0; i < comment.positions.length; i++) {
-                                            if (comment.positions[i] === this.state.view)  {
-                                                return true;
-                                            }
-                                        }
-                                        return false;
-                                    })
-                                    .filter(comment => {
-                                        let commentStartHours = new Date(comment.date).getHours();
+                        if (arrayOfSchedules.length === 0) {
+                            break;
+                        }
 
-                                        return commentStartHours >= currentSchedule.start && commentStartHours < currentSchedule.end;
-                                    }).sort((comment1, comment2) => {
-                                        let comment1StartHours = new Date(comment1.date).getHours();
-                                        let comment2StartHours = new Date(comment2.date).getHours();
+                        currentSchedule = arrayOfSchedules.pop();
+                    } else {
+                        areCommentsMustbeInsideSchedule = !areCommentsMustbeInsideSchedule;
+                        startTime = currentSchedule.end;
 
-                                        return comment1StartHours - comment2StartHours;
-                                    }).map(comment => {
-                                        const showActionButtons = comment.authorId === this.state.userId;
-                                        let buttons = "";
+                        if (arrayOfSchedules.length === 0) {
+                            break;
+                        }
 
-                                        if (showActionButtons) {
-                                            buttons = (
-                                                <div className="comment-list__elem-buttons">
-                                                    <a className="comment-list__elem-buttons-change" href="#">
-                                                        <img src={update} alt="#"/>
-                                                    </a>
-                                                    <a className="comment-list__elem-buttons-delete" href="#">
-                                                        <img src={trash} alt="#"/>
-                                                    </a>
-                                                </div>)
-                                        }
-                                        return (
-                                            <li className="comment-list__elem">
-                                                <h3 className="comment-list__elem-title">
-                                                    {comment.forename} {comment.surname}, {comment.authorPosition}
-                                                </h3>
-                                                <div className="comment-list__elem-point">
-                                                    <div className="comment-list__elem-line"></div>
-                                                    <div className="point-big">
-                                                        <div className="point-small"></div>
-                                                    </div>
-                                                </div>
-                                                <h4 className="comment-list__elem-subtitle">
-                                                    {new Date(parseInt(comment.date)).toDateString()}
-                                                </h4>
-                                                <p className="comment-list__elem-info">
-                                                    {comment.text}
-                                                </p>
-                                                {buttons}
-                                            </li>
-                                        )
-                                    })
-                                }
-                            </ul>
-                        </div>
-                    );
-
-                    areCommentsMustbeInsideSchedule = !areCommentsMustbeInsideSchedule;
-                    startTime = currentSchedule.end;
-
-                    if (arrayOfSchedules.length === 0) {
-                        break;
+                        currentSchedule = arrayOfSchedules.pop();
                     }
-
-                    currentSchedule = arrayOfSchedules.pop();
                 }
             }
 
-            //after while = last comments
-            arrayOfReadyComments.push(
-                <div className="schedule-elem">
-                    <h2 className="schedule-elem__title">Без смены</h2>
-                    <ul className="comment-list">
-                        {comments
-                            .filter(comment => {
-                                for (let i = 0; i < comment.positions.length; i++) {
-                                    if (comment.positions[i] === this.state.view)  {
-                                        return true;
+                //after while = last comments
+            let sortedComments = comments
+                .filter(comment => {
+                    for (let i = 0; i < comment.positions.length; i++) {
+                        if (comment.positions[i] === this.state.view) {
+                            return true;
+                        }
+                    }
+                    return false;
+                })
+                .filter(comment => {
+                    let commentStartHours = new Date(comment.date).getHours();
+
+                    return commentStartHours >= startTime
+
+                })
+                arrayOfReadyComments.push(
+                    <div className="schedule-elem">
+                        <h2 className="schedule-elem__title">Без смены</h2>
+                        <ul className="comment-list">
+                            {sortedComments
+                                .sort((comment1, comment2) => {
+                                    let comment1StartHours = new Date(comment1.date).getHours();
+                                    let comment2StartHours = new Date(comment2.date).getHours();
+
+                                    return comment1StartHours - comment2StartHours;
+                                }).map(comment => {
+                                    const showActionButtons = comment.authorId === this.state.userId;
+                                    let buttons = "";
+
+                                    if (showActionButtons) {
+                                        buttons = (
+                                            <div className="comment-list__elem-buttons">
+                                                <a className="comment-list__elem-buttons-change" href="#">
+                                                    <img src={update} alt="#"/>
+                                                </a>
+                                                <a className="comment-list__elem-buttons-delete" href="#">
+                                                    <img src={trash} alt="#"/>
+                                                </a>
+                                            </div>)
                                     }
-                                }
-                                return false;
-                            })
-                            .filter(comment => {
-                                let commentStartHours = new Date(comment.date).getHours();
 
-                                return commentStartHours >= startTime
-
-                            }).sort((comment1, comment2) => {
-                                let comment1StartHours = new Date(comment1.date).getHours();
-                                let comment2StartHours = new Date(comment2.date).getHours();
-
-                                return comment1StartHours - comment2StartHours;
-                            }).map(comment => {
-                                const showActionButtons = comment.authorId === this.state.userId;
-                                let buttons = "";
-
-                                if (showActionButtons) {
-                                    buttons = (
-                                        <div className="comment-list__elem-buttons">
-                                            <a className="comment-list__elem-buttons-change" href="#">
-                                                <img src={update} alt="#"/>
-                                            </a>
-                                            <a className="comment-list__elem-buttons-delete" href="#">
-                                                <img src={trash} alt="#"/>
-                                            </a>
-                                        </div>)
-                                }
-
-                                return (
-                                    <li className="comment-list__elem">
-                                        <h3 className="comment-list__elem-title">
-                                            {comment.forename} {comment.surname}, {comment.authorPosition}
-                                        </h3>
-                                        <div className="comment-list__elem-point">
-                                            <div className="comment-list__elem-line"></div>
-                                            <div className="point-big">
-                                                <div className="point-small"></div>
+                                    return (
+                                        <li className="comment-list__elem">
+                                            <h3 className="comment-list__elem-title">
+                                                {comment.forename} {comment.surname}, {comment.authorPosition}
+                                            </h3>
+                                            <div className="comment-list__elem-point">
+                                                <div className="comment-list__elem-line"></div>
+                                                <div className="point-big" style={{backgroundColor: colorForCommentsWithoutSchedule}}>
+                                                    <div className="point-small"></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <h4 className="comment-list__elem-subtitle">
-                                            {new Date(parseInt(comment.date)).toDateString()}
-                                        </h4>
-                                        <p className="comment-list__elem-info">
-                                            {comment.text}
-                                        </p>
-                                        {buttons}
-                                    </li>
-                                )
-                            })}
-                    </ul>
-                </div>
-            );
+                                            <h4 className="comment-list__elem-subtitle">
+                                                {new Date(parseInt(comment.date)).getHours()}
+                                            </h4>
+                                            <p className="comment-list__elem-info">
+                                                {comment.text}
+                                            </p>
+                                            {buttons}
+                                        </li>
+                                    )
+                                })}
+                        </ul>
+                    </div>
+                );
+
         } else {
             arrayOfReadyComments = [];
             arrayOfReadyComments.push(
@@ -293,7 +321,6 @@ class PositionButtons extends Component {
             )
         }
 
-        console.log(comments)
 
 
 
