@@ -6,7 +6,7 @@ import shift from '../reducers/comments'
 import shiftHistorySelectedDate from '../reducers/shiftHistorySelectedDate'
 import user from '../reducers/startData'
 import tasks from '../reducers/tasks'
-import vacanciesReducer from "../reducers/vacanciesReducer";
+import vacanciesReducer from '../reducers/vacanciesReducer'
 
 const reducers = {
   comments: shift,

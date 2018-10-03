@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "task_comment")
@@ -34,12 +34,12 @@ public class TaskComment implements Serializable {
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "u_id", nullable = false)
-  private User user;
+  @JoinColumn(name = "e_id", nullable = false)
+  private Employee author;
 
   @Column(name = "c_message", nullable = false)
   private String message;
 
   @Column(name = "c_date", nullable = false)
-  private Timestamp date;
+  private Date date;
 }

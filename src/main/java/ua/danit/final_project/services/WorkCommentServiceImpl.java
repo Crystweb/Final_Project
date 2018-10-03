@@ -54,7 +54,7 @@ public class WorkCommentServiceImpl implements WorkCommentService {
 
   @Override
   public void deleteComment(ShiftComment shiftComment, User userFromToken) throws IllegalAccessException {
-    if (!shiftComment.getUser().getId().equals(userFromToken.getId())) {
+    if (!shiftComment.getAuthor().getUser().getId().equals(userFromToken.getId())) {
       String message = "User dont have permission to delete this message - id: " + shiftComment.getId();
       throw new IllegalAccessException(message);
     }
@@ -64,7 +64,7 @@ public class WorkCommentServiceImpl implements WorkCommentService {
 
   @Override
   public ShiftComment updateComment(ShiftComment shiftComment, User userFromToken) throws IllegalAccessException {
-    if (!shiftComment.getUser().getId().equals(userFromToken.getId())) {
+    if (!shiftComment.getAuthor().getUser().getId().equals(userFromToken.getId())) {
       String message = "User dont have permission to update this message - id: " + shiftComment.getId();
       throw new IllegalAccessException(message);
     }
