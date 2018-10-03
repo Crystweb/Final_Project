@@ -39,12 +39,14 @@ public class TaskTests {
   public void init() {
     task = new Task();
 
-    Mockito.when(mockTaskRepository.save(any(Task.class))).then((Answer<Task>) invocationOnMock -> {
-      Task argument = invocationOnMock.getArgument(0);
-      argument.setId(++mockId);
-      return argument;
-    });
-    Mockito.when(mockTaskRepository.findById(any())).thenReturn(Optional.of(task));
+    Mockito.when(mockTaskRepository.save(any(Task.class)))
+        .then((Answer<Task>) invocationOnMock -> {
+            Task argument = invocationOnMock.getArgument(0);
+            argument.setId(++mockId);
+            return argument;
+        });
+    Mockito.when(mockTaskRepository.findById(any()))
+        .thenReturn(Optional.of(task));
   }
 
   @Test

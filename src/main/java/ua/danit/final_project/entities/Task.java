@@ -22,8 +22,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -39,14 +39,14 @@ public class Task implements Serializable {
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "u_id_assignee")
-  private User assignee;
+  @JoinColumn(name = "e_id_assignee")
+  private Employee assignee;
 
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "u_id_delegator", nullable = false)
-  private User delegator;
+  @JoinColumn(name = "e_id_delegator", nullable = false)
+  private Employee delegator;
 
   @Column(name = "t_message")
   private String message;
@@ -63,7 +63,7 @@ public class Task implements Serializable {
   private Date expired;
 
   @Column(name = "updated")
-  private Timestamp updated;
+  private Date updated;
 
   @Column
   private Integer priority;
@@ -78,7 +78,12 @@ public class Task implements Serializable {
   private List<Location> locations;
 
   @OneToMany(mappedBy = "task")
-  private List<TaskImage> images;
+  private List<TaskImage> images = new LinkedList<>();
+
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
+  private List<TaskComment> comments;
 
   public enum TaskStatus {
     REMOVED ,OPENED, CLOSED, REJECTED, PENDING, IN_PROGRESS, EXPIRED, CHANGE

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ua.danit.final_project.dto.DefaultMapper;
 import ua.danit.final_project.dto.EmployeeDto;
 import ua.danit.final_project.entities.Employee;
 import ua.danit.final_project.services.crud.EmployeeService;
@@ -21,54 +22,38 @@ import java.util.stream.Collectors;
 public class EmployeeController {
 
   private final EmployeeService employeeService;
+  private final DefaultMapper mapper;
 
   @Autowired
-  public EmployeeController(EmployeeService employeeService) {
+  public EmployeeController(EmployeeService employeeService,
+                            DefaultMapper mapper) {
     this.employeeService = employeeService;
+    this.mapper = mapper;
   }
 
   @GetMapping
   public List<EmployeeDto> getEmployeeDto() {
     return employeeService.getAll()
             .stream()
-            .map(EmployeeDto::new)
+            .map(mapper::employeeToEmployeeDto)
             .collect(Collectors.toList());
   }
 
   @PostMapping
-  public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeDto employeeDto) {
-    Employee employee = new Employee();
+  public EmployeeDto createEmployee(@RequestBody EmployeeDto employeeDto) {
+    Employee employee = mapper.employeeDtoToEmployee(employeeDto);
 
-    employee.setUser(employeeService.addUserIfExists(employeeDto));
-    employee.setForename(employeeDto.getForename());
-    employee.setPatronymic(employeeDto.getPatronymic());
-    employee.setPhoneNumber(employeeDto.getPhoneNumber());
-    employee.setSurname(employeeDto.getSurname());
-    employee.setPosition(employeeService.getPositionByTitle(employeeDto.getPosition()));
-    employee.setInfo(employeeDto.getInfo());
-
-    return ResponseEntity.ok().body(employeeService.save(employee));
+    return mapper.employeeToEmployeeDto(employee);
   }
 
   @PutMapping
-  public ResponseEntity<Employee> updateEmployee(@RequestBody EmployeeDto employeeDto) {
-    Employee employee = new Employee();
-
-    employee.setId(employeeDto.getId());
-    employee.setUser(employeeService.addUserIfExists(employeeDto));
-    employee.setForename(employeeDto.getForename());
-    employee.setPatronymic(employeeDto.getPatronymic());
-    employee.setPhoneNumber(employeeDto.getPhoneNumber());
-    employee.setSurname(employeeDto.getSurname());
-    employee.setPosition(employeeService.getPositionByTitle(employeeDto.getPosition()));
-    employee.setInfo(employeeDto.getInfo());
-
-    return ResponseEntity.ok().body(employeeService.save(employee));
+  public EmployeeDto updateEmployee(@RequestBody EmployeeDto employeeDto) {
+    return createEmployee(employeeDto);
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity deleteEmployee(@PathVariable("id") Long id) {
     employeeService.deleteById(id);
-    return ResponseEntity.ok().body("Book has been deleted successfully.");
+    return ResponseEntity.ok().body("Employee #" + id + " successfully removed.");
   }
 }
