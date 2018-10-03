@@ -229,7 +229,7 @@ const mapStateToProps = (state) => {
     vacancies: state.vacancies,
     positions: state.startData.positions
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
