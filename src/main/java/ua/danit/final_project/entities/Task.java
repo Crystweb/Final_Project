@@ -85,6 +85,11 @@ public class Task implements Serializable {
   @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
   private List<TaskComment> comments;
 
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
+  private List<TaskComment> comments;
+
   public enum TaskStatus {
     REMOVED ,OPENED, CLOSED, REJECTED, PENDING, IN_PROGRESS, EXPIRED, CHANGE
   }
