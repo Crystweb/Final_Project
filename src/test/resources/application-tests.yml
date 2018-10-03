@@ -9,13 +9,6 @@ spring:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:hotel_test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL;
     platform: h2
-  h2:
-    console:
-      enabled: true
-      path: /testconsole
-      settings:
-        trace: true
-        web-allow-others: true
 
   jpa:
     hibernate:
