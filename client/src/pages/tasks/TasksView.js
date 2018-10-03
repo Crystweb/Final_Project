@@ -4,11 +4,20 @@ import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 
 class TasksView extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      allTasks: this.props.tasks
+    }
+  }
+
   render () {
     const {showAll, tasks, currentUser} = this.props
     tasks.sort(function (a, b) {
       if (a.priority > b.priority) return 1
       if (a.priority < b.priority) return -1
+      if (a.expired > b.expired) return -1
+      if (a.expired < b.expired) return 1
       return 0
     })
     if (tasks && currentUser) {
@@ -28,11 +37,10 @@ class TasksView extends Component {
                       )
                     })}
                     </div>
-                    <p>Важность: {task.priority}</p>
+                    {task.priority && <p>Важность: {task.priority}</p>}
                     <p>Создана: {new Date(task.updated).toLocaleDateString()}</p>
                     <p>{task.delegator.employee.forename} {task.delegator.employee.surname}</p>
-                    <p>Выполнить до: {new Date(task.expired).toLocaleDateString()}</p>
-                    <p>{task.status}</p>
+                    {task.expired && <p>Выполнить до: {new Date(task.expired).toLocaleDateString()}</p>}
                   </li>
                   <button>Изменить статус</button>
                   <button>Фото</button>

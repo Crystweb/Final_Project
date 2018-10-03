@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.danit.final_project.configuration.StaticCollection;
+import ua.danit.final_project.configuration.SessionAware;
 import ua.danit.final_project.dto.VacancyDto;
 import ua.danit.final_project.entities.User;
 import ua.danit.final_project.entities.Vacancy;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/vacancy")
-public class VacancyController {
+public class VacancyController extends SessionAware {
 
   private final VacancyServiceCrud vacancyService;
   private final PositionService positionService;
@@ -49,7 +49,7 @@ public class VacancyController {
 
   @PostMapping
   public ResponseEntity<VacancyDto> createVacancy(@RequestBody VacancyDto vacancyDto) {
-    User userFromToken = StaticCollection.getUser();
+    User userFromToken = getCurrentUser();
 
     Vacancy vacancy = new Vacancy();
 
@@ -65,7 +65,7 @@ public class VacancyController {
 
   @PutMapping
   public ResponseEntity<VacancyDto> updateVacancy(@RequestBody VacancyDto vacancyDto) {
-    User userFromToken = StaticCollection.getUser();
+    User userFromToken = getCurrentUser();
 
     Vacancy vacancy = new Vacancy();
 
@@ -85,7 +85,7 @@ public class VacancyController {
 
   @DeleteMapping("/{id}")
   public ResponseEntity deleteVacancy(@PathVariable("id") Vacancy vacancy) {
-    User userFromToken = StaticCollection.getUser();
+    User userFromToken = getCurrentUser();
 
     try {
       vacancyService.deleteVacancy(vacancy, userFromToken);
