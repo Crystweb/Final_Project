@@ -3,6 +3,7 @@ server:
 spring:
   datasource:
     schema: classpath*:database/schema.sql
+    data:
     username: sa
     password:
     driver-class-name: org.h2.Driver

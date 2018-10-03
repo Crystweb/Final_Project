@@ -55,7 +55,7 @@ public class LocationRepositoryTest {
         .findAny()
         .orElse(null);
 
-    Assert.assertTrue(locationsWithoutParent.size() > 0);
+    Assert.assertEquals(1, locationsWithoutParent.size());
     Assert.assertNull(locationWithParent);
   }
 }
