@@ -10,6 +10,7 @@ import calendar from "../img/calendar.png";
 import {AxiosInstance as axios} from 'axios'
 import {getLastShift} from '../utils/utils'
 import {addShift} from '../actions/actions'
+import actionButtons from './Buttons'
 
 class PositionButtons extends Component {
   constructor(props) {
@@ -44,7 +45,7 @@ class PositionButtons extends Component {
   }
 
   createNessesaryDataForComments(schedulesWithColors, comments) {
-    let areCommentsMustbeInsideSchedule = false;
+    let CommentsInsideSchedule = false;
   }
 
   getReadyArrayOfCommentsWithHTML() {
@@ -61,11 +62,7 @@ class PositionButtons extends Component {
         return item;
       })
 
-    let arrayOfSchedules = [];
-
-    for (let key in schedulesWithColors) {
-      arrayOfSchedules.push(schedulesWithColors[key]);
-    }
+    let arrayOfSchedules = JSON.parse(JSON.stringify(schedulesWithColors));
 
     arrayOfSchedules.map(item => {
       let stringNumberStart = item.start.toString().substr(0, 2);
@@ -79,28 +76,25 @@ class PositionButtons extends Component {
 
     let currentSchedule = arrayOfSchedules.pop();
     let startTime = 0;
-    let areCommentsMustbeInsideSchedule = false;
+    let CommentsInsideSchedule = false;
     let arrayOfReadyComments = [];
     let colorForCommentsWithoutSchedule = "#c7c8ca";
+    let filterComments = comments
+      .filter(comment => comment.positions.includes(this.state.view))
+      .sort( (comment1, comment2) => comment1.date - comment2.date);
 
-    if (typeof currentSchedule !== 'undefined' && currentSchedule !== null && arrayOfReadyComments !== null && arrayOfReadyComments.length <= 0) {
+    if (currentSchedule && comments) {
 
       while (arrayOfSchedules.length >= 0) {
 
-        if (!areCommentsMustbeInsideSchedule) {
+        if (!CommentsInsideSchedule) {
 
-          let sortedComments = comments
-            .filter(comment => comment.positions.includes(this.state.view))
+          let sortedComments = filterComments
             .filter(comment => {
               let commentStartHours = new Date(comment.date).getHours();
 
               return commentStartHours >= startTime && commentStartHours < currentSchedule.start
 
-            }).sort((comment1, comment2) => {
-              let comment1StartHours = new Date(comment1.date).getHours();
-              let comment2StartHours = new Date(comment2.date).getHours();
-
-              return comment1StartHours - comment2StartHours;
             });
 
           if (sortedComments.length > 0) {
@@ -110,21 +104,7 @@ class PositionButtons extends Component {
                 <ul className="comment-list">
                   {sortedComments
                     .map(comment => {
-                        const showActionButtons = comment.authorId === this.state.userId;
-                        let buttons = "";
-
-                        if (showActionButtons) {
-                          buttons = (
-                            <div className="comment-list__elem-buttons">
-                              <a className="comment-list__elem-buttons-change" href="#">
-                                <img src={update} alt="#"/>
-                              </a>
-                              <a className="comment-list__elem-buttons-delete" href="#">
-                                <img src={trash} alt="#"/>
-                              </a>
-                            </div>)
-                        }
-
+                        let buttons = comment.authorId === this.state.userId ? actionButtons : "";
 
                         return (
                           <li className="comment-list__elem">
@@ -154,18 +134,10 @@ class PositionButtons extends Component {
               </div>
             )
           }
-          areCommentsMustbeInsideSchedule = !areCommentsMustbeInsideSchedule;
+          CommentsInsideSchedule = !CommentsInsideSchedule;
         } else {
 
-          let sortedComments = comments
-            .filter(comment => {
-              for (let i = 0; i < comment.positions.length; i++) {
-                if (comment.positions[i] === this.state.view) {
-                  return true;
-                }
-              }
-              return false;
-            })
+          let sortedComments = filterComments
             .filter(comment => {
               let commentStartHours = new Date(comment.date).getHours();
 
@@ -187,20 +159,8 @@ class PositionButtons extends Component {
                 <ul className="comment-list">
                   {sortedComments
                     .map(comment => {
-                      const showActionButtons = comment.authorId === this.state.userId;
-                      let buttons = "";
 
-                      if (showActionButtons) {
-                        buttons = (
-                          <div className="comment-list__elem-buttons">
-                            <a className="comment-list__elem-buttons-change" href="#">
-                              <img src={update} alt="#"/>
-                            </a>
-                            <a className="comment-list__elem-buttons-delete" href="#">
-                              <img src={trash} alt="#"/>
-                            </a>
-                          </div>)
-                      }
+                      let buttons = comment.authorId === this.state.userId ? actionButtons : "";
 
                       let colorSchedule = currentSchedule.color
                       return (
@@ -229,7 +189,7 @@ class PositionButtons extends Component {
               </div>
             );
 
-            areCommentsMustbeInsideSchedule = !areCommentsMustbeInsideSchedule;
+            CommentsInsideSchedule = !CommentsInsideSchedule;
             startTime = currentSchedule.end;
 
             if (arrayOfSchedules.length === 0) {
@@ -238,7 +198,7 @@ class PositionButtons extends Component {
 
             currentSchedule = arrayOfSchedules.pop();
           } else {
-            areCommentsMustbeInsideSchedule = !areCommentsMustbeInsideSchedule;
+            CommentsInsideSchedule = !CommentsInsideSchedule;
             startTime = currentSchedule.end;
 
             if (arrayOfSchedules.length === 0) {
@@ -277,20 +237,8 @@ class PositionButtons extends Component {
 
                 return comment1StartHours - comment2StartHours;
               }).map(comment => {
-                const showActionButtons = comment.authorId === this.state.userId;
-                let buttons = "";
 
-                if (showActionButtons) {
-                  buttons = (
-                    <div className="comment-list__elem-buttons">
-                      <a className="comment-list__elem-buttons-change" href="#">
-                        <img src={update} alt="#"/>
-                      </a>
-                      <a className="comment-list__elem-buttons-delete" href="#">
-                        <img src={trash} alt="#"/>
-                      </a>
-                    </div>)
-                }
+                let buttons = comment.authorId === this.state.userId ? actionButtons : ""
 
                 return (
                   <li className="comment-list__elem">
