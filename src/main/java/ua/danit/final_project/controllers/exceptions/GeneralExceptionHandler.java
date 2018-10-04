@@ -23,7 +23,7 @@ public class GeneralExceptionHandler {
   }
 
   @ExceptionHandler({IOException.class})
-  public ResponseEntity<ErrorResponse> handleIO(IOException exception) {
+  public ResponseEntity<ErrorResponse> handleUploadException(IOException exception) {
     logger.error(exception.getMessage(), exception);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .body(new ErrorResponse("Failed to upload file.", 500));
