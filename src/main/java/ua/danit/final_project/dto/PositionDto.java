@@ -9,4 +9,5 @@ public class PositionDto implements Serializable {
 
   private Long id; // NOSONAR
   private String title; // NOSONAR
+  private Boolean pinnedToComment; // NOSONAR
 }
