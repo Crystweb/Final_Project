@@ -32,7 +32,7 @@ class Tasks extends Component {
   render () {
     const {user} = this.props
     if (this.props.tasks && this.props.user) {
-      const showEditButtons = user.position.pinnedToComment === true
+      const showEditButtons = user.employee.position.pinnedToComment === true
       return (
         <Fragment>
           <div className="tasks">
