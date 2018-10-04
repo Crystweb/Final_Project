@@ -14,6 +14,7 @@ class TaskFactory extends Component {
     super(props)
     this.state = {
       chosenLocation: null,
+      chosenRoom: null,
       textForTask: null,
       taskPriority: null,
       finishDate: null,
@@ -23,8 +24,10 @@ class TaskFactory extends Component {
       errorText: null,
       errorLocation: null,
       errorFrequency: null,
+      errorRoom: null,
       successAdd: null,
-      photo: null
+      photo: null,
+      itIsFloor: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.chooseLocation = this.chooseLocation.bind(this)
@@ -34,7 +37,7 @@ class TaskFactory extends Component {
     this.chooseFrequency = this.chooseFrequency.bind(this)
     this.makePhoto = this.makePhoto.bind(this)
     this.createTask = this.createTask.bind(this)
-    this.chooseLocation = this.chooseLocation.bind(this)
+    this.chooseRoom = this.chooseRoom.bind(this)
   }
 
   handleChange (day) {
@@ -46,7 +49,19 @@ class TaskFactory extends Component {
   chooseLocation = (event) => {
     this.setState({
       chosenLocation: event.target.value,
-      errorLocation: null
+      errorLocation: null,
+      itIsFloor: false
+    })
+    let taskForRoomCheckIn = this.props.allLocations.find(location => location.id === +event.target.value)
+    if (taskForRoomCheckIn.children.length > 0) {
+      this.setState({itIsFloor: true})
+    }
+  }
+
+  chooseRoom = (event) => {
+    this.setState({
+      chosenRoom: event.target.value,
+      errorRoom: null
     })
   }
 
@@ -82,10 +97,16 @@ class TaskFactory extends Component {
   }
 
   createTask = () => {
-    const {chosenLocation, textForTask, taskPriority, finishDate, executorId, frequency, photo} = this.state
+    const {chosenLocation, chosenRoom, textForTask, taskPriority, finishDate, executorId, frequency, photo} = this.state
+    const {allLocations} = this.props
     if (_.isEmpty(chosenLocation)) {
       this.setState({
         errorLocation: 'Выберите локацию'
+      })
+    }
+    if (_.isEmpty(chosenRoom)) {
+      this.setState({
+        errorRoom: 'Выберите номер'
       })
     }
     if (_.isEmpty(executorId)) {
@@ -104,6 +125,8 @@ class TaskFactory extends Component {
       })
     }
     if (!_.isEmpty(textForTask) && !_.isEmpty(frequency) && !_.isEmpty(executorId) && !_.isEmpty(chosenLocation)) {
+      let location = (chosenRoom && allLocations.find(location => location.id === +chosenLocation).children) || allLocations
+      let locationId = chosenRoom || chosenLocation
       let body = {
         assignee: this.props.allUsers.find(user => user.id === +executorId),
         message: textForTask,
@@ -112,7 +135,7 @@ class TaskFactory extends Component {
         frequency: frequency,
         expired: finishDate,
         priority: taskPriority,
-        locations: [this.props.allLocations.find(location => location.id === +chosenLocation)]
+        locations: [location.find(location => location.id === +locationId)]
       }
       let formData = new FormData()
       formData.append('task', JSON.stringify(body))
@@ -153,7 +176,6 @@ class TaskFactory extends Component {
                 Локация
               </option>
               {allLocations.map(location => {
-                const haveRooms = location.children.length === 0
                 return (
                   <option
                     type='text'
@@ -167,6 +189,36 @@ class TaskFactory extends Component {
             </select>
             {this.state.errorLocation &&
             <label className='task_errors' htmlFor='locationsList'>{this.state.errorLocation}</label>}
+            {
+              this.state.itIsFloor &&
+              <Fragment>
+                <select
+                  name="roomsList"
+                  defaultValue='roomChoice'
+                  id="rooms"
+                  onChange={this.chooseRoom}
+                >
+                  <option
+                    value='roomChoice'
+                    disabled
+                    hidden>
+                    Номер
+                  </option>
+                  {allLocations.find(location => location.id === +this.state.chosenLocation).children.map(children => {
+                    return (
+                      <option
+                        value={children.id}
+                        key={children.id}
+                      >
+                        {children.title}
+                      </option>
+                    )
+                  })}
+                </select>
+                {this.state.errorRoom &&
+                <label className='task_errors' htmlFor='roomsList'>{this.state.errorRoom}</label>}
+              </Fragment>
+            }
             <select
               defaultValue='0'
               id="priority"

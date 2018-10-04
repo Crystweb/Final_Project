@@ -121,7 +121,7 @@ class ShiftFactory extends Component {
         {this.props.allPositionsForComments.map(position => {
           const isForComment = position.pinnedToComment === true
           return (
-            <div>
+            <div key={position.id}>
               {isForComment && <li key={position.id}>
                 <input
                   name="position"
