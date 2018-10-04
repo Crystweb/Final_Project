@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react'
+import React, {Component, Fragment} from 'react'
 import Modal from 'react-responsive-modal'
 import axios from 'axios'
 import '../styles/VacanciesPage.css'
+
 import { connect } from 'react-redux'
 import { getAllVacancies } from '../actions/actions'
 import Preloader from '../components/Preloader'
-
 import { withStyles } from '@material-ui/core/styles'
 import Radio from '@material-ui/core/Radio'
 import Typography from '@material-ui/core/Typography/Typography'
@@ -17,9 +17,11 @@ import AddIcon from '@material-ui/icons/AddCircleRounded'
 import classNames from 'classnames'
 import List from '../../node_modules/@material-ui/core/List/List'
 import vacancyStyles from '../constants/vacancyStylesJSS'
+import routes from "../constants/routes";
+import {Link} from "react-router-dom";
+
 
 class VacanciesPage extends Component {
-
   onOpenModal = () => {
     this.setState({open: true})
   }
@@ -43,7 +45,7 @@ class VacanciesPage extends Component {
       .then(() => this.props.GetAllVacancies())
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       position: this.props.positions[0].id,
@@ -77,26 +79,30 @@ class VacanciesPage extends Component {
     this.setState({vacancies: data})
   }
 
-  handlePositionChange (event) {
+
+  handlePositionChange(event) {
     event.preventDefault()
     this.setState({position: event.target.value})
   }
 
-  handleSalaryChange (event) {
+
+  handleSalaryChange(event) {
     event.preventDefault()
     this.setState({salary: event.target.value})
   }
 
-  handleInfoChange (event) {
+
+  handleInfoChange(event) {
     event.preventDefault()
     this.setState({info: event.target.value})
   }
 
-  render () {
+  render() {
     const {data, showClosed} = this.state
     const {vacancies, classes, positions} = this.props
     let toFilterVacancies = vacancies
-    const {open,} = this.state
+    const {open} = this.state
+
 
     if (!data) {
       return <Preloader/>
@@ -104,7 +110,8 @@ class VacanciesPage extends Component {
 
     if (!showClosed) {
       toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'OPENED')
-    } else {toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'CLOSED')}
+    } else { toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'CLOSED') }
+
 
     return (
       <Fragment>
@@ -114,20 +121,22 @@ class VacanciesPage extends Component {
               name="showClosed"
               aria-label={this.state.showClosed}
               value={toString(this.state.showClosed)}>
-              <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton} elevation={0}>
+
+              <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton}
+                     elevation={0}>
                 <Radio className={classes.radioButtonInner}
-                  checked={!this.state.showClosed}
-                  onChange={() => this.setState({showClosed: !showClosed})}
-                  value="d"
-                  color="default"
-                  name="radio-button-demo"
-                  fontSize="small"
-                  aria-label="Открытые вакансии">
+                       checked={!this.state.showClosed}
+                       onChange={() => this.setState({showClosed: !showClosed})}
+                       value="d"
+                       color="default"
+                       name="radio-button-demo"
+                       fontSize="small"
+                       aria-label="Открытые вакансии">
                 </Radio>
                 <Typography variant={'caption'}>открытые вакансии</Typography>
               </Paper>
               <Paper onClick={() => this.setState({showClosed: !showClosed})} className={classes.radioButton} elevation={0}>
-                <Radio  className={classes.radioButtonInner}
+                <Radio className={classes.radioButtonInner}
                   checked={this.state.showClosed}
                   onChange={() => this.setState({showClosed: !showClosed})}
                   value="d"
@@ -140,15 +149,17 @@ class VacanciesPage extends Component {
               </Paper>
             </RadioGroup>
             <IconButton onClick={this.onOpenModal} color="default" className={classes.button}
-                        aria-label="Добавить Вакансию">
+
+              aria-label="Добавить Вакансию">
               <AddIcon fontSize="large"/>
             </IconButton>
           </div>
         </Card>
         <Modal open={open}
-               onClose={this.onCloseModal}
-               center
-               closeOnOverlayClick={true}>
+
+          onClose={this.onCloseModal}
+          center
+          closeOnOverlayClick={true}>
           <form onSubmit={this.handleSubmit}>
             <label>
               Название должности:
@@ -160,16 +171,18 @@ class VacanciesPage extends Component {
               </select>
               Зарплата:
               <input type="text" name={'salary'} value={this.state.salary}
-                     onChange={this.handleSalaryChange}/>
+                onChange={this.handleSalaryChange}/>
               <br/>
               <textarea placeholder={'Введите Ваш коментарий'} name={'info'} value={this.state.info}
-                        onChange={this.handleInfoChange}/>
+                onChange={this.handleInfoChange}/>
+
             </label>
             <input type="submit" value="Добавить"/>
           </form>
         </Modal>
         <div className={classes.vacancyList}>
           <div className={classes.lineContainer}/>
+
           <List>
           {toFilterVacancies.map(vacancy =>
             <Paper key={vacancy.id}
@@ -208,7 +221,7 @@ const mapStateToProps = (state) => {
     vacancies: state.vacancies,
     positions: state.startData.positions
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {

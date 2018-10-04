@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import Preloader from '../../components/Preloader'
+import Preloader from '../components/Preloader'
 import * as _ from 'lodash'
 
-class CreateNewComments extends Component {
+class CreateNewVacancy extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -153,25 +153,18 @@ class CreateNewComments extends Component {
       return (<div className="container">
         {isUpdate || <h3>Добавить комментарий</h3>}
         {isUpdate && <h3>Изменить комментарий</h3>}
-        {this.props.allPositionsForComments.map(position => {
-          const isForComment = position.pinnedToComment === true
-          return (
-            <div>
-              {isForComment && <li key={position.id}>
-                <input
-                  name="position"
-                  type="checkbox"
-                  checked={true && this.state.checkedPositions.includes(position.title)}
-                  value={position.title}
-                  onChange={this.setCheckedPosition.bind(this)}
-                />
-                {position.title}
-              </li>}
-            </div>
-          )
-        }
-        )
-        }
+        {this.props.allPositionsForComments.map(position =>
+          <li key={position.id}>
+            <input
+              name="position"
+              type="checkbox"
+              checked={true && this.state.checkedPositions.includes(position.title)}
+              value={position.title}
+              onChange={this.setCheckedPosition.bind(this)}
+            />
+            {position.title}
+          </li>
+        )}
         <p><textarea value={this.state.textComment}
           ref={this.textInput}
           placeholder={'Введите Ваш коментарий'}
@@ -204,4 +197,4 @@ const mapStateToProps = ({comments, startData}, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(CreateNewComments)
+export default connect(mapStateToProps)(CreateNewVacancy)

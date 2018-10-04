@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ua.danit.final_project.configuration.StaticCollection;
+import ua.danit.final_project.configuration.SessionAware;
+import ua.danit.final_project.dto.DefaultMapper;
 import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.dto.ShiftCommentDto;
 import ua.danit.final_project.entities.ShiftComment;
@@ -23,62 +24,49 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/workshift")
-public class WorkShiftController {
+public class WorkShiftController extends SessionAware {
 
   private final WorkCommentService workCommentService;
+  private final DefaultMapper mapper;
 
   @Autowired
-  public WorkShiftController(WorkCommentService workCommentService) {
+  public WorkShiftController(WorkCommentService workCommentService,
+                             DefaultMapper mapper) {
     this.workCommentService = workCommentService;
+    this.mapper = mapper;
   }
 
   @GetMapping
   public List<ShiftCommentDto> getByDate(@RequestParam(name = "date", required = false) Long millis) {
     return workCommentService.getShiftCommentsByDate(millis)
             .stream()
-            .map(ShiftCommentDto::new)
+            .map(mapper::shiftCommentToShiftCommentDto)
             .collect(Collectors.toList());
   }
 
   @PostMapping("/comment")
-  public ResponseEntity<ShiftCommentDto> createCommentDto(@RequestBody ShiftCommentDto shiftCommentDto) {
-    User userFromToken = StaticCollection.getUser();
-    ShiftComment shiftComment = new ShiftComment();
+  public ShiftCommentDto createComment(@RequestBody ShiftCommentDto shiftCommentDto) {
+    User userFromToken = getCurrentUser();
+    ShiftComment shiftComment = mapper.shiftCommentDtoToShiftComment(shiftCommentDto);
+    shiftComment.setAuthor(userFromToken.getEmployee());
 
+    shiftComment = workCommentService.addComment(shiftComment);
 
-    shiftComment.setMessage(shiftCommentDto.getText());
-    shiftComment.setUser(userFromToken);
-    shiftComment.setDate(shiftCommentDto.getDate());
-    shiftComment.setUser(StaticCollection.getUser());
-    shiftComment.setPositions(workCommentService.getPositionByTitleIn(shiftCommentDto.getPositions()));
-
-    workCommentService.addComment(shiftComment);
-
-    return ResponseEntity.ok().build();
+    return mapper.shiftCommentToShiftCommentDto(shiftComment);
   }
 
   @PutMapping("/comment")
-  public ResponseEntity<ShiftComment> updateComment(@RequestBody ShiftCommentDto shiftCommentDto) {
-    User userFromToken = StaticCollection.getUser();
+  public ShiftCommentDto updateComment(@RequestBody ShiftCommentDto shiftCommentDto) throws IllegalAccessException {
+    User userFromToken = getCurrentUser();
+    ShiftComment shiftComment = mapper.shiftCommentDtoToShiftComment(shiftCommentDto);
+    shiftComment = workCommentService.updateComment(shiftComment, userFromToken);
 
-    ShiftComment shiftComment = new ShiftComment();
-
-    shiftComment.setId(shiftCommentDto.getId());
-    shiftComment.setUser(userFromToken);
-    shiftComment.setMessage(shiftCommentDto.getText());
-    shiftComment.setPositions(workCommentService.getPositionByTitleIn(shiftCommentDto.getPositions()));
-    shiftComment.setDate(shiftCommentDto.getDate());
-
-    try {
-      return ResponseEntity.ok(workCommentService.updateComment(shiftComment, userFromToken));
-    } catch (IllegalAccessException e) {
-      return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-    }
+    return mapper.shiftCommentToShiftCommentDto(shiftComment);
   }
 
   @DeleteMapping("/comment/{id}")
   public ResponseEntity<ShiftComment> deleteComment(@PathVariable("id") ShiftComment shiftComment) {
-    User userFromToken = StaticCollection.getUser();
+    User userFromToken = getCurrentUser();
 
     try {
       workCommentService.deleteComment(shiftComment, userFromToken);

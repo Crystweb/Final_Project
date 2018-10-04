@@ -102,11 +102,11 @@ CREATE TABLE IF NOT EXISTS `schedule` (
 
 CREATE TABLE IF NOT EXISTS `shift_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL,
+  `employee_id` BIGINT NOT NULL,
   `c_message` VARCHAR(511) NOT NULL,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`employee_id`) REFERENCES `employee`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `shift_comment_position` (
@@ -121,14 +121,16 @@ CREATE TABLE IF NOT EXISTS `location` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `l_title` VARCHAR(50) NOT NULL,
   `l_info` VARCHAR(127),
+  `parent_location` BIGINT,
   CONSTRAINT `l_title_info` UNIQUE (`l_title`, `l_info`),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`parent_location`) REFERENCES `location` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `task` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id_assignee` BIGINT,
-  `u_id_delegator` BIGINT NOT NULL,
+  `e_id_assignee` BIGINT,
+  `e_id_delegator` BIGINT NOT NULL,
   `t_message` VARCHAR(1023),
   `t_status` VARCHAR(31) CHECK (`t_status` in ('REMOVED', 'OPENED', 'CLOSED', 'REJECTED', 'PENDING','IN_PROGRESS', 'EXPIRED', 'CHANGE')),
   `t_frequency` VARCHAR(31) CHECK (`t_frequency` in ('ONCE', 'DAILY', 'WEEKLY', 'MONTHLY')),
@@ -136,8 +138,8 @@ CREATE TABLE IF NOT EXISTS `task` (
   `expired` TIMESTAMP,
   `updated` TIMESTAMP,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id_assignee`) REFERENCES `user`(`id`),
-  FOREIGN KEY (`u_id_delegator`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`e_id_assignee`) REFERENCES `employee`(`id`),
+  FOREIGN KEY (`e_id_delegator`) REFERENCES `employee`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `task_location` (
@@ -151,12 +153,12 @@ CREATE TABLE IF NOT EXISTS `task_location` (
 CREATE TABLE IF NOT EXISTS `task_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `t_id` BIGINT NOT NULL,
-  `u_id` BIGINT NOT NULL,
+  `e_id` BIGINT NOT NULL,
   `c_message` VARCHAR(511) NOT NULL,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`t_id`) REFERENCES `task`(`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`e_id`) REFERENCES `employee`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `task_img` (

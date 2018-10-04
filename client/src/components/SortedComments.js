@@ -1,20 +1,21 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Timeline, TimelineEvent} from 'react-event-timeline'
-import {Link} from "react-router-dom";
-import routes from "../constants/routes";
-import picture from "../img/addComment.png";
-import update from "../img/update.png";
-import trash from "../img/trash.png";
-import calendar from "../img/calendar.png";
-import {AxiosInstance as axios} from 'axios'
+import {Link} from 'react-router-dom'
+import routes from '../constants/routes'
+import picture from '../img/addComment.png'
+import update from '../img/update.png'
+import trash from '../img/trash.png'
+import calendar from '../img/calendar.png'
+import axios from 'axios'
 import {getLastShift} from '../utils/utils'
 import {addShift} from '../actions/actions'
 import actionButtons from './Buttons'
 
 class PositionButtons extends Component {
-  constructor(props) {
-    super(props);
+
+  constructor (props) {
+    super(props)
     this.state = {
       view: this.props.currentUser.position.title,
       userId: this.props.currentUser.id,
@@ -26,7 +27,7 @@ class PositionButtons extends Component {
     this.setState({view: event.target.value})
   }
 
-  deleteComment(id) {
+  deleteComment (id) {
     if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
       axios.delete(`/workshift/comment/${id}`)
         .then(() => getLastShift(data => {
@@ -34,6 +35,7 @@ class PositionButtons extends Component {
         }))
     }
   }
+
 
   getRandomColor() {
     const letters = '0123456789ABCDEF';
@@ -223,6 +225,7 @@ class PositionButtons extends Component {
         .filter(comment => {
           let commentStartHours = new Date(comment.date).getHours();
 
+
           return commentStartHours >= startTime
 
         })
@@ -357,11 +360,9 @@ class PositionButtons extends Component {
             </nav>
           </div>
         </div>
-
         <div className="positionComments">
           {arrayOfReadyComments}
         </div>
-
       </section>
     )
   }
