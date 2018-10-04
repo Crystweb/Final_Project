@@ -11,7 +11,7 @@ class Shifts extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      view: this.props.user.position.title
+      view: this.props.user.employee.position.title
     }
   }
 

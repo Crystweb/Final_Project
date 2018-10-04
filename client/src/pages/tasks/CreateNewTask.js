@@ -202,7 +202,7 @@ class CreateNewTask extends Component {
                   <option
                     value={user.id}
                     key={user.id}>
-                    {user.employee.forename} {user.employee.forename}, {user.position.title}
+                    {user.employee.forename} {user.employee.forename}, {user.employee.position.title}
                   </option>
                 )
               })}
