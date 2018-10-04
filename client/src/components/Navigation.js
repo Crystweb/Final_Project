@@ -16,7 +16,7 @@ import WashingData from '../pages/WashingData'
 import SalesNumbers from '../pages/washingDate/SalesNumbers'
 import Lodgers from '../pages/washingDate/Lodgers'
 import Header from './Header'
-import CreateNewVacancy from '../pages/CreateNewVacancy'
+import VacancyServicePage from "../pages/VacancyServicePage";
 import RoomCheckIn from '../pages/roomCheckin/roomCheckIn'
 
 class Navigation extends Component {
@@ -48,8 +48,9 @@ class Navigation extends Component {
           render={(props) => header ? <Header previousRoute={routes.updateComment} {...props}/>
             : <CreateNewComments {...props}/>}/>
         <Route path={routes.updateVacancy.href + ':vacancyId'}
-          render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/>
-            : <CreateNewVacancy {...props}/>}/>
+               render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/> : <VacancyServicePage {...props}/>}/>
+        <Route path={routes.addNewVacancy.href}
+               render={(props) => header ? <Header previousRoute={routes.addNewVacancy} {...props}/> : <VacancyServicePage {...props}/>}/>
         <Route exact path={routes.tasks.href}
           render={(props) => header ? <Header previousRoute={routes.tasks} {...props}/> : <Tasks {...props}/>}/>
         <Route exact path={routes.createNewTask.href}

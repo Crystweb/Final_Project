@@ -15,7 +15,7 @@ class PositionButtons extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      view: this.props.currentUser.position.title,
+      view: this.props.currentUser.employee.position.title,
       userId: this.props.currentUser.id,
       colors: ['#eff47f', '#7ff4f1', '#c7c8ca', '#00c7ff']
     }
