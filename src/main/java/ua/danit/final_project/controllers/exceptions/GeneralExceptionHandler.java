@@ -32,7 +32,7 @@ public class GeneralExceptionHandler {
 
   @ExceptionHandler({MismatchedInputException.class})
   public ResponseEntity<ErrorResponse> handleUploadException(MismatchedInputException exception) {
-    logger.error(exception.getMessage(), exception);
+    logger.warn(exception.getMessage());
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body(new ErrorResponse("Mismatched JSON input.", 400));
   }
