@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 import * as _ from 'lodash'
 
-class CreateNewComments extends Component {
+class ShiftFactory extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -204,4 +204,4 @@ const mapStateToProps = ({comments, startData}, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(CreateNewComments)
+export default connect(mapStateToProps)(ShiftFactory)

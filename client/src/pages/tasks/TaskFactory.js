@@ -9,7 +9,7 @@ import * as _ from 'lodash'
 import '../../styles/Tasks.css'
 import { addNewTask } from '../../actions/actions'
 
-class CreateNewTask extends Component {
+class TaskFactory extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -153,6 +153,7 @@ class CreateNewTask extends Component {
                 Локация
               </option>
               {allLocations.map(location => {
+                const haveRooms = location.children.length === 0
                 return (
                   <option
                     type='text'
@@ -202,7 +203,7 @@ class CreateNewTask extends Component {
                   <option
                     value={user.id}
                     key={user.id}>
-                    {user.employee.forename} {user.employee.forename}, {user.position.title}
+                    {user.employee.forename} {user.employee.forename}, {user.employee.position.title}
                   </option>
                 )
               })}
@@ -281,4 +282,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNewTask)
+export default connect(mapStateToProps, mapDispatchToProps)(TaskFactory)
