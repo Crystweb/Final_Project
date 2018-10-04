@@ -1,5 +1,6 @@
 package ua.danit.final_project.controllers.exceptions;
 
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,13 @@ public class GeneralExceptionHandler {
     logger.error(exception.getMessage(), exception);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .body(new ErrorResponse("Failed to upload file.", 500));
+  }
+
+  @ExceptionHandler({MismatchedInputException.class})
+  public ResponseEntity<ErrorResponse> handleUploadException(MismatchedInputException exception) {
+    logger.error(exception.getMessage(), exception);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(new ErrorResponse("Mismatched JSON input.", 400));
   }
 
   @ExceptionHandler({EntityNotFoundException.class})
