@@ -10,7 +10,8 @@ import calendar from "../img/calendar.png";
 import {AxiosInstance as axios} from 'axios'
 import {getLastShift} from '../utils/utils'
 import {addShift} from '../actions/actions'
-import actionButtons from './Buttons'
+import {ActionButtons} from './Buttons'
+import ScheduleWithComments from './ScheduleWithComments'
 
 class PositionButtons extends Component {
   constructor(props) {
@@ -44,16 +45,85 @@ class PositionButtons extends Component {
     return color;
   }
 
-  createNessesaryDataForComments(schedulesWithColors, comments) {
-    let CommentsInsideSchedule = false;
+  createArrayOfReadyComments(schedulesWithColors, comments) {
+
+    let arrayOfSchedules = JSON.parse(JSON.stringify(schedulesWithColors));
+
+    arrayOfSchedules.map(item => {
+      let stringNumberStart = item.start.toString().substr(0, 2);
+      let stringNumberEnd = item.end.toString().substr(0, 2);
+
+      item.start = parseInt(stringNumberStart);
+      item.end = parseInt(stringNumberEnd);
+    }).sort( (item1, item2) => item1.start - item2.start);
+
+    let arrayOfReadyComments = [];
+    let filterComments = comments
+      .filter(comment => comment.positions.includes(this.state.view))
+      .sort( (comment1, comment2) => comment1.date - comment2.date);
+
+    if (filterComments.length > 0 && arrayOfSchedules.length > 0) {
+      arrayOfReadyComments = this.createCommentsByWhile(arrayOfSchedules, filterComments)
+    } else if (filterComments.length > 0 && arrayOfSchedules.length <= 0) {
+      arrayOfReadyComments = this.createCommentsWithoutSchedules(filterComments);
+    } else {
+      arrayOfReadyComments.push("None");
+    }
+
+    return arrayOfReadyComments;
+}
+
+  createCommentsByWhile(arrayOfSchedules, filterComments) {
+
+    let startTime = 0;
+    let commentsInsideSchedule = false;
+    let resultArray = [];
+    let currentSchedule = arrayOfSchedules.pop();
+
+    while (arrayOfSchedules.length >= 0) {
+      if (!commentsInsideSchedule) {
+        let sortedComments = filterComments
+          .filter(comment => {
+            let commentTime = new Date(comment.date);
+            let start = currentSchedule.start;
+            return commentTime >= startTime && commentTime < start
+          });
+
+        if (sortedComments.length > 0) {
+          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null}/>)
+        }
+      } else {
+        let sortedComments = filterComments
+          .filter(comment => {
+            let commentTime = new Date(comment.date);
+            let start = currentSchedule.start;
+            let end = currentSchedule.end;
+            return (end > start && start <= commentTime && end > commentTime) || (end < start && (start <= commentTime || end > commentTime))
+          });
+
+        if (sortedComments.length > 0) {
+          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={currentSchedule}/>)
+        }
+        startTime = currentSchedule.end;
+        if (arrayOfSchedules.length === 0) {
+          break;
+        }
+        currentSchedule = arrayOfSchedules.pop();
+      }
+      commentsInsideSchedule = !commentsInsideSchedule;
+    }
+    return resultArray;
   }
 
-  getReadyArrayOfCommentsWithHTML() {
-
+  createCommentsWithoutSchedules(filterComments) {
+    let sortedComments = filterComments;
+    let resultArray = [];
+    return resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null}/>)
   }
 
   render() {
     const {position, comments, schedules} = this.props;
+    console.log(ActionButtons());
 
     const schedulesWithColors = schedules
       .filter(item => item.position.title === this.state.view)
@@ -83,6 +153,8 @@ class PositionButtons extends Component {
       .filter(comment => comment.positions.includes(this.state.view))
       .sort( (comment1, comment2) => comment1.date - comment2.date);
 
+    let functionAnswer = this.createArrayOfReadyComments(arrayOfSchedules, filterComments);
+
     if (currentSchedule && comments) {
 
       while (arrayOfSchedules.length >= 0) {
@@ -95,6 +167,7 @@ class PositionButtons extends Component {
 
               return commentStartHours >= startTime && commentStartHours < currentSchedule.start
 
+
             });
 
           if (sortedComments.length > 0) {
@@ -104,7 +177,7 @@ class PositionButtons extends Component {
                 <ul className="comment-list">
                   {sortedComments
                     .map(comment => {
-                        let buttons = comment.authorId === this.state.userId ? actionButtons : "";
+                        let buttons = comment.authorId === this.state.userId ? ActionButtons() : "";
 
                         return (
                           <li className="comment-list__elem">
@@ -160,7 +233,7 @@ class PositionButtons extends Component {
                   {sortedComments
                     .map(comment => {
 
-                      let buttons = comment.authorId === this.state.userId ? actionButtons : "";
+                      let buttons = comment.authorId === this.state.userId ? ActionButtons() : "";
 
                       let colorSchedule = currentSchedule.color
                       return (
@@ -225,7 +298,7 @@ class PositionButtons extends Component {
 
           return commentStartHours >= startTime
 
-        })
+        });
       arrayOfReadyComments.push(
         <div className="schedule-elem">
           <h2 className="schedule-elem__title">Без смены</h2>
@@ -238,7 +311,7 @@ class PositionButtons extends Component {
                 return comment1StartHours - comment2StartHours;
               }).map(comment => {
 
-                let buttons = comment.authorId === this.state.userId ? actionButtons : ""
+                let buttons = comment.authorId === this.state.userId ? ActionButtons() : ""
 
                 return (
                   <li className="comment-list__elem">
@@ -359,7 +432,7 @@ class PositionButtons extends Component {
         </div>
 
         <div className="positionComments">
-          {arrayOfReadyComments}
+          {functionAnswer}
         </div>
 
       </section>
