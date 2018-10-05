@@ -3,8 +3,24 @@ import { connect } from 'react-redux'
 import '../../styles/RoomCheckIn.css'
 
 class RoomCheckIn extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      floor: null
+    }
+    this.chooseFloor = this.chooseFloor.bind(this)
+  }
+
+  chooseFloor (event) {
+    this.setState({
+      floor: event.target.value
+    })
+  }
+
   render () {
     const {checkInLocations} = this.props
+    const {floor} = this.state
+    const choosenFloor = floor && checkInLocations.find(location => location.id === +floor).children
     return (
       <Fragment>
         <div className='floors'>
@@ -12,8 +28,10 @@ class RoomCheckIn extends Component {
             return <div
               key={location.id}
               className='floors__item'
+              onChange={this.chooseFloor}
             >
               <input
+                className='rooms'
                 name='floor'
                 type='radio'
                 value={location.id}
@@ -21,6 +39,19 @@ class RoomCheckIn extends Component {
               <label htmlFor="floor">{location.title}</label>
             </div>
           })}
+          {floor &&
+          <ul className='floors__rooms'>
+            {choosenFloor.map(room => {
+              return (
+                <li
+                  key={room.id}
+                  value={room.id}
+                >{room.title}</li>
+              )
+            })
+            }
+          </ul>
+          }
         </div>
       </Fragment>
     )

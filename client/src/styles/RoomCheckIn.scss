@@ -11,4 +11,10 @@
     align-items: center;
     text-align: center;
   }
+  &__rooms {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 }
