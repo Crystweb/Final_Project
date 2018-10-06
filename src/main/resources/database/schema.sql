@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `check_in`;
 DROP TABLE IF EXISTS `dish_comment`;
 DROP TABLE IF EXISTS `dish_accounting`;
 DROP TABLE IF EXISTS `dish_balance`;
