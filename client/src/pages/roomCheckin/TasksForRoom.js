@@ -18,7 +18,6 @@ class TasksForRoom extends Component {
 }
 
 const mapStateToProps = ({tasks}, ownProps) => {
-  debugger
   return {
     tasksForCurrentRoom: tasks.allTasks.filter((task) => task.locations[0].title === ownProps.match.params.roomTitle)
   }
