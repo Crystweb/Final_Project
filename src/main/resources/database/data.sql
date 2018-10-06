@@ -238,6 +238,16 @@ INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority
 INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (5, 1, 'close all windows', @OPENED, 3, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 2, CURRENT_TIMESTAMP));
 INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (4, 4, 'close all cats', @OPENED, 2, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 1, CURRENT_TIMESTAMP));
 INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (5, 3, 'close all doors', @OPENED, 1, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
+INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (3, 3, 'вынести мусор', @OPENED, 1, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
+INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (2, 3, 'вставить стекло', @OPENED, 2, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
+INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (4, 3, 'помыть унитаз', @OPENED, 3, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
+INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (2, 3, 'заменить душ', @OPENED, 2, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
+INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (1, 3, 'постелить ковер', @OPENED, 1, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
+INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (2, 3, 'заменить телевизор', @OPENED, 3, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
+INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (3, 3, 'наполнить мини бар', @OPENED, 2, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
+INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (4, 3, 'починить замок', @OPENED, 1, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
+INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (5, 3, 'покрасить дверь', @OPENED, 3, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
+INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (5, 3, 'поменять лампочку в светильнике', @OPENED, 2, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
 
 INSERT INTO `task_location` (t_id, l_id) VALUES (1,2);
 INSERT INTO `task_location` (t_id, l_id) VALUES (2,23);
@@ -246,6 +256,16 @@ INSERT INTO `task_location` (t_id, l_id) VALUES (5,19);
 INSERT INTO `task_location` (t_id, l_id) VALUES (3,21);
 INSERT INTO `task_location` (t_id, l_id) VALUES (6,28);
 INSERT INTO `task_location` (t_id, l_id) VALUES (7,3);
+INSERT INTO `task_location` (t_id, l_id) VALUES (8,32);
+INSERT INTO `task_location` (t_id, l_id) VALUES (9,30);
+INSERT INTO `task_location` (t_id, l_id) VALUES (10,29);
+INSERT INTO `task_location` (t_id, l_id) VALUES (11,28);
+INSERT INTO `task_location` (t_id, l_id) VALUES (12,36);
+INSERT INTO `task_location` (t_id, l_id) VALUES (13,21);
+INSERT INTO `task_location` (t_id, l_id) VALUES (14,22);
+INSERT INTO `task_location` (t_id, l_id) VALUES (15,25);
+INSERT INTO `task_location` (t_id, l_id) VALUES (16,25);
+INSERT INTO `task_location` (t_id, l_id) VALUES (17,26);
 
 INSERT INTO `task_comment` (t_id, e_id, c_message, c_date) VALUES (1, 2, 'first comment of task_comment', CURRENT_TIMESTAMP);
 INSERT INTO `task_comment` (t_id, e_id, c_message, c_date) VALUES (2, 1, 'second comment of task_comment', CURRENT_TIMESTAMP);

@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import '../../styles/RoomCheckIn.css'
+import routes from '../../constants/routes'
+import Link from 'react-router-dom/es/Link'
 
-class RoomCheckIn extends Component {
+class RoomsList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      floor: null
+      floor: this.props.checkInLocations[0].id
     }
     this.chooseFloor = this.chooseFloor.bind(this)
   }
@@ -15,6 +17,7 @@ class RoomCheckIn extends Component {
     this.setState({
       floor: event.target.value
     })
+    console.log(this.state.floor)
   }
 
   render () {
@@ -24,29 +27,37 @@ class RoomCheckIn extends Component {
     return (
       <Fragment>
         <div className='floors'>
-          {checkInLocations && checkInLocations.map(location => {
-            return <div
-              key={location.id}
-              className='floors__item'
-              onChange={this.chooseFloor}
-            >
-              <input
-                className='rooms'
-                name='floor'
-                type='radio'
-                value={location.id}
-              />
-              <label htmlFor="floor">{location.title}</label>
-            </div>
-          })}
+          <select
+            name="floors"
+            id="floorsChoice"
+            onChange={this.chooseFloor}
+            defaultValue={2}
+          >
+            {checkInLocations && checkInLocations.map(location => {
+              return <option
+                key={location.id}
+                className='floors__item'
+                value={location.id}>
+                {location.title}
+              </option>
+            })}
+          </select>
           {floor &&
           <ul className='floors__rooms'>
             {choosenFloor.map(room => {
               return (
                 <li
+                  className='roomName'
                   key={room.id}
                   value={room.id}
-                >{room.title}</li>
+                >
+                  <Link
+                    className='roomName__item'
+                    to={routes.taskForRoom.href + room.title}
+                  >
+                    {room.title}
+                  </Link>
+                </li>
               )
             })
             }
@@ -64,4 +75,4 @@ const mapStateToProps = ({startData}) => {
   }
 }
 
-export default connect(mapStateToProps)(RoomCheckIn)
+export default connect(mapStateToProps)(RoomsList)

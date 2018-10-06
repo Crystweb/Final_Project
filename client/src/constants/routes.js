@@ -9,14 +9,15 @@ const routes = {
   updateComment: {name: 'изменить комментарий ', href: '/shift/update/', previousHref: '/shifts'},
   updateVacancy: {name: 'изменить вакансию', href: '/employees/vacancies/service/', previousHref: '/employees/vacancies'},
   addNewVacancy: {name: 'добавить вакансию', href: '/employees/vacancies/service/', previousHref: '/employees/vacancies'},
-  tasks: {name: 'Задачи', href: '/tasks', previousHref: '/'},
+  tasks: {name: 'Задачи', href: '/tasks/', previousHref: '/'},
   createNewTask: {name: 'назначить задачу', href: '/tasks/add', previousHref: '/tasks'},
   tasksView: {name: 'Мои задачи', href: '/tasks/myTasks', previousHref: '/tasks'},
   tasksHistory: {name: 'история задач', href: '/tasks/history', previousHref: '/tasks'},
   washingData: {name: 'стирка', href: '/washingData', previousHref: '/'},
   salesNumbers: {name: 'Продажные номера', href: '/washingData/salesNumbers', previousHref: '/washingData'},
   lodgers: {name: 'Постояльцы', href: '/washingData/lodgers', previousHref: '/washingData'},
-  roomCheckIn: {name: 'Обход номеров', href: '/rooms', previousHref: '/'}
+  roomCheckIn: {name: 'Обход номеров', href: '/rooms', previousHref: '/'},
+  taskForRoom: {name: 'Задачи', href: '/rooms/', previousHref: '/rooms'}
 }
 
 export default routes

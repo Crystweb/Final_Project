@@ -7,17 +7,18 @@ class TasksView extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      allTasks: this.props.tasks
+      allTasks: this.props.tasksForRoom || this.props.tasks
     }
   }
 
   render () {
+    console.log(this.props.tasksForRoom)
     const {showAll, tasks, currentUser} = this.props
     tasks.sort(function (a, b) {
       if (a.priority > b.priority) return 1
       if (a.priority < b.priority) return -1
-      if (a.expired > b.expired) return -1
-      if (a.expired < b.expired) return 1
+      if (a.expired > b.expired) return 1
+      if (a.expired < b.expired) return -1
       return 0
     })
     if (tasks && currentUser) {
@@ -61,7 +62,7 @@ class TasksView extends Component {
 const mapStateToProps = ({tasks, startData}) => {
   return {
     tasks: tasks.allTasks,
-    currentUser: startData.currentUser
+    currentUser: startData.currentUser,
   }
 }
 

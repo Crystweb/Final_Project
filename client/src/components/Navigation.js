@@ -16,8 +16,9 @@ import WashingData from '../pages/WashingData'
 import SalesNumbers from '../pages/washingDate/SalesNumbers'
 import Lodgers from '../pages/washingDate/Lodgers'
 import Header from './Header'
-import VacancyServicePage from "../pages/VacancyServicePage";
-import RoomCheckIn from '../pages/roomCheckin/roomCheckIn'
+import VacancyServicePage from '../pages/VacancyServicePage'
+import RoomCheckIn from '../pages/roomCheckin/RoomsList'
+import TasksForRoom from '../pages/roomCheckin/TasksForRoom'
 
 class Navigation extends Component {
   render () {
@@ -48,9 +49,9 @@ class Navigation extends Component {
           render={(props) => header ? <Header previousRoute={routes.updateComment} {...props}/>
             : <CreateNewComments {...props}/>}/>
         <Route path={routes.updateVacancy.href + ':vacancyId'}
-               render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/> : <VacancyServicePage {...props}/>}/>
+          render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/> : <VacancyServicePage {...props}/>}/>
         <Route path={routes.addNewVacancy.href}
-               render={(props) => header ? <Header previousRoute={routes.addNewVacancy} {...props}/> : <VacancyServicePage {...props}/>}/>
+          render={(props) => header ? <Header previousRoute={routes.addNewVacancy} {...props}/> : <VacancyServicePage {...props}/>}/>
         <Route exact path={routes.tasks.href}
           render={(props) => header ? <Header previousRoute={routes.tasks} {...props}/> : <Tasks {...props}/>}/>
         <Route exact path={routes.createNewTask.href}
@@ -74,6 +75,9 @@ class Navigation extends Component {
         <Route exact path={routes.roomCheckIn.href}
           render={(props) => header ? <Header previousRoute={routes.roomCheckIn} {...props}/>
             : <RoomCheckIn {...props}/>}/>
+        <Route exact path={routes.taskForRoom.href + ':roomTitle'}
+          render={(props) => header ? <Header previousRoute={routes.taskForRoom} {...props}/>
+            : <TasksForRoom {...props}/>}/>
       </Switch>
     )
   }

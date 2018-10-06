@@ -13,7 +13,7 @@ class Tasks extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      showAll: false,
+      showAll: false
     }
   }
 
