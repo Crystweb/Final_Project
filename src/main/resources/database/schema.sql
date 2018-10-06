@@ -318,3 +318,13 @@ CREATE TABLE IF NOT EXISTS `dish_comment` (
   FOREIGN KEY (`d_id`) REFERENCES `dish_accounting` (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `check_in` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `location_id` BIGINT NOT NULL,
+  `employee_id` BIGINT NOT NULL,
+  `created_at` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`location_id`) REFERENCES `location` (`id`),
+  FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;

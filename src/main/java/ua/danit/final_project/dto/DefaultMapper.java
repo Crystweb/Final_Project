@@ -3,6 +3,7 @@ package ua.danit.final_project.dto;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
 import org.mapstruct.ReportingPolicy;
+import ua.danit.final_project.entities.CheckIn;
 import ua.danit.final_project.entities.Employee;
 import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.entities.Position;
@@ -40,4 +41,8 @@ public interface DefaultMapper {
   TaskDto taskToTaskDto(Task task);
 
   Task taskDtoToTask(TaskDto taskDto);
+
+  CheckInDto checkInToCheckInDto(CheckIn checkIn);
+
+  CheckIn checkInDtoToCheckIn(CheckInDto checkInDto);
 }
