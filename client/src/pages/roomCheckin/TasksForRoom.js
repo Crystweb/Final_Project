@@ -11,7 +11,10 @@ class TasksForRoom extends Component {
   render () {
     if (this.props.tasksForCurrentRoom) {
       return (
-        <TasksView tasksForRoom={this.props.tasksForCurrentRoom}/>
+        <TasksView
+          tasksForRoom={this.props.tasksForCurrentRoom}
+          showAll={true}
+        />
       )
     }
   }

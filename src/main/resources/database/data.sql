@@ -251,8 +251,8 @@ INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority
 
 INSERT INTO `task_location` (t_id, l_id) VALUES (1,2);
 INSERT INTO `task_location` (t_id, l_id) VALUES (2,23);
-INSERT INTO `task_location` (t_id, l_id) VALUES (4,34);
-INSERT INTO `task_location` (t_id, l_id) VALUES (5,19);
+INSERT INTO `task_location` (t_id, l_id) VALUES (4,4);
+INSERT INTO `task_location` (t_id, l_id) VALUES (5,1);
 INSERT INTO `task_location` (t_id, l_id) VALUES (3,21);
 INSERT INTO `task_location` (t_id, l_id) VALUES (6,28);
 INSERT INTO `task_location` (t_id, l_id) VALUES (7,3);

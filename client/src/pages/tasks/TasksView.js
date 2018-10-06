@@ -4,16 +4,10 @@ import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 
 class TasksView extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      allTasks: this.props.tasksForRoom || this.props.tasks
-    }
-  }
-
   render () {
     console.log(this.props.tasksForRoom)
-    const {showAll, tasks, currentUser} = this.props
+    const {showAll, allTasks, currentUser, tasksForRoom} = this.props
+    let tasks = tasksForRoom || allTasks
     tasks.sort(function (a, b) {
       if (a.priority > b.priority) return 1
       if (a.priority < b.priority) return -1
@@ -61,7 +55,7 @@ class TasksView extends Component {
 
 const mapStateToProps = ({tasks, startData}) => {
   return {
-    tasks: tasks.allTasks,
+    allTasks: tasks.allTasks,
     currentUser: startData.currentUser,
   }
 }
