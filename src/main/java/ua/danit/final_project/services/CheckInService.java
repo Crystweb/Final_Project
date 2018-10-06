@@ -10,6 +10,8 @@ import java.util.List;
 public interface CheckInService {
 
   List<CheckIn> getCheckInsByDate(@Nullable Date date);
+
   CheckIn save(CheckIn checkIn);
+  
   CheckIn save(Location location);
 }
