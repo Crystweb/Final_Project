@@ -3,7 +3,7 @@ import '../styles/Comments.css'
 import update from "../img/update.png";
 import trash from "../img/trash.png";
 
-export const ActionButtons = (props) => {
+ const ActionButtons = (props) => {
   return (
     <div className="comment-list__elem-buttons">
       <a className="comment-list__elem-buttons-change" href="#">
@@ -15,4 +15,6 @@ export const ActionButtons = (props) => {
     </div>
   )
 }
+
+export default ActionButtons
 

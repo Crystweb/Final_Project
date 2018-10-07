@@ -1,17 +1,17 @@
 import React, {Component} from 'react'
-import {ActionButtons} from "./Buttons";
+import ActionButtons from "./Buttons";
 
 
 class ScheduleWithComments extends Component {
 
   render () {
 
-    const {comments, schedule} = this.props;
+    const {comments, schedule, userId} = this.props;
 
     let dataObject = null;
     if (schedule) {
       dataObject =      {
-        title : "Смена c " + schedule.start + " до " + schedule.end,
+        title : schedule.title,
         color : schedule.color
       };
     } else {
@@ -27,7 +27,9 @@ class ScheduleWithComments extends Component {
           <ul className="comment-list">
             {comments
               .map(comment => {
-                  let buttons = comment.authorId === this.state.userId ? ActionButtons() : "";
+                  let buttons = comment.authorId === userId ? ActionButtons() : "";
+                  let time = new Date(+comment.date);
+                  let readyTime = "" + time.getHours() + ":" + time.getMinutes() + " жовтень/хардкод"
 
                   return (
                     <li className="comment-list__elem">
@@ -41,7 +43,7 @@ class ScheduleWithComments extends Component {
                         </div>
                       </div>
                       <h4 className="comment-list__elem-subtitle">
-                        {new Date(parseInt(comment.date)).getHours()}
+                        {readyTime}
                       </h4>
                       <p className="comment-list__elem-info">
                         {comment.text}
