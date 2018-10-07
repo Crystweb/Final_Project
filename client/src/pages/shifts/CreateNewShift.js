@@ -117,12 +117,12 @@ class CreateNewComments extends Component {
       )
     } else if (!this.state.commentForUpdate) {
       return (<div className="container">
-        <h3>Создать комментарий</h3><br/>
+        <div className="newComment">
         {this.props.allPositionsForComments.map(position => {
           const isForComment = position.pinnedToComment === true
           return (
-            <div>
-              {isForComment && <li key={position.id}>
+            <div className="newComment-elem">
+              {isForComment && <label key={position.id}>
                 <input
                   name="position"
                   type="checkbox"
@@ -130,19 +130,26 @@ class CreateNewComments extends Component {
                   value={position.title}
                   onChange={this.setCheckedPosition.bind(this)}
                 />
+                <div className="newComment-elem__fakeRadio">
+                  <div className="newComment-elem__fakeCheckMark">
+                    <img src="#" alt="checkMark"/>
+                  </div>
+                </div>
                 {position.title}
-              </li>}
+              </label>}
             </div>
           )
         }
         )
         }
-        <p><textarea value={this.state.textComment}
-          placeholder={'Введите Ваш коментарий'}
+          <h3 className="newComment-title">Добавить комментарий</h3>
+        </div>
+        <p><textarea className="newComment-textarea" value={this.state.textComment}
+          placeholder={'Привет друг, что бы ты хотел мне написать?'}
           cols="30"
           rows="10"
           onChange={this.addText.bind(this)}/></p>
-        <input type="button"
+        <input className="newComment-send" type="button"
           value=" Добавить комментарий "
           onClick={this.addComment.bind(this)}/>
         <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
