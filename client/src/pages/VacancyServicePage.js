@@ -24,11 +24,12 @@ class VacancyServicePage extends Component {
   }
 
   handleSubmit = (event) => {
+    const toUpdate = this.state.toUpdate;
     event.preventDefault();
     axios({
       url: '/vacancy',
-      method: this.state.toUpdate ? 'PUT' : 'POST',
-      data: this.state.toUpdate ? {
+      method: toUpdate ? 'PUT' : 'POST',
+      data: toUpdate ? {
           id: this.state.id,
           positionId: this.state.positionId,
           info: this.state.info,
@@ -44,7 +45,7 @@ class VacancyServicePage extends Component {
     })
       .then((response) => this.setState({
         resData: response.data,
-        successAction: this.state.toUpdate ? 'Вакансия изменена успешно' : 'Создана новая вакансия'
+        successAction: toUpdate ? 'Вакансия изменена успешно' : 'Создана новая вакансия'
       }))
   };
 
@@ -87,7 +88,7 @@ class VacancyServicePage extends Component {
 
   render() {
     const {positions} = this.props;
-    const {positionId, status, salary, info} = this.state;
+    const {positionId, status, salary, info, toUpdate} = this.state;
 
     if (!positions) {
       return <Preloader/>
@@ -102,11 +103,12 @@ class VacancyServicePage extends Component {
                   {position.title}
                 </option>)}
             </select>
-            Status:
-            <select onChange={this.handleStatusChange} defaultValue={status}>
+            {toUpdate &&
+            <p> Status: </p>}
+            {toUpdate && <select onChange={this.handleStatusChange} defaultValue={status}>
               <option name={'status'} key='1' value='OPENED'> OPENED</option>
               <option name={'status'} key='2' value='CLOSED'> CLOSED</option>
-            </select>
+            </select>}
             Зарплата:
             <input type="text" name={'salary'} value={salary}
                    onChange={this.handleSalaryChange}/>
