@@ -89,9 +89,11 @@
 }
 
 .positionComments {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center; }
+  justify-content: center;
+}
 
 .positionComments li {
   margin-bottom: 20px;

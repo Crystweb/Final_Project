@@ -153,8 +153,12 @@ class PositionButtons extends Component {
     let readySchedules = []
     let indexSchedule = null
 
+
     for (let i = 0; i < inputArrayOfSchedules.length; i++) {
-      if (startTime > inputArrayOfSchedules[i].start && startTime <= inputArrayOfSchedules[i].end) {
+      let start = inputArrayOfSchedules[i].start;
+      let end = inputArrayOfSchedules[i].end;
+
+      if ((end > start && start  < startTime && end >=  startTime) || (end < start && (start < startTime || end >= startTime))) {
         scheduleWithStartTime = inputArrayOfSchedules[i]
         indexSchedule = i;
         break
@@ -209,7 +213,10 @@ class PositionButtons extends Component {
     let startTime = time.getHours() * 60 + time.getMinutes();
 
     for (let i = 0; i < inputArrayOfSchedules.length; i++) {
-      if (startTime >= inputArrayOfSchedules[i].start && startTime < inputArrayOfSchedules[i].end) {
+      let start = inputArrayOfSchedules[i].start;
+      let end = inputArrayOfSchedules[i].end;
+
+      if ((end > start && start  < startTime && end >=  startTime) || (end < start && (start < startTime || end >= startTime))) {
         return true;
       }
     }
