@@ -19,7 +19,7 @@ export const startData = (
   axios.get('/test/user')
     .then(response => response.data)
     .then(callbackUser)
-  axios.get('/position')
+  axios.get('/position/list')
     .then(response => response.data)
     .then(callbackPosition)
   axios.get('/schedule')
