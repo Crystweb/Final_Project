@@ -52,8 +52,9 @@ class PositionButtons extends Component {
       item.start = stringNumberStart * 60;
       item.end = stringNumberEnd * 60;
       item.title = "Смена с " + stringNumberStart.toString() + " по " + stringNumberEnd.toString();
-    });
-    arrayOfSchedules.sort( (item1, item2) => {
+
+      return item
+    }).sort( (item1, item2) => {
       if (item1.start > item2.start) return -1;
       if (item1.start < item2.start) return 1;
       return 0
@@ -227,9 +228,7 @@ class PositionButtons extends Component {
         return item;
       })
 
-
-
-    let functionAnswer = this.createArrayOfReadyComments(schedulesWithColors, comments);
+    let readyComments = this.createArrayOfReadyComments(schedulesWithColors, comments);
 
     const selectPositionInputs = position.map(position => {
         const isForComment = position.pinnedToComment === true
@@ -269,7 +268,7 @@ class PositionButtons extends Component {
         </div>
 
         <div className="positionComments">
-          {functionAnswer}
+          {readyComments}
         </div>
 
       </section>
