@@ -98,8 +98,6 @@ class PositionButtons extends Component {
 
         if (sortedComments.length > 0) {
           resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null} userId={this.state.userId}/>)
-        } else {
-          resultArray.push(<h1>Без зміни</h1>)
         }
       } else {
         let sortedComments = filterComments
@@ -114,8 +112,6 @@ class PositionButtons extends Component {
 
         if (sortedComments.length > 0) {
           resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={currentSchedule} userId={this.state.userId}/>)
-        } else {
-          resultArray.push(<h1>Порожня зміна {currentSchedule.start} до {currentSchedule.end}</h1>)
         }
         startTime = currentSchedule.start;
         if (arrayOfSchedules.length <= 0) {
@@ -136,8 +132,6 @@ class PositionButtons extends Component {
 
       if (sortedComments.length > 0) {
         resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null} userId={this.state.userId}/>)
-      } else {
-        resultArray.push(<h1>Порожня остання зміна</h1>)
       }
     }
 
@@ -169,7 +163,6 @@ class PositionButtons extends Component {
     if (scheduleWithStartTime) {
       let lastSchedule = Object.assign({}, scheduleWithStartTime);
       lastSchedule.start = startTime;
-      lastSchedule.title += "// діапазон з " + lastSchedule.start  + " по " + lastSchedule.end
 
       readySchedules.push(lastSchedule);
 
@@ -183,7 +176,6 @@ class PositionButtons extends Component {
 
       let firstSchedule = Object.assign({}, scheduleWithStartTime);
       firstSchedule.end = startTime;
-      firstSchedule.title  += "// діапазон з " + firstSchedule.start  + " по " + firstSchedule.end
 
       readySchedules.push(firstSchedule);
     } else {
