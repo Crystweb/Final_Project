@@ -29,7 +29,7 @@ class CreateNewComments extends Component {
       this.setState({
         successPost: null,
         errorCheckedPosition: null,
-        errorText: 'Введите текст'
+        errorText: 'Введите комментарий'
       })
     } else {
       if (_.isEmpty(checkedPositions)) {
