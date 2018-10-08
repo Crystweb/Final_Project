@@ -116,7 +116,7 @@ class VacancyServicePage extends Component {
             <textarea rows="5" placeholder={'Введите Ваш коментарий'} name={'info'} value={info}
                       onChange={this.handleDescriptionChange}/>
           </label>
-          <input type="submit" value={this.props.location.state ? "Изменить вакансию" : "Добавить вакансию"}/>
+          <input type="submit" onClick={() => setTimeout(() => document.location.href="http://localhost:3000/employees/vacancies", 2000)} value={this.props.location.state ? "Изменить вакансию" : "Добавить вакансию"}/>
         </form>
         <p>{this.state.successAction}</p>
       </div>
