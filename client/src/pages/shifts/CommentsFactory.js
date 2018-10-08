@@ -59,8 +59,9 @@ class CreateNewComments extends Component {
             errorCheckedPosition: null,
             textComment: '',
             checkedPositions: [],
-            successAction: commentForUpdate ? 'Комментарий изменен' : 'Комментарий добавлен'
+            successPost: commentForUpdate ? 'Комментарий изменен' : 'Комментарий добавлен'
           }))
+          .then(() => setTimeout(() => this.props.history.push('/shifts'), 1500))
       }
     }
   }
@@ -90,8 +91,6 @@ class CreateNewComments extends Component {
       )
     } else {
       return (<div className="container">
-          {isUpdate || <h3>Добавить комментарий</h3>}
-          {isUpdate && <h3>Изменить комментарий</h3>}
         {this.props.allPositionsForComments.map(position => {
           const isForComment = position.pinnedToComment === true
           return (

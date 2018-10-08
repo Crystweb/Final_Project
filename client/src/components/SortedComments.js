@@ -67,7 +67,7 @@ class PositionButtons extends Component {
       timelineEvents.push(
         <TimelineEvent createdAt={`${i}:00`} key={i} title='' iconColor={shift && shift.color}>
           {comments
-            .filter(comment => comment.author.position.title === this.state.view)
+            .filter(comment => comment.positions.find(position => position.title === this.state.view))
             .filter(comment => new Date(comment.date).getHours() === i)
             .map(comment => {
               const showActionButtons = comment.author.userId === this.state.userId
