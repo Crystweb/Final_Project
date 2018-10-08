@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Preloader from '../../components/Preloader'
-// import EmployeeAdd from "../../components/EmployeeAdd";
+import EmployeeAdd from "../../components/EmployeeAdd";
 import '../../styles/Employee.css'
 import {Link} from "react-router-dom";
 import routes from "../../constants/routes";
@@ -43,9 +43,9 @@ class EmployeeList extends Component {
       const {employee} = this.props
       return (
         <div>
-          {/*<div>*/}
-            {/*<EmployeeAdd/>*/}
-          {/*</div>*/}
+          <div>
+            <EmployeeAdd/>
+          </div>
           <div className='employee'>
             <div className='employee_container'>
               {employee.map(employee =>
@@ -61,7 +61,7 @@ class EmployeeList extends Component {
                         {employee.patronymic},&nbsp;
                       </h4>
 
-                      <h4>{employee.position} </h4>
+                      <h4>{employee.position.title} </h4>
 
                       <h4>{employee.phoneNumber}</h4>
 
