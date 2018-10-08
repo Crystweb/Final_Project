@@ -39,7 +39,7 @@ class VacanciesPage extends Component {
   }
 
   deleteVacancy(id) {
-    if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
+    if (window.confirm('Вы уверены, что хотите удалить вакансию?')) {
       axios.delete(`/vacancy/${id}`)
         .then(() => this.props.GetAllVacancies())
 
