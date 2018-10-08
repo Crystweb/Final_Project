@@ -23,7 +23,7 @@ class CreateNewComments extends Component {
     const {textComment, checkedPositions, commentForUpdate} = this.state
     const allPositionsForComments = this.props.allPositionsForComments
     let positionForComment = checkedPositions.map(positionForComment => {
-     return allPositionsForComments.find(position => position.title === positionForComment)
+      return allPositionsForComments.find(position => position.title === positionForComment)
     })
     if (_.isEmpty(textComment)) {
       this.setState({
@@ -44,15 +44,15 @@ class CreateNewComments extends Component {
           url: '/workshift/comment',
           method: commentForUpdate ? 'PUT' : 'POST',
           data: commentForUpdate ? {
-              id: this.state.commentForUpdate.id,
-              message: this.state.textComment,
-              positions: positionForComment,
-              date: this.state.commentForUpdate.date
-            }
+            id: this.state.commentForUpdate.id,
+            message: this.state.textComment,
+            positions: positionForComment,
+            date: this.state.commentForUpdate.date
+          }
             : {
               message: this.state.textComment,
               positions: positionForComment
-            },
+            }
         })
           .then(() => this.setState({
             errorText: null,
@@ -115,13 +115,13 @@ class CreateNewComments extends Component {
           cols="30"
           rows="10"
           onChange={this.addText.bind(this)}/></p>
-          {isUpdate || <input type="button"
-                              value=" Добавить комментарий "
-                              onClick={this.commentForFactory.bind(this)}/>}
-          {isUpdate && <input type="button"
-                              value="Изменить комментарий"
-                              onClick={this.commentForFactory.bind(this)}/>
-          }
+        {isUpdate || <input type="button"
+          value=" Добавить комментарий "
+          onClick={this.commentForFactory.bind(this)}/>}
+        {isUpdate && <input type="button"
+          value="Изменить комментарий"
+          onClick={this.commentForFactory.bind(this)}/>
+        }
         <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
         <p>{this.state.successPost}</p>
       </div>
