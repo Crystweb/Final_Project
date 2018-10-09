@@ -34,6 +34,7 @@ class PositionButtons extends Component {
 
   getRandomColor(indexColors) {
     const colors = ['orange', 'darkkhaki', 'dimgray', 'rosybrown', 'red', 'saddlebrown', 'tan',   'yellowgreen', 'palegreen']
+    indexColors = indexColors % colors.length
 
     return colors[indexColors]
   }
