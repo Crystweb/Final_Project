@@ -40,17 +40,16 @@ class PositionButtons extends Component {
 
   createArrayOfReadyComments(schedulesWithColors, comments) {
 
-    let arrayOfSchedules = JSON.parse(JSON.stringify(schedulesWithColors));
-
-    arrayOfSchedules.map(item => {
+    let arrayOfSchedules = schedulesWithColors.map(item => {
+      let returnItem = Object.assign({}, item);
       let stringNumberStart = +item.start.toString().substr(0, 2);
       let stringNumberEnd = +item.end.toString().substr(0, 2);
 
-      item.start = stringNumberStart * 60;
-      item.end = stringNumberEnd * 60;
-      item.title = "Смена с " + stringNumberStart.toString() + " по " + stringNumberEnd.toString();
+      returnItem.start = stringNumberStart * 60;
+      returnItem.end = stringNumberEnd * 60;
+      returnItem.title = "Смена с " + stringNumberStart.toString() + " по " + stringNumberEnd.toString();
 
-      return item
+      return returnItem
     }).sort( (item1, item2) => {
       if (item1.start > item2.start) return -1;
       if (item1.start < item2.start) return 1;
