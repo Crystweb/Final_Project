@@ -25,3 +25,5 @@ export const GET_FREQUENCIES = 'GET_FREQUENCIES'
 export const GET_ALL_USERS = 'GET_ALL_USERS'
 
 export const ADD_NEW_TASK = 'ADD_NEW_TASK'
+
+export const DELETE_CLOSED_TASK = 'DELETE_CLOSED_TASK'

@@ -98,7 +98,7 @@ class TaskFactory extends Component {
 
   createTask = () => {
     const {chosenLocation, chosenRoom, textForTask, taskPriority, finishDate, executorId, frequency, photo} = this.state
-    const {allLocations} = this.props
+    const {allLocations, allUsers} = this.props
     if (_.isEmpty(chosenLocation)) {
       this.setState({
         errorLocation: 'Выберите локацию'
@@ -128,7 +128,7 @@ class TaskFactory extends Component {
       let location = (chosenRoom && allLocations.find(location => location.id === +chosenLocation).children) || allLocations
       let locationId = chosenRoom || chosenLocation
       let body = {
-        assignee: this.props.allUsers.find(user => user.id === +executorId),
+        assignee: allUsers.find(user => user.id === +executorId),
         message: textForTask,
         status: 'OPENED',
         updated: new Date(),

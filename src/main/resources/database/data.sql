@@ -51,9 +51,9 @@ INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '10:00:00', '2
 INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '21:00:00', '10:00:00', TIMESTAMPADD(DAY, -2, CURRENT_TIMESTAMP) );
 INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (1,  '08:00:00', '20:00:00', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP) );
 
-INSERT INTO `shift_comment` (employee_id, c_message, c_date) VALUES (5, 'Привет, я передал смену. Сегодня все было хорошо. Я доволен. Правое крыло спокойно, левое немного бушевало. В целом рябята были довольны.', CURRENT_TIMESTAMP);
-INSERT INTO `shift_comment` (employee_id, c_message, c_date) VALUES (5, 'Ребята, много работы. Этот сентябрь начался на ура! Заселили сегодня целых две команды, кто будет смотреть со мной в пятницу футбол Польша - Италия? Жду!!!',TIMESTAMPADD(HOUR, -1, CURRENT_TIMESTAMP));
-INSERT INTO `shift_comment` (employee_id, c_message, c_date) VALUES (5, 'Сегодня немного бушевали. Мне было сложно, разламали табуретки, пришлось просить завхоза поченить. Поченил. Молодец. Если бы не завхоз пришлось бы тратиться на новые…',TIMESTAMPADD(HOUR, -4, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (employee_id, c_message, c_date) VALUES (4, 'Привет, я передал смену. Сегодня все было хорошо. Я доволен. Правое крыло спокойно, левое немного бушевало. В целом рябята были довольны.', CURRENT_TIMESTAMP);
+INSERT INTO `shift_comment` (employee_id, c_message, c_date) VALUES (4, 'Ребята, много работы. Этот сентябрь начался на ура! Заселили сегодня целых две команды, кто будет смотреть со мной в пятницу футбол Польша - Италия? Жду!!!',TIMESTAMPADD(HOUR, -1, CURRENT_TIMESTAMP));
+INSERT INTO `shift_comment` (employee_id, c_message, c_date) VALUES (4, 'Сегодня немного бушевали. Мне было сложно, разламали табуретки, пришлось просить завхоза поченить. Поченил. Молодец. Если бы не завхоз пришлось бы тратиться на новые…',TIMESTAMPADD(HOUR, -4, CURRENT_TIMESTAMP));
 INSERT INTO `shift_comment` (employee_id, c_message, c_date) VALUES (2, 'Привет, я передал смену. Сегодня все было хорошо. Я доволен.', TIMESTAMPADD(HOUR, -5, CURRENT_TIMESTAMP));
 INSERT INTO `shift_comment` (employee_id, c_message, c_date) VALUES (3, 'Сегодня немного бушевали.', TIMESTAMPADD(HOUR, -9, CURRENT_TIMESTAMP));
 INSERT INTO `shift_comment` (employee_id, c_message, c_date) VALUES (1, 'Заселили сегодня целых две команды,',TIMESTAMPADD(HOUR, -11, CURRENT_TIMESTAMP));

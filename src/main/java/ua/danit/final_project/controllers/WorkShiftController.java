@@ -59,6 +59,7 @@ public class WorkShiftController extends SessionAware {
   public ShiftCommentDto updateComment(@RequestBody ShiftCommentDto shiftCommentDto) throws IllegalAccessException {
     User userFromToken = getCurrentUser();
     ShiftComment shiftComment = mapper.shiftCommentDtoToShiftComment(shiftCommentDto);
+    shiftComment.setAuthor(getEmployee());
     shiftComment = workCommentService.updateComment(shiftComment, userFromToken);
 
     return mapper.shiftCommentToShiftCommentDto(shiftComment);

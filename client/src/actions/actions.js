@@ -91,3 +91,10 @@ export function addNewTask (newTask) {
     newTask
   }
 }
+
+export function deleteTask (task) {
+  return {
+    type: types.DELETE_CLOSED_TASK,
+    task
+  }
+}
