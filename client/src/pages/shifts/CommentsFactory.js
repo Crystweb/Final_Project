@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 import * as _ from 'lodash'
 
-class CreateNewComments extends Component {
+class CommentsFactory extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -65,6 +65,7 @@ class CreateNewComments extends Component {
       }
     }
   }
+
   addText (event) {
     this.setState({textComment: event.target.value})
   }
@@ -91,11 +92,11 @@ class CreateNewComments extends Component {
       )
     } else {
       return (<div className="container">
-        {this.props.allPositionsForComments.map(position => {
-          const isForComment = position.pinnedToComment === true
-          return (
-            <div>
-              {isForComment && <li key={position.id}>
+        {this.props.allPositionsForComments
+          .filter(position => position.pinnedToComment === true)
+          .map(position => {
+            return (
+              <div key={position.id}>
                 <input
                   name="position"
                   type="checkbox"
@@ -104,11 +105,10 @@ class CreateNewComments extends Component {
                   onChange={this.setCheckedPosition.bind(this)}
                 />
                 {position.title}
-              </li>}
-            </div>
+              </div>
+            )
+          }
           )
-        }
-        )
         }
         <p><textarea value={this.state.textComment}
           placeholder={'Введите Ваш коментарий'}
@@ -143,4 +143,4 @@ const mapStateToProps = ({comments, startData}, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(CreateNewComments)
+export default connect(mapStateToProps)(CommentsFactory)

@@ -72,9 +72,11 @@ public class TaskController {
   }
 
   @PutMapping
-  public TaskDto update(@RequestBody TaskDto taskDto) {
+  public TaskDto update(@RequestPart(name = "file", required = false) MultipartFile file,
+                        @RequestParam(name = "task") String taskString) throws IOException {
+    TaskDto taskDto = objectMapper.readValue(taskString, TaskDto.class);
     Task task = mapper.taskDtoToTask(taskDto);
-    task = taskService.update(task);
+    task = taskService.create(task, file);
     return mapper.taskToTaskDto(task);
   }
 

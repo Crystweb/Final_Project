@@ -128,7 +128,7 @@ class TaskFactory extends Component {
       let location = (chosenRoom && allLocations.find(location => location.id === +chosenLocation).children) || allLocations
       let locationId = chosenRoom || chosenLocation
       let body = {
-        assignee: allUsers.find(user => user.id === +executorId),
+        assignee: allUsers.find(user => user.id === +executorId).employee,
         message: textForTask,
         status: 'OPENED',
         updated: new Date(),
