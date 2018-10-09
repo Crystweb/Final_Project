@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -19,6 +18,7 @@ import ua.danit.final_project.entities.Task;
 import ua.danit.final_project.services.tasks.TaskService;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +47,15 @@ public class TaskController {
   @GetMapping("/frequency")
   public List<Task.TaskFrequency> getFrequencies() {
     return taskService.getFrequencies();
+  }
+
+  @GetMapping("/date")
+  public List<TaskDto> findByDateBetween(@RequestParam("from") Date from,
+                                         @RequestParam("to") Date to) {
+    return taskService.findAllByDateBetween(from, to)
+            .stream()
+            .map(mapper::taskToTaskDto)
+            .collect(Collectors.toList());
   }
 
   @GetMapping
