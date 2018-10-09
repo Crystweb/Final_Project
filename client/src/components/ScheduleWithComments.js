@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import ActionButtons from "./Buttons";
+import ActionButtons from "./Buttons"
+import dateFormat from 'dateformat'
 
 
 class ScheduleWithComments extends Component {
@@ -29,7 +30,8 @@ class ScheduleWithComments extends Component {
               .map(comment => {
                   let buttons = comment.authorId === userId ? ActionButtons() : "";
                   let time = new Date(+comment.date);
-                  let readyTime = "" + time.getHours() + ":" + time.getMinutes() + " жовтень/хардкод"
+
+                  let readyTime = dateFormat(time, "dd mmmm в HH:MM")
 
                   return (
                     <li className="comment-list__elem">

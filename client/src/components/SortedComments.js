@@ -32,13 +32,10 @@ class PositionButtons extends Component {
     }
   }
 
-  getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+  getRandomColor(indexColors) {
+    const colors = ['orange', 'darkkhaki', 'dimgray', 'rosybrown', 'red', 'saddlebrown', 'tan',   'yellowgreen', 'palegreen']
+
+    return colors[indexColors]
   }
 
   createArrayOfReadyComments(schedulesWithColors, comments) {
@@ -228,10 +225,12 @@ class PositionButtons extends Component {
   render() {
     const {position, comments, schedules} = this.props;
 
+    let indexColors = 0
+
     const schedulesWithColors = schedules
       .filter(item => item.position.title === this.state.view)
       .map(item => {
-        item.color = this.getRandomColor()
+        item.color = this.getRandomColor(indexColors++)
         return item;
       })
 
