@@ -1,10 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import Preloader from '../../components/Preloader'
-import axios from 'axios'
-import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
-import DatePicker from 'react-datepicker'
 import * as _ from 'lodash'
 import '../../styles/Tasks.css'
 import {addEmployee, addNewEmployee} from '../../actions/actions'
@@ -112,37 +109,7 @@ class CreateNewEmployee extends Component {
                 errorPhoneNumber: 'Введите номер телефона'
             })
         }
-        /*    if (!_.isEmpty(textForTask) && !_.isEmpty(frequency) && !_.isEmpty(executorId) && !_.isEmpty(chosenLocation)) {
-              let body = {
-                assignee: this.props.allUsers.find(user => user.id === +executorId),
-                message: textForTask,
-                status: 'OPENED',
-                updated: new Date(),
-                frequency: frequency,
-                expired: finishDate,
-                priority: taskPriority,
-                locations: [this.props.allLocations.find(location => location.id === +chosenLocation)]
-              }
-              let formData = new FormData()
-              formData.append('task', JSON.stringify(body))
-              if (photo) {
-                formData.append('file', photo)
-              }
-              axios({
-                method: 'post',
-                url: `/task`,
-                data: formData
-              })
-                .then((response) => this.props.addTask(response.data))
-                .then(() => {
-                  this.setState({
-                    successAdd: 'Задача добавлена'
-                  })
-                })
-                .then(() => { setTimeout(() => this.props.history.push('/tasks'), 1500) })
             }
-            */
-    }
 
     componentWillMount() {
         const {AddEmployee} = this.props;
@@ -206,12 +173,7 @@ class CreateNewEmployee extends Component {
                             <option value="2">2</option>
                             <option value="3">3</option>
                         </select>
-                        <DatePicker
-                            placeholderText='Выполнить до'
-                            minDate={moment()}
-                            selected={this.state.finishDate}
-                            onChange={this.handleChange}
-                        />
+
                         <select
                             name='executors'
                             defaultValue='test'

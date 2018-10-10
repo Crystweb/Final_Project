@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Preloader from '../../components/Preloader'
-import EmployeeAdd from "../../components/EmployeeAdd";
 import '../../styles/Employee.css'
 import {Link} from "react-router-dom";
 import routes from "../../constants/routes";
@@ -43,9 +42,6 @@ class EmployeeList extends Component {
       const {employee} = this.props
       return (
         <div>
-          <div>
-            <EmployeeAdd/>
-          </div>
           <div className='employee'>
             <div className='employee_container'>
               {employee.map(employee =>
