@@ -85,6 +85,12 @@ export function addAllUsers (users) {
   }
 }
 
+export function addEmployee (employee) {
+  return {
+    type: types.ADD_EMPLOYEE,
+    employee
+  }
+}
 export function addNewTask (newTask) {
   return {
     type: types.ADD_NEW_TASK,

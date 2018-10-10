@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import routes from '../constants/routes'
 import Home from '../pages/Home'
-import Employees from '../pages/Employees'
-import EmployeeList from '../pages/EmployeeList'
+import Employees from '../pages/employees/Employees'
+import EmployeeList from '../pages/employees/EmployeeList'
 import Vacancies from '../pages/VacanciesPage'
 import Comments from '../pages/shifts/Shifts'
 import ShiftsHistory from '../pages/shifts/ShiftsHistory'
@@ -16,6 +16,7 @@ import WashingData from '../pages/WashingData'
 import SalesNumbers from '../pages/washingDate/SalesNumbers'
 import Lodgers from '../pages/washingDate/Lodgers'
 import Header from './Header'
+import CreateNewEmployee from "../pages/employees/CreateNewEmployee";
 import VacancyServicePage from "../pages/VacancyServicePage";
 
 class Navigation extends Component {
@@ -29,6 +30,10 @@ class Navigation extends Component {
                render={(props) => header ? <Header previousRoute={routes.employees} {...props}/> : <Employees {...props}/>}/>
         <Route exact path={routes.employeesList.href}
                render={(props) => header ? <Header previousRoute={routes.employeesList} {...props}/> : <EmployeeList {...props}/>}/>
+        <Route exact path={routes.addNewEmployee.href}
+                 render={(props) => header ? <Header previousRoute={routes.addNewEmployee} {...props}/> : <CreateNewEmployee {...props}/>}/>
+        <Route path={routes.updateEmployee.href + ':employeeId'}
+                 render={(props) => header ? <Header previousRoute={routes.updateEmployee} {...props}/> : <CreateNewEmployee {...props}/>}/>
         <Route exact path={routes.vacancies.href}
                render={(props) => header ? <Header previousRoute={routes.vacancies} {...props}/> : <Vacancies {...props}/>}/>
         <Route exact path={routes.comments.href}
@@ -40,7 +45,7 @@ class Navigation extends Component {
         <Route path={routes.updateComment.href + ':commentId'}
                render={(props) => header ? <Header previousRoute={routes.updateComment} {...props}/> : <CreateNewComments {...props}/>}/>
         <Route path={routes.updateVacancy.href + ':vacancyId'}
-               render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/> : <VacancyServicePage {...props}/>}/> 
+               render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/> : <VacancyServicePage {...props}/>}/>
         <Route path={routes.addNewVacancy.href}
                render={(props) => header ? <Header previousRoute={routes.addNewVacancy} {...props}/> : <VacancyServicePage {...props}/>}/>
         <Route exact path={routes.tasks.href}
