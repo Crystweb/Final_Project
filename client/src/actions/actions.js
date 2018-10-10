@@ -91,3 +91,10 @@ export function addNewTask (newTask) {
     newTask
   }
 }
+
+export function deleteComment (comment) {
+  return {
+    type: types.DELETE_COMMENT,
+    comment
+  }
+}
