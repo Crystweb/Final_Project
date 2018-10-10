@@ -13,7 +13,7 @@ class PositionButtons extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: this.props.currentUser.position.title,
+      view: this.props.currentUser.employee.position.title,
       userId: this.props.currentUser.id,
       colors: ['#eff47f', '#7ff4f1', '#c7c8ca', '#00c7ff']
     }
@@ -23,13 +23,10 @@ class PositionButtons extends Component {
     this.setState({view: event.target.value})
   }
 
-  deleteComment(id) {
-    if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
-      axios.delete(`/workshift/comment/${id}`)
-        .then(() => getLastShift(data => {
+  componentDidMount () {
+    getLastShift(data => {
           this.props.addShift(data)
-        }))
-    }
+    })
   }
 
   getRandomColor(indexColors) {
@@ -59,8 +56,8 @@ class PositionButtons extends Component {
 
     let arrayOfReadyComments = [];
     let filterComments = comments
-      .filter(comment => comment.positions.includes(this.state.view))
-      .sort( (comment1, comment2) => comment2.date - comment1.date);
+      .filter(comment => comment.positions.map(position => position.title === this.state.view))
+      .sort( (comment1, comment2) => comment2.date - comment1.date)
 
     if (filterComments.length > 0 && arrayOfSchedules.length > 0) {
       arrayOfReadyComments = this.createCommentsByWhile(arrayOfSchedules, filterComments)

@@ -28,7 +28,7 @@ class ScheduleWithComments extends Component {
           <ul className="comment-list">
             {comments
               .map(comment => {
-                  let buttons = comment.authorId === userId ? ActionButtons() : "";
+                  let buttons = comment.author.userId === userId ? <ActionButtons comment={comment.id}/> : "";
                   let time = new Date(+comment.date);
 
                   let readyTime = dateFormat(time, "dd mmmm в HH:MM")
@@ -36,7 +36,7 @@ class ScheduleWithComments extends Component {
                   return (
                     <li className="comment-list__elem">
                       <h3 className="comment-list__elem-title">
-                        {comment.forename} {comment.surname}, {comment.authorPosition}
+                        {comment.author.forename} {comment.author.surname}, {comment.author.position.title}
                       </h3>
                       <div className="comment-list__elem-point">
                         <div className="comment-list__elem-line"></div>
@@ -48,7 +48,7 @@ class ScheduleWithComments extends Component {
                         {readyTime}
                       </h4>
                       <p className="comment-list__elem-info">
-                        {comment.text}
+                        {comment.message}
                       </p>
                       {buttons}
                     </li>

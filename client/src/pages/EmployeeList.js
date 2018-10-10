@@ -8,7 +8,9 @@ class EmployeeList extends Component {
 
     componentDidMount() {
         axios.get('/employee')
-            .then(response => this.setState({employee: response.data}))
+            .then(response => {
+                console.log(response.data)
+                this.setState({employee: response.data})})
     }
 
     constructor(props) {

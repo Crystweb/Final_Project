@@ -1,20 +1,55 @@
-import React from 'react'
+import React, {Component} from 'react'
 import '../styles/Comments.css'
 import update from "../img/update.png";
 import trash from "../img/trash.png";
+import routes from "../constants/routes";
+import {Link} from "react-router-dom";
+import {getLastShift} from "../utils/utils";
+import connect from "react-redux/es/connect/connect";
+import {addShift} from "../actions/actions";
+import axios from 'axios'
 
- const ActionButtons = (props) => {
-  return (
-    <div className="comment-list__elem-buttons">
-      <a className="comment-list__elem-buttons-change" href="#">
-        <img src={update} alt="#"/>
-      </a>
-      <a className="comment-list__elem-buttons-delete" href="#">
-        <img src={trash} alt="#"/>
-      </a>
-    </div>
-  )
+ class ActionButtons extends Component {
+
+   deleteComment (id) {
+     if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
+       axios.delete(`/workshift/comment/${id}`)
+         .then(() => getLastShift(data => {
+           this.props.addShift(data)
+         }))
+     }
+   }
+
+   render() {
+     const {comment} = this.props
+     return (
+       <div className="comment-list__elem-buttons">
+         <Link
+           className="comment-list__elem-buttons-change"
+           to={routes.updateComment.href + comment}>
+           <img
+             src={update}
+             alt="#"/>
+         </Link>
+         <button
+           onClick={() => this.deleteComment(comment)}
+           className="comment-list__elem-buttons-delete">
+           <img src={trash} alt="#"/>
+         </button>
+       </div>
+     )
+   }
+ }
+
+ const mapStateToProps = () => {}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addShift: (data) => {
+      dispatch(addShift(data))
+    }
+  }
 }
 
-export default ActionButtons
+export default connect(mapStateToProps, mapDispatchToProps)(ActionButtons)
 

@@ -7,13 +7,13 @@ import picture from '../../img/addComment.png'
 import calendar from '../../img/calendar.png'
 import '../../styles/Tasks.css'
 import Preloader from '../../components/Preloader'
-import MyTasks from './TasksView'
+import TasksView from './TasksView'
 
 class Tasks extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      showAll: false
+      showAll: false,
     }
   }
 
@@ -30,37 +30,25 @@ class Tasks extends Component {
   }
 
   render () {
+    const {user} = this.props
     if (this.props.tasks && this.props.user) {
-      const showButtonsForAdmin = this.props.user.position.title === 'Администратор'
-      const showButtonsForManager = this.props.user.position.title === 'Менеджер'
-      const showButtonsForDirector = this.props.user.position.title === 'Управляющий'
-      const showButtonsForOwner = this.props.user.position.title === 'Собственник'
-      console.log(this.props.tasks)
+      const showEditButtons = user.employee.position.pinnedToComment === true
       return (
         <Fragment>
           <div className="tasks">
-            <MyTasks showAll={this.state.showAll}/>
+            <TasksView showAll={this.state.showAll}/>
             <div className='tasks__items'>
               <div className='control'>
                 <div className='control__buttons'>
-                  {(showButtonsForAdmin ||
-                    showButtonsForManager ||
-                    showButtonsForDirector ||
-                    showButtonsForOwner) &&
+                  {showEditButtons &&
                   <Link to={routes.createNewTask.href}><img src={picture} alt="add"/></Link>
                   }
-                  {(showButtonsForAdmin ||
-                    showButtonsForManager ||
-                    showButtonsForDirector ||
-                    showButtonsForOwner) &&
+                  {showEditButtons &&
                   <Link to={routes.tasksHistory.href}><img src={calendar} alt="calendar"/></Link>
                   }
                 </div>
                 <div className='control__radio'>
-                  {(showButtonsForAdmin ||
-                    showButtonsForManager ||
-                    showButtonsForDirector ||
-                    showButtonsForOwner) &&
+                  {showEditButtons &&
                   <ul>
                     <li>
                       <input
