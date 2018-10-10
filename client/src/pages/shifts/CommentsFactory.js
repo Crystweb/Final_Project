@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 import * as _ from 'lodash'
 import { addNewComment, updateComment } from '../../actions/actions'
+import '../../styles/App.css'
 
 class CreateNewComments extends Component {
   constructor (props) {
@@ -98,27 +99,27 @@ class CreateNewComments extends Component {
         <Preloader/>
       )
     } else {
-      return (<div className="container">
-          {this.props.allPositionsForComments.map(position => {
-              const isForComment = position.pinnedToComment === true
+      return (<div className="container newComment">
+          {this.props.allPositionsForComments.filter(position => position.pinnedToComment).map(position => {
               return (
-                <ul>
-                  {isForComment && <li key={position.id}>
-                    <input
-                      name="position"
-                      type="checkbox"
-                      checked={true && checkedPositions.includes(position.title)}
-                      value={position.title}
-                      onChange={this.setCheckedPosition.bind(this)}
-                    />
-                    {position.title}
-                  </li>}
-                  {errorCheckedPosition && <p>{errorCheckedPosition}</p>}
-                </ul>
+                <div
+                  key={position.id}
+                  className="newComment-elem"
+                >
+                  <input
+                    name="position"
+                    type="checkbox"
+                    checked={true && checkedPositions.includes(position.title)}
+                    value={position.title}
+                    onChange={this.setCheckedPosition.bind(this)}
+                  />
+                  {position.title}
+                </div>
               )
             }
           )
           }
+          {errorCheckedPosition && <p>{errorCheckedPosition}</p>}
           <textarea
             name='commentField'
             value={textComment}
