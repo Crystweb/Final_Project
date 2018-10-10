@@ -4,9 +4,8 @@ import update from "../img/update.png";
 import trash from "../img/trash.png";
 import routes from "../constants/routes";
 import {Link} from "react-router-dom";
-import {getLastShift} from "../utils/utils";
 import connect from "react-redux/es/connect/connect";
-import {addShift} from "../actions/actions";
+import { deleteComment } from '../actions/actions'
 import axios from 'axios'
 
  class ActionButtons extends Component {
@@ -14,9 +13,7 @@ import axios from 'axios'
    deleteComment (id) {
      if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
        axios.delete(`/workshift/comment/${id}`)
-         .then(() => getLastShift(data => {
-           this.props.addShift(data)
-         }))
+         .then(() => this.props.deleteCurrentComment(id))
      }
    }
 
@@ -47,8 +44,8 @@ import axios from 'axios'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addShift: (data) => {
-      dispatch(addShift(data))
+    deleteCurrentComment: (id) => {
+      dispatch(deleteComment(id))
     }
   }
 }

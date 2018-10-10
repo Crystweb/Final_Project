@@ -15,11 +15,11 @@ class Shifts extends Component {
     }
   }
 
-  componentDidMount () {
-    getLastShift(data => {
-      this.props.addShift(data)
-    })
-  }
+  // componentDidMount () {
+  //   getLastShift(data => {
+  //     this.props.addShift(data)
+  //   })
+  // }
 
   render () {
     if (!this.props.lastComments) {

@@ -92,9 +92,16 @@ export function addNewTask (newTask) {
   }
 }
 
-export function deleteComment (comment) {
+export function deleteComment (id) {
   return {
     type: types.DELETE_COMMENT,
+    id
+  }
+}
+
+export function addNewComment (comment) {
+  return {
+    type: types.ADD_NEW_COMMENT,
     comment
   }
 }
