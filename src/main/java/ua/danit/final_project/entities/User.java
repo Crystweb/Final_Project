@@ -18,7 +18,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -51,10 +50,6 @@ public class User implements Serializable {
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   private List<Role> roles;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "position_id")
-  private Position position;
 
   @OneToOne(mappedBy = "user")
   private Employee employee;

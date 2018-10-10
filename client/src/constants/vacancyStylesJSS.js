@@ -46,6 +46,9 @@ const vacancyStyles = ({
     width: '100%',
     marginTop: 54,
   },
+    vacancyListInner:{
+     width: '90%',
+    },
   vacancyContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -82,10 +85,18 @@ const vacancyStyles = ({
     flexDirection: 'column',
     alignItems: 'start',
     justifyContent: 'flex-start',
-    marginLeft: 26,
     position: 'relative',
     top:-32,
+  },
+  vacancyPaper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'start',
+    justifyContent: 'space-between',
+    marginLeft: 26,
+    position: 'relative',
     paddingBottom: 16,
+    width: '90%',
   },
   vacancySideIcon: {
     position: 'absolute',
@@ -107,6 +118,22 @@ const vacancyStyles = ({
     borderRight: '1px solid #7b7c7e',
     display: 'block',
     height: '100vh',
+  },
+  ud_buttons: {
+    height: 98,
+    display: 'flex',
+    justifySelf: 'flex-end',
+    flexDirection: 'column',
+    top: -38,
+    position: 'relative',
+    left: 16,
+    justifyContent: 'space-between',
+  },
+  buttons: {
+    transform: 'scale(0.9)',
+    '&:hover': {
+      cursor: 'pointer',
+    }
   }
 })
 

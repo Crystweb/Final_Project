@@ -7,7 +7,7 @@ import EmployeeList from '../pages/employees/EmployeeList'
 import Vacancies from '../pages/VacanciesPage'
 import Comments from '../pages/shifts/Shifts'
 import ShiftsHistory from '../pages/shifts/ShiftsHistory'
-import CreateNewComments from '../pages/shifts/CreateNewShift'
+import CreateNewComments from '../pages/shifts/CommentsFactory'
 import Tasks from '../pages/tasks/Tasks'
 import CreateNewTask from '../pages/tasks/CreateNewTask'
 import TasksHistory from '../pages/tasks/TasksHistory'
@@ -17,6 +17,7 @@ import SalesNumbers from '../pages/washingDate/SalesNumbers'
 import Lodgers from '../pages/washingDate/Lodgers'
 import Header from './Header'
 import CreateNewEmployee from "../pages/employees/CreateNewEmployee";
+import VacancyServicePage from "../pages/VacancyServicePage";
 
 class Navigation extends Component {
   render() {
@@ -43,6 +44,10 @@ class Navigation extends Component {
                render={(props) => header ? <Header previousRoute={routes.addNewComments} {...props}/> : <CreateNewComments {...props}/>}/>
         <Route path={routes.updateComment.href + ':commentId'}
                render={(props) => header ? <Header previousRoute={routes.updateComment} {...props}/> : <CreateNewComments {...props}/>}/>
+        <Route path={routes.updateVacancy.href + ':vacancyId'}
+               render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/> : <VacancyServicePage {...props}/>}/>
+        <Route path={routes.addNewVacancy.href}
+               render={(props) => header ? <Header previousRoute={routes.addNewVacancy} {...props}/> : <VacancyServicePage {...props}/>}/>
         <Route exact path={routes.tasks.href}
                render={(props) => header ? <Header previousRoute={routes.tasks} {...props}/> : <Tasks {...props}/>}/>
         <Route exact path={routes.createNewTask.href}

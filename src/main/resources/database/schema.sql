@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `check_in`;
 DROP TABLE IF EXISTS `dish_comment`;
 DROP TABLE IF EXISTS `dish_accounting`;
 DROP TABLE IF EXISTS `dish_balance`;
@@ -102,11 +103,11 @@ CREATE TABLE IF NOT EXISTS `schedule` (
 
 CREATE TABLE IF NOT EXISTS `shift_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL,
+  `employee_id` BIGINT NOT NULL,
   `c_message` VARCHAR(511) NOT NULL,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`employee_id`) REFERENCES `employee`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `shift_comment_position` (
@@ -129,8 +130,8 @@ CREATE TABLE IF NOT EXISTS `location` (
 
 CREATE TABLE IF NOT EXISTS `task` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id_assignee` BIGINT,
-  `u_id_delegator` BIGINT NOT NULL,
+  `e_id_assignee` BIGINT,
+  `e_id_delegator` BIGINT NOT NULL,
   `t_message` VARCHAR(1023),
   `t_status` VARCHAR(31) CHECK (`t_status` in ('REMOVED', 'OPENED', 'CLOSED', 'REJECTED', 'PENDING','IN_PROGRESS', 'EXPIRED', 'CHANGE')),
   `t_frequency` VARCHAR(31) CHECK (`t_frequency` in ('ONCE', 'DAILY', 'WEEKLY', 'MONTHLY')),
@@ -138,8 +139,8 @@ CREATE TABLE IF NOT EXISTS `task` (
   `expired` TIMESTAMP,
   `updated` TIMESTAMP,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`u_id_assignee`) REFERENCES `user`(`id`),
-  FOREIGN KEY (`u_id_delegator`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`e_id_assignee`) REFERENCES `employee`(`id`),
+  FOREIGN KEY (`e_id_delegator`) REFERENCES `employee`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `task_location` (
@@ -153,12 +154,12 @@ CREATE TABLE IF NOT EXISTS `task_location` (
 CREATE TABLE IF NOT EXISTS `task_comment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `t_id` BIGINT NOT NULL,
-  `u_id` BIGINT NOT NULL,
+  `e_id` BIGINT NOT NULL,
   `c_message` VARCHAR(511) NOT NULL,
   `c_date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`t_id`) REFERENCES `task`(`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`e_id`) REFERENCES `employee`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `task_img` (
@@ -317,4 +318,14 @@ CREATE TABLE IF NOT EXISTS `dish_comment` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`d_id`) REFERENCES `dish_accounting` (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `check_in` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `location_id` BIGINT NOT NULL,
+  `employee_id` BIGINT NOT NULL,
+  `created_at` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`location_id`) REFERENCES `location` (`id`),
+  FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;

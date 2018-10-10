@@ -1,6 +1,5 @@
 import * as types from '../constants/actionTypes'
-import axios from "axios";
-
+import axios from 'axios'
 
 export function addShift (shift) {
   return {
@@ -11,8 +10,8 @@ export function addShift (shift) {
 
 export const getAllVacancies = () => dispatch => {
   return (axios.get('/vacancy')
-               .then(response => response.data)
-               .then(data => dispatch( {type: types.GET_ALL_VACANCIES, payload: data} ) )
+    .then(response => response.data)
+    .then(data => dispatch({type: types.GET_ALL_VACANCIES, payload: data}))
   )
 }
 
@@ -90,5 +89,11 @@ export function addEmployee (employee) {
   return {
     type: types.ADD_EMPLOYEE,
     employee
+  }
+}
+export function addNewTask (newTask) {
+  return {
+    type: types.ADD_NEW_TASK,
+    newTask
   }
 }

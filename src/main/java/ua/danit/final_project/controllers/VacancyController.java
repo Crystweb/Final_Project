@@ -69,8 +69,9 @@ public class VacancyController extends SessionAware {
 
     Vacancy vacancy = new Vacancy();
 
+    vacancy.setId(vacancyDto.getId());
     vacancy.setUser(userFromToken);
-    vacancy.setPosition(vacancyService.createIfNotExist(vacancyService.getById(vacancyDto.getPositionId()).toString()));
+    vacancy.setPosition(positionService.getById(vacancyDto.getPositionId()));
     vacancy.setSalary(vacancyDto.getSalary());
     vacancy.setVacancyStatus(vacancyDto.getStatus());
     vacancy.setInfo(vacancyDto.getInfo());
