@@ -1,4 +1,4 @@
-import { ADD_NEW_COMMENT, ADD_SHIFT, DELETE_COMMENT } from '../constants/actionTypes'
+import { ADD_NEW_COMMENT, ADD_SHIFT, DELETE_COMMENT, UPDATE_COMMENT } from '../constants/actionTypes'
 
 const initialState = {
   lastComments: null
@@ -12,6 +12,8 @@ export default function addShiftReducer (state = initialState, action) {
       return {...state, lastComments: [...state.lastComments.filter(comment => comment.id !== action.id)]}
     case ADD_NEW_COMMENT:
         return {...state, lastComments: [...state.lastComments, action.comment]}
+    case UPDATE_COMMENT:
+      return {...state, lastComments: [...state.lastComments.filter(comment => comment.id !==action.comment.id), action.comment]}
     default:
       return state
   }

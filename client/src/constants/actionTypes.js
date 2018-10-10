@@ -29,3 +29,5 @@ export const ADD_NEW_TASK = 'ADD_NEW_TASK'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 export const ADD_NEW_COMMENT = 'ADD_NEW_COMMENT'
+
+export const UPDATE_COMMENT = 'UPDATE_COMMENT'
