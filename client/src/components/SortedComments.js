@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import routes from "../constants/routes";
 import picture from "../img/addComment.png";
 import calendar from "../img/calendar.png";
-import {getLastShift} from '../utils/utils'
 import {addShift} from '../actions/actions'
 import ScheduleWithComments from './ScheduleWithComments'
 
@@ -20,12 +19,6 @@ class PositionButtons extends Component {
 
   setPositionView (event) {
     this.setState({view: event.target.value})
-  }
-
-  componentDidMount () {
-    getLastShift(data => {
-          this.props.addShift(data)
-    })
   }
 
   getRandomColor(indexColors) {
@@ -285,12 +278,4 @@ const mapStateToProps = ({startData}) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addShift: (data) => {
-      dispatch(addShift(data))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PositionButtons)
+export default connect(mapStateToProps)(PositionButtons)

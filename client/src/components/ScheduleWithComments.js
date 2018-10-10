@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import ActionButtons from "./Buttons"
+import ActionButtons from "./ActionButtons"
 import dateFormat from 'dateformat'
 
 
