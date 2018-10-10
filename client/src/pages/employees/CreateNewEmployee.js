@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import * as _ from 'lodash'
 import '../../styles/Tasks.css'
 import {addEmployee, addNewEmployee} from '../../actions/actions'
+import axios from "axios";
 
 class CreateNewEmployee extends Component {
   constructor(props) {
@@ -24,19 +25,14 @@ class CreateNewEmployee extends Component {
       successAdd: null
     };
 
-    this.handleChange = this.handleChange.bind(this);
     this.choosePosition = this.choosePosition.bind(this);
     this.inputForename = this.inputForename.bind(this);
     this.inputSurname = this.inputSurname.bind(this);
     this.inputPhoneNumber = this.inputPhoneNumber.bind(this);
     this.inputInfo = this.inputInfo.bind(this);
-    // this.makePhoto = this.makePhoto.bind(this)
+    this.makePhoto = this.makePhoto.bind(this);
     this.createEmployee = this.createEmployee.bind(this)
   }
-
-  handleChange = (event) => {
-    this.setState({value: event.target.value});
-  };
 
   choosePosition = (event) => {
     this.setState({
@@ -72,12 +68,12 @@ class CreateNewEmployee extends Component {
     })
   };
 
-  // makePhoto = (event) => {
-  //      this.setState({photo: event.target.files[0]})
-  // }
+  makePhoto = (event) => {
+       this.setState({photo: event.target.files[0]})
+  }
 
   createEmployee = () => {
-    const {chosenPosition, inputForename, inputSurname, inputPhoneNumber} = this.state;
+    const {chosenPosition, inputForename, inputSurname, inputPhoneNumber, photo} = this.state;
     if (_.isEmpty(chosenPosition)) {
       this.setState({
         errorPosition: 'Выберите '
@@ -101,36 +97,63 @@ class CreateNewEmployee extends Component {
         errorPhoneNumber: 'Введите номер телефона'
       })
     }
+
+    if (!_.isEmpty(chosenPosition) && !_.isEmpty(inputForename) && !_.isEmpty(inputSurname) && !_.isEmpty(inputPhoneNumber)) {
+    let body = {
+      positions: [this.props.positions.find(position => position.id === +chosenPosition)],
+      forename: inputForename,
+      surname : inputSurname,
+      phoneNumber : inputPhoneNumber,
   };
 
+  let formData = new FormData();
+  formData.append('employee', JSON.stringify(body));
+  if (photo) {
+    formData.append('file', photo)
+  }
+  axios({
+          method: 'post',
+          url: `/employee`,
+  data: formData
+})
+.then((response) => this.props.addEmployee(response.data))
+  .then(() => {
+    this.setState({
+      successAdd: 'Сотрудник добавлен'
+    })
+  })
+  .then(() => { setTimeout(() => this.props.history.push('/employee'), 1500) })
+}
+};
 
   render() {
-    const {user, employee} = this.props
+    const {user, employee} = this.props;
     if (user && employee) {
       return (
         <Fragment>
           <div className="button-container" id="button">
-              <form onSubmit={this.handleSubmit}>
                 <label>
                   Position:
                   <input type="text" name={"position"} value={this.state.position}
-                         onChange={this.handlePositionChange}/>
+                         onChange={this.choosePosition}/>
                   Forename:
                   <input type="text" name={"forename"} value={this.state.forename}
-                         onChange={this.handleForenameChange}/>
+                         onChange={this.inputForename}/>
                   Surname:
                   <input type="text" name={"surname"} value={this.state.surname}
-                         onChange={this.handleSurnameChange}/>
+                         onChange={this.inputSurname}/>
                   Phone number:
                   <input type="text" name={"phoneNumber"} value={this.state.phoneNumber}
-                         onChange={this.handlePhoneNumberChange}/>
+                         onChange={this.inputPhoneNumber}/>
 
                   <br/>
                   <textarea placeholder={'Введите Ваш коментарий'} name={"info"} value={this.state.info}
-                            onChange={this.handleInfoChange}/>
+                            onChange={this.inputInfo}/>
                 </label><br/>
-                <input type="submit" value="Добавить"/>
-              </form>
+                <button
+                  onClick={this.createEmployee}>Создать
+                </button>
+                {this.state.successAdd && <h3>{this.state.successAdd}</h3>}
           </div>
         </Fragment>
       )
@@ -144,16 +167,21 @@ class CreateNewEmployee extends Component {
 const mapStateToProps = ({employees, startData}) => {
     return {
         employee: employees.employeesList,
-        user: startData.currentUser
+        user: startData.currentUser,
+        // position: employees.employeesList.position.title,
+        forename: employees.forename,
+        surname: employees.surname,
+        phoneNumber: employees.phoneNumber,
+        info: employees.info,
     }
-}
+};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-      AddEmployee: (data) => {
-        dispatch(addEmployee(data))
-    }
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//       AddEmployee: (data) => {
+//         dispatch(addEmployee(data))
+//     }
+//   }
+// }
 
 export default connect(mapStateToProps)(CreateNewEmployee)

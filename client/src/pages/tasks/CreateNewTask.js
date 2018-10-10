@@ -11,7 +11,7 @@ import { addNewTask } from '../../actions/actions'
 
 class CreateNewTask extends Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       chosenLocation: null,
       textForTask: null,
@@ -25,15 +25,16 @@ class CreateNewTask extends Component {
       errorFrequency: null,
       successAdd: null,
       photo: null
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.chooseLocation = this.chooseLocation.bind(this)
-    this.taskText = this.taskText.bind(this)
-    this.choosePriority = this.choosePriority.bind(this)
-    this.chooseExecutor = this.chooseExecutor.bind(this)
-    this.chooseFrequency = this.chooseFrequency.bind(this)
-    this.makePhoto = this.makePhoto.bind(this)
-    this.createTask = this.createTask.bind(this)
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.chooseLocation = this.chooseLocation.bind(this);
+    this.taskText = this.taskText.bind(this);
+    this.choosePriority = this.choosePriority.bind(this);
+    this.chooseExecutor = this.chooseExecutor.bind(this);
+    this.chooseFrequency = this.chooseFrequency.bind(this);
+    this.makePhoto = this.makePhoto.bind(this);
+    this.createTask = this.createTask.bind(this);
     this.chooseLocation = this.chooseLocation.bind(this)
   }
 
@@ -48,61 +49,65 @@ class CreateNewTask extends Component {
       chosenLocation: event.target.value,
       errorLocation: null
     })
-  }
+  };
 
   taskText = (event) => {
     this.setState({
       textForTask: event.target.value,
       errorText: null
     })
-  }
+  };
 
   choosePriority = (event) => {
     this.setState({
       taskPriority: event.target.value
     })
-  }
+  };
 
   chooseExecutor = (event) => {
     this.setState({
       executorId: event.target.value,
       errorExecutor: null
     })
-  }
+  };
 
   chooseFrequency = (event) => {
     this.setState({
       frequency: event.target.value,
       errorFrequency: null
     })
-  }
+  };
 
   makePhoto = (event) => {
     this.setState({photo: event.target.files[0]})
-  }
+  };
 
   createTask = () => {
-    const {chosenLocation, textForTask, taskPriority, finishDate, executorId, frequency, photo} = this.state
+    const {chosenLocation, textForTask, taskPriority, finishDate, executorId, frequency, photo} = this.state;
     if (_.isEmpty(chosenLocation)) {
       this.setState({
         errorLocation: 'Выберите локацию'
       })
     }
+
     if (_.isEmpty(executorId)) {
       this.setState({
         errorExecutor: 'Выберите отвественного'
       })
     }
+
     if (_.isEmpty(frequency)) {
       this.setState({
         errorFrequency: 'Укажите повторяемость'
       })
     }
+
     if (_.isEmpty(textForTask)) {
       this.setState({
         errorText: 'Введите текст'
       })
     }
+
     if (!_.isEmpty(textForTask) && !_.isEmpty(frequency) && !_.isEmpty(executorId) && !_.isEmpty(chosenLocation)) {
       let body = {
         assignee: this.props.allUsers.find(user => user.id === +executorId),
@@ -113,9 +118,9 @@ class CreateNewTask extends Component {
         expired: finishDate,
         priority: taskPriority,
         locations: [this.props.allLocations.find(location => location.id === +chosenLocation)]
-      }
-      let formData = new FormData()
-      formData.append('task', JSON.stringify(body))
+      };
+      let formData = new FormData();
+      formData.append('task', JSON.stringify(body));
       if (photo) {
         formData.append('file', photo)
       }
@@ -132,10 +137,10 @@ class CreateNewTask extends Component {
         })
         .then(() => { setTimeout(() => this.props.history.push('/tasks'), 1500) })
     }
-  }
+  };
 
   render () {
-    const {allUsers, allLocations, allStatuses, allFrequencies} = this.props
+    const {allUsers, allLocations, allStatuses, allFrequencies} = this.props;
 
     if (allUsers && allLocations && allStatuses && allFrequencies) {
       return (
@@ -271,7 +276,7 @@ const mapStateToProps = ({startData}) => {
     allStatuses: startData.statuses,
     allFrequencies: startData.frequencies
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -279,6 +284,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(addNewTask(data))
     }
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateNewTask)
