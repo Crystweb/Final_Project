@@ -46,8 +46,8 @@ class TasksView extends Component {
     tasks.sort(function (a, b) {
       if (a.priority > b.priority) return 1
       if (a.priority < b.priority) return -1
-      if (a.expired > b.expired) return 1
-      if (a.expired < b.expired) return -1
+      if (a.expired > b.expired) return -1
+      if (a.expired < b.expired) return 1
       return 0
     })
     if (tasks && currentUser) {
