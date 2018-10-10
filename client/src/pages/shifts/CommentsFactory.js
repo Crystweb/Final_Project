@@ -104,7 +104,6 @@ class CreateNewComments extends Component {
               return (
                 <div
                   key={position.id}
-                  className="newComment-elem"
                 >
                   <input
                     name="position"
