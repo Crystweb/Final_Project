@@ -39,7 +39,7 @@ class EmployeeList extends Component {
     }
   else
     {
-      const {employee} = this.props
+      const {employee} = this.props;
       return (
         <div>
           <div className='employee'>
@@ -54,10 +54,9 @@ class EmployeeList extends Component {
                     <div className='info_box'>
                       <h4>{employee.forename}&nbsp;
                         {employee.surname}&nbsp;
-                        {employee.patronymic},&nbsp;
                       </h4>
 
-                      <h4>{employee.position.title} </h4>
+                      {/*<h4>{employee.position.title} </h4>*/}
 
                       <h4>{employee.phoneNumber}</h4>
 
@@ -85,13 +84,13 @@ class EmployeeList extends Component {
     }
   }
 }
-
+// console.log(this.props.employee)
 const mapStateToProps = ({employees, startData}) => {
   return {
     employee: employees.employeesList,
     user: startData.currentUser
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -99,5 +98,5 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(addEmployee(data))
     }
   }
-}
+};
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeeList)
