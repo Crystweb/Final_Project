@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import routes from "../constants/routes";
 import picture from "../img/addComment.png";
 import calendar from "../img/calendar.png";
-import {AxiosInstance as axios} from 'axios'
 import {getLastShift} from '../utils/utils'
 import {addShift} from '../actions/actions'
 import ScheduleWithComments from './ScheduleWithComments'
@@ -56,7 +55,7 @@ class PositionButtons extends Component {
 
     let arrayOfReadyComments = [];
     let filterComments = comments
-      .filter(comment => comment.positions.map(position => position.title === this.state.view))
+      .filter(comment => comment.positions.some(position => position.title === this.state.view))
       .sort( (comment1, comment2) => comment2.date - comment1.date)
 
     if (filterComments.length > 0 && arrayOfSchedules.length > 0) {
@@ -87,7 +86,7 @@ class PositionButtons extends Component {
             let commentDate = new Date(+comment.date);
             let commentTime = commentDate.getHours() * 60 + commentDate.getMinutes()
             let end = currentSchedule.end;
-            return commentTime < startTime && commentTime >= end
+            return (end > startTime && ((commentTime < startTime && commentTime <= end)  || (commentTime > startTime && commentTime >= end)) || (commentTime < startTime && commentTime >= end))
           });
 
         if (sortedComments.length > 0) {

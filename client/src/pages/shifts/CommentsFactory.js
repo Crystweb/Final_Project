@@ -27,46 +27,47 @@ class CreateNewComments extends Component {
     })
     if (_.isEmpty(textComment)) {
       this.setState({
-        successPost: null,
-        errorCheckedPosition: null,
         errorText: 'Введите комментарий'
       })
-    } else {
-      if (_.isEmpty(checkedPositions)) {
-        this.setState({
-          successPost: null,
-          errorText: null,
-          errorCheckedPosition: 'Выберите позицию'
+    }
+    if (_.isEmpty(checkedPositions)) {
+      this.setState({
+        errorCheckedPosition: 'Выберите позицию'
+      })
+    }
+    if (!_.isEmpty(textComment) && !_.isEmpty(checkedPositions)) {
 
-        })
-      } else {
-        axios({
-          url: '/workshift/comment',
-          method: commentForUpdate ? 'PUT' : 'POST',
-          data: commentForUpdate ? {
-            id: this.state.commentForUpdate.id,
-            message: this.state.textComment,
-            positions: positionForComment,
-            date: this.state.commentForUpdate.date
-          }
-            : {
-              message: this.state.textComment,
-              positions: positionForComment
-            }
-        })
-          .then(() => this.setState({
-            errorText: null,
-            errorCheckedPosition: null,
-            textComment: '',
-            checkedPositions: [],
-            successPost: commentForUpdate ? 'Комментарий изменен' : 'Комментарий добавлен'
-          }))
-          .then(() => setTimeout(() => this.props.history.push('/shifts'), 1500))
-      }
+      const data = commentForUpdate ?
+        {
+          id: this.state.commentForUpdate.id,
+          message: this.state.textComment,
+          positions: positionForComment,
+          date: this.state.commentForUpdate.date
+        } : {
+          message: this.state.textComment,
+          positions: positionForComment
+        }
+      axios({
+        url: '/workshift/comment',
+        method: commentForUpdate ? 'PUT' : 'POST',
+        data: data
+      })
+        .then(() => this.setState({
+          errorText: null,
+          errorCheckedPosition: null,
+          textComment: '',
+          checkedPositions: [],
+          successPost: commentForUpdate ? 'Комментарий изменен' : 'Комментарий добавлен'
+        }))
+        .then(() => setTimeout(() => this.props.history.push('/shifts'), 1500))
     }
   }
+
   addText (event) {
-    this.setState({textComment: event.target.value})
+    this.setState({
+      textComment: event.target.value,
+      errorText: null
+    })
   }
 
   setCheckedPosition (event) {
@@ -80,51 +81,58 @@ class CreateNewComments extends Component {
     } else {
       checkedPositions.push(event.target.value)
     }
-    this.setState({checkedPositions: checkedPositions})
+    this.setState({
+      checkedPositions: checkedPositions,
+      errorCheckedPosition: null
+    })
   }
 
   render () {
-    let isUpdate = !!this.state.commentForUpdate
+    const {checkedPositions, textComment, errorText, errorCheckedPosition, successPost, commentForUpdate} = this.state
+    let isUpdate = !!commentForUpdate
     if (!this.props.allPositionsForComments) {
       return (
         <Preloader/>
       )
     } else {
       return (<div className="container">
-        {this.props.allPositionsForComments.map(position => {
-          const isForComment = position.pinnedToComment === true
-          return (
-            <div>
-              {isForComment && <li key={position.id}>
-                <input
-                  name="position"
-                  type="checkbox"
-                  checked={true && this.state.checkedPositions.includes(position.title)}
-                  value={position.title}
-                  onChange={this.setCheckedPosition.bind(this)}
-                />
-                {position.title}
-              </li>}
-            </div>
+          {this.props.allPositionsForComments.map(position => {
+              const isForComment = position.pinnedToComment === true
+              return (
+                <ul>
+                  {isForComment && <li key={position.id}>
+                    <input
+                      name="position"
+                      type="checkbox"
+                      checked={true && checkedPositions.includes(position.title)}
+                      value={position.title}
+                      onChange={this.setCheckedPosition.bind(this)}
+                    />
+                    {position.title}
+                  </li>}
+                  {errorCheckedPosition && <p>{errorCheckedPosition}</p>}
+                </ul>
+              )
+            }
           )
-        }
-        )
-        }
-        <p><textarea value={this.state.textComment}
-          placeholder={'Введите Ваш коментарий'}
-          cols="30"
-          rows="10"
-          onChange={this.addText.bind(this)}/></p>
-        {isUpdate || <input type="button"
-          value=" Добавить комментарий "
-          onClick={this.commentForFactory.bind(this)}/>}
-        {isUpdate && <input type="button"
-          value="Изменить комментарий"
-          onClick={this.commentForFactory.bind(this)}/>
-        }
-        <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
-        <p>{this.state.successPost}</p>
-      </div>
+          }
+          <textarea
+            name='commentField'
+            value={textComment}
+            placeholder={'Введите Ваш коментарий'}
+            cols="30"
+            rows="10"
+            onChange={this.addText.bind(this)}/>
+          {errorText && <label htmlFor='commentField'>{errorText}</label>}
+          {isUpdate || <input type="button"
+                              value=" Добавить комментарий "
+                              onClick={this.commentForFactory.bind(this)}/>}
+          {isUpdate && <input type="button"
+                              value="Изменить комментарий"
+                              onClick={this.commentForFactory.bind(this)}/>
+          }
+          <p>{successPost}</p>
+        </div>
       )
     }
   }

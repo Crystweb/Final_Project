@@ -41,7 +41,9 @@ import axios from 'axios'
    }
  }
 
- const mapStateToProps = () => {}
+ const mapStateToProps = () => {
+  return {}
+ }
 
 const mapDispatchToProps = (dispatch) => {
   return {
