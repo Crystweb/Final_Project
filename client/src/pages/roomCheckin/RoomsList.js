@@ -25,11 +25,8 @@ class RoomsList extends Component {
     const {floor} = this.state
     const choosenFloor = floor && checkInLocations.find(location => location.id === +floor).children
     return (
-      <Fragment>
         <div className='floors'>
           <select
-            name="floors"
-            id="floorsChoice"
             onChange={this.chooseFloor}
             defaultValue={2}
           >
@@ -64,7 +61,6 @@ class RoomsList extends Component {
           </ul>
           }
         </div>
-      </Fragment>
     )
   }
 }

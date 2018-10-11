@@ -49,7 +49,6 @@ class TaskFactory extends Component {
   chooseLocation = (event) => {
     this.setState({
       chosenLocation: event.target.value,
-      errorLocation: null,
       itIsFloor: false
     })
     let taskForRoomCheckIn = this.props.allLocations.find(location => location.id === +event.target.value)
@@ -61,14 +60,12 @@ class TaskFactory extends Component {
   chooseRoom = (event) => {
     this.setState({
       chosenRoom: event.target.value,
-      errorRoom: null
     })
   }
 
   taskText = (event) => {
     this.setState({
       textForTask: event.target.value,
-      errorText: null
     })
   }
 
@@ -81,14 +78,12 @@ class TaskFactory extends Component {
   chooseExecutor = (event) => {
     this.setState({
       executorId: event.target.value,
-      errorExecutor: null
     })
   }
 
   chooseFrequency = (event) => {
     this.setState({
       frequency: event.target.value,
-      errorFrequency: null
     })
   }
 
@@ -153,12 +148,27 @@ class TaskFactory extends Component {
             successAdd: 'Задача добавлена'
           })
         })
-        .then(() => { setTimeout(() => this.props.history.push('/tasks'), 1500) })
+        .then(() => this.props.history.push('/tasks'))
     }
   }
 
   render () {
     const {allUsers, allLocations, allStatuses, allFrequencies} = this.props
+    const {
+      chosenLocation,
+      chosenRoom,
+      textForTask,
+      finishDate,
+      executorId,
+      frequency,
+      errorExecutor,
+      errorText,
+      errorLocation,
+      errorFrequency,
+      errorRoom,
+      successAdd,
+      itIsFloor
+    } = this.state
 
     if (allUsers && allLocations && allStatuses && allFrequencies) {
       return (
@@ -187,10 +197,10 @@ class TaskFactory extends Component {
                 )
               })}
             </select>
-            {this.state.errorLocation &&
-            <label className='task_errors' htmlFor='locationsList'>{this.state.errorLocation}</label>}
+            {!!chosenLocation ||
+            <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
             {
-              this.state.itIsFloor &&
+              itIsFloor &&
               <Fragment>
                 <select
                   name="roomsList"
@@ -204,7 +214,7 @@ class TaskFactory extends Component {
                     hidden>
                     Номер
                   </option>
-                  {allLocations.find(location => location.id === +this.state.chosenLocation).children.map(children => {
+                  {allLocations.find(location => location.id === +chosenLocation).children.map(children => {
                     return (
                       <option
                         value={children.id}
@@ -215,8 +225,8 @@ class TaskFactory extends Component {
                     )
                   })}
                 </select>
-                {this.state.errorRoom &&
-                <label className='task_errors' htmlFor='roomsList'>{this.state.errorRoom}</label>}
+                {!!chosenRoom ||
+                <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
               </Fragment>
             }
             <select
@@ -236,7 +246,7 @@ class TaskFactory extends Component {
             <DatePicker
               placeholderText='Выполнить до'
               minDate={moment()}
-              selected={this.state.finishDate}
+              selected={finishDate}
               onChange={this.handleChange}
             />
             <select
@@ -260,8 +270,8 @@ class TaskFactory extends Component {
                 )
               })}
             </select>
-            {this.state.errorExecutor &&
-            <label className='task_errors' htmlFor='executors'>{this.state.errorExecutor}</label>}
+            {!!executorId ||
+            <label className='task_errors' htmlFor='executors'>{errorExecutor}</label>}
             <select
               name='frequencies'
               defaultValue='frequencyChoice'
@@ -284,8 +294,8 @@ class TaskFactory extends Component {
                 )
               })}
             </select>
-            {this.state.errorFrequency &&
-            <label className='task_errors' htmlFor='frequencies'>{this.state.errorFrequency}</label>}
+            {!!frequency ||
+            <label className='task_errors' htmlFor='frequencies'>{errorFrequency}</label>}
             <textarea
               name="task"
               id="task"
@@ -293,9 +303,9 @@ class TaskFactory extends Component {
               rows="10"
               placeholder='Введите текст'
               onChange={this.taskText}>
-              {this.state.textForTask}
+              {textForTask}
             </textarea>
-            {this.state.errorText && <label className='task_errors' htmlFor='task'>{this.state.errorText}</label>}
+            {!!textForTask || <label className='task_errors' htmlFor='task'>{errorText}</label>}
             <input
               type="file"
               name="audio"
@@ -305,7 +315,7 @@ class TaskFactory extends Component {
             <button
               onClick={this.createTask}>Создать
             </button>
-            {this.state.successAdd && <h3>{this.state.successAdd}</h3>}
+            {successAdd && <h3>{successAdd}</h3>}
           </div>
         </Fragment>
       )
