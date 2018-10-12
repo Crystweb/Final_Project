@@ -78,6 +78,9 @@ class Navigation extends Component {
         <Route exact path={routes.taskForRoom.href + ':roomTitle'}
           render={(props) => header ? <Header previousRoute={routes.taskForRoom} {...props}/>
             : <TasksForRoom {...props}/>}/>
+        <Route exact path={routes.createNewTask.href + ':roomId'}
+               render={(props) => header ? <Header previousRoute={routes.createTaskForRoom} {...props}/>
+                 : <CreateNewTask {...props}/>}/>
       </Switch>
     )
   }

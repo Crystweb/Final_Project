@@ -23,7 +23,7 @@ class RoomsList extends Component {
   render () {
     const {checkInLocations} = this.props
     const {floor} = this.state
-    const choosenFloor = floor && checkInLocations.find(location => location.id === +floor).children
+    const chosenFloor = floor && checkInLocations.find(location => location.id === +floor).children
     return (
         <div className='floors'>
           <select
@@ -41,7 +41,7 @@ class RoomsList extends Component {
           </select>
           {floor &&
           <ul className='floors__rooms'>
-            {choosenFloor.map(room => {
+            {chosenFloor.map(room => {
               return (
                 <li
                   className='roomName'

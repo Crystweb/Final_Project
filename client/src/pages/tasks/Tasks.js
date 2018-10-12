@@ -57,7 +57,6 @@ class Tasks extends Component {
     if (tasks && user) {
       const showEditButtons = user.employee.position.pinnedToComment === true
       return (
-        <Fragment>
           <div className="tasks">
             <TasksView
               showAll={this.state.showAll}
@@ -109,7 +108,6 @@ class Tasks extends Component {
               </div>
             </div>
           </div>
-        </Fragment>
       )
     } else {
       return (

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import '../../styles/Tasks.css'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
@@ -8,15 +8,7 @@ import { deleteTask } from '../../actions/actions'
 class TasksView extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      isOpenPhoto: false
-    }
-    this.showPhoto = this.showPhoto.bind(this)
     this.doTask = this.doTask.bind(this)
-  }
-
-  showPhoto () {
-    this.setState({isOpenPhoto: true})
   }
 
   doTask (event) {
@@ -44,20 +36,19 @@ class TasksView extends Component {
     let myHotelTasksFiltered = showMyHotelTasks && allTasks.filter(task => isNaN(+task.locations.map(location => location.title))).filter(task => task.assignee.userId === currentUser.id)
     let tasks = tasksForRoom || myRoomTasksFiltered || myHotelTasksFiltered || allTasks
     tasks.sort(function (a, b) {
-      if (a.priority > b.priority) return 1
-      if (a.priority < b.priority) return -1
-      if (a.expired > b.expired) return -1
-      if (a.expired < b.expired) return 1
+      if (a.priority > b.priority) return -1
+      if (a.priority < b.priority) return 1
+      if (a.expired > b.expired) return 1
+      if (a.expired < b.expired) return -1
       return 0
     })
     if (tasks && currentUser) {
       return (
-        <Fragment>
+        <div>
           {tasks.map(task => {
-            const photoLink = task.imageLinks[0]
             const isShowTask = currentUser.id === task.assignee.userId
             const hasPhoto = task.imageLinks.length > 0
-            return <Fragment key={task.id}>
+            return <div key={task.id}>
               {(showAll || isShowTask) &&
               <div className='myTask'>
                 <li className='myTask__item' key={task.id}>
@@ -77,11 +68,11 @@ class TasksView extends Component {
                   value={task.id}
                   onClick={this.doTask.bind(this)}>Выполнить
                 </button>}
-                {hasPhoto && <button onClick={this.showPhoto}>Фото</button>}
+                {hasPhoto && <img alt='photo' src={task.imageLinks[0]}/>}
               </div>}
-            </Fragment>
+            </div>
           })}
-        </Fragment>
+        </div>
       )
     } else {
       return (
