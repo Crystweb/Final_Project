@@ -327,12 +327,13 @@ class TaskFactory extends Component {
   }
 }
 
-const mapStateToProps = ({startData}) => {
+const mapStateToProps = ({startData}, ownProps) => {
   return {
     allUsers: startData.users,
     allLocations: startData.locations,
     allStatuses: startData.statuses,
-    allFrequencies: startData.frequencies
+    allFrequencies: startData.frequencies,
+    roomTitle: ownProps.match.params.roomId
   }
 }
 

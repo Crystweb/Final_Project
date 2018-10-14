@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import '../../styles/RoomCheckIn.css'
 import routes from '../../constants/routes'
@@ -25,21 +25,21 @@ class RoomsList extends Component {
     const {floor} = this.state
     const chosenFloor = floor && checkInLocations.find(location => location.id === +floor).children
     return (
-        <div className='floors'>
-          <select
-            onChange={this.chooseFloor}
-            defaultValue={2}
-          >
-            {checkInLocations && checkInLocations.map(location => {
-              return <option
-                key={location.id}
-                className='floors__item'
-                value={location.id}>
-                {location.title}
-              </option>
-            })}
-          </select>
-          {floor &&
+      <div className='floors'>
+        <select
+          onChange={this.chooseFloor}
+          defaultValue={2}
+        >
+          {checkInLocations && checkInLocations.map(location => {
+            return <option
+              key={location.id}
+              className='floors__item'
+              value={location.id}>
+              {location.title}
+            </option>
+          })}
+        </select>
+        {floor &&
           <ul className='floors__rooms'>
             {chosenFloor.map(room => {
               return (
@@ -59,8 +59,8 @@ class RoomsList extends Component {
             })
             }
           </ul>
-          }
-        </div>
+        }
+      </div>
     )
   }
 }
