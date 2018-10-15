@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import Preloader from '../components/Preloader'
-// import EmployeesFactory from "../components/";
-import '../styles/Employee.css'
-import EmployeesFactory from "../components/EmployeesFactory";
+import Preloader from '../../components/Preloader'
+import '../../styles/Employee.css'
+import EmployeesFactory from "./EmployeesFactoryPage";
 
 class EmployeesPage extends Component {
 

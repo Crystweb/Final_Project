@@ -4,7 +4,7 @@ import axios from 'axios'
 import Modal from "react-responsive-modal";
 import connect from "react-redux/es/connect/connect";
 
-class EmployeesFactory extends Component {
+class EmployeesFactoryPage extends Component {
 
   constructor(props) {
     super(props)
@@ -81,4 +81,4 @@ const mapStateToProps = ({startData}) => {
   }
 };
 
-export default connect(mapStateToProps)(EmployeesFactory)
+export default connect(mapStateToProps)(EmployeesFactoryPage)

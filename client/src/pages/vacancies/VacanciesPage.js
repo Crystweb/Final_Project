@@ -1,20 +1,20 @@
 import React, {Component, Fragment} from 'react'
-import '../styles/VacanciesPage.css'
+import '../../styles/VacanciesPage.css'
 import {connect} from 'react-redux'
-import {getAllVacancies} from '../actions/actions'
-import Preloader from '../components/Preloader'
+import {getAllVacancies} from '../../actions/actions'
+import Preloader from '../../components/Preloader'
 import {withStyles} from '@material-ui/core/styles'
 import Radio from '@material-ui/core/Radio'
 import Typography from '@material-ui/core/Typography/Typography'
 import RadioGroup from '@material-ui/core/RadioGroup'
-import Paper from '../../node_modules/@material-ui/core/Paper/Paper'
-import Card from '../../node_modules/@material-ui/core/Card/Card'
-import IconButton from '../../node_modules/@material-ui/core/IconButton/IconButton'
+import Paper from '../../../node_modules/@material-ui/core/Paper/Paper'
+import Card from '../../../node_modules/@material-ui/core/Card/Card'
+import IconButton from '../../../node_modules/@material-ui/core/IconButton/IconButton'
 import AddIcon from '@material-ui/icons/AddCircleRounded'
 import classNames from 'classnames'
-import List from '../../node_modules/@material-ui/core/List/List'
-import vacancyStyles from '../constants/vacancyStylesJSS'
-import routes from "../constants/routes";
+import List from '../../../node_modules/@material-ui/core/List/List'
+import vacancyStyles from '../../constants/vacancyStylesJSS'
+import routes from "../../constants/routes";
 import {Link} from "react-router-dom";
 
 import axios from "axios";

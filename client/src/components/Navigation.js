@@ -3,8 +3,8 @@ import { Route, Switch } from 'react-router-dom'
 import routes from '../constants/routes'
 import Home from '../pages/Home'
 import Employees from '../pages/Employees'
-import EmployeesPage from '../pages/EmployeesPage'
-import Vacancies from '../pages/VacanciesPage'
+import EmployeesPage from '../pages/employees/EmployeesPage'
+import Vacancies from '../pages/vacancies/VacanciesPage'
 import Comments from '../pages/shifts/Shifts'
 import ShiftsHistory from '../pages/shifts/ShiftsHistory'
 import CreateNewComments from '../pages/shifts/CreateNewShift'
@@ -16,7 +16,7 @@ import WashingData from '../pages/WashingData'
 import SalesNumbers from '../pages/washingDate/SalesNumbers'
 import Lodgers from '../pages/washingDate/Lodgers'
 import Header from './Header'
-import VacancyServicePage from "../pages/VacancyServicePage";
+import VacanciesFactoryPage from "../pages/vacancies/VacanciesFactoryPage";
 
 class Navigation extends Component {
   render() {
@@ -40,9 +40,9 @@ class Navigation extends Component {
         <Route path={routes.updateComment.href + ':commentId'}
                render={(props) => header ? <Header previousRoute={routes.updateComment} {...props}/> : <CreateNewComments {...props}/>}/>
         <Route path={routes.updateVacancy.href + ':vacancyId'}
-               render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/> : <VacancyServicePage {...props}/>}/> 
+               render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/> : <VacanciesFactoryPage {...props}/>}/>
         <Route path={routes.addNewVacancy.href}
-               render={(props) => header ? <Header previousRoute={routes.addNewVacancy} {...props}/> : <VacancyServicePage {...props}/>}/>
+               render={(props) => header ? <Header previousRoute={routes.addNewVacancy} {...props}/> : <VacanciesFactoryPage {...props}/>}/>
         <Route exact path={routes.tasks.href}
                render={(props) => header ? <Header previousRoute={routes.tasks} {...props}/> : <Tasks {...props}/>}/>
         <Route exact path={routes.createNewTask.href}

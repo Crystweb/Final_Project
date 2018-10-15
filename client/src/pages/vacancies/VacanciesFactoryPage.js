@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux'
-import Preloader from '../components/Preloader'
-import {getAllVacancies} from "../actions/actions";
+import Preloader from '../../components/Preloader'
+import {getAllVacancies} from "../../actions/actions";
 
-class VacancyServicePage extends Component {
+class VacanciesFactoryPage extends Component {
 
   constructor(props) {
     super(props);
@@ -141,4 +141,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(VacancyServicePage)
+export default connect(mapStateToProps, mapDispatchToProps)(VacanciesFactoryPage)
