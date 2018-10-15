@@ -53,13 +53,4 @@ public class EmployeeServiceImpl implements EmployeeService {
   public Position getPositionByTitle(String title) {
     return positionRepository.getPositionByTitle(title);
   }
-
-  @Override
-  public User addUserIfExists(EmployeeDto employeeDto) {
-    if (employeeDto.getUserId() != null) {
-      return userRepository.getOne(employeeDto.getUserId());
-    } else {
-      return null;
-    }
-  }
 }

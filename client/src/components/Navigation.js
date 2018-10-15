@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import routes from '../constants/routes'
 import Home from '../pages/Home'
 import Employees from '../pages/Employees'
-import EmployeeList from '../pages/EmployeeList'
+import EmployeesPage from '../pages/EmployeesPage'
 import Vacancies from '../pages/VacanciesPage'
 import Comments from '../pages/shifts/Shifts'
 import ShiftsHistory from '../pages/shifts/ShiftsHistory'
@@ -28,7 +28,7 @@ class Navigation extends Component {
         <Route exact path={routes.employees.href}
                render={(props) => header ? <Header previousRoute={routes.employees} {...props}/> : <Employees {...props}/>}/>
         <Route exact path={routes.employeesList.href}
-               render={(props) => header ? <Header previousRoute={routes.employeesList} {...props}/> : <EmployeeList {...props}/>}/>
+               render={(props) => header ? <Header previousRoute={routes.employeesList} {...props}/> : <EmployeesPage {...props}/>}/>
         <Route exact path={routes.vacancies.href}
                render={(props) => header ? <Header previousRoute={routes.vacancies} {...props}/> : <Vacancies {...props}/>}/>
         <Route exact path={routes.comments.href}

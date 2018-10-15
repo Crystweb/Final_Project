@@ -19,6 +19,4 @@ public interface EmployeeService {
   void deleteById(Long id);
 
   Position getPositionByTitle(String title);
-
-  User addUserIfExists(EmployeeDto employeeDto);
 }

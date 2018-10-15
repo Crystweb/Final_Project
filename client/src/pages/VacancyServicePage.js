@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import Preloader from '../components/Preloader'
+import {getAllVacancies} from "../actions/actions";
 
 class VacancyServicePage extends Component {
 
@@ -30,24 +31,26 @@ class VacancyServicePage extends Component {
       url: '/vacancy',
       method: toUpdate ? 'PUT' : 'POST',
       data: toUpdate ? {
-          id: this.state.id,
-          positionId: this.state.positionId,
-          info: this.state.info,
-          salary: this.state.salary,
-          status: this.state.status,
-          publication: this.state.publication
-        }
-        : {
-          positionId: this.state.positionId,
-          info: this.state.info,
-          salary: this.state.salary
-        },
+            id: this.state.id,
+            positionId: this.state.positionId,
+            info: this.state.info,
+            salary: this.state.salary,
+            status: this.state.status,
+            publication: this.state.publication
+          }
+      : {
+      positionId: this.state.positionId,
+      info: this.state.info,
+      salary: this.state.salary
+      },
     })
       .then((response) => this.setState({
         resData: response.data,
         successAction: toUpdate ? 'Вакансия изменена успешно' : 'Создана новая вакансия'
       }))
   };
+
+
 
   handlePositionChange(event) {
     event.preventDefault();
@@ -106,8 +109,8 @@ class VacancyServicePage extends Component {
             {toUpdate &&
             <p> Status: </p>}
             {toUpdate && <select onChange={this.handleStatusChange} defaultValue={status}>
-              <option name={'status'} key='1' value='OPENED'> OPENED</option>
-              <option name={'status'} key='2' value='CLOSED'> CLOSED</option>
+              <option name='status' key='1' value='OPENED'> OPENED</option>
+              <option name='status' key='2' value='CLOSED'> CLOSED</option>
             </select>}
             Зарплата:
             <input type="text" name={'salary'} value={salary}
@@ -116,7 +119,7 @@ class VacancyServicePage extends Component {
             <textarea rows="5" placeholder={'Введите Ваш коментарий'} name={'info'} value={info}
                       onChange={this.handleDescriptionChange}/>
           </label>
-          <input type="submit" onClick={() => setTimeout(() => this.props.history.push('/employees/vacancies'), 2000)} value={this.props.location.state ? "Изменить вакансию" : "Добавить вакансию"}/>
+          <input type="submit" onClick={() => setTimeout(() => this.props.history.push('/employees/vacancies'), 1000)} value={this.props.location.state ? "Изменить вакансию" : "Добавить вакансию"}/>
         </form>
         <p>{this.state.successAction}</p>
       </div>
@@ -124,11 +127,18 @@ class VacancyServicePage extends Component {
   }
 }
 
-const mapStateToProps = ({vacancies, startData}, ownProps) => {
+const mapStateToProps = ({startData}) => {
   return {
-    positions: startData.positions,
-    updateVacancy: vacancies.find(vacancy => vacancy.id === +ownProps.match.params.vacancyId)
+    positions: startData.positions
   }
 };
 
-export default connect(mapStateToProps)(VacancyServicePage)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // updateVacancy: () => dispatch(updateVacancy()),
+    // addNewVacancy: () => dispatch(addNewVacancy()),
+    getAllVacancies: () => dispatch(getAllVacancies()),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(VacancyServicePage)
