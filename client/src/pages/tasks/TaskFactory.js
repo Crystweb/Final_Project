@@ -15,7 +15,6 @@ class TaskFactory extends Component {
     this.state = {
       chosenLocation: null,
       chosenRoom: null,
-      textForTask: null,
       taskPriority: null,
       finishDate: null,
       executorId: null,
@@ -31,7 +30,6 @@ class TaskFactory extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.chooseLocation = this.chooseLocation.bind(this)
-    this.taskText = this.taskText.bind(this)
     this.choosePriority = this.choosePriority.bind(this)
     this.chooseExecutor = this.chooseExecutor.bind(this)
     this.chooseFrequency = this.chooseFrequency.bind(this)
@@ -59,13 +57,7 @@ class TaskFactory extends Component {
 
   chooseRoom = (event) => {
     this.setState({
-      chosenRoom: event.target.value,
-    })
-  }
-
-  taskText = (event) => {
-    this.setState({
-      textForTask: event.target.value,
+      chosenRoom: event.target.value
     })
   }
 
@@ -77,13 +69,13 @@ class TaskFactory extends Component {
 
   chooseExecutor = (event) => {
     this.setState({
-      executorId: event.target.value,
+      executorId: event.target.value
     })
   }
 
   chooseFrequency = (event) => {
     this.setState({
-      frequency: event.target.value,
+      frequency: event.target.value
     })
   }
 
@@ -92,7 +84,7 @@ class TaskFactory extends Component {
   }
 
   createTask = () => {
-    const {chosenLocation, chosenRoom, textForTask, taskPriority, finishDate, executorId, frequency, photo} = this.state
+    const {chosenLocation, chosenRoom, taskPriority, finishDate, executorId, frequency, photo} = this.state
     const {allLocations, allUsers} = this.props
     if (_.isEmpty(chosenLocation)) {
       this.setState({
@@ -114,23 +106,23 @@ class TaskFactory extends Component {
         errorFrequency: 'Укажите повторяемость'
       })
     }
-    if (_.isEmpty(textForTask)) {
+    if (!this.textForTask.value) {
       this.setState({
         errorText: 'Введите текст'
       })
     }
-    if (!_.isEmpty(textForTask) && !_.isEmpty(frequency) && !_.isEmpty(executorId) && !_.isEmpty(chosenLocation)) {
+    if (this.textForTask && !_.isEmpty(frequency) && !_.isEmpty(executorId) && !_.isEmpty(chosenLocation)) {
       let location = (chosenRoom && allLocations.find(location => location.id === +chosenLocation).children) || allLocations
       let locationId = chosenRoom || chosenLocation
       let body = {
         assignee: allUsers.find(user => user.id === +executorId).employee,
-        message: textForTask,
+        message: this.textForTask.value,
         status: 'OPENED',
         updated: new Date(),
         frequency: frequency,
         expired: finishDate,
         priority: taskPriority,
-        locations: [location.find(location => location.id === +locationId)]
+        locations: [location.find(location => location.id === +this.locationId)]
       }
       let formData = new FormData()
       formData.append('task', JSON.stringify(body))
@@ -153,11 +145,12 @@ class TaskFactory extends Component {
   }
 
   render () {
+    console.log(this.locationId && this.locationId.value)
+
     const {allUsers, allLocations, allStatuses, allFrequencies} = this.props
     const {
       chosenLocation,
       chosenRoom,
-      textForTask,
       finishDate,
       executorId,
       frequency,
@@ -172,152 +165,148 @@ class TaskFactory extends Component {
 
     if (allUsers && allLocations && allStatuses && allFrequencies) {
       return (
-        <Fragment>
-          <div className="container createTask">
-            <select
-              name='locationsList'
-              defaultValue='locationChoice'
-              id='location'
-              onChange={this.chooseLocation}>
-              <option
-                value="locationChoice"
-                disabled
-                hidden>
-                Локация
-              </option>
-              {allLocations.map(location => {
-                return (
-                  <option
-                    type='text'
-                    name='location'
-                    value={location.id}
-                    key={location.id}>
-                    {location.title}
-                  </option>
-                )
-              })}
-            </select>
-            {!!chosenLocation ||
-            <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
-            {
-              itIsFloor &&
-              <Fragment>
-                <select
-                  name="roomsList"
-                  defaultValue='roomChoice'
-                  id="rooms"
-                  onChange={this.chooseRoom}
-                >
-                  <option
-                    value='roomChoice'
-                    disabled
-                    hidden>
-                    Номер
-                  </option>
-                  {allLocations.find(location => location.id === +chosenLocation).children.map(children => {
-                    return (
-                      <option
-                        value={children.id}
-                        key={children.id}
-                      >
-                        {children.title}
-                      </option>
-                    )
-                  })}
-                </select>
-                {!!chosenRoom ||
-                <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
-              </Fragment>
-            }
-            <select
-              defaultValue='0'
-              id="priority"
-              onChange={this.choosePriority}>
-              <option
-                value="0"
-                disabled
-                hidden>
-                приоритет
-              </option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-            <DatePicker
-              placeholderText='Выполнить до'
-              minDate={moment()}
-              selected={finishDate}
-              onChange={this.handleChange}
-            />
-            <select
-              name='executors'
-              defaultValue='test'
-              id='forThatUser'
-              required={true}
-              onChange={this.chooseExecutor}>
-              <option
-                disabled
-                hidden
-                value='test'>Исполнитель
-              </option>
-              {allUsers.map(user => {
-                return (
-                  <option
-                    value={user.id}
-                    key={user.id}>
-                    {user.employee.forename} {user.employee.forename}, {user.employee.position.title}
-                  </option>
-                )
-              })}
-            </select>
-            {!!executorId ||
-            <label className='task_errors' htmlFor='executors'>{errorExecutor}</label>}
-            <select
-              name='frequencies'
-              defaultValue='frequencyChoice'
-              id='frequency'
-              onChange={this.chooseFrequency}
-            >
-              <option
-                value="frequencyChoice"
-                hidden
-                disabled>
-                Повторяемость
-              </option>
-              {allFrequencies.map(frequency => {
-                return (
-                  <option
-                    value={frequency}
-                    key={frequency}>
-                    {frequency}
-                  </option>
-                )
-              })}
-            </select>
-            {!!frequency ||
-            <label className='task_errors' htmlFor='frequencies'>{errorFrequency}</label>}
-            <textarea
-              name="task"
-              id="task"
-              cols="30"
-              rows="10"
-              placeholder='Введите текст'
-              onChange={this.taskText}>
-              {textForTask}
-            </textarea>
-            {!!textForTask || <label className='task_errors' htmlFor='task'>{errorText}</label>}
-            <input
-              type="file"
-              name="audio"
-              accept="image/*"
-              onChange={this.makePhoto}
-            />
-            <button
-              onClick={this.createTask}>Создать
-            </button>
-            {successAdd && <h3>{successAdd}</h3>}
-          </div>
-        </Fragment>
+        <div className="container createTask">
+          <select
+            name='locationsList'
+            defaultValue='locationChoice'
+            ref={(input) => this.locationId = input}
+          >
+            <option
+              value="locationChoice"
+              disabled
+              hidden>
+              Локация
+            </option>
+            {allLocations.map(location => {
+              return (
+                <option
+                  value={location.id}
+                  key={location.id}>
+                  {location.title}
+                </option>
+              )
+            })}
+          </select>
+          {!!chosenLocation ||
+          <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
+          {
+            itIsFloor &&
+            <Fragment>
+              <select
+                name="roomsList"
+                defaultValue='roomChoice'
+                id="rooms"
+                onChange={this.chooseRoom}
+              >
+                <option
+                  value='roomChoice'
+                  disabled
+                  hidden>
+                  Номер
+                </option>
+                {allLocations.find(location => location.id === +chosenLocation).children.map(children => {
+                  return (
+                    <option
+                      value={children.id}
+                      key={children.id}
+                    >
+                      {children.title}
+                    </option>
+                  )
+                })}
+              </select>
+              {!!chosenRoom ||
+              <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
+            </Fragment>
+          }
+          <select
+            defaultValue='0'
+            id="priority"
+            onChange={this.choosePriority}>
+            <option
+              value="0"
+              disabled
+              hidden>
+              приоритет
+            </option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+          <DatePicker
+            placeholderText='Выполнить до'
+            minDate={moment()}
+            selected={finishDate}
+            onChange={this.handleChange}
+          />
+          <select
+            name='executors'
+            defaultValue='test'
+            id='forThatUser'
+            required={true}
+            onChange={this.chooseExecutor}>
+            <option
+              disabled
+              hidden
+              value='test'>Исполнитель
+            </option>
+            {allUsers.map(user => {
+              return (
+                <option
+                  value={user.id}
+                  key={user.id}>
+                  {user.employee.forename} {user.employee.forename}, {user.employee.position.title}
+                </option>
+              )
+            })}
+          </select>
+          {!!executorId ||
+          <label className='task_errors' htmlFor='executors'>{errorExecutor}</label>}
+          <select
+            name='frequencies'
+            defaultValue='frequencyChoice'
+            id='frequency'
+            onChange={this.chooseFrequency}
+          >
+            <option
+              value="frequencyChoice"
+              hidden
+              disabled>
+              Повторяемость
+            </option>
+            {allFrequencies.map(frequency => {
+              return (
+                <option
+                  value={frequency}
+                  key={frequency}>
+                  {frequency}
+                </option>
+              )
+            })}
+          </select>
+          {!!frequency ||
+          <label className='task_errors' htmlFor='frequencies'>{errorFrequency}</label>}
+          <textarea
+            name="task"
+            id="task"
+            cols="30"
+            rows="10"
+            ref={(input) => this.textForTask = input}
+            placeholder='Введите текст'
+          >
+          </textarea>
+          {(this.textForTask && !!this.textForTask.value) || <label className='task_errors' htmlFor='task'>{errorText}</label>}
+          <input
+            type="file"
+            name="audio"
+            accept="image/*"
+            onChange={this.makePhoto}
+          />
+          <button
+            onClick={this.createTask}>Создать
+          </button>
+          {successAdd && <h3>{successAdd}</h3>}
+        </div>
       )
     } else {
       return (
@@ -327,13 +316,12 @@ class TaskFactory extends Component {
   }
 }
 
-const mapStateToProps = ({startData}, ownProps) => {
+const mapStateToProps = ({startData}) => {
   return {
     allUsers: startData.users,
     allLocations: startData.locations,
     allStatuses: startData.statuses,
-    allFrequencies: startData.frequencies,
-    roomTitle: ownProps.match.params.roomId
+    allFrequencies: startData.frequencies
   }
 }
 
