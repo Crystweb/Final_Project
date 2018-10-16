@@ -13,8 +13,6 @@ class TaskFactory extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      chosenLocation: null,
-      chosenRoom: null,
       taskPriority: null,
       finishDate: null,
       executorId: null,
@@ -29,13 +27,12 @@ class TaskFactory extends Component {
       itIsFloor: false
     }
     this.handleChange = this.handleChange.bind(this)
-    this.chooseLocation = this.chooseLocation.bind(this)
     this.choosePriority = this.choosePriority.bind(this)
     this.chooseExecutor = this.chooseExecutor.bind(this)
     this.chooseFrequency = this.chooseFrequency.bind(this)
     this.makePhoto = this.makePhoto.bind(this)
     this.createTask = this.createTask.bind(this)
-    this.chooseRoom = this.chooseRoom.bind(this)
+    this.floorChecker = this.floorChecker.bind(this)
   }
 
   handleChange (day) {
@@ -44,21 +41,14 @@ class TaskFactory extends Component {
     })
   }
 
-  chooseLocation = (event) => {
+  floorChecker = (event) => {
     this.setState({
-      chosenLocation: event.target.value,
       itIsFloor: false
     })
     let taskForRoomCheckIn = this.props.allLocations.find(location => location.id === +event.target.value)
     if (taskForRoomCheckIn.children.length > 0) {
       this.setState({itIsFloor: true})
     }
-  }
-
-  chooseRoom = (event) => {
-    this.setState({
-      chosenRoom: event.target.value
-    })
   }
 
   choosePriority = (event) => {
@@ -84,18 +74,18 @@ class TaskFactory extends Component {
   }
 
   createTask = () => {
-    const {chosenLocation, chosenRoom, taskPriority, finishDate, executorId, frequency, photo} = this.state
+    const {taskPriority, finishDate, executorId, frequency, photo} = this.state
     const {allLocations, allUsers} = this.props
-    if (_.isEmpty(this.locationId.value)) {
+    if (Number.isNaN(this.locationId.value)) {
       this.setState({
         errorLocation: 'Выберите локацию'
       })
     }
-    if (_.isEmpty(chosenRoom)) {
-      this.setState({
-        errorRoom: 'Выберите номер'
-      })
-    }
+    // if (Number.isNaN(this.roomId.value)) {
+    //   this.setState({
+    //     errorRoom: 'Выберите номер'
+    //   })
+    // }
     if (_.isEmpty(executorId)) {
       this.setState({
         errorExecutor: 'Выберите отвественного'
@@ -111,9 +101,9 @@ class TaskFactory extends Component {
         errorText: 'Введите текст'
       })
     }
-    if (this.textForTask && !_.isEmpty(frequency) && !_.isEmpty(executorId) && this.locationId.value) {
-      let location = (chosenRoom && allLocations.find(location => location.id === +this.locationId.value).children) || allLocations
-      let locationId = chosenRoom || +this.locationId.value
+    if (this.textForTask.value && !_.isEmpty(frequency) && !_.isEmpty(executorId) && +this.locationId.value) {
+      let location = ((this.roomId && this.roomId.value) && allLocations.find(location => location.id === +this.locationId.value).children) || allLocations
+      let locationId = (this.roomId && +this.roomId.value) || +this.locationId.value
       let body = {
         assignee: allUsers.find(user => user.id === +executorId).employee,
         message: this.textForTask.value,
@@ -149,8 +139,6 @@ class TaskFactory extends Component {
 
     const {allUsers, allLocations, allStatuses, allFrequencies} = this.props
     const {
-      chosenLocation,
-      chosenRoom,
       finishDate,
       executorId,
       frequency,
@@ -169,6 +157,7 @@ class TaskFactory extends Component {
           <select
             name='locationsList'
             defaultValue='locationChoice'
+            onChange={this.floorChecker}
             ref={(input) => this.locationId = input}
           >
             <option
@@ -187,7 +176,7 @@ class TaskFactory extends Component {
               )
             })}
           </select>
-          {!!(this.locationId && this.locationId.value) ||
+          {!!(this.locationId && +this.locationId.value) ||
           <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
           {
             itIsFloor &&
@@ -196,7 +185,7 @@ class TaskFactory extends Component {
                 name="roomsList"
                 defaultValue='roomChoice'
                 id="rooms"
-                onChange={this.chooseRoom}
+                ref={(input) => this.roomId = input}
               >
                 <option
                   value='roomChoice'
@@ -204,7 +193,7 @@ class TaskFactory extends Component {
                   hidden>
                   Номер
                 </option>
-                {allLocations.find(location => location.id === +chosenLocation).children.map(children => {
+                {allLocations.find(location => location.id === +this.locationId.value).children.map(children => {
                   return (
                     <option
                       value={children.id}
@@ -215,7 +204,7 @@ class TaskFactory extends Component {
                   )
                 })}
               </select>
-              {!!chosenRoom ||
+              {!!(this.roomId && +this.roomId.value) ||
               <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
             </Fragment>
           }
