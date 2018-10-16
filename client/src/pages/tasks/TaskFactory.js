@@ -86,7 +86,7 @@ class TaskFactory extends Component {
   createTask = () => {
     const {chosenLocation, chosenRoom, taskPriority, finishDate, executorId, frequency, photo} = this.state
     const {allLocations, allUsers} = this.props
-    if (_.isEmpty(chosenLocation)) {
+    if (_.isEmpty(this.locationId.value)) {
       this.setState({
         errorLocation: 'Выберите локацию'
       })
@@ -111,9 +111,9 @@ class TaskFactory extends Component {
         errorText: 'Введите текст'
       })
     }
-    if (this.textForTask && !_.isEmpty(frequency) && !_.isEmpty(executorId) && !_.isEmpty(chosenLocation)) {
-      let location = (chosenRoom && allLocations.find(location => location.id === +chosenLocation).children) || allLocations
-      let locationId = chosenRoom || chosenLocation
+    if (this.textForTask && !_.isEmpty(frequency) && !_.isEmpty(executorId) && this.locationId.value) {
+      let location = (chosenRoom && allLocations.find(location => location.id === +this.locationId.value).children) || allLocations
+      let locationId = chosenRoom || +this.locationId.value
       let body = {
         assignee: allUsers.find(user => user.id === +executorId).employee,
         message: this.textForTask.value,
@@ -122,7 +122,7 @@ class TaskFactory extends Component {
         frequency: frequency,
         expired: finishDate,
         priority: taskPriority,
-        locations: [location.find(location => location.id === +this.locationId)]
+        locations: [location.find(location => location.id === locationId)]
       }
       let formData = new FormData()
       formData.append('task', JSON.stringify(body))
@@ -187,7 +187,7 @@ class TaskFactory extends Component {
               )
             })}
           </select>
-          {!!chosenLocation ||
+          {!!(this.locationId && this.locationId.value) ||
           <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
           {
             itIsFloor &&
