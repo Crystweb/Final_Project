@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 import axios from 'axios'
 import moment from 'moment'
+import * as _ from 'lodash'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 import '../../styles/Tasks.css'
@@ -28,13 +29,10 @@ class TaskFactory extends Component {
       photo: null,
       itIsFloor: false
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.makePhoto = this.makePhoto.bind(this)
-    this.createTask = this.createTask.bind(this)
-    this.floorChecker = this.floorChecker.bind(this)
+    _.bindAll(this, 'chooseDate', 'makePhoto', 'createTask', 'floorChecker')
   }
 
-  handleChange (day) {
+  chooseDate (day) {
     this.setState({
       finishDate: day
     })
@@ -128,14 +126,6 @@ class TaskFactory extends Component {
       successAdd,
       itIsFloor
     } = this.state
-    console.log(finishDate,
-      errorExecutor,
-      errorText,
-      errorLocation,
-      errorFrequency,
-      errorRoom,
-      successAdd,
-      itIsFloor)
     if (allUsers && allLocations && allStatuses && allFrequencies) {
       return (
         <div className="container createTask">
@@ -212,7 +202,7 @@ class TaskFactory extends Component {
             placeholderText='Выполнить до'
             minDate={moment()}
             selected={finishDate}
-            onChange={this.handleChange}
+            onChange={this.chooseDate}
           />
           <select
             name='executors'
@@ -259,7 +249,7 @@ class TaskFactory extends Component {
               )
             })}
           </select>
-          {!+this.taskFrequency.value &&
+          {!isNaN(this.taskFrequency.value) &&
           <label className='task_errors' htmlFor='frequencies'>{errorFrequency}</label>}
           <textarea
             name="task"
