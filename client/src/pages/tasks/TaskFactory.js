@@ -135,17 +135,12 @@ class TaskFactory extends Component {
             onChange={this.floorChecker}
             ref={(input) => this.locationId = input}
           >
-            <option
-              value="locationChoice"
-              disabled
-              hidden>
+            <option value="locationChoice" disabled hidden>
               Локация
             </option>
             {allLocations.map(location => {
               return (
-                <option
-                  value={location.id}
-                  key={location.id}>
+                <option value={location.id} key={location.id}>
                   {location.title}
                 </option>
               )
@@ -153,27 +148,16 @@ class TaskFactory extends Component {
           </select>
           {isNaN(this.locationId.value) &&
           <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
-          {
-            itIsFloor &&
+          {itIsFloor &&
             <div>
-              <select
-                name="roomsList"
-                defaultValue='roomChoice'
-                id="rooms"
-                ref={(input) => this.roomId = input}
+              <select name="roomsList" defaultValue='roomChoice' ref={(input) => this.roomId = input}
               >
-                <option
-                  value='roomChoice'
-                  disabled
-                  hidden>
+                <option value='roomChoice' disabled hidden>
                   Номер
                 </option>
                 {allLocations.find(location => location.id === +this.locationId.value).children.map(children => {
                   return (
-                    <option
-                      value={children.id}
-                      key={children.id}
-                    >
+                    <option value={children.id} key={children.id}>
                       {children.title}
                     </option>
                   )
@@ -183,15 +167,8 @@ class TaskFactory extends Component {
               <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
             </div>
           }
-          <select
-            defaultValue='0'
-            id="priority"
-            ref={input => this.taskPriority = input}
-          >
-            <option
-              value="0"
-              disabled
-              hidden>
+          <select defaultValue='0' id="priority" ref={input => this.taskPriority = input}>
+            <option value="0" disabled hidden>
               приоритет
             </option>
             <option value="1">1</option>
@@ -207,19 +184,14 @@ class TaskFactory extends Component {
           <select
             name='executors'
             defaultValue='test'
-            id='forThatUser'
             required={true}
             ref={input => this.executorId = input}>
-            <option
-              disabled
-              hidden
-              value='test'>Исполнитель
+            <option disabled hidden value='test'>
+              Исполнитель
             </option>
             {allUsers.map(user => {
               return (
-                <option
-                  value={user.id}
-                  key={user.id}>
+                <option value={user.id} key={user.id}>
                   {user.employee.forename} {user.employee.forename}, {user.employee.position.title}
                 </option>
               )
@@ -227,23 +199,13 @@ class TaskFactory extends Component {
           </select>
           {isNaN(this.executorId.value) &&
           <label className='task_errors' htmlFor='executors'>{errorExecutor}</label>}
-          <select
-            name='frequencies'
-            defaultValue='0'
-            id='frequency'
-            ref={(input) => this.taskFrequency = input}
-          >
-            <option
-              value='0'
-              hidden
-              disabled>
+          <select name='frequencies' defaultValue='0' ref={(input) => this.taskFrequency = input}>
+            <option value='0' hidden disabled>
               Повторяемость
             </option>
             {allFrequencies.map(frequency => {
               return (
-                <option
-                  value={frequency}
-                  key={frequency}>
+                <option value={frequency} key={frequency}>
                   {frequency}
                 </option>
               )
@@ -253,7 +215,6 @@ class TaskFactory extends Component {
           <label className='task_errors' htmlFor='frequencies'>{errorFrequency}</label>}
           <textarea
             name="task"
-            id="task"
             cols="30"
             rows="10"
             ref={input => this.textForTask = input}
@@ -262,12 +223,7 @@ class TaskFactory extends Component {
           </textarea>
           {this.textForTask.value ||
           <label className='task_errors' htmlFor='task'>{errorText}</label>}
-          <input
-            type="file"
-            name="audio"
-            accept="image/*"
-            onChange={this.makePhoto}
-          />
+          <input type="file" accept="image/*" onChange={this.makePhoto}/>
           <button
             onClick={this.createTask}>Создать
           </button>
