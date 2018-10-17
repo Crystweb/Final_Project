@@ -16,7 +16,8 @@ class TasksView extends Component {
     let body = {
       id: task.id,
       status: 'CLOSED',
-      updated: new Date()
+      updated: new Date(),
+
     }
     let formData = new FormData()
     formData.append('task', JSON.stringify(body))
@@ -68,7 +69,7 @@ class TasksView extends Component {
                   value={task.id}
                   onClick={this.doTask.bind(this)}>Выполнить
                 </button>}
-                {hasPhoto && <img alt='photo' src={task.imageLinks[0]}/>}
+                {hasPhoto && <img alt='taskPhoto' src={task.imageLinks[0]}/>}
               </div>}
             </div>
           })}

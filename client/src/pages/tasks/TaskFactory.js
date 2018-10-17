@@ -81,11 +81,11 @@ class TaskFactory extends Component {
         errorLocation: 'Выберите локацию'
       })
     }
-    // if (Number.isNaN(this.roomId.value)) {
-    //   this.setState({
-    //     errorRoom: 'Выберите номер'
-    //   })
-    // }
+    if (this.roomId && Number.isNaN(this.roomId.value)) {
+      this.setState({
+        errorRoom: 'Выберите номер'
+      })
+    }
     if (_.isEmpty(executorId)) {
       this.setState({
         errorExecutor: 'Выберите отвественного'
@@ -176,7 +176,7 @@ class TaskFactory extends Component {
               )
             })}
           </select>
-          {!!(this.locationId && +this.locationId.value) ||
+          {this.locationId && +this.locationId.value ||
           <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
           {
             itIsFloor &&
