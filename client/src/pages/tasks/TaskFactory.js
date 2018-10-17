@@ -1,22 +1,24 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 import axios from 'axios'
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
-import * as _ from 'lodash'
 import '../../styles/Tasks.css'
 import { addNewTask } from '../../actions/actions'
 
 class TaskFactory extends Component {
   constructor (props) {
     super(props)
+    this.locationId = React.createRef()
+    this.textForTask = React.createRef()
+    this.roomId = React.createRef()
+    this.executorId = React.createRef()
+    this.taskPriority = React.createRef()
+    this.taskFrequency = React.createRef()
     this.state = {
-      taskPriority: null,
       finishDate: null,
-      executorId: null,
-      frequency: null,
       errorExecutor: null,
       errorText: null,
       errorLocation: null,
@@ -27,9 +29,6 @@ class TaskFactory extends Component {
       itIsFloor: false
     }
     this.handleChange = this.handleChange.bind(this)
-    this.choosePriority = this.choosePriority.bind(this)
-    this.chooseExecutor = this.chooseExecutor.bind(this)
-    this.chooseFrequency = this.chooseFrequency.bind(this)
     this.makePhoto = this.makePhoto.bind(this)
     this.createTask = this.createTask.bind(this)
     this.floorChecker = this.floorChecker.bind(this)
@@ -51,68 +50,51 @@ class TaskFactory extends Component {
     }
   }
 
-  choosePriority = (event) => {
-    this.setState({
-      taskPriority: event.target.value
-    })
-  }
-
-  chooseExecutor = (event) => {
-    this.setState({
-      executorId: event.target.value
-    })
-  }
-
-  chooseFrequency = (event) => {
-    this.setState({
-      frequency: event.target.value
-    })
-  }
-
   makePhoto = (event) => {
     this.setState({photo: event.target.files[0]})
   }
 
   createTask = () => {
-    const {taskPriority, finishDate, executorId, frequency, photo} = this.state
+    const {locationId, textForTask, roomId, executorId, taskPriority, taskFrequency} = this
+    const {finishDate, photo} = this.state
     const {allLocations, allUsers} = this.props
-    if (Number.isNaN(this.locationId.value)) {
+    if (isNaN(locationId.value)) {
       this.setState({
         errorLocation: 'Выберите локацию'
       })
     }
-    if (this.roomId && Number.isNaN(this.roomId.value)) {
+    if (isNaN(roomId.value)) {
       this.setState({
         errorRoom: 'Выберите номер'
       })
     }
-    if (_.isEmpty(executorId)) {
+    if (isNaN(executorId.value)) {
       this.setState({
         errorExecutor: 'Выберите отвественного'
       })
     }
-    if (_.isEmpty(frequency)) {
+    if (!isNaN(taskFrequency.value)) {
       this.setState({
         errorFrequency: 'Укажите повторяемость'
       })
     }
-    if (!this.textForTask.value) {
+    if (!textForTask.value) {
       this.setState({
         errorText: 'Введите текст'
       })
     }
-    if (this.textForTask.value && !_.isEmpty(frequency) && !_.isEmpty(executorId) && +this.locationId.value) {
-      let location = ((this.roomId && this.roomId.value) && allLocations.find(location => location.id === +this.locationId.value).children) || allLocations
-      let locationId = (this.roomId && +this.roomId.value) || +this.locationId.value
+    if (textForTask.value && taskFrequency.value && +executorId.value && +locationId.value) {
+      let locations = ((roomId && +roomId.value) && allLocations.find(location => location.id === +locationId.value).children) || allLocations
+      let locationType = (roomId && +roomId.value) || (locationId && +locationId.value)
       let body = {
-        assignee: allUsers.find(user => user.id === +executorId).employee,
-        message: this.textForTask.value,
+        assignee: allUsers.find(user => user.id === +executorId.value).employee,
+        message: textForTask.value,
         status: 'OPENED',
         updated: new Date(),
-        frequency: frequency,
+        frequency: taskFrequency.value,
         expired: finishDate,
-        priority: taskPriority,
-        locations: [location.find(location => location.id === locationId)]
+        priority: taskPriority.value,
+        locations: [locations.find(location => location.id === locationType)]
       }
       let formData = new FormData()
       formData.append('task', JSON.stringify(body))
@@ -135,13 +117,9 @@ class TaskFactory extends Component {
   }
 
   render () {
-    console.log(this.locationId && this.locationId.value)
-
     const {allUsers, allLocations, allStatuses, allFrequencies} = this.props
     const {
       finishDate,
-      executorId,
-      frequency,
       errorExecutor,
       errorText,
       errorLocation,
@@ -150,7 +128,14 @@ class TaskFactory extends Component {
       successAdd,
       itIsFloor
     } = this.state
-
+    console.log(finishDate,
+      errorExecutor,
+      errorText,
+      errorLocation,
+      errorFrequency,
+      errorRoom,
+      successAdd,
+      itIsFloor)
     if (allUsers && allLocations && allStatuses && allFrequencies) {
       return (
         <div className="container createTask">
@@ -176,11 +161,11 @@ class TaskFactory extends Component {
               )
             })}
           </select>
-          {this.locationId && +this.locationId.value ||
+          {isNaN(this.locationId.value) &&
           <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
           {
             itIsFloor &&
-            <Fragment>
+            <div>
               <select
                 name="roomsList"
                 defaultValue='roomChoice'
@@ -204,14 +189,15 @@ class TaskFactory extends Component {
                   )
                 })}
               </select>
-              {!!(this.roomId && +this.roomId.value) ||
+              {isNaN(this.roomId.value) &&
               <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
-            </Fragment>
+            </div>
           }
           <select
             defaultValue='0'
             id="priority"
-            onChange={this.choosePriority}>
+            ref={input => this.taskPriority = input}
+          >
             <option
               value="0"
               disabled
@@ -233,7 +219,7 @@ class TaskFactory extends Component {
             defaultValue='test'
             id='forThatUser'
             required={true}
-            onChange={this.chooseExecutor}>
+            ref={input => this.executorId = input}>
             <option
               disabled
               hidden
@@ -249,16 +235,16 @@ class TaskFactory extends Component {
               )
             })}
           </select>
-          {!!executorId ||
+          {isNaN(this.executorId.value) &&
           <label className='task_errors' htmlFor='executors'>{errorExecutor}</label>}
           <select
             name='frequencies'
-            defaultValue='frequencyChoice'
+            defaultValue='0'
             id='frequency'
-            onChange={this.chooseFrequency}
+            ref={(input) => this.taskFrequency = input}
           >
             <option
-              value="frequencyChoice"
+              value='0'
               hidden
               disabled>
               Повторяемость
@@ -273,18 +259,19 @@ class TaskFactory extends Component {
               )
             })}
           </select>
-          {!!frequency ||
+          {!+this.taskFrequency.value &&
           <label className='task_errors' htmlFor='frequencies'>{errorFrequency}</label>}
           <textarea
             name="task"
             id="task"
             cols="30"
             rows="10"
-            ref={(input) => this.textForTask = input}
+            ref={input => this.textForTask = input}
             placeholder='Введите текст'
           >
           </textarea>
-          {(this.textForTask && !!this.textForTask.value) || <label className='task_errors' htmlFor='task'>{errorText}</label>}
+          {this.textForTask.value ||
+          <label className='task_errors' htmlFor='task'>{errorText}</label>}
           <input
             type="file"
             name="audio"
