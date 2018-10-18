@@ -77,7 +77,7 @@ class VacanciesPage extends Component {
                          fontSize="small"
                          aria-label="Открытые вакансии">
                   </Radio>
-                  <Typography variant={'caption'}>открытые вакансии</Typography>
+                  <Typography variant='caption'>открытые вакансии</Typography>
                 </Paper>
                 <Paper onClick={() => this.setState({showClosedVacancies: !showClosedVacancies})}
                        className={classes.radioButton} elevation={0}>
@@ -95,7 +95,7 @@ class VacanciesPage extends Component {
               </RadioGroup>
               <IconButton color="default" className={classes.button}
                           aria-label="Добавить Вакансию">
-                <Link to={routes.updateVacancy.href}>
+                <Link to={routes.addNewVacancy.href}>
                   <AddIcon fontSize="large"/>
                 </Link>
               </IconButton>

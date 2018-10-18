@@ -1,4 +1,4 @@
-import {GET_ALL_VACANCIES, ADD_NEW_VACANCY, UPDATE_VACANCY, DELETE_VACANCY} from '../constants/actionTypes'
+import {GET_ALL_VACANCIES, ADD_NEW_VACANCY, UPDATE_VACANCY} from '../constants/actionTypes'
 
 // const initialState = !this.state;
 
@@ -10,7 +10,6 @@ export default function vacanciesReducer (state = [], action) {
       return [...state.vacancies, action.payload]
     case UPDATE_VACANCY:
       return [...state, action.payload]
-
     default:
       return state
   }

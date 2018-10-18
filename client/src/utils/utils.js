@@ -6,24 +6,6 @@ export const getLastShift = (callback) => {
     .then(callback)
 }
 
-/*const arrUrlForStartData = [
-  '/test/user',
-  '/position/list',
-  '/schedule',
-  '/location',
-  '/workshift',
-  '/task/status',
-  '/task/frequency',
-  '/user',
-  '/task'];
-
-export const startData = (callback) => {
-  arrUrlForStartData.forEach(url => axios.get(url)
-    .then(response => response.data)
-    .then(callback))
-}*/
-
-
 export const startData = (
   callbackUser,
   callbackPosition,

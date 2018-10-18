@@ -4,7 +4,9 @@ import routes from '../constants/routes'
 import Home from '../pages/Home'
 import Employees from '../pages/Employees'
 import EmployeesPage from '../pages/employees/EmployeesPage'
+import EmployeesFactoryPage from '../pages/employees/EmployeesFactoryPage'
 import Vacancies from '../pages/vacancies/VacanciesPage'
+import VacanciesFactoryPage from "../pages/vacancies/VacanciesFactoryPage";
 import Comments from '../pages/shifts/Shifts'
 import ShiftsHistory from '../pages/shifts/ShiftsHistory'
 import CreateNewComments from '../pages/shifts/CreateNewShift'
@@ -16,7 +18,6 @@ import WashingData from '../pages/WashingData'
 import SalesNumbers from '../pages/washingDate/SalesNumbers'
 import Lodgers from '../pages/washingDate/Lodgers'
 import Header from './Header'
-import VacanciesFactoryPage from "../pages/vacancies/VacanciesFactoryPage";
 
 class Navigation extends Component {
   render() {
@@ -29,6 +30,10 @@ class Navigation extends Component {
                render={(props) => header ? <Header previousRoute={routes.employees} {...props}/> : <Employees {...props}/>}/>
         <Route exact path={routes.employeesList.href}
                render={(props) => header ? <Header previousRoute={routes.employeesList} {...props}/> : <EmployeesPage {...props}/>}/>
+        <Route exact path={routes.updateEmployee.href + ':employeeId'}
+                 render={(props) => header ? <Header previousRoute={routes.updateEmployee} {...props}/> : <EmployeesFactoryPage {...props}/>}/>
+        <Route exact path={routes.addNewEmployee.href}
+                 render={(props) => header ? <Header previousRoute={routes.addNewEmployee} {...props}/> : <EmployeesFactoryPage {...props}/>}/>
         <Route exact path={routes.vacancies.href}
                render={(props) => header ? <Header previousRoute={routes.vacancies} {...props}/> : <Vacancies {...props}/>}/>
         <Route exact path={routes.comments.href}
@@ -43,6 +48,8 @@ class Navigation extends Component {
                render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/> : <VacanciesFactoryPage {...props}/>}/>
         <Route path={routes.addNewVacancy.href}
                render={(props) => header ? <Header previousRoute={routes.addNewVacancy} {...props}/> : <VacanciesFactoryPage {...props}/>}/>
+
+
         <Route exact path={routes.tasks.href}
                render={(props) => header ? <Header previousRoute={routes.tasks} {...props}/> : <Tasks {...props}/>}/>
         <Route exact path={routes.createNewTask.href}
