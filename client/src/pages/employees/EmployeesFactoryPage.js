@@ -7,53 +7,85 @@ class EmployeesFactoryPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      open: false
+      toUpdate: false,
+      successAction: ''
     }
   }
 
   handleSubmit = event => {
+    const toUpdate = this.state.toUpdate
+    debugger
     event.preventDefault();
-    axios.post(`/employee`, {
-      position: this.props.positions.find(p => p.id === +this.positionId.value),
-      forename: this.forename.value,
-      surname: this.surname.value,
-      patronymic: this.patronymic.value,
-      phoneNumber: this.phoneNumber.value,
-      info: this.info.value
-    })
-      .then((res) => this.setState({open: false, resData: res.data}))
-      .then(() => { setTimeout(() => this.props.history.push('/employee/list'), 1500) })
+    axios({
+      url: `/employee`,
+      method: toUpdate ? 'PUT' : 'POST',
+      data: toUpdate ? {
+        position: this.props.positions.find(p => p.id === +this.positionId.value),
+        forename: this.forename.value,
+        surname: this.surname.value,
+        patronymic: this.patronymic.value,
+        phoneNumber: this.phoneNumber.value,
+        info: this.info.value
+      } : {
+        position: this.props.positions.find(p => p.id === +this.positionId.value),
+        forename: this.forename.value,
+        surname: this.surname.value,
+        patronymic: this.patronymic.value,
+        phoneNumber: this.phoneNumber.value,
+        info: this.info.value
       }
+    })
+      .then((response) => this.setState({
+        successAction: toUpdate ? 'Данные сотрудника изменены' : 'Создан новый сотрудник'}))
+  }
+
+  componentWillMount() {
+    const item = this.props.location.state;
+
+    if (item) {
+      this.setState({
+        forename: item.forename,
+        surname: item.surname,
+        patronymic: item.patronymic,
+        positionId: item.position.id,
+        phoneNumber: item.phoneNumber,
+        info: item.info,
+        toUpdate: true
+      })
+    }
+  }
+
 
   render() {
+    const {forename, surname, patronymic, positionId, phoneNumber, info} = this.state;
     const {positions} = this.props;
 
     return (
       <Fragment>
-        <div className="button-container" id="button">
+        <div>
             <form onSubmit={this.handleSubmit}>
               <label>
                 Forename:
-                <input type="text" ref={(input) => this.forename = input}/>
+                <input type="text" defaultValue={forename} ref={(input) => this.forename = input}/>
                 Surname:
-                <input type="text" ref={(input) => this.surname = input}/>
+                <input type="text" defaultValue={surname} ref={(input) => this.surname = input}/>
                 Patronymic:
-                <input type="text" ref={(input) => this.patronymic = input}/>
+                <input type="text" defaultValue={patronymic} ref={(input) => this.patronymic = input}/>
                 Должность:
-                <select ref={(input) => this.positionId = input}>
+                <select defaultValue={positionId} ref={(input) => this.positionId = input}>
                   {positions.map(position =>
-                    <option key={position.id} value={position.id}>
-                      {position.title}
-                    </option>)}
+                    <option key={position.id} value={position.id}>{position.title}</option>)}
                 </select>
                 Phone number:
-                <input type="text" ref={(input) => this.phoneNumber = input}/>
+                <input type="text" defaultValue={phoneNumber} ref={(input) => this.phoneNumber = input}/>
                 Коментарий:
-                <textarea placeholder={'Введите Ваш коментарий'} ref={(input) => this.info = input}/>
+                <textarea defaultValue={info} placeholder={'Введите Ваш коментарий'} ref={(input) => this.info = input}/>
               </label>
-              <input type="submit" value="Добавить"/>
+              <input type="submit" onClick={() => setTimeout(() => this.props.history.push('/employees/list'), 2000)}
+                     value={this.props.location.state ? "Изменить данные" : "Добавить сотрудника"}/>
             </form>
         </div>
+        <p>{this.state.successAction}</p>
       </Fragment>
     )
   }

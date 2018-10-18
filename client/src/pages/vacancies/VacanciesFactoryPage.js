@@ -9,68 +9,37 @@ class VacanciesFactoryPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      positionId: this.props.positions[0].id,
-      status: 'CLOSED',
-      salary: '',
-      info: '',
-      publication: null,
       toUpdate: false,
       successAction: ''
     };
 
-    this.handlePositionChange = this.handlePositionChange.bind(this);
-    this.handleSalaryChange = this.handleSalaryChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleStatusChange = this.handleStatusChange.bind(this)
+
   }
 
   handleSubmit = (event) => {
     const toUpdate = this.state.toUpdate;
+ debugger
     event.preventDefault();
     axios({
       url: '/vacancy',
       method: toUpdate ? 'PUT' : 'POST',
       data: toUpdate ? {
             id: this.state.id,
-            positionId: this.state.positionId,
-            info: this.state.info,
-            salary: this.state.salary,
-            status: this.state.status,
+            positionId: this.positionId.value,
+            info: this.info.value,
+            salary: this.salary.value,
+            status: this.status.value,
             publication: this.state.publication
           }
       : {
-      positionId: this.state.positionId,
-      info: this.state.info,
-      salary: this.state.salary
+      positionId: this.positionId.value,
+      info: this.info.value,
+      salary: this.salary.value
       },
     })
       .then((response) => this.setState({
-        resData: response.data,
-        successAction: toUpdate ? 'Вакансия изменена успешно' : 'Создана новая вакансия'
-      }))
+        successAction: toUpdate ? 'Вакансия изменена успешно' : 'Создана новая вакансия'}))
   };
-
-
-
-  handlePositionChange(event) {
-    event.preventDefault();
-    this.setState({positionId: event.target.value})
-  }
-
-  handleStatusChange(event) {
-    event.preventDefault();
-    this.setState({status: event.target.value})
-  }
-
-  handleSalaryChange(event) {
-    event.preventDefault();
-    this.setState({salary: event.target.value})
-  }
-
-  handleDescriptionChange(event) {
-    event.preventDefault();
-    this.setState({info: event.target.value})
-  }
 
   componentWillMount() {
     const item = this.props.location.state;
@@ -83,8 +52,7 @@ class VacanciesFactoryPage extends Component {
         salary: item.salary,
         info: item.info,
         publication: item.publication,
-        toUpdate: true,
-        successAction: ''
+        toUpdate: true
       })
     }
   }
@@ -100,26 +68,25 @@ class VacanciesFactoryPage extends Component {
         <form onSubmit={this.handleSubmit}>
           <label>
             Название должности:
-            <select onChange={this.handlePositionChange} defaultValue={positionId}>
+            <select ref={(input) => this.positionId = input} defaultValue={positionId}>
               {positions.map(position =>
-                <option name={'positionId'} key={position.id} value={position.id}>
+                <option key={position.id} value={position.id}>
                   {position.title}
                 </option>)}
             </select>
             {toUpdate &&
             <p> Status: </p>}
-            {toUpdate && <select onChange={this.handleStatusChange} defaultValue={status}>
-              <option name='status' key='1' value='OPENED'> OPENED</option>
-              <option name='status' key='2' value='CLOSED'> CLOSED</option>
+            {toUpdate && <select ref={(input) => this.status = input} defaultValue={status}>
+              <option key='1' value='OPENED'> OPENED</option>
+              <option key='2' value='CLOSED'> CLOSED</option>
             </select>}
             Зарплата:
-            <input type="text" name={'salary'} value={salary}
-                   onChange={this.handleSalaryChange}/>
+            <input type="text" ref={(input) => this.salary = input} defaultValue={salary}/>
             Описание вакансии:
-            <textarea rows="5" placeholder={'Введите Ваш коментарий'} name={'info'} value={info}
-                      onChange={this.handleDescriptionChange}/>
+            <textarea rows="5" placeholder={'Введите Ваш коментарий'} ref={(input) => this.info = input} defaultValue={info}/>
           </label>
-          <input type="submit" onClick={() => setTimeout(() => this.props.history.push('/employees/vacancies'), 1000)} value={this.props.location.state ? "Изменить вакансию" : "Добавить вакансию"}/>
+          <input type="submit" onClick={() => setTimeout(() => this.props.history.push('/employees/vacancies'), 1000)}
+                 value={this.props.location.state ? "Изменить вакансию" : "Добавить вакансию"}/>
         </form>
         <p>{this.state.successAction}</p>
       </div>
