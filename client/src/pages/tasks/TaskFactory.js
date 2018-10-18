@@ -81,8 +81,9 @@ class TaskFactory extends Component {
         errorText: 'Введите текст'
       })
     }
-    if (textForTask.value && taskFrequency.value && +executorId.value && +locationId.value) {
-      let locations = ((roomId && +roomId.value) && allLocations.find(location => location.id === +locationId.value).children) || allLocations
+    if (textForTask.value && isNaN(taskFrequency.value) && +executorId.value && +locationId.value) {
+      let locations = ((roomId && +roomId.value) && allLocations.find(location => location.id === +locationId.value).children) ||
+        allLocations
       let locationType = (roomId && +roomId.value) || (locationId && +locationId.value)
       let body = {
         assignee: allUsers.find(user => user.id === +executorId.value).employee,
@@ -149,23 +150,23 @@ class TaskFactory extends Component {
           {isNaN(this.locationId.value) &&
           <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
           {itIsFloor &&
-            <div>
-              <select name="roomsList" defaultValue='roomChoice' ref={(input) => this.roomId = input}
-              >
-                <option value='roomChoice' disabled hidden>
-                  Номер
-                </option>
-                {allLocations.find(location => location.id === +this.locationId.value).children.map(children => {
-                  return (
-                    <option value={children.id} key={children.id}>
-                      {children.title}
-                    </option>
-                  )
-                })}
-              </select>
-              {isNaN(this.roomId.value) &&
-              <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
-            </div>
+          <div>
+            <select name="roomsList" defaultValue='roomChoice' ref={(input) => this.roomId = input}
+            >
+              <option value='roomChoice' disabled hidden>
+                Номер
+              </option>
+              {allLocations.find(location => location.id === +this.locationId.value).children.map(children => {
+                return (
+                  <option value={children.id} key={children.id}>
+                    {children.title}
+                  </option>
+                )
+              })}
+            </select>
+            {isNaN(this.roomId.value) &&
+            <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
+          </div>
           }
           <select defaultValue='0' id="priority" ref={input => this.taskPriority = input}>
             <option value="0" disabled hidden>
@@ -176,10 +177,26 @@ class TaskFactory extends Component {
             <option value="3">3</option>
           </select>
           <DatePicker
-            placeholderText='Выполнить до'
+            placeholderText='Срок выполнения'
             minDate={moment()}
             selected={finishDate}
+            showMonthDropdown
+            useShortMonthInDropdown
+            showTimeSelect
+            withPortal
+            dateFormat="LLL"
             onChange={this.chooseDate}
+            popperModifiers={{
+              offset: {
+                enabled: true,
+                offset: '5px, 10px'
+              },
+              preventOverflow: {
+                enabled: true,
+                escapeWithReference: false, // force popper to stay in viewport (even when input is scrolled out of view)
+                boundariesElement: 'viewport'
+              }
+            }}
           />
           <select
             name='executors'

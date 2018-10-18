@@ -17,7 +17,15 @@ class TasksView extends Component {
       id: task.id,
       status: 'CLOSED',
       updated: new Date(),
-
+      assignee: task.assignee,
+      delegator: task.delegator,
+      message: task.message,
+      frequency: task.frequency,
+      expired: task.expired,
+      priority: task.priority,
+      locations: task.locations,
+      imageLinks: task.imageLinks,
+      comments: task.comments
     }
     let formData = new FormData()
     formData.append('task', JSON.stringify(body))
@@ -63,7 +71,8 @@ class TasksView extends Component {
                   {task.priority && <p>Важность: {task.priority}</p>}
                   <p>Создана: {new Date(task.updated).toLocaleDateString()}</p>
                   <p>{task.delegator.forename} {task.delegator.surname}</p>
-                  {task.expired && <p>Выполнить до: {new Date(task.expired).toLocaleDateString()}</p>}
+                  {task.expired &&
+                  <p>Срок: {new Date(task.expired).toLocaleString()}</p>}
                 </li>
                 {task.assignee.userId === currentUser.id && <button
                   value={task.id}
