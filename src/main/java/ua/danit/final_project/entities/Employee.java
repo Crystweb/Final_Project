@@ -6,8 +6,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
 import java.io.Serializable;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.util.List;
 
 @Entity
@@ -47,7 +55,7 @@ public class Employee implements Serializable {
   @Column(name = "e_info")
   private String info;
 
-/*  @ToString.Exclude
+  /*  @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
   private List<ShiftComment> comments;*/
