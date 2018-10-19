@@ -6,7 +6,6 @@ import ua.danit.final_project.entities.Employee;
 import ua.danit.final_project.entities.Position;
 import ua.danit.final_project.repositories.EmployeeRepository;
 import ua.danit.final_project.repositories.PositionRepository;
-import ua.danit.final_project.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
