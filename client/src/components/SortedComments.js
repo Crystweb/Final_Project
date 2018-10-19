@@ -67,18 +67,18 @@ class PositionButtons extends Component {
       timelineEvents.push(
         <TimelineEvent createdAt={`${i}:00`} key={i} title='' iconColor={shift && shift.color}>
           {comments
-            .filter(comment => comment.authorPosition === this.state.view)
+            .filter(comment => comment.positions.find(position => position.title === this.state.view))
             .filter(comment => new Date(comment.date).getHours() === i)
             .map(comment => {
-              const showActionButtons = comment.authorId === this.state.userId
+              const showActionButtons = comment.author.userId === this.state.userId
               // const isShowing = ({comments.[0] == undefined} === true)
               return (
                 <li key={comment.id}>
                   <div className='flex_comment'>
                     <div className='comment'>
-                      <h3>{comment.forename} {comment.surname}, {comment.authorPosition}</h3>
+                      <h3>{comment.author.forename} {comment.author.surname}, {comment.author.position.title}</h3>
                       <h5>{`${i}:00`}</h5>
-                      <h4>{comment.text}</h4>
+                      <h4>{comment.message}</h4>
                     </div>
                     <div className='ud_buttons'>
                       {showActionButtons &&

@@ -9,7 +9,7 @@ import Vacancies from '../pages/vacancies/VacanciesPage'
 import VacanciesFactoryPage from "../pages/vacancies/VacanciesFactoryPage";
 import Comments from '../pages/shifts/Shifts'
 import ShiftsHistory from '../pages/shifts/ShiftsHistory'
-import CreateNewComments from '../pages/shifts/CreateNewShift'
+import CreateNewComments from '../pages/shifts/CommentsFactory'
 import Tasks from '../pages/tasks/Tasks'
 import CreateNewTask from '../pages/tasks/CreateNewTask'
 import TasksHistory from '../pages/tasks/TasksHistory'
