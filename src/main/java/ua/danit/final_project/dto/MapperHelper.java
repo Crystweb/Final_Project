@@ -8,7 +8,6 @@ import ua.danit.final_project.entities.Task;
 import ua.danit.final_project.entities.TaskComment;
 import ua.danit.final_project.entities.TaskImage;
 import ua.danit.final_project.repositories.TaskRepository;
-import ua.danit.final_project.repositories.UserRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,13 +15,11 @@ import java.util.stream.Collectors;
 @Component
 public class MapperHelper {
 
-  private final UserRepository userRepository;
   private final TaskRepository taskRepository;
 
   @Autowired
-  public MapperHelper(UserRepository userRepository,
+  public MapperHelper(
                       TaskRepository taskRepository) {
-    this.userRepository = userRepository;
     this.taskRepository = taskRepository;
   }
 

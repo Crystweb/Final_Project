@@ -55,11 +55,6 @@ public class Employee implements Serializable {
   @Column(name = "e_info")
   private String info;
 
-  /*  @ToString.Exclude
-  @EqualsAndHashCode.Exclude
-  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-  private List<ShiftComment> comments;*/
-
   public boolean hasUser() {
     return user != null;
   }
