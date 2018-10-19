@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ua.danit.final_project.configuration.SessionAware;
 import ua.danit.final_project.dto.DefaultMapper;
 import ua.danit.final_project.dto.EmployeeDto;
 import ua.danit.final_project.entities.Employee;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employee")
-public class EmployeeController {
+public class EmployeeController extends SessionAware {
 
   private final EmployeeService employeeService;
   private final DefaultMapper mapper;
@@ -42,6 +43,7 @@ public class EmployeeController {
   @PostMapping
   public EmployeeDto createEmployee(@RequestBody EmployeeDto employeeDto) {
     Employee employee = mapper.employeeDtoToEmployee(employeeDto);
+    employee = employeeService.save(employee);
 
     return mapper.employeeToEmployeeDto(employee);
   }
