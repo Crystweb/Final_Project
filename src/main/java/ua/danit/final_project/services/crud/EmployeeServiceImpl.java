@@ -19,11 +19,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   @Autowired
   public EmployeeServiceImpl(EmployeeRepository employeeRepository,
-                             PositionRepository positionRepository)
-  {
-    this.employeeRepository = employeeRepository;
-    this.positionRepository = positionRepository;
-  }
+                             PositionRepository positionRepository) {
+    this.employeeRepository = employeeRepository; this.positionRepository = positionRepository; }
 
   @Override
   public Employee getById(Long id) {
