@@ -61,7 +61,7 @@ class TaskFactory extends Component {
         errorLocation: 'Выберите локацию'
       })
     }
-    if (isNaN(roomId.value)) {
+    if (this.roomId && isNaN(this.roomId.value)) {
       this.setState({
         errorRoom: 'Выберите номер'
       })
@@ -164,7 +164,7 @@ class TaskFactory extends Component {
                 )
               })}
             </select>
-            {isNaN(this.roomId.value) &&
+            {(this.roomId && isNaN(this.roomId.value)) &&
             <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
           </div>
           }
