@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+import ua.danit.final_project.dto.TaskDto;
 import ua.danit.final_project.entities.Task;
 import ua.danit.final_project.repositories.TaskRepository;
 import ua.danit.final_project.services.tasks.TaskService;
@@ -34,6 +35,7 @@ public class TaskTests {
   private TaskRepository mockTaskRepository;
 
   private Task task;
+  private TaskDto taskDto;
 
   @Before
   public void init() {
@@ -51,7 +53,7 @@ public class TaskTests {
 
   @Test
   public void taskCreated() throws IOException {
-    Task newTask = taskService.create(task, null);
+    TaskDto newTask = taskService.create(taskDto, null);
 
     Assert.assertNotNull(newTask);
     Assert.assertEquals(newTask.getMessage(), task.getMessage());
@@ -59,16 +61,16 @@ public class TaskTests {
 
   @Test
   public void taskExpiredOnRemoval() throws IOException {
-    task = taskService.create(task, null);
-    Task removedTask = taskService.remove(task.getId());
+    taskDto = taskService.create(taskDto, null);
+    TaskDto removedTask = taskService.remove(task.getId());
 
     Assert.assertEquals(removedTask.getStatus(), Task.TaskStatus.REMOVED);
   }
 
   @Test
   public void findActiveReturnsOnlyActive() {
-    List<Task> allActive = taskService.findAllActive();
-    List<Task> filtered = allActive.stream()
+    List<TaskDto> allActive = taskService.findAllActive();
+    List<TaskDto> filtered = allActive.stream()
         .filter(t -> !t.getStatus().equals(Task.TaskStatus.CLOSED))
         .filter(t -> !t.getStatus().equals(Task.TaskStatus.REMOVED))
         .filter(t -> !t.getStatus().equals(Task.TaskStatus.REJECTED))
