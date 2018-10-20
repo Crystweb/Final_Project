@@ -10,7 +10,7 @@ import vacanciesReducer from '../reducers/vacanciesReducer'
 
 const reducers = {
   comments: shift,
-  shiftHistorySelectedDate: shiftHistorySelectedDate,
+  selectedDate: shiftHistorySelectedDate,
   startData: user,
   vacancies: vacanciesReducer,
   tasks: tasks

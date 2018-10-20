@@ -22,7 +22,7 @@ class Calendar extends Component {
       return (
         <Fragment>
           {isForComments && <ShiftHistoryForSelectedDay/>}
-          {isForTasks && <TasksView/>}
+          {isForTasks && <TasksView itIsHistory={true} showAll={true}/>}
         </Fragment>
       )
     }

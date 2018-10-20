@@ -98,3 +98,10 @@ export function deleteTask (task) {
     task
   }
 }
+
+export function addHitoryTasks (task) {
+  return {
+    type: types.ADD_TASKS_FOR_HISTORY,
+    task
+  }
+}

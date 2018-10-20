@@ -68,7 +68,7 @@ public class Task implements Serializable {
   @Column
   private Integer priority;
 
-  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY)
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinTable(

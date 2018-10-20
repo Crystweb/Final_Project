@@ -31,8 +31,8 @@ class ShiftHistoryForSelectedDay extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    date: state.shiftHistorySelectedDate.selectedDate,
-    commentsForSelectedDate: state.shiftHistorySelectedDate.commentsForSelectedDates
+    date: state.selectedDate.historySelectedDate,
+    commentsForSelectedDate: state.selectedDate.commentsForSelectedDates
   }
 }
 

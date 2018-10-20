@@ -50,10 +50,13 @@ public class TaskController {
   }
 
   @GetMapping("/date")
-  public List<TaskDto> findByDateBetween(@RequestParam("from") Date from,
-                                         @RequestParam("to") Date to) {
-    return taskService.findAllByDateBetween(from, to)
+  public List<TaskDto> findByDateBetween(@RequestParam("from") Long from,
+                                         @RequestParam("to") Long to) {
+    Date dateFrom = new Date(from);
+    Date dateTo = new Date(to);
+    return taskService.findAllByDateBetween(dateFrom, dateTo)
             .stream()
+            .filter(t -> Task.TaskStatus.CLOSED.equals(t.getStatus()))
             .map(mapper::taskToTaskDto)
             .collect(Collectors.toList());
   }
