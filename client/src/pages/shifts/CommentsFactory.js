@@ -96,11 +96,11 @@ class CreateNewComments extends Component {
       )
     } else {
       return (<div className="container">
-          {this.props.allPositionsForComments.map(position => {
-              const isForComment = position.pinnedToComment === true
+          <div className="newComment">
+          {this.props.allPositionsForComments.filter(position => position.pinnedToComment).map(position => {
               return (
-                <ul>
-                  {isForComment && <li key={position.id}>
+                <div className="newComment-elem">
+                  <label key={position.id}>
                     <input
                       name="position"
                       type="checkbox"
@@ -108,29 +108,42 @@ class CreateNewComments extends Component {
                       value={position.title}
                       onChange={this.setCheckedPosition.bind(this)}
                     />
+                    <div className="newComment-elem__fakeRadio">
+                      <div className="newComment-elem__fakeCheckMark">
+                      </div>
+                    </div>
                     {position.title}
-                  </li>}
-                  {errorCheckedPosition && <p>{errorCheckedPosition}</p>}
-                </ul>
+                  </label>
+                  {errorCheckedPosition && <p className="newComment-elem__error">{errorCheckedPosition}</p>}
+                </div>
               )
             }
           )
           }
-          <textarea
+          <h3 className="newComment-title">Добавить коментарий</h3>
+          </div>
+          <textarea className="newComment-textarea"
             name='commentField'
             value={textComment}
-            placeholder={'Введите Ваш коментарий'}
+            placeholder={'Привет друг, что бы ты хотел мне написать?'}
             cols="30"
             rows="10"
             onChange={this.addText.bind(this)}/>
-          {errorText && <label htmlFor='commentField'>{errorText}</label>}
-          {isUpdate || <input type="button"
+          <div className="newComment-btn">
+          {errorText && <label className="newComment-errorText" htmlFor='commentField'>{errorText}</label>}
+          {isUpdate || <button className="newComment-send" type="button"
                               value=" Добавить комментарий "
-                              onClick={this.commentForFactory.bind(this)}/>}
-          {isUpdate && <input type="button"
+                              onClick={this.commentForFactory.bind(this)}>
+                              Добавить комментарий
+                        </button>}
+          {isUpdate && <button className="newComment-send"
+                              type="button"
                               value="Изменить комментарий"
-                              onClick={this.commentForFactory.bind(this)}/>
+                              onClick={this.commentForFactory.bind(this)}>
+                              Изменить комментарий
+                        </button>
           }
+          </div>
           <p>{successPost}</p>
         </div>
       )

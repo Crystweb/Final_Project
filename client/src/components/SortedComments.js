@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from "react-router-dom";
 import routes from "../constants/routes";
-import picture from "../img/addComment.png";
-import calendar from "../img/calendar.png";
+import picture from "../img/add.png";
+import calendar from "../img/Cal-icon.png";
 import {addShift} from '../actions/actions'
 import ScheduleWithComments from './ScheduleWithComments'
 
@@ -224,40 +224,37 @@ class PositionButtons extends Component {
 
     let readyComments = this.createArrayOfReadyComments(schedulesWithColors, comments);
 
-    const selectPositionInputs = position.map(position => {
-        const isForComment = position.pinnedToComment === true
+    const selectPositionInputs = position.filter(position => position.pinnedToComment).map(position => {
         return (
-          <div key={position.id}>
-            {isForComment && <li key={position.id}>
+          <li className="position-radio-buttons__elem">
+            <label key={position.id}>
               <input name="position"
                      type='radio'
                      defaultChecked={this.state.view === position.title}
                      value={position.title}/>
-              {position.title}
-            </li>}
-          </div>)
+              <div className="position-radio-buttons__fakeBtn">
+                <div className="position-radio-buttons__fakeBtn-active"></div>
+              </div>
+              <span>{position.title}</span>
+            </label>
+          </li>
+        )
       }
     )
 
     return (
       <section className="comments">
         <div className="radioANDbuttons">
-          <div className="position-radio-buttons" onChange={this.setPositionView.bind(this)}>
+          <ul className="position-radio-buttons" onChange={this.setPositionView.bind(this)}>
             {selectPositionInputs}
-          </div>
+          </ul>
           <div className="add_and_history">
-            <nav>
-              <ul>
-                <li><Link to={routes.addNewComments.href}>
+                <Link to={routes.addNewComments.href}>
                   <img alt="add comment" src={picture}/>
                 </Link>
-                </li>
-                <li><Link to={routes.commentsHistory.href}>
+                <Link to={routes.commentsHistory.href}>
                   <img alt="calendar is here" src={calendar}/>
                 </Link>
-                </li>
-              </ul>
-            </nav>
           </div>
         </div>
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import '../styles/Comments.css'
-import update from "../img/update.png";
-import trash from "../img/trash.png";
+import update from "../img/edit.png";
+import trash from "../img/delete.png";
 import routes from "../constants/routes";
 import {Link} from "react-router-dom";
 import {getLastShift} from "../utils/utils";
@@ -32,9 +32,9 @@ import axios from 'axios'
              alt="#"/>
          </Link>
          <button
+           style={{backgroundImage: "url("+ trash + ")"}}
            onClick={() => this.deleteComment(comment)}
            className="comment-list__elem-buttons-delete">
-           <img src={trash} alt="#"/>
          </button>
        </div>
      )

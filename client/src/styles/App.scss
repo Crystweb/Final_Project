@@ -19,6 +19,8 @@ a {
 }
 input {outline:none;}
 
+button {outline:none;}
+
 textarea {outline: none;}
 
 a:visited {
@@ -29,9 +31,10 @@ body {
   min-width: 320px;
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 25px;
-  font-family: HelveticaNeue;
+  padding: 0 8px;
+  font-family: HelveticaNeue, sans-serif;
   overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .container {
@@ -43,10 +46,15 @@ body {
   padding-left: 41px;
 
   &-elem {
+    height: 34px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
 
-    margin-bottom: 13px;
 
     & label {
+      min-width: 250px;
+      width: 50%;
       display: flex;
       flex-direction: row;
       font-family: HelveticaNeue, sans-serif;
@@ -61,13 +69,13 @@ body {
 
     &__fakeCheckMark {
       display: none;
-      width: 8.6px;
-      height: 9px;
-      background-color: black;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      width: 9px;
+      height: 9px;
+      background-image: url("../img/done.png");
     }
 
     & input:checked + &__fakeRadio &__fakeCheckMark {
@@ -87,6 +95,13 @@ body {
       border: solid 1px #4b5461;
       margin-right: 8px;
       position: relative;
+    }
+
+    &__error {
+      color: rgba(193, 13, 13, 0.75);
+      font-family: HelveticaNeue, sans-serif;
+      font-size: 11px;
+      margin-left: 26px;
     }
   }
 
@@ -115,22 +130,46 @@ body {
     margin-bottom: 15px;
   }
 
+  &-btn {
+    display: flex;
+    flex-direction: column;
+  }
+
   &-send {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     border: 0;
-    float: right;
     font-family: HelveticaNeue, sans-serif;
     font-size: 15px;
     font-weight: 500;
-    line-height: 0.8;
     color: #ffffff;
     text-transform: uppercase;
     padding: 14px 20px;
     border-radius: 5px;
     background-color: #7ff4a9;
+    margin-bottom: 8px;
+    order: 1;
+  }
+
+  &-errorText {
+    order: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: rgba(193, 13, 13, 0.75);
+    margin-bottom: 8px;
+
   }
 }
-
-
 
 .calendar {
   display: flex;
@@ -194,4 +233,32 @@ form {
 @font-face {
   font-family: HelveticaNeue;
   src: url(../fonts/HelveticaNeue.ttf);
+}
+
+@media (min-width: 375px) {
+  body {
+    padding: 0 25px;
+  }
+
+  .newComment {
+
+    &-btn {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+
+    &-errorText {
+      order: 1;
+      margin-right: 8px;
+      margin-bottom: 0;
+    }
+
+    &-send {
+      width: auto;
+      order: 2;
+      margin: 0;
+    }
+
+  }
+
 }
