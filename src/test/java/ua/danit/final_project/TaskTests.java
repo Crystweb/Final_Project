@@ -40,6 +40,7 @@ public class TaskTests {
   @Before
   public void init() {
     task = new Task();
+    taskDto = new TaskDto();
 
     Mockito.when(mockTaskRepository.save(any(Task.class)))
         .then((Answer<Task>) invocationOnMock -> {
