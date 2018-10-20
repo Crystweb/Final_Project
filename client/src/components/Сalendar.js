@@ -17,12 +17,12 @@ class Calendar extends Component {
   }
 
   render () {
-    const {max, min, selected, minDate, maxDate, addDate, isForComments} = this.props
+    const {max, min, selected, minDate, maxDate, addDate, isForComments, isForTasks} = this.props
     if (this.state.isDataSelected) {
       return (
         <Fragment>
           {isForComments && <ShiftHistoryForSelectedDay/>}
-          {isForComments || <TasksView/>}
+          {isForTasks && <TasksView/>}
         </Fragment>
       )
     }

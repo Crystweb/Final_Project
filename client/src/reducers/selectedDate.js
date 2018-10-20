@@ -2,7 +2,8 @@ import { GET_COMMETNS_FOR_SELECTED_DATE, GET_SELECTED_DATE } from '../constants/
 
 const initialState = {
   selectedDate: null,
-  commentsForSelectedDates: null
+  commentsForSelectedDates: null,
+  tasksForSelectedDates: null
 }
 
 export default function addSelectedDate (state = initialState, action) {

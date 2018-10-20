@@ -8,7 +8,15 @@ class TasksHistory extends Component {
     let sixMonthAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 180)
     return (
       <div className='container calendar'>
-        <Calendar max={today} min={sixMonthAgo} selected={today} minDate={sixMonthAgo} maxDate={today} isForCommeents={false}/>
+        <Calendar
+          max={today}
+          min={sixMonthAgo}
+          selected={today}
+          minDate={sixMonthAgo}
+          maxDate={today}
+          isForCommeents={false}
+          isForTasks={true}
+        />
       </div>
     )
   }

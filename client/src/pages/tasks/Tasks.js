@@ -57,57 +57,57 @@ class Tasks extends Component {
     if (tasks && user) {
       const showEditButtons = user.employee.position.pinnedToComment === true
       return (
-          <div className="tasks">
-            <TasksView
-              showAll={this.state.showAll}
-              showMyHotelTasks={this.state.showMyHotelTasks}
-              showMyRoomTasks={this.state.showMyRoomTasks}
-            />
-            <div className='tasks__items'>
-              <div className='control'>
-                <div className='control__buttons'>
-                  {showEditButtons &&
+        <div className="tasks">
+          <TasksView
+            showAll={this.state.showAll}
+            showMyHotelTasks={this.state.showMyHotelTasks}
+            showMyRoomTasks={this.state.showMyRoomTasks}
+          />
+          <div className='tasks__items'>
+            <div className='control'>
+              <div className='control__buttons'>
+                {showEditButtons &&
                   <Link to={routes.createNewTask.href}><img src={picture} alt="add"/></Link>
-                  }
-                  {showEditButtons &&
+                }
+                {showEditButtons &&
                   <Link to={routes.tasksHistory.href}><img src={calendar} alt="calendar"/></Link>
-                  }
-                </div>
-                <div className='control__radio'>
-                  <ul>
-                    {showEditButtons && <li>
-                      <input
-                        name='tasks'
-                        type='radio'
-                        value='allTasks'
-                        defaultChecked={false}
-                        onClick={this.showAllActualTasks}/>
+                }
+              </div>
+              <div className='control__radio'>
+                <ul>
+                  {showEditButtons && <li>
+                    <input
+                      name='tasks'
+                      type='radio'
+                      value='allTasks'
+                      defaultChecked={false}
+                      onClick={this.showAllActualTasks}/>
                       Все задачи
-                    </li>}
-                    <li>
-                      <input
-                        name='tasks'
-                        type='radio'
-                        value='myHotelTasks'
-                        onClick={this.showMyActualHotelTasks}
-                        defaultChecked={true}/>
+                  </li>}
+                  <li>
+                    <input
+                      name='tasks'
+                      type='radio'
+                      value='myHotelTasks'
+                      onClick={this.showMyActualHotelTasks}
+                      defaultChecked={true}/>
                       Мои задачи Отель
-                    </li>
-                    <li>
-                      <input
-                        name='tasks'
-                        type='radio'
-                        value='myRoomsTasks'
-                        onClick={this.showMyActualRoomTasks}
-                        defaultChecked={false}/>
+                  </li>
+                  <li>
+                    <input
+                      name='tasks'
+                      type='radio'
+                      value='myRoomsTasks'
+                      onClick={this.showMyActualRoomTasks}
+                      defaultChecked={false}/>
                       Мои задачи Номера
-                    </li>
-                  </ul>
+                  </li>
+                </ul>
 
-                </div>
               </div>
             </div>
           </div>
+        </div>
       )
     } else {
       return (
