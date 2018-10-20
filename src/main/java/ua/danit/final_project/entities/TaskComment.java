@@ -19,7 +19,7 @@ import java.util.Date;
 @Entity
 @Table(name = "task_comment")
 @Data
-public class TaskComment implements Serializable {
+public class TaskComment implements Serializable, HasAuthor {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

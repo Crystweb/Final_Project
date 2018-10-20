@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import ua.danit.final_project.configuration.annotations.AuthorPermitted;
 import ua.danit.final_project.dto.DefaultMapper;
 import ua.danit.final_project.dto.TaskDto;
 import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.entities.Task;
+import ua.danit.final_project.entities.User;
 import ua.danit.final_project.services.tasks.TaskService;
 
 import java.io.IOException;
@@ -72,6 +74,7 @@ public class TaskController {
   }
 
   @PutMapping
+  @AuthorPermitted(objectToVerify = Task.class, methodCalledBy = User.class)
   public TaskDto update(@RequestBody TaskDto taskDto) {
     Task task = mapper.taskDtoToTask(taskDto);
     task = taskService.update(task);

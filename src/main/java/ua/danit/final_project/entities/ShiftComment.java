@@ -23,7 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "shift_comment")
 @Data
-public class ShiftComment implements Serializable {
+public class ShiftComment implements Serializable, HasAuthor {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

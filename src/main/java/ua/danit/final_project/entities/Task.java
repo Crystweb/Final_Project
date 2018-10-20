@@ -30,7 +30,7 @@ import java.util.List;
 @Table(name = "task")
 @Data
 @NoArgsConstructor
-public class Task implements Serializable {
+public class Task implements Serializable, HasAuthor {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,6 +84,11 @@ public class Task implements Serializable {
   @ToString.Exclude
   @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
   private List<TaskComment> comments;
+
+  @Override
+  public Employee getAuthor() {
+    return this.delegator;
+  }
 
   public enum TaskStatus {
     REMOVED ,OPENED, CLOSED, REJECTED, PENDING, IN_PROGRESS, EXPIRED, CHANGE
