@@ -44,7 +44,7 @@ public class VacancyController extends SessionAware {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> deleteVacancy(@PathVariable("id") Vacancy vacancy) {
+  public ResponseEntity deleteVacancy(@PathVariable("id") Vacancy vacancy) {
     vacancyService.deleteVacancy(vacancy);
     return ResponseEntity.ok("Removed");
   }
