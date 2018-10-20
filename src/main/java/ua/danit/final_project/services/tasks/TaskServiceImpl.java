@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ua.danit.final_project.configuration.SessionAware;
+import ua.danit.final_project.dto.DefaultMapper;
+import ua.danit.final_project.dto.TaskDto;
 import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.entities.Task;
 import ua.danit.final_project.entities.TaskImage;
@@ -23,16 +25,20 @@ public class TaskServiceImpl extends SessionAware implements TaskService {
 
   private final TaskRepository taskRepository;
   private final StorageService storageService;
+  private final DefaultMapper mapper;
 
   @Autowired
   public TaskServiceImpl(TaskRepository taskRepository,
-                         StorageService storageService) {
+                         StorageService storageService,
+                         DefaultMapper mapper) {
     this.taskRepository = taskRepository;
     this.storageService = storageService;
+    this.mapper = mapper;
   }
 
   @Override
-  public Task create(Task task, MultipartFile file) throws IOException {
+  public TaskDto create(TaskDto taskDto, MultipartFile file) throws IOException {
+    Task task = mapper.taskDtoToTask(taskDto);
     task.setDelegator(getEmployee());
 
     if (task.getStatus() == null) {
@@ -45,23 +51,26 @@ public class TaskServiceImpl extends SessionAware implements TaskService {
       task.getImages().add(img);
     }
 
-    return task;
+    return mapper.taskToTaskDto(task);
   }
 
   @Override
-  public Task update(Task task) {
-    return taskRepository.save(task);
+  public TaskDto update(TaskDto taskDto) {
+    Task task = mapper.taskDtoToTask(taskDto);
+    task = taskRepository.save(task);
+    return mapper.taskToTaskDto(task);
   }
 
   @Override
-  public Task remove(Long taskId) {
+  public TaskDto remove(Long taskId) {
     Task task = taskRepository.findById(taskId).orElseThrow(EntityNotFoundException::new);
     task.setStatus(Task.TaskStatus.REMOVED);
-    return taskRepository.save(task);
+    task = taskRepository.save(task);
+    return mapper.taskToTaskDto(task);
   }
 
   @Override
-  public List<Task> findAllActive() {
+  public List<TaskDto> findAllActive() {
     List<Task.TaskStatus> statuses = new LinkedList<>();
     statuses.add(Task.TaskStatus.CLOSED);
     statuses.add(Task.TaskStatus.REMOVED);
@@ -69,15 +78,17 @@ public class TaskServiceImpl extends SessionAware implements TaskService {
     return taskRepository.findAllByStatusNotIn(statuses)
         .stream()
         .filter(t -> t.getExpired() == null || t.getExpired().after(new Date()))
+        .map(mapper::taskToTaskDto)
         .collect(Collectors.toList());
   }
 
   @Override
-  public List<Task> findAllByLocation(Location location) {
+  public List<TaskDto> findAllByLocation(Location location) {
 
     return taskRepository.findAllByLocationsContains(location)
         .stream()
         .filter(t -> t.getExpired() == null || t.getExpired().after(new Date()))
+        .map(mapper::taskToTaskDto)
         .collect(Collectors.toList());
   }
 

@@ -1,26 +1,19 @@
 package ua.danit.final_project.services.crud;
 
-import ua.danit.final_project.entities.Position;
-import ua.danit.final_project.entities.User;
+import ua.danit.final_project.dto.VacancyDto;
 import ua.danit.final_project.entities.Vacancy;
 
 import java.util.List;
 
 public interface VacancyServiceCrud {
 
-  Vacancy getById(Long id);
+  VacancyDto getById(Long id);
 
-  List<Vacancy> getOpenVacancies();
+  List<VacancyDto> getOpenVacancies();
 
-  Vacancy save(Vacancy vacancy);
+  VacancyDto create(VacancyDto vacancyDto);
 
-  Vacancy updateVacancy(Vacancy vacancy, User userFromToken) throws IllegalAccessException;
+  VacancyDto updateVacancy(VacancyDto vacancyDto);
 
-  void deleteVacancy(Vacancy vacancy, User userFromToken) throws IllegalAccessException;
-
-  Position getPositionByTitle(String title);
-
-  User getUserByid(Long userId);
-
-  Position createIfNotExist(String title);
+  void deleteVacancy(Vacancy vacancy);
 }

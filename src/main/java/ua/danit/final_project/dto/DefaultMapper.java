@@ -11,6 +11,7 @@ import ua.danit.final_project.entities.Role;
 import ua.danit.final_project.entities.ShiftComment;
 import ua.danit.final_project.entities.Task;
 import ua.danit.final_project.entities.User;
+import ua.danit.final_project.entities.Vacancy;
 
 @Mapper(componentModel = "spring",
     uses = MapperHelper.class,
@@ -45,4 +46,8 @@ public interface DefaultMapper {
   CheckInDto checkInToCheckInDto(CheckIn checkIn);
 
   CheckIn checkInDtoToCheckIn(CheckInDto checkInDto);
+
+  VacancyDto vacancyToVacancyDto(Vacancy vacancy);
+
+  Vacancy vacancyDtoToVacancy(VacancyDto vacancyDto);
 }
