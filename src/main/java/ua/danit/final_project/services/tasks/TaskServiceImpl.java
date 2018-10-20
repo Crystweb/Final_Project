@@ -93,8 +93,12 @@ public class TaskServiceImpl extends SessionAware implements TaskService {
   }
 
   @Override
-  public List<Task> findAllByDateBetween(Date from, Date to) {
-    return taskRepository.findAllByUpdatedIsBetween(from, to);
+  public List<TaskDto> findAllByDateBetween(Date from, Date to) {
+    return taskRepository.findAllByUpdatedIsBetween(from, to)
+            .stream()
+            .filter(t -> Task.TaskStatus.CLOSED.equals(t.getStatus()))
+            .map(mapper::taskToTaskDto)
+            .collect(Collectors.toList());
   }
 
   @Override

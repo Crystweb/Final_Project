@@ -14,13 +14,11 @@ class TasksView extends Component {
   doTask (event) {
     let task = this.props.allTasks.find(task => task.id === +event.target.value)
     task.status = 'CLOSED'
-    let formData = new FormData()
-    formData.append('task', JSON.stringify(task))
     if (window.confirm('Вы выполнили задачу?')) {
       axios({
         method: 'put',
         url: `/task`,
-        data: formData
+        data: task
       })
         .then(response => this.props.deleteClosedTask(response.data))
     }
@@ -50,7 +48,7 @@ class TasksView extends Component {
     let myHotelTasksFiltered = showMyHotelTasks && allTasks
       .filter(task => isNaN(+task.locations
         .map(location => location.title)))
-      .filter(task => task.assignee.userId === currentUser.id)
+      .filter(task => task.assignee.id === currentUser.employee.id)
     let tasks = (itIsHistory && tasksForHistory) || tasksForRoom || myRoomTasksFiltered || myHotelTasksFiltered || allTasks
     tasks.sort(function (a, b) {
       if (a.priority > b.priority) return -1
@@ -64,7 +62,7 @@ class TasksView extends Component {
         <div>
           {tasks.length === 0 && <p>Никто ничего не делал</p>}
           {tasks.map(task => {
-            const isShowTask = currentUser.id === task.assignee.userId
+            const isShowTask = currentUser.employee.id === task.assignee.id
             const hasPhoto = task.imageLinks.length > 0
             return <div key={task.id}>
               {(showAll || isShowTask) &&
@@ -88,7 +86,7 @@ class TasksView extends Component {
                   <p>Создана: {new Date(task.updated).toLocaleDateString()}</p>}
                 </li>
                 {itIsHistory ||
-                (task.assignee.userId === currentUser.id && <button
+                (task.assignee.id === currentUser.employee.id && <button
                   value={task.id}
                   onClick={this.doTask.bind(this)}>Выполнить
                 </button>)}

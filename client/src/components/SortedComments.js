@@ -16,7 +16,7 @@ class PositionButtons extends Component {
     super(props)
     this.state = {
       view: this.props.currentUser.employee.position.title,
-      userId: this.props.currentUser.id,
+      id: this.props.currentUser.employee.id,
       colors: ['#eff47f', '#7ff4f1', '#c7c8ca', '#00c7ff']
     }
   }
@@ -70,7 +70,7 @@ class PositionButtons extends Component {
             .filter(comment => comment.positions.find(position => position.title === this.state.view))
             .filter(comment => new Date(comment.date).getHours() === i)
             .map(comment => {
-              const showActionButtons = comment.author.userId === this.state.userId
+              const showActionButtons = comment.author.id === this.state.id
               // const isShowing = ({comments.[0] == undefined} === true)
               return (
                 <li key={comment.id}>

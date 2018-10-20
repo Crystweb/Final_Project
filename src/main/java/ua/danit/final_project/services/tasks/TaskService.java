@@ -26,5 +26,5 @@ public interface TaskService {
 
   List<TaskDto> findAllByLocation(Location location);
 
-  List<Task> findAllByDateBetween(Date from, Date to);
+  List<TaskDto> findAllByDateBetween(Date from, Date to);
 }

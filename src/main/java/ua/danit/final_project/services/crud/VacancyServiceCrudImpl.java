@@ -2,6 +2,7 @@ package ua.danit.final_project.services.crud;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.danit.final_project.configuration.SessionAware;
 import ua.danit.final_project.dto.DefaultMapper;
 import ua.danit.final_project.dto.VacancyDto;
 import ua.danit.final_project.entities.Vacancy;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class VacancyServiceCrudImpl implements VacancyServiceCrud {
+public class VacancyServiceCrudImpl extends SessionAware implements VacancyServiceCrud {
   private final VacancyRepository vacancyRepository;
   private final DefaultMapper mapper;
 
@@ -43,6 +44,9 @@ public class VacancyServiceCrudImpl implements VacancyServiceCrud {
     vacancyDto.setPublication(new Timestamp(System.currentTimeMillis()));
     Vacancy vacancy = mapper.vacancyDtoToVacancy(vacancyDto);
     vacancy = vacancyRepository.save(vacancy);
+
+    vacancy.setEmployee(getEmployee());
+
     return mapper.vacancyToVacancyDto(vacancy);
   }
 

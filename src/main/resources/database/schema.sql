@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `food_supply` (
 
 CREATE TABLE IF NOT EXISTS `vacancy` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `u_id` BIGINT NOT NULL,
+  `e_id` BIGINT NOT NULL,
   `p_id` BIGINT NOT NULL,
   `v_salary` VARCHAR(32),
   `v_status` VARCHAR(15) NOT NULL CHECK(`v_status` IN ('OPENED', 'CLOSED')),
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `vacancy` (
   `p_publication` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`p_id`) REFERENCES `position` (`id`),
-  FOREIGN KEY (`u_id`) REFERENCES `user` (`id`)
+  FOREIGN KEY (`e_id`) REFERENCES `employee` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `vacancy_comment` (
