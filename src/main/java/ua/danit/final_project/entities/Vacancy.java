@@ -33,8 +33,8 @@ public class Vacancy implements Serializable {
   @ManyToOne
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @JoinColumn(name = "u_id", nullable = false)
-  private User user;
+  @JoinColumn(name = "e_id", nullable = false)
+  private Employee employee;
 
   @ManyToOne
   @ToString.Exclude
