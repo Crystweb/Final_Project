@@ -59,12 +59,12 @@ body {
     margin-bottom: 5px;
 
     & label {
-      width: 50%;
       display: flex;
-      min-width: 250px;
       flex-direction: row;
-      font-family: HelveticaNeue, sans-serif;
+      width: 50%;
+      min-width: 250px;
       color: #4a4a4a;
+      font-family: HelveticaNeue, sans-serif;
       font-size: 14px;
       line-height: 1.43;
     }
@@ -75,9 +75,9 @@ body {
 
     &__fakeCheckMark {
       display: none;
+      position: absolute;
       width: 9px;
       height: 9px;
-      position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -96,17 +96,17 @@ body {
       width: 16px;
       height: 16px;
       border-radius: 5px;
-      background-color: #fff;
       margin-right: 8px;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+      background-color: #fff;
       position: relative;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
       border: solid 1px #4b5461;
     }
 
     &__error {
       color: rgba(193, 13, 13, 0.75);
-      font-family: HelveticaNeue, sans-serif;
       margin-left: 26px;
+      font-family: HelveticaNeue, sans-serif;
       font-size: 11px;
     }
   }
@@ -114,25 +114,25 @@ body {
   &-title {
     margin-top: 15px;
     margin-bottom: 15px;
-    font-family: HelveticaNeue, sans-serif;
     color: #4b5461;
-    line-height: 21px;
+    font-family: HelveticaNeue, sans-serif;
     font-size: 17px;
     font-weight: 500;
+    line-height: 21px;
   }
 
   &-textarea {
     width: 100%;
     height: 188px;
-    border-radius: 5px;
     padding: 10px;
+    border-radius: 5px;
     border: solid 1px #c1c1c1;
     background-color: #e5e5e5;
     resize: none;
     box-sizing: border-box;
     font-family: HelveticaNeue, sans-serif;
-    font-size: 11px;
     color: #4b5461;
+    font-size: 11px;
     margin-bottom: 15px;
   }
 
@@ -151,24 +151,24 @@ body {
     font-family: HelveticaNeue, sans-serif;
     font-size: 15px;
     color: #fff;
-    font-weight: 500;
     padding: 14px 20px;
-    text-transform: uppercase;
+    font-weight: 500;
     border-radius: 5px;
     margin-bottom: 8px;
-    background-color: #7ff4a9;
+    text-transform: uppercase;
     order: 1;
+    background-color: #7ff4a9;
   }
 
   &-errorText {
     display: flex;
-    order: 2;
-    align-items: center;
     flex-direction: row;
+    align-items: center;
+    order: 2;
     justify-content: center;
     font-family: HelveticaNeue, sans-serif;
-    text-align: center;
     margin-bottom: 8px;
+    text-align: center;
     color: rgba(193, 13, 13, 0.75);
     font-size: 15px;
     font-weight: 500;
@@ -246,16 +246,15 @@ form {
   }
 
   .newComment {
-
     &-btn {
       flex-direction: row;
       justify-content: flex-end;
     }
 
     &-errorText {
-      order: 1;
       margin-right: 8px;
       margin-bottom: 0;
+      order: 1;
     }
 
     &-send {
@@ -263,7 +262,5 @@ form {
       order: 2;
       margin: 0;
     }
-
   }
-
 }
