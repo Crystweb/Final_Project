@@ -60,12 +60,12 @@ body {
 
     & label {
       width: 50%;
-      min-width: 250px;
       display: flex;
+      min-width: 250px;
       flex-direction: row;
       font-family: HelveticaNeue, sans-serif;
-      font-size: 14px;
       color: #4a4a4a;
+      font-size: 14px;
       line-height: 1.43;
     }
 
@@ -74,9 +74,9 @@ body {
     }
 
     &__fakeCheckMark {
+      display: none;
       width: 9px;
       height: 9px;
-      display: none;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -96,27 +96,27 @@ body {
       width: 16px;
       height: 16px;
       border-radius: 5px;
-      background-color: #ffffff;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+      background-color: #fff;
       margin-right: 8px;
-      border: solid 1px #4b5461;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
       position: relative;
+      border: solid 1px #4b5461;
     }
 
     &__error {
       color: rgba(193, 13, 13, 0.75);
       font-family: HelveticaNeue, sans-serif;
-      font-size: 11px;
       margin-left: 26px;
+      font-size: 11px;
     }
   }
 
   &-title {
     margin-top: 15px;
-    font-family: HelveticaNeue, sans-serif;
     margin-bottom: 15px;
-    line-height: 21px;
+    font-family: HelveticaNeue, sans-serif;
     color: #4b5461;
+    line-height: 21px;
     font-size: 17px;
     font-weight: 500;
   }
@@ -142,38 +142,37 @@ body {
   }
 
   &-send {
-    width: 100%;
     display: flex;
+    width: 100%;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     border: 0;
     font-family: HelveticaNeue, sans-serif;
     font-size: 15px;
+    color: #fff;
     font-weight: 500;
-    color: #ffffff;
-    text-transform: uppercase;
     padding: 14px 20px;
+    text-transform: uppercase;
     border-radius: 5px;
-    background-color: #7ff4a9;
     margin-bottom: 8px;
+    background-color: #7ff4a9;
     order: 1;
   }
 
   &-errorText {
-    order: 2;
     display: flex;
+    order: 2;
+    align-items: center;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
-    text-align: center;
     font-family: HelveticaNeue, sans-serif;
+    text-align: center;
+    margin-bottom: 8px;
+    color: rgba(193, 13, 13, 0.75);
     font-size: 15px;
     font-weight: 500;
     text-transform: uppercase;
-    color: rgba(193, 13, 13, 0.75);
-    margin-bottom: 8px;
-
   }
 }
 
@@ -211,7 +210,7 @@ body {
   height: auto;
   margin: 0 auto;
   border: 1px solid lime;
-  font-family: HelveticaNeue;
+  font-family: HelveticaNeue, sans-serif;
   font-weight: 700;
   text-decoration: none;
 }
