@@ -3,6 +3,8 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 import * as _ from 'lodash'
+import { addNewComment, updateComment } from '../../actions/actions'
+import '../../styles/App.css'
 
 class CreateNewComments extends Component {
   constructor (props) {
@@ -45,13 +47,15 @@ class CreateNewComments extends Component {
           date: this.state.commentForUpdate.date
         } : {
           message: this.state.textComment,
-          positions: positionForComment
+          positions: positionForComment,
+          date: new Date()
         }
       axios({
         url: '/workshift/comment',
         method: commentForUpdate ? 'PUT' : 'POST',
         data: data
       })
+        .then(response => commentForUpdate ? this.props.commentUpdate(response.data) : this.props.addComment(response.data))
         .then(() => this.setState({
           errorText: null,
           errorCheckedPosition: null,
@@ -59,7 +63,7 @@ class CreateNewComments extends Component {
           checkedPositions: [],
           successPost: commentForUpdate ? 'Комментарий изменен' : 'Комментарий добавлен'
         }))
-        .then(() => setTimeout(() => this.props.history.push('/shifts'), 1500))
+        .then(() => this.props.history.push('/shifts'))
     }
   }
 
@@ -164,4 +168,15 @@ const mapStateToProps = ({comments, startData}, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(CreateNewComments)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addComment: (data) => {
+      dispatch(addNewComment(data))
+    },
+    commentUpdate: (data) => {
+      dispatch(updateComment(data))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewComments)
