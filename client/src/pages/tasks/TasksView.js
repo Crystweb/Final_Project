@@ -82,7 +82,7 @@ class TasksView extends Component {
                   {itIsHistory
                     ? <p>{task.assignee.forename} {task.assignee.surname}</p>
                     : <p>{task.delegator.forename} {task.delegator.surname}</p>}
-                  {task.expired &&
+                  {task.updated &&
                   <p>Создана: {new Date(task.updated).toLocaleDateString()}</p>}
                 </li>
                 {itIsHistory ||

@@ -16,10 +16,10 @@ class TasksForRoom extends Component {
     const {tasksForCurrentRoom, currentRoom, currentFloor} = this.props
 
     if (tasksForCurrentRoom && currentRoom && currentFloor) {
-      routes.createTaskForRoom.previousHref = '/rooms/' + currentRoom.title
+      routes.createTaskForRoom.previousHref = '/rooms/' + currentRoom.id
       return (
         <div>
-          <Link to={routes.createNewTask.href + currentFloor.id + '/' + currentRoom.title}><img src={picture} alt="add"/></Link>
+          <Link to={routes.createNewTask.href + currentFloor.id + '/' + currentRoom.id}><img src={picture} alt="add"/></Link>
           <TasksView
             tasksForRoom={tasksForCurrentRoom}
             showAll={true}

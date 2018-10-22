@@ -115,6 +115,25 @@ class TaskFactory extends Component {
     }
   }
 
+  componentDidMount () {
+    const {floorId, roomId} = this.props.match.params
+    console.log(floorId, roomId)
+    if (floorId) {
+      this.locationId.value = floorId
+
+      this.setState({
+        itIsFloor: false
+      })
+      let taskForRoomCheckIn = this.props.allLocations.find(location => location.id === +this.locationId.value)
+      if (taskForRoomCheckIn.children.length > 0) {
+        this.setState({itIsFloor: true})
+      }
+      if (roomId) {
+        this.roomId = Object.assign({value: roomId})
+      }
+    }
+  }
+
   render () {
     const {allUsers, allLocations, allStatuses, allFrequencies} = this.props
     const {
@@ -133,7 +152,7 @@ class TaskFactory extends Component {
           <select
             name='locationsList'
             defaultValue='locationChoice'
-            onChange={this.floorChecker}
+            // onChange={this.floorChecker}
             ref={(input) => this.locationId = input}
           >
             <option value="locationChoice" disabled hidden>
