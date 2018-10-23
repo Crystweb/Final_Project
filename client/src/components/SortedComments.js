@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import routes from "../constants/routes";
 import picture from "../img/add.png";
 import calendar from "../img/calendar.png";
-import {addShift} from '../actions/actions'
 import ScheduleWithComments from './ScheduleWithComments'
 
 class PositionButtons extends Component {
