@@ -50,7 +50,7 @@ class RoomsList extends Component {
                 >
                   <Link
                     className='roomName__item'
-                    to={routes.taskForRoom.href + room.title}
+                    to={routes.taskForRoom.href + room.id}
                   >
                     {room.title}
                   </Link>

@@ -7,19 +7,14 @@ import { Link } from 'react-router-dom'
 import Preloader from '../../components/Preloader'
 
 class TasksForRoom extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
-
   render () {
     const {tasksForCurrentRoom, currentRoom, currentFloor} = this.props
-
     if (tasksForCurrentRoom && currentRoom && currentFloor) {
       routes.createTaskForRoom.previousHref = '/rooms/' + currentRoom.id
       return (
         <div>
-          <Link to={routes.createNewTask.href + currentFloor.id + '/' + currentRoom.id}><img src={picture} alt="add"/></Link>
+          <Link to={routes.createNewTask.href + currentFloor.id + '/' + currentRoom.id}><img src={picture}
+                                                                                             alt="add"/></Link>
           <TasksView
             tasksForRoom={tasksForCurrentRoom}
             showAll={true}
@@ -36,15 +31,15 @@ class TasksForRoom extends Component {
 
 const mapStateToProps = ({tasks, startData}, ownProps) => {
   return {
-    tasksForCurrentRoom: tasks.allTasks.filter(task => task.locations[0].title === ownProps.match.params.roomTitle),
+    tasksForCurrentRoom: tasks.allTasks.filter(task => task.locations[0].id === +ownProps.match.params.roomId),
     currentRoom: startData.locations
       .find(location => location.children
-        .find(children => children.title === ownProps.match.params.roomTitle))
+        .find(children => children.id === +ownProps.match.params.roomId))
       .children
-      .find(children => children.title === ownProps.match.params.roomTitle),
+      .find(children => children.id === +ownProps.match.params.roomId),
     currentFloor: startData.locations
       .find(location => location.children
-        .find(children => children.title === ownProps.match.params.roomTitle))
+        .find(children => children.id === +ownProps.match.params.roomId))
   }
 }
 
