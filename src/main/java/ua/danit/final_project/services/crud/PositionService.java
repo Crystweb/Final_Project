@@ -1,18 +1,20 @@
 package ua.danit.final_project.services.crud;
 
-import ua.danit.final_project.entities.Position;
+import ua.danit.final_project.dto.PositionDto;
 
 import java.util.List;
 
 public interface PositionService {
 
-  Position getById(Long id);
+  PositionDto getById(Long id);
 
-  List<Position> getAll();
+  List<PositionDto> getAll();
 
-  Position save(Position position);
+  PositionDto save(PositionDto position);
 
   void deleteById(Long id);
 
-  List<Position> findAll();
+  List<PositionDto> findAll();
+
+  List<PositionDto> getAllPinnedToComment();
 }

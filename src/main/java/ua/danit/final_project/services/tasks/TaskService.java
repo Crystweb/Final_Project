@@ -1,6 +1,7 @@
 package ua.danit.final_project.services.tasks;
 
 import org.springframework.web.multipart.MultipartFile;
+import ua.danit.final_project.dto.TaskDto;
 import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.entities.Task;
 
@@ -10,17 +11,17 @@ import java.util.List;
 
 public interface TaskService {
 
-  Task create(Task task, MultipartFile file) throws IOException;
+  TaskDto create(TaskDto task, MultipartFile file) throws IOException;
 
-  Task update(Task task);
+  TaskDto update(TaskDto task);
 
-  Task remove(Long taskId) throws EntityNotFoundException;
+  TaskDto remove(Long taskId) throws EntityNotFoundException;
 
-  List<Task> findAllActive();
+  List<TaskDto> findAllActive();
 
   List<Task.TaskStatus> getStatuses();
 
   List<Task.TaskFrequency> getFrequencies();
 
-  List<Task> findAllByLocation(Location location);
+  List<TaskDto> findAllByLocation(Location location);
 }

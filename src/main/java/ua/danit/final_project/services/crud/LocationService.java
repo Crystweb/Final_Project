@@ -1,18 +1,18 @@
 package ua.danit.final_project.services.crud;
 
-import ua.danit.final_project.entities.Location;
+import ua.danit.final_project.dto.LocationDto;
 
 import java.util.List;
 
 public interface LocationService {
 
-  Location getById(Long id);
+  LocationDto getById(Long id);
 
-  List<Location> getAll();
+  List<LocationDto> getAll();
 
-  Location save(Location location);
+  LocationDto save(LocationDto location);
 
   void deleteById(Long id);
 
-  List<Location> getMainLocations();
+  List<LocationDto> getMainLocations();
 }
