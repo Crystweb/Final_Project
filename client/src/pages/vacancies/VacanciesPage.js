@@ -120,7 +120,7 @@ class VacanciesPage extends Component {
                         <Typography className={classes.vacancyInfoTitle}
                           variant={'subheading'}
                           tag='title'
-                          children={positions.filter(position => position.id === vacancy.position.id)[0].title}/>
+                          children={positions.find(position => position.id === vacancy.position.id).title}/>
                         <Typography className={classes.vacancyInfoSubTitle}
                           variant={'subheading'}
                           children={new Date(vacancy.publication).toDateString()}/>
