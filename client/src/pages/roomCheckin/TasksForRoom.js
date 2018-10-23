@@ -14,7 +14,7 @@ class TasksForRoom extends Component {
       return (
         <div>
           <Link to={routes.createNewTask.href + currentFloor.id + '/' + currentRoom.id}><img src={picture}
-                                                                                             alt="add"/></Link>
+            alt="add"/></Link>
           <TasksView
             tasksForRoom={tasksForCurrentRoom}
             showAll={true}
