@@ -158,14 +158,14 @@ class TaskFactory extends Component {
           </select>
           {isNaN(this.locationId.value) &&
           <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
-          {(itIsFloor || !!roomId) &&
+          {(itIsFloor || roomId) &&
           <div>
             <select name="roomsList" defaultValue='roomChoice' ref={(input) => this.roomId = input}
             >
               <option value='roomChoice' disabled hidden>
                 Номер
               </option>
-              {allLocations.find(location => location.id === +this.locationId.value).children.map(children => {
+              {allLocations.find(location => location.id === (+this.locationId.value || floorId)).children.map(children => {
                 return (
                   <option value={children.id} key={children.id}>
                     {children.title}
