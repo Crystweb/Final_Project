@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from "react-router-dom";
 import routes from "../constants/routes";
 import picture from "../img/add.png";
-import calendar from "../img/Cal-icon.png";
+import calendar from "../img/calendar.png";
 import {addShift} from '../actions/actions'
 import ScheduleWithComments from './ScheduleWithComments'
 

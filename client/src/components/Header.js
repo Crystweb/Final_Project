@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import '../styles/App.css'
 import routes from '../constants/routes'
 import logo from '../img/logo_f50.png'
-import back from '../img/Back.png'
+import back from '../img/back.png'
 import logout from '../img/log-out-button.png'
 import Preloader from './Preloader'
 
