@@ -18,6 +18,7 @@ class TaskFactory extends Component {
     this.executorId = React.createRef()
     this.taskPriority = React.createRef()
     this.taskFrequency = React.createRef()
+
     this.state = {
       finishDate: null,
       errorExecutor: null,
@@ -27,7 +28,7 @@ class TaskFactory extends Component {
       errorRoom: null,
       successAdd: null,
       photo: null,
-      floorSelected: false
+      floorSelected: !!this.props.match.params.floorId
     }
     _.bindAll(this, 'chooseDate', 'makePhoto', 'createTask', 'floorChecker')
   }
@@ -135,6 +136,7 @@ class TaskFactory extends Component {
       successAdd,
       floorSelected
     } = this.state
+
     if (allUsers && allLocations && allStatuses && allFrequencies) {
       return (
         <div className="container createTask">
@@ -165,7 +167,7 @@ class TaskFactory extends Component {
               <option value='roomChoice' disabled hidden>
                 Номер
               </option>
-              {allLocations.find(location => location.id === (+this.locationId.value || floorId)).children.map(children => {
+              {allLocations.find(location => location.id === (+this.locationId.value || +floorId)).children.map(children => {
                 return (
                   <option value={children.id} key={children.id}>
                     {children.title}
