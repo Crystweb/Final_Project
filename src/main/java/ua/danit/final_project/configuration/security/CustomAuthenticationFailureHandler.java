@@ -28,10 +28,14 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
                                       AuthenticationException exception) throws IOException {
 
     if (exception.getClass().isAssignableFrom(BadCredentialsException.class)) {
-      getRedirectStrategy().sendRedirect(request, response, format("/login/?badCredential=%s", exception.getMessage()));
+      getRedirectStrategy().sendRedirect(
+          request, response, format("/login/?badCredential=%s", exception.getMessage())
+      );
 
     } else if (exception.getClass().isAssignableFrom(DisabledException.class)) {
-      getRedirectStrategy().sendRedirect(request, response, format("/login/?disabledUser=%s", request.getParameter("phone")));
+      getRedirectStrategy().sendRedirect(
+          request, response, format("/login/?disabledUser=%s", request.getParameter("phone"))
+      );
 
     } else if (exception.getClass().isAssignableFrom(LockedException.class)) {
       getRedirectStrategy().sendRedirect(request, response, "/login/?lockedUser");

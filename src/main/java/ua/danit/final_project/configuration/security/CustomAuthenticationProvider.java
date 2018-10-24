@@ -37,4 +37,15 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
   public boolean supports(Class<?> authentication) {
     return authentication.equals(UsernamePasswordAuthenticationToken.class);
   }
+
+
+  /*
+   * Original method throws exception.
+   * */
+  @Override
+  protected void doAfterPropertiesSet() {
+    if (super.getUserDetailsService() != null) {
+      logger.warn("Prevent error on configuring security.");
+    }
+  }
 }

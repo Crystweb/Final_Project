@@ -25,6 +25,10 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "user")
@@ -59,7 +63,10 @@ public class User implements UserDetails, Serializable {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return null;
+    return getRoles().stream()
+        .map(Role::getPermissions)
+        .flatMap(Collection::stream)
+        .collect(Collectors.toSet());
   }
 
   @Override
@@ -69,17 +76,17 @@ public class User implements UserDetails, Serializable {
 
   @Override
   public boolean isAccountNonExpired() {
-    return false;
+    return true;
   }
 
   @Override
   public boolean isAccountNonLocked() {
-    return false;
+    return true;
   }
 
   @Override
   public boolean isCredentialsNonExpired() {
-    return false;
+    return true;
   }
 
   @Override

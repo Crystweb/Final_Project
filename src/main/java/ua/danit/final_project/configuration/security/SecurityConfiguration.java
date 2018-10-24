@@ -16,16 +16,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  private CustomWebAuthenticationDetailsSource authenticationDetailsSource;
+  private final CustomWebAuthenticationDetailsSource authenticationDetailsSource;
 
   private final UserDetailsService userDetailsService;
   private final CustomAuthenticationSuccessHandler successHandler;
   private final CustomAuthenticationProvider authenticationProvider;
 
   @Autowired
-  public SecurityConfiguration(@Qualifier("customUserDetailsService") UserDetailsService userDetailsService,
-                               CustomAuthenticationSuccessHandler successHandler, CustomAuthenticationProvider authenticationProvider) {
+  public SecurityConfiguration(CustomWebAuthenticationDetailsSource authenticationDetailsSource,
+                               @Qualifier("customUserDetailsService") UserDetailsService userDetailsService,
+                               CustomAuthenticationSuccessHandler successHandler,
+                               CustomAuthenticationProvider authenticationProvider) {
+    this.authenticationDetailsSource = authenticationDetailsSource;
 
     this.userDetailsService = userDetailsService;
     this.successHandler = successHandler;
@@ -37,13 +39,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
         .authorizeRequests()
+        .antMatchers("/**").permitAll()
         .antMatchers(
             "/admin/**")
         .access("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
         .antMatchers(
             "/client/**")
         .access("hasRole('ROLE_CLIENT')")
-//                .antMatchers("/sell").access("hasRole('ROLE_CLIENT')")
         .and()
         .formLogin()
         .loginPage("/login")

@@ -28,8 +28,7 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
 
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request,
-                                      HttpServletResponse response, Authentication authentication) throws IOException,
-      ServletException {
+                                      HttpServletResponse response, Authentication authentication) throws IOException {
     HttpSession session = request.getSession();
 
     if (session != null) {
@@ -38,6 +37,7 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
 
     /*Set some session variables*/
     User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    assert session != null;
     session.setAttribute("login", authUser.getLogin());
     session.setAttribute("authorities", authentication.getAuthorities());
 
