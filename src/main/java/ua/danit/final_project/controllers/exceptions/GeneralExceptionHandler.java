@@ -1,12 +1,15 @@
 package ua.danit.final_project.controllers.exceptions;
 
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
@@ -15,6 +18,9 @@ import java.io.IOException;
 public class GeneralExceptionHandler {
 
   private final Logger logger = LoggerFactory.getLogger(GeneralExceptionHandler.class);
+
+  @Value("${spring.servlet.multipart.max-file-size}")
+  private String maxSize;
 
   @ExceptionHandler({RuntimeException.class})
   public ResponseEntity<ErrorResponse> handleRuntime(RuntimeException exception) {
@@ -56,5 +62,11 @@ public class GeneralExceptionHandler {
     logger.warn(exception.getMessage());
     return ResponseEntity.badRequest()
         .body(new ErrorResponse("Bad request.", 400));
+  }
+
+  @ExceptionHandler({MaxUploadSizeExceededException.class, FileUploadBase.FileSizeLimitExceededException.class})
+  public ResponseEntity<?> uploadMaxSizeException() {
+    return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
+        .body(new ErrorResponse(String.format("Maximum upload size exceeded (%s)", maxSize), 413));
   }
 }
