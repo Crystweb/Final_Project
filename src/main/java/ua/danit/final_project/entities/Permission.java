@@ -3,6 +3,7 @@ package ua.danit.final_project.entities;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Id;
 
@@ -22,7 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "permission")
 @Data
-public class Permission implements Serializable {
+public class Permission implements GrantedAuthority, Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,4 +42,8 @@ public class Permission implements Serializable {
   private List<Role> roles;
 
 
+  @Override
+  public String getAuthority() {
+    return null;
+  }
 }
