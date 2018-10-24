@@ -14,7 +14,7 @@ class TaskFactory extends Component {
     super(props)
     this.locationId = React.createRef()
     this.textForTask = React.createRef()
-    this.roomId = React.createRef()
+    this.idForRoom = React.createRef()
     this.executorId = React.createRef()
     this.taskPriority = React.createRef()
     this.taskFrequency = React.createRef()
@@ -29,7 +29,7 @@ class TaskFactory extends Component {
       photo: null,
       itIsFloor: false
     }
-    _.bindAll(this, 'chooseDate', 'makePhoto', 'createTask', 'floorChecker')
+    _.bindAll(this, 'chooseDate', 'makePhoto', 'createTask')
   }
 
   chooseDate (day) {
@@ -38,22 +38,12 @@ class TaskFactory extends Component {
     })
   }
 
-  floorChecker = (event) => {
-    this.setState({
-      itIsFloor: false
-    })
-    let taskForRoomCheckIn = this.props.allLocations.find(location => location.id === +event.target.value)
-    if (taskForRoomCheckIn.children.length > 0) {
-      this.setState({itIsFloor: true})
-    }
-  }
-
   makePhoto = (event) => {
     this.setState({photo: event.target.files[0]})
   }
 
   createTask = () => {
-    const {locationId, textForTask, roomId, executorId, taskPriority, taskFrequency} = this
+    const {locationId, textForTask, idForRoom, executorId, taskPriority, taskFrequency} = this
     const {finishDate, photo} = this.state
     const {allLocations, allUsers} = this.props
     if (isNaN(locationId.value)) {
@@ -61,7 +51,7 @@ class TaskFactory extends Component {
         errorLocation: 'Выберите локацию'
       })
     }
-    if (this.roomId && isNaN(this.roomId.value)) {
+    if (idForRoom && isNaN(idForRoom.value)) {
       this.setState({
         errorRoom: 'Выберите номер'
       })
@@ -82,9 +72,9 @@ class TaskFactory extends Component {
       })
     }
     if (textForTask.value && isNaN(taskFrequency.value) && +executorId.value && +locationId.value) {
-      let locations = ((roomId && +roomId.value) && allLocations.find(location => location.id === +locationId.value).children) ||
+      let locations = ((idForRoom && +idForRoom.value) && allLocations.find(location => location.id === +locationId.value).children) ||
         allLocations
-      let locationType = (roomId && +roomId.value) || (locationId && +locationId.value)
+      let locationType = (idForRoom && +idForRoom.value) || (locationId && +locationId.value)
       let body = {
         assignee: allUsers.find(user => user.id === +executorId.value).employee,
         message: textForTask.value,
@@ -100,6 +90,7 @@ class TaskFactory extends Component {
       if (photo) {
         formData.append('file', photo)
       }
+      debugger
       axios({
         method: 'post',
         url: `/task`,
@@ -116,9 +107,16 @@ class TaskFactory extends Component {
   }
 
   componentDidMount () {
+    debugger
+    const {allLocations} = this.props
     const {floorId, roomId} = this.props.match.params
-    if (floorId) {
+    if (floorId || !isNaN(this.locationId.value)) {
       this.locationId.value = floorId
+      let isForFloor = allLocations.filter(location => location.children.length > 0)
+      this.setState({itIsFloor: (isForFloor.some(location => location.id === +this.locationId.value))})
+    }
+    if (roomId && this.idForRoom.value) {
+      this.idForRoom.value = roomId
     }
   }
 
@@ -141,7 +139,6 @@ class TaskFactory extends Component {
           <select
             name='locationsList'
             defaultValue='locationChoice'
-            // onChange={this.floorChecker}
             ref={(input) => this.locationId = input}
             disabled={!!floorId}
           >
@@ -158,9 +155,9 @@ class TaskFactory extends Component {
           </select>
           {isNaN(this.locationId.value) &&
           <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
-          {(itIsFloor || roomId) &&
+          {itIsFloor &&
           <div>
-            <select name="roomsList" defaultValue='roomChoice' ref={(input) => this.roomId = input}
+            <select name="roomsList" defaultValue='roomChoice' ref={(input) => this.idForRoom = input}
             >
               <option value='roomChoice' disabled hidden>
                 Номер
@@ -173,7 +170,7 @@ class TaskFactory extends Component {
                 )
               })}
             </select>
-            {(this.roomId && isNaN(this.roomId.value)) &&
+            {(this.idForRoom && isNaN(this.idForRoom.value)) &&
             <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
           </div>
           }
