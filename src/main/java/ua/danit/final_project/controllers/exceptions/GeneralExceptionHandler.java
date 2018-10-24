@@ -65,7 +65,7 @@ public class GeneralExceptionHandler {
   }
 
   @ExceptionHandler({MaxUploadSizeExceededException.class, FileUploadBase.FileSizeLimitExceededException.class})
-  public ResponseEntity<?> uploadMaxSizeException() {
+  public ResponseEntity<ErrorResponse> uploadMaxSizeException() {
     return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
         .body(new ErrorResponse(String.format("Maximum upload size exceeded (%s)", maxSize), 413));
   }
