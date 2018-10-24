@@ -70,6 +70,8 @@ class PositionButtons extends Component {
     let currentSchedule = arrayOfSchedules.pop()
     let timeFirstSchedule = currentSchedule.start
 
+    /* eslint-disable */
+
     while (arrayOfSchedules.length >= 0) {
       if (!commentsInsideSchedule) {
         let sortedComments = filterComments
@@ -112,6 +114,8 @@ class PositionButtons extends Component {
       }
       commentsInsideSchedule = !commentsInsideSchedule
     }
+
+    /* eslint-enable */
 
     if (!commentsInsideSchedule) {
       let sortedComments = filterComments
