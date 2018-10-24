@@ -77,11 +77,13 @@ class PositionButtons extends Component {
             let commentDate = new Date(+comment.date)
             let commentTime = commentDate.getHours() * 60 + commentDate.getMinutes()
             let end = currentSchedule.end
-            return (end > startTime && ((commentTime < startTime && commentTime <= end)
+            return (
+              (end > startTime && (commentTime < startTime && commentTime <= end))
               ||
-              (commentTime > startTime && commentTime >= end))
+              (commentTime > startTime && commentTime >= end)
               ||
-              (commentTime < startTime && commentTime >= end))
+              (commentTime < startTime && commentTime >= end)
+            )
           })
 
         if (sortedComments.length > 0) {
