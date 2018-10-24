@@ -27,14 +27,31 @@ class TaskFactory extends Component {
       errorRoom: null,
       successAdd: null,
       photo: null,
-      itIsFloor: false
+      floorSelected: false
     }
-    _.bindAll(this, 'chooseDate', 'makePhoto', 'createTask')
+    _.bindAll(this, 'chooseDate', 'makePhoto', 'createTask', 'floorChecker')
+  }
+
+  componentDidMount () {
+    const {floorId, roomId} = this.props.match.params
+    if (floorId || !isNaN(this.locationId.value)) {
+      this.locationId.value = floorId
+      this.setState({floorSelected: true})
+      this.idForRoom.value = roomId
+    }
   }
 
   chooseDate (day) {
     this.setState({
       finishDate: day
+    })
+  }
+
+  floorChecker = () => {
+    let {allLocations} = this.props
+    this.setState({
+      floorSelected: allLocations.filter(location => location.children.length > 0)
+        .some(location => location.id === +this.locationId.value)
     })
   }
 
@@ -90,7 +107,6 @@ class TaskFactory extends Component {
       if (photo) {
         formData.append('file', photo)
       }
-      debugger
       axios({
         method: 'post',
         url: `/task`,
@@ -106,20 +122,6 @@ class TaskFactory extends Component {
     }
   }
 
-  componentDidMount () {
-    debugger
-    const {allLocations} = this.props
-    const {floorId, roomId} = this.props.match.params
-    if (floorId || !isNaN(this.locationId.value)) {
-      this.locationId.value = floorId
-      let isForFloor = allLocations.filter(location => location.children.length > 0)
-      this.setState({itIsFloor: (isForFloor.some(location => location.id === +this.locationId.value))})
-    }
-    if (roomId && this.idForRoom.value) {
-      this.idForRoom.value = roomId
-    }
-  }
-
   render () {
     const {allUsers, allLocations, allStatuses, allFrequencies} = this.props
     const {floorId, roomId} = this.props.match.params
@@ -131,7 +133,7 @@ class TaskFactory extends Component {
       errorFrequency,
       errorRoom,
       successAdd,
-      itIsFloor
+      floorSelected
     } = this.state
     if (allUsers && allLocations && allStatuses && allFrequencies) {
       return (
@@ -140,6 +142,7 @@ class TaskFactory extends Component {
             name='locationsList'
             defaultValue='locationChoice'
             ref={(input) => this.locationId = input}
+            onChange={this.floorChecker}
             disabled={!!floorId}
           >
             <option value="locationChoice" disabled hidden>
@@ -155,7 +158,7 @@ class TaskFactory extends Component {
           </select>
           {isNaN(this.locationId.value) &&
           <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
-          {itIsFloor &&
+          {floorSelected &&
           <div>
             <select name="roomsList" defaultValue='roomChoice' ref={(input) => this.idForRoom = input}
             >
