@@ -136,133 +136,156 @@ class TaskFactory extends Component {
       successAdd,
       floorSelected
     } = this.state
-
-    if (allUsers && allLocations && allStatuses && allFrequencies) {
-      return (
-        <div className="container createTask">
-          <select
-            name='locationsList'
-            defaultValue='locationChoice'
-            ref={(input) => this.locationId = input}
-            onChange={this.floorChecker}
-            disabled={!!floorId}
-          >
-            <option value="locationChoice" disabled hidden>
-              Локация
-            </option>
-            {allLocations.map(location => {
-              return (
-                <option value={location.id} key={location.id}>
-                  {location.title}
-                </option>
-              )
-            })}
-          </select>
-          {isNaN(this.locationId.value) &&
-          <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
-          {floorSelected &&
-          <div>
-            <select name="roomsList" defaultValue='roomChoice' ref={(input) => this.idForRoom = input}
-            >
-              <option value='roomChoice' disabled hidden>
-                Номер
+    const locationSelect =
+      (<div>
+        <select
+          name='locationsList'
+          defaultValue='locationChoice'
+          ref={(input) => this.locationId = input}
+          onChange={this.floorChecker}
+          disabled={!!floorId}>
+          <option value="locationChoice" disabled hidden>
+            Локация
+          </option>
+          {allLocations.map(location => {
+            return (
+              <option value={location.id} key={location.id}>
+                {location.title}
               </option>
-              {allLocations.find(location => location.id === (+this.locationId.value || +floorId)).children.map(children => {
-                return (
-                  <option value={children.id} key={children.id}>
-                    {children.title}
-                  </option>
-                )
-              })}
-            </select>
-            {(this.idForRoom && isNaN(this.idForRoom.value)) &&
-            <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
-          </div>
-          }
-          <select defaultValue='0' id="priority" ref={input => this.taskPriority = input}>
-            <option value="0" disabled hidden>
-              приоритет
-            </option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-          <DatePicker
-            placeholderText='Срок выполнения'
-            minDate={moment()}
-            selected={finishDate}
-            showMonthDropdown
-            useShortMonthInDropdown
-            showTimeSelect
-            withPortal
-            dateFormat="LLL"
-            onChange={this.chooseDate}
-            popperModifiers={{
-              offset: {
-                enabled: true,
-                offset: '5px, 10px'
-              },
-              preventOverflow: {
-                enabled: true,
-                escapeWithReference: false, // force popper to stay in viewport (even when input is scrolled out of view)
-                boundariesElement: 'viewport'
-              }
-            }}
-          />
-          <select
-            name='executors'
-            defaultValue='test'
-            required={true}
-            ref={input => this.executorId = input}>
-            <option disabled hidden value='test'>
-              Исполнитель
-            </option>
-            {allUsers.map(user => {
+            )
+          })}
+        </select>
+        {isNaN(this.locationId.value) &&
+        <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
+      </div>)
+    const roomSelect =
+      (<div>
+        <select
+          name="roomsList"
+          defaultValue='roomChoice'
+          ref={(input) => this.idForRoom = input}
+          disabled={!!roomId}
+        >
+          <option value='roomChoice' disabled hidden>
+            Номер
+          </option>
+          {
+            allLocations.some(location => location.id === (+this.locationId.value || +floorId)) &&
+            allLocations.find(location => location.id === (+this.locationId.value || +floorId)).children.map(children => {
               return (
-                <option value={user.id} key={user.id}>
-                  {user.employee.forename} {user.employee.forename}, {user.employee.position.title}
+                <option value={children.id} key={children.id}>
+                  {children.title}
                 </option>
               )
             })}
-          </select>
-          {isNaN(this.executorId.value) &&
-          <label className='task_errors' htmlFor='executors'>{errorExecutor}</label>}
-          <select name='frequencies' defaultValue='0' ref={(input) => this.taskFrequency = input}>
-            <option value='0' hidden disabled>
-              Повторяемость
-            </option>
-            {allFrequencies.map(frequency => {
-              return (
-                <option value={frequency} key={frequency}>
-                  {frequency}
-                </option>
-              )
-            })}
-          </select>
-          {!isNaN(this.taskFrequency.value) &&
-          <label className='task_errors' htmlFor='frequencies'>{errorFrequency}</label>}
-          <textarea
-            name="task"
-            cols="30"
-            rows="10"
-            ref={input => this.textForTask = input}
-            placeholder='Введите текст'
-          >
-          </textarea>
-          {this.textForTask.value ||
-          <label className='task_errors' htmlFor='task'>{errorText}</label>}
-          <input type="file" accept="image/*" onChange={this.makePhoto}/>
-          <button
-            onClick={this.createTask}>Создать
-          </button>
-          {successAdd && <h3>{successAdd}</h3>}
-        </div>
-      )
-    } else {
-      return (
-        <Preloader/>
-      )
+        </select>
+        {(this.idForRoom && isNaN(this.idForRoom.value)) &&
+        <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
+      </div>)
+    const prioritySelect = (
+      <div>
+        <select defaultValue='0' id="priority" ref={input => this.taskPriority = input}>
+          <option value="0" disabled hidden>
+          приоритет
+          </option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+    )
+    const executorSelect = (
+      <div>
+        <select
+          name='executors'
+          defaultValue='test'
+          required={true}
+          ref={input => this.executorId = input}>
+          <option disabled hidden value='test'>
+            Исполнитель
+          </option>
+          {allUsers.map(user => {
+            return (
+              <option value={user.id} key={user.id}>
+                {user.employee.forename} {user.employee.forename}, {user.employee.position.title}
+              </option>
+            )
+          })}
+        </select>
+        {isNaN(this.executorId.value) &&
+        <label className='task_errors' htmlFor='executors'>{errorExecutor}</label>}
+      </div>
+    )
+    const frequenciesSelect = (
+      <div>
+        <select name='frequencies' defaultValue='0' ref={(input) => this.taskFrequency = input}>
+          <option value='0' hidden disabled>
+            Повторяемость
+          </option>
+          {allFrequencies.map(frequency => {
+            return (
+              <option value={frequency} key={frequency}>
+                {frequency}
+              </option>
+            )
+          })}
+        </select>
+        {!isNaN(this.taskFrequency.value) &&
+        <label className='task_errors' htmlFor='frequencies'>{errorFrequency}</label>}
+      </div>
+    )
+
+    if (!allUsers || !allLocations || !allStatuses || !allFrequencies) {
+      return <Preloader/>
     }
+    return (
+      <div className="container createTask">
+        {locationSelect}
+        {floorSelected && roomSelect}
+        {prioritySelect}
+        <DatePicker
+          placeholderText='Срок выполнения'
+          minDate={moment()}
+          selected={finishDate}
+          showMonthDropdown
+          useShortMonthInDropdown
+          showTimeSelect
+          withPortal
+          dateFormat="LLL"
+          onChange={this.chooseDate}
+          popperModifiers={{
+            offset: {
+              enabled: true,
+              offset: '5px, 10px'
+            },
+            preventOverflow: {
+              enabled: true,
+              escapeWithReference: false,
+              boundariesElement: 'viewport'
+            }
+          }}
+        />
+        {executorSelect}
+        {frequenciesSelect}
+        <textarea
+          name="task"
+          cols="30"
+          rows="10"
+          ref={input => this.textForTask = input}
+          placeholder='Введите текст'
+        >
+        </textarea>
+        {this.textForTask.value ||
+        <label className='task_errors' htmlFor='task'>{errorText}</label>}
+        <input type="file" accept="image/*" onChange={this.makePhoto}/>
+        <button
+          onClick={this.createTask}>Создать
+        </button>
+        {successAdd && <h3>{successAdd}</h3>}
+      </div>
+    )
   }
 }
 
