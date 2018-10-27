@@ -3,8 +3,10 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 import * as _ from 'lodash'
+import { addNewComment, updateComment } from '../../actions/actions'
+import '../../styles/App.css'
 
-class CommentsFactory extends Component {
+class CreateNewComments extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -27,47 +29,49 @@ class CommentsFactory extends Component {
     })
     if (_.isEmpty(textComment)) {
       this.setState({
-        successPost: null,
-        errorCheckedPosition: null,
-        errorText: 'Введите комментарийart'
+        errorText: 'Введите комментарий'
       })
-    } else {
-      if (_.isEmpty(checkedPositions)) {
-        this.setState({
-          successPost: null,
-          errorText: null,
-          errorCheckedPosition: 'Выберите позицию'
+    }
+    if (_.isEmpty(checkedPositions)) {
+      this.setState({
+        errorCheckedPosition: 'Выберите позицию'
+      })
+    }
+    if (!_.isEmpty(textComment) && !_.isEmpty(checkedPositions)) {
 
-        })
-      } else {
-        axios({
-          url: '/workshift/comment',
-          method: commentForUpdate ? 'PUT' : 'POST',
-          data: commentForUpdate ? {
-            id: this.state.commentForUpdate.id,
-            message: this.state.textComment,
-            positions: positionForComment,
-            date: this.state.commentForUpdate.date
-          }
-            : {
-              message: this.state.textComment,
-              positions: positionForComment
-            }
-        })
-          .then(() => this.setState({
-            errorText: null,
-            errorCheckedPosition: null,
-            textComment: '',
-            checkedPositions: [],
-            successPost: commentForUpdate ? 'Комментарий изменен' : 'Комментарий добавлен'
-          }))
-          .then(() => setTimeout(() => this.props.history.push('/shifts'), 1500))
-      }
+      const data = commentForUpdate ?
+        {
+          id: this.state.commentForUpdate.id,
+          message: this.state.textComment,
+          positions: positionForComment,
+          date: this.state.commentForUpdate.date
+        } : {
+          message: this.state.textComment,
+          positions: positionForComment,
+          date: new Date()
+        }
+      axios({
+        url: '/workshift/comment',
+        method: commentForUpdate ? 'PUT' : 'POST',
+        data: data
+      })
+        .then(response => commentForUpdate ? this.props.commentUpdate(response.data) : this.props.addComment(response.data))
+        .then(() => this.setState({
+          errorText: null,
+          errorCheckedPosition: null,
+          textComment: '',
+          checkedPositions: [],
+          successPost: commentForUpdate ? 'Комментарий изменен' : 'Комментарий добавлен'
+        }))
+        .then(() => this.props.history.push('/shifts'))
     }
   }
 
   addText (event) {
-    this.setState({textComment: event.target.value})
+    this.setState({
+      textComment: event.target.value,
+      errorText: null
+    })
   }
 
   setCheckedPosition (event) {
@@ -81,50 +85,71 @@ class CommentsFactory extends Component {
     } else {
       checkedPositions.push(event.target.value)
     }
-    this.setState({checkedPositions: checkedPositions})
+    this.setState({
+      checkedPositions: checkedPositions,
+      errorCheckedPosition: null
+    })
   }
 
   render () {
-    let isUpdate = !!this.state.commentForUpdate
+    const {checkedPositions, textComment, errorText, errorCheckedPosition, successPost, commentForUpdate} = this.state
+    let isUpdate = !!commentForUpdate
     if (!this.props.allPositionsForComments) {
       return (
         <Preloader/>
       )
     } else {
       return (<div className="container">
-        {this.props.allPositionsForComments
-          .filter(position => position.pinnedToComment === true)
-          .map(position => {
-            return (
-              <div key={position.id}>
-                <input
-                  name="position"
-                  type="checkbox"
-                  checked={true && this.state.checkedPositions.includes(position.title)}
-                  value={position.title}
-                  onChange={this.setCheckedPosition.bind(this)}
-                />
-                {position.title}
-              </div>
-            )
-          }
+          <div className="newComment">
+          {this.props.allPositionsForComments.filter(position => position.pinnedToComment).map(position => {
+              return (
+                <div className="newComment-elem">
+                  <label key={position.id}>
+                    <input
+                      name="position"
+                      type="checkbox"
+                      checked={true && checkedPositions.includes(position.title)}
+                      value={position.title}
+                      onChange={this.setCheckedPosition.bind(this)}
+                    />
+                    <div className="newComment-elem__fakeRadio">
+                      <div className="newComment-elem__fakeCheckMark">
+                      </div>
+                    </div>
+                    {position.title}
+                  </label>
+                  {errorCheckedPosition && <p className="newComment-elem__error">{errorCheckedPosition}</p>}
+                </div>
+              )
+            }
           )
-        }
-        <p><textarea value={this.state.textComment}
-          placeholder={'Введите Ваш коментарий'}
-          cols="30"
-          rows="10"
-          onChange={this.addText.bind(this)}/></p>
-        {isUpdate || <input type="button"
-          value=" Добавить комментарий "
-          onClick={this.commentForFactory.bind(this)}/>}
-        {isUpdate && <input type="button"
-          value="Изменить комментарий"
-          onClick={this.commentForFactory.bind(this)}/>
-        }
-        <p>{this.state.errorCheckedPosition || this.state.errorText}</p>
-        <p>{this.state.successPost}</p>
-      </div>
+          }
+          <h3 className="newComment-title">Добавить коментарий</h3>
+          </div>
+          <textarea className="newComment-textarea"
+            name='commentField'
+            value={textComment}
+            placeholder={'Привет друг, что бы ты хотел мне написать?'}
+            cols="30"
+            rows="10"
+            onChange={this.addText.bind(this)}/>
+          <div className="newComment-btn">
+          {errorText && <label className="newComment-errorText" htmlFor='commentField'>{errorText}</label>}
+          {isUpdate || <button className="newComment-send" type="button"
+                              value=" Добавить комментарий "
+                              onClick={this.commentForFactory.bind(this)}>
+                              Добавить комментарий
+                        </button>}
+          {isUpdate && <button className="newComment-send"
+                              type="button"
+                              value="Изменить комментарий"
+                              onClick={this.commentForFactory.bind(this)}>
+                              Изменить комментарий
+                        </button>
+          }
+          </div>
+          <p>{successPost}</p>
+        </div>
       )
     }
   }
@@ -143,4 +168,15 @@ const mapStateToProps = ({comments, startData}, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(CommentsFactory)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addComment: (data) => {
+      dispatch(addNewComment(data))
+    },
+    commentUpdate: (data) => {
+      dispatch(updateComment(data))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewComments)

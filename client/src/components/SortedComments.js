@@ -1,22 +1,17 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Timeline, TimelineEvent} from 'react-event-timeline'
-import {Link} from 'react-router-dom'
-import routes from '../constants/routes'
-import picture from '../img/addComment.png'
-import update from '../img/update.png'
-import trash from '../img/trash.png'
-import calendar from '../img/calendar.png'
-import axios from 'axios'
-import {getLastShift} from '../utils/utils'
-import {addShift} from '../actions/actions'
+import {Link} from "react-router-dom";
+import routes from "../constants/routes";
+import picture from "../img/add.png";
+import calendar from "../img/calendar.png";
+import ScheduleWithComments from './ScheduleWithComments'
 
 class PositionButtons extends Component {
   constructor (props) {
     super(props)
     this.state = {
       view: this.props.currentUser.employee.position.title,
-      id: this.props.currentUser.employee.id,
+      userId: this.props.currentUser.id,
       colors: ['#eff47f', '#7ff4f1', '#c7c8ca', '#00c7ff']
     }
   }
@@ -25,120 +20,257 @@ class PositionButtons extends Component {
     this.setState({view: event.target.value})
   }
 
-  deleteComment (id) {
-    if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
-      axios.delete(`/workshift/comment/${id}`)
-        .then(() => getLastShift(data => {
-          this.props.addShift(data)
-        }))
-    }
+  getRandomColor (indexColors) {
+    const colors = ['orange', 'darkkhaki', 'dimgray', 'rosybrown', 'red', 'saddlebrown', 'tan', 'yellowgreen', 'palegreen']
+
+    return colors[indexColors]
   }
 
-  getRandomColor () {
-    const letters = '0123456789ABCDEF'
-    let color = '#'
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)]
+  createArrayOfReadyComments (schedulesWithColors, comments) {
+
+    let arrayOfSchedules = schedulesWithColors.map(item => {
+      let returnItem = Object.assign({}, item)
+      let stringNumberStart = +item.start.toString().substr(0, 2)
+      let stringNumberEnd = +item.end.toString().substr(0, 2)
+
+      returnItem.start = stringNumberStart * 60
+      returnItem.end = stringNumberEnd * 60
+      returnItem.title = 'Смена с ' + stringNumberStart.toString() + ' по ' + stringNumberEnd.toString()
+
+      return returnItem
+    }).sort((item1, item2) => {
+      if (item1.start > item2.start) return -1
+      if (item1.start < item2.start) return 1
+      return 0
+    })
+
+    let arrayOfReadyComments = []
+    let filterComments = comments
+      .filter(comment => comment.positions.some(position => position.title === this.state.view))
+      .sort((comment1, comment2) => comment2.date - comment1.date)
+
+    if (filterComments.length > 0 && arrayOfSchedules.length > 0) {
+      arrayOfReadyComments = this.createCommentsByWhile(arrayOfSchedules, filterComments)
+    } else if (filterComments.length > 0 && arrayOfSchedules.length <= 0) {
+      arrayOfReadyComments = this.createCommentsWithoutSchedules(filterComments)
+    } else {
+      arrayOfReadyComments.push(<h1>None</h1>)
     }
-    return color
+
+    return arrayOfReadyComments
+  }
+
+  createCommentsByWhile (inputArrayOfSchedules, filterComments) {
+
+    let time = new Date()
+    let startTime = time.getHours() * 60 + time.getMinutes()
+    let arrayOfSchedules = this.createArrayWithSortedSchedules(inputArrayOfSchedules, time)
+    let resultArray = []
+    let commentsInsideSchedule = this.checkCurrentTimeInsideSchedule(arrayOfSchedules, time)
+    let currentSchedule = arrayOfSchedules.pop()
+    let timeFirstSchedule = currentSchedule.start
+
+    /* eslint-disable */
+
+    while (arrayOfSchedules.length >= 0) {
+      if (!commentsInsideSchedule) {
+        let sortedComments = filterComments
+          .filter(comment => {
+            let commentDate = new Date(+comment.date)
+            let commentTime = commentDate.getHours() * 60 + commentDate.getMinutes()
+            let end = currentSchedule.end
+            return (
+              (end > startTime && (commentTime < startTime && commentTime <= end))
+              ||
+              (commentTime > startTime && commentTime >= end)
+              ||
+              (commentTime < startTime && commentTime >= end)
+            )
+          })
+
+        if (sortedComments.length > 0) {
+          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null} userId={this.state.userId}/>)
+        }
+      } else {
+        let sortedComments = filterComments
+          .filter(comment => {
+            let commentDate = new Date(+comment.date)
+            let commentTime = commentDate.getHours() * 60 + commentDate.getMinutes()
+            let start = currentSchedule.start
+            let end = currentSchedule.end
+
+            return (end > start && start < commentTime && end >= commentTime)
+              || (end < start && (start < commentTime || end >= commentTime))
+          })
+
+        if (sortedComments.length > 0) {
+          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={currentSchedule} userId={this.state.userId}/>)
+        }
+        startTime = currentSchedule.start
+        if (arrayOfSchedules.length <= 0) {
+          break
+        }
+        currentSchedule = arrayOfSchedules.pop()
+      }
+      commentsInsideSchedule = !commentsInsideSchedule
+    }
+
+    /* eslint-enable */
+
+    if (!commentsInsideSchedule) {
+      let sortedComments = filterComments
+        .filter(comment => {
+          let commentDate = new Date(+comment.date)
+          let commentTime = commentDate.getHours() * 60 + commentDate.getMinutes()
+          return commentTime > startTime
+                 && commentTime <= timeFirstSchedule
+        })
+
+      if (sortedComments.length > 0) {
+        resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null} userId={this.state.userId}/>)
+      }
+    }
+
+    return resultArray
+  }
+
+  createCommentsWithoutSchedules (filterComments) {
+    let sortedComments = filterComments
+    let resultArray = []
+    resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null} userId={this.state.userId}/>)
+    return resultArray
+  }
+
+  createArrayWithSortedSchedules (inputArrayOfSchedules, time) {
+
+    let startTime = time.getHours() * 60 + time.getMinutes()
+    let scheduleWithStartTime = null
+    let readySchedules = []
+    let indexSchedule = null
+
+    for (let i = 0; i < inputArrayOfSchedules.length; i++) {
+      let start = inputArrayOfSchedules[i].start
+      let end = inputArrayOfSchedules[i].end
+
+      if ((end > start && start < startTime && end >= startTime) || (end < start && (start < startTime || end >= startTime))) {
+        scheduleWithStartTime = inputArrayOfSchedules[i]
+        indexSchedule = i
+        break
+      }
+    }
+
+    if (scheduleWithStartTime) {
+      let lastSchedule = Object.assign({}, scheduleWithStartTime)
+      lastSchedule.start = startTime
+
+      readySchedules.push(lastSchedule)
+
+      for (let i = indexSchedule + 1; i < inputArrayOfSchedules.length; i++) {
+        readySchedules.push(inputArrayOfSchedules[i])
+      }
+
+      for (let i = 0; i < indexSchedule; i++) {
+        readySchedules.push(inputArrayOfSchedules[i])
+      }
+
+      let firstSchedule = Object.assign({}, scheduleWithStartTime)
+      firstSchedule.end = startTime
+
+      readySchedules.push(firstSchedule)
+    } else {
+
+      let nearestTime = Math.abs(inputArrayOfSchedules[0].end - startTime)
+      let nearesIndexSchedule = 0
+
+      for (let i = 1; i < inputArrayOfSchedules.length; i++) {
+        let difference = Math.abs(inputArrayOfSchedules[i].end - startTime)
+        if (nearestTime < difference) {
+          nearestTime = difference
+          nearesIndexSchedule = i
+        }
+      }
+
+      for (let i = nearesIndexSchedule + 1; i < inputArrayOfSchedules.length; i++) {
+        readySchedules.push(inputArrayOfSchedules[i])
+      }
+
+      for (let i = 0; i <= nearesIndexSchedule; i++) {
+        readySchedules.push(inputArrayOfSchedules[i])
+      }
+    }
+
+    return readySchedules
+  }
+
+  checkCurrentTimeInsideSchedule (inputArrayOfSchedules, time) {
+
+    let startTime = time.getHours() * 60 + time.getMinutes()
+
+    for (let i = 0; i < inputArrayOfSchedules.length; i++) {
+      let start = inputArrayOfSchedules[i].start
+      let end = inputArrayOfSchedules[i].end
+
+      if ((end > start && start < startTime && end >= startTime) || (end < start && (start < startTime || end >= startTime))) {
+        return true
+      }
+    }
+
+    return false
+
   }
 
   render () {
     const {position, comments, schedules} = this.props
 
+    let indexColors = 0
+
     const schedulesWithColors = schedules
       .filter(item => item.position.title === this.state.view)
       .map(item => {
-        item.color = this.getRandomColor()
+        item.color = this.getRandomColor(indexColors++)
         return item
       })
 
-    const timelineEvents = []
+    let readyComments = this.createArrayOfReadyComments(schedulesWithColors, comments)
 
-    for (let i = new Date().getHours(); i >= 0; i--) {
-      const shift = schedulesWithColors.find(item => {
-        const start = parseInt(item.start, 10)
-        const end = parseInt(item.end, 10)
-        return (end > start && start <= i && end > i) || (end < start && (start <= i || end > i))
-      })
-      if (timelineEvents === null) {
-        return
+    const selectPositionInputs = position.filter(position => position.pinnedToComment).map(position => {
+        return (
+          <li className="position-radio-buttons__elem">
+            <label key={position.id}>
+              <input name="position"
+                     type='radio'
+                     defaultChecked={this.state.view === position.title}
+                     value={position.title}/>
+              <div className="position-radio-buttons__fakeBtn">
+                <div className="position-radio-buttons__fakeBtn-active"></div>
+              </div>
+              <span>{position.title}</span>
+            </label>
+          </li>
+        )
       }
-      timelineEvents.push(
-        <TimelineEvent createdAt={`${i}:00`} key={i} title='' iconColor={shift && shift.color}>
-          {comments
-            .filter(comment => comment.positions.find(position => position.title === this.state.view))
-            .filter(comment => new Date(comment.date).getHours() === i)
-            .map(comment => {
-              const showActionButtons = comment.author.id === this.state.id
-              // const isShowing = ({comments.[0] == undefined} === true)
-              return (
-                <li key={comment.id}>
-                  <div className='flex_comment'>
-                    <div className='comment'>
-                      <h3>{comment.author.forename} {comment.author.surname}, {comment.author.position.title}</h3>
-                      <h5>{`${i}:00`}</h5>
-                      <h4>{comment.message}</h4>
-                    </div>
-                    <div className='ud_buttons'>
-                      {showActionButtons &&
-                                            <button onClick={() => this.deleteComment(comment.id)}><img alt='trash' src={trash}/>
-                                            </button>}
-                      {showActionButtons &&
-                                            <button><Link to={routes.updateComment.href + comment.id}><img alt='update'
-                                              src={update}/></Link>
-                                            </button>}
-                    </div>
-                  </div>
-                </li>
-              )
-            })
-            .reverse()}
-        </TimelineEvent>
-      )
-    }
-
-    const selectPositionInputs = position.map(position => {
-      const isForComment = position.pinnedToComment === true
-      return (
-        <div key={position.id}>
-          {isForComment && <li key={position.id}>
-            <input name="position"
-              type='radio'
-              defaultChecked={this.state.view === position.title}
-              value={position.title}/>
-            {position.title}
-          </li>}
-        </div>)
-    }
     )
 
     return (
       <section className="comments">
         <div className="radioANDbuttons">
-          <div className="position-radio-buttons" onChange={this.setPositionView.bind(this)}>
+          <ul className="position-radio-buttons" onChange={this.setPositionView.bind(this)}>
             {selectPositionInputs}
-          </div>
+          </ul>
           <div className="add_and_history">
-            <nav>
-              <ul>
-                <li><Link to={routes.addNewComments.href}>
+                <Link to={routes.addNewComments.href}>
                   <img alt="add comment" src={picture}/>
                 </Link>
-                </li>
-                <li><Link to={routes.commentsHistory.href}>
+                <Link to={routes.commentsHistory.href}>
                   <img alt="calendar is here" src={calendar}/>
                 </Link>
-                </li>
-              </ul>
-            </nav>
           </div>
         </div>
-        <Timeline>
-          <div className="positionComments">
-            {timelineEvents}
-          </div>
-        </Timeline>
+
+        <div className="positionComments">
+          {readyComments}
+        </div>
+
       </section>
     )
   }
@@ -152,12 +284,4 @@ const mapStateToProps = ({startData}) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addShift: (data) => {
-      dispatch(addShift(data))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PositionButtons)
+export default connect(mapStateToProps)(PositionButtons)

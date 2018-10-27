@@ -1,5 +1,6 @@
 import * as types from '../constants/actionTypes'
 import axios from 'axios'
+import { UPDATE_COMMENT } from '../constants/actionTypes'
 
 export function addShift(shift) {
   return {
@@ -125,5 +126,26 @@ export function addHitoryTasks (task) {
   return {
     type: types.ADD_TASKS_FOR_HISTORY,
     task
+  }
+}
+
+export function deleteComment (id) {
+  return {
+    type: types.DELETE_COMMENT,
+    id
+  }
+}
+
+export function addNewComment (comment) {
+  return {
+    type: types.ADD_NEW_COMMENT,
+    comment
+  }
+}
+
+export function updateComment (comment) {
+  return {
+    type: UPDATE_COMMENT,
+    comment
   }
 }

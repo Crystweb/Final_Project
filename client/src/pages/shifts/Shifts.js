@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import '../../styles/Comments.css'
 import Preloader from '../../components/Preloader'
-import { getLastShift } from '../../utils/utils'
 import { connect } from 'react-redux'
 import { addShift } from '../../actions/actions'
 import SortedComments from '../../components/SortedComments'
@@ -15,11 +14,11 @@ class Shifts extends Component {
     }
   }
 
-  componentDidMount () {
-    getLastShift(data => {
-      this.props.addShift(data)
-    })
-  }
+  // componentDidMount () {
+  //   getLastShift(data => {
+  //     this.props.addShift(data)
+  //   })
+  // }
 
   render () {
     if (!this.props.lastComments) {
