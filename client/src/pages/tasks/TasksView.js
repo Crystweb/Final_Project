@@ -75,10 +75,10 @@ class TasksView extends Component {
                     )
                   })}
                   </div>
-                  {task.priority && <p>Важность: {task.priority}</p>}
+                  {!!task.priority && <p>Важность: {task.priority}</p>}
                   {itIsHistory
                     ? <p>Закрыта {new Date(task.expired).toLocaleString()}</p>
-                    : <p>Срок: {new Date(task.expired).toLocaleString()}</p>}
+                    : task.expired && <p>Срок: {new Date(task.expired).toLocaleString()}</p>}
                   {itIsHistory
                     ? <p>{task.assignee.forename} {task.assignee.surname}</p>
                     : <p>{task.delegator.forename} {task.delegator.surname}</p>}
