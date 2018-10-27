@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import TasksView from '../tasks/TasksView'
 import { connect } from 'react-redux'
 import routes from '../../constants/routes'
-import picture from '../../img/addComment.png'
+import picture from '../../img/add.png'
 import { Link } from 'react-router-dom'
 import Preloader from '../../components/Preloader'
 

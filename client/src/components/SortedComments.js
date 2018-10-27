@@ -11,7 +11,7 @@ class PositionButtons extends Component {
     super(props)
     this.state = {
       view: this.props.currentUser.employee.position.title,
-      userId: this.props.currentUser.id,
+      userId: this.props.currentUser.employee.id,
       colors: ['#eff47f', '#7ff4f1', '#c7c8ca', '#00c7ff']
     }
   }
@@ -221,18 +221,14 @@ class PositionButtons extends Component {
 
   render () {
     const {position, comments, schedules} = this.props
-
     let indexColors = 0
-
     const schedulesWithColors = schedules
       .filter(item => item.position.title === this.state.view)
       .map(item => {
         item.color = this.getRandomColor(indexColors++)
         return item
       })
-
     let readyComments = this.createArrayOfReadyComments(schedulesWithColors, comments)
-
     const selectPositionInputs = position.filter(position => position.pinnedToComment).map(position => {
         return (
           <li className="position-radio-buttons__elem">
@@ -250,7 +246,6 @@ class PositionButtons extends Component {
         )
       }
     )
-
     return (
       <section className="comments">
         <div className="radioANDbuttons">
@@ -266,11 +261,9 @@ class PositionButtons extends Component {
                 </Link>
           </div>
         </div>
-
         <div className="positionComments">
           {readyComments}
         </div>
-
       </section>
     )
   }
