@@ -47,7 +47,7 @@ public class Vacancy implements Serializable {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "v_status", nullable = false)
-  private VacancyStatus vacancyStatus;
+  private VacancyStatus status;
 
   @Column(name = "v_info", nullable = false)
   private String info;

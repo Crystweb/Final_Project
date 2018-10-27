@@ -115,6 +115,20 @@ export function addNewTask(newTask) {
   }
 }
 
+export function deleteTask (task) {
+  return {
+    type: types.DELETE_CLOSED_TASK,
+    task
+  }
+}
+
+export function addHitoryTasks (task) {
+  return {
+    type: types.ADD_TASKS_FOR_HISTORY,
+    task
+  }
+}
+
 export function deleteComment (id) {
   return {
     type: types.DELETE_COMMENT,

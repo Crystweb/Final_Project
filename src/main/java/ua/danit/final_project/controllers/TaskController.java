@@ -18,6 +18,7 @@ import ua.danit.final_project.entities.Task;
 import ua.danit.final_project.services.tasks.TaskService;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -42,6 +43,14 @@ public class TaskController {
   @GetMapping("/frequency")
   public List<Task.TaskFrequency> getFrequencies() {
     return taskService.getFrequencies();
+  }
+
+  @GetMapping("/date")
+  public List<TaskDto> findByDateBetween(@RequestParam("from") Long from,
+                                         @RequestParam("to") Long to) {
+    Date dateFrom = new Date(from);
+    Date dateTo = new Date(to);
+    return taskService.findAllByDateBetween(dateFrom, dateTo);
   }
 
   @GetMapping

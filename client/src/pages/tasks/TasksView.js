@@ -1,54 +1,100 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import '../../styles/Tasks.css'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
+import axios from 'axios/index'
+import { addHitoryTasks, deleteTask } from '../../actions/actions'
 
 class TasksView extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      allTasks: this.props.tasks
+    this.doTask = this.doTask.bind(this)
+  }
+
+  doTask (event) {
+    let task = this.props.allTasks.find(task => task.id === +event.target.value)
+    task.status = 'CLOSED'
+    if (window.confirm('Вы выполнили задачу?')) {
+      axios({
+        method: 'put',
+        url: `/task`,
+        data: task
+      })
+        .then(response => this.props.deleteClosedTask(response.data))
+    }
+  }
+
+  componentDidMount () {
+    if (this.props.itIsHistory) {
+      axios.get(`/task/date?from=${this.props.dateForHistory}&to=${this.props.dateForHistory + 86400000}`)
+        .then(response => this.props.addTasksHistory(response.data))
     }
   }
 
   render () {
-    const {showAll, tasks, currentUser} = this.props
+    const {
+      showAll,
+      showMyHotelTasks,
+      showMyRoomTasks,
+      allTasks,
+      currentUser,
+      tasksForRoom,
+      itIsHistory,
+      tasksForHistory
+    } = this.props
+    let myRoomTasksFiltered = showMyRoomTasks && allTasks
+      .filter(task => !isNaN(+task.locations
+        .map(location => location.title)))
+    let myHotelTasksFiltered = showMyHotelTasks && allTasks
+      .filter(task => isNaN(+task.locations
+        .map(location => location.title)))
+      .filter(task => task.assignee.id === currentUser.employee.id)
+    let tasks = (itIsHistory && tasksForHistory) || tasksForRoom || myRoomTasksFiltered || myHotelTasksFiltered || allTasks
     tasks.sort(function (a, b) {
-      if (a.priority > b.priority) return 1
-      if (a.priority < b.priority) return -1
-      if (a.expired > b.expired) return -1
-      if (a.expired < b.expired) return 1
+      if (a.priority > b.priority) return -1
+      if (a.priority < b.priority) return 1
+      if (a.expired > b.expired) return 1
+      if (a.expired < b.expired) return -1
       return 0
     })
     if (tasks && currentUser) {
       return (
-        <Fragment>
+        <div>
+          {tasksForHistory && tasks.length === 0 && <p>Никто ничего не делал</p>}
           {tasks.map(task => {
-            const isShowTask = currentUser.id === task.assignee.id
-            return (
-              <Fragment key={task.id}>
-                {(showAll || isShowTask) &&
-                <div className='myTask'>
-                  <li className='myTask__item' key={task.id}>
-                    <h3>{task.message}</h3>
-                    <div>{task.locations.map(location => {
-                      return (
-                        <h5 key={location.id}>{location.title}</h5>
-                      )
-                    })}
-                    </div>
-                    {task.priority && <p>Важность: {task.priority}</p>}
-                    <p>Создана: {new Date(task.updated).toLocaleDateString()}</p>
-                    <p>{task.delegator.forename} {task.delegator.surname}</p>
-                    {task.expired && <p>Выполнить до: {new Date(task.expired).toLocaleDateString()}</p>}
-                  </li>
-                  <button>Изменить статус</button>
-                  <button>Фото</button>
-                </div>}
-              </Fragment>
-            )
+            const isShowTask = currentUser.employee.id === task.assignee.id
+            const hasPhoto = task.imageLinks.length > 0
+            return <div key={task.id}>
+              {(showAll || isShowTask) &&
+              <div className='myTask'>
+                <li className='myTask__item' key={task.id}>
+                  <h3>{task.message}</h3>
+                  <div>{task.locations.map(location => {
+                    return (
+                      <h5 key={location.id}>{location.title}</h5>
+                    )
+                  })}
+                  </div>
+                  {!!task.priority && <p>Важность: {task.priority}</p>}
+                  {itIsHistory
+                    ? <p>Закрыта {new Date(task.expired).toLocaleString()}</p>
+                    : task.expired && <p>Срок: {new Date(task.expired).toLocaleString()}</p>}
+                  {itIsHistory
+                    ? <p>{task.assignee.forename} {task.assignee.surname}</p>
+                    : <p>{task.delegator.forename} {task.delegator.surname}</p>}
+                  {task.updated &&
+                  <p>Создана: {new Date(task.updated).toLocaleDateString()}</p>}
+                </li>
+                {itIsHistory ||
+                (task.assignee.id === currentUser.employee.id && <button
+                  value={task.id}
+                  onClick={this.doTask.bind(this)}>Выполнить
+                </button>)}
+                {hasPhoto && <img alt='taskPhoto' src={task.imageLinks[0]}/>}
+              </div>}
+            </div>
           })}
-        </Fragment>
+        </div>
       )
     } else {
       return (
@@ -58,11 +104,24 @@ class TasksView extends Component {
   }
 }
 
-const mapStateToProps = ({tasks, startData}) => {
+const mapStateToProps = ({tasks, startData, selectedDate}) => {
   return {
-    tasks: tasks.allTasks,
-    currentUser: startData.currentUser
+    tasksForHistory: selectedDate.tasksForSelectedDates,
+    currentUser: startData.currentUser,
+    dateForHistory: selectedDate.historySelectedDate,
+    allTasks: tasks.allTasks
   }
 }
 
-export default connect(mapStateToProps)(TasksView)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteClosedTask: (data) => {
+      dispatch(deleteTask(data))
+    },
+    addTasksHistory: (data) => {
+      dispatch(addHitoryTasks(data))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TasksView)

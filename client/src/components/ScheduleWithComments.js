@@ -8,7 +8,6 @@ class ScheduleWithComments extends Component {
   render () {
 
     const {comments, schedule, userId} = this.props;
-
     let dataObject = null;
     if (schedule) {
       dataObject =      {
@@ -28,7 +27,7 @@ class ScheduleWithComments extends Component {
           <ul className="comment-list">
             {comments
               .map(comment => {
-                  let buttons = comment.author.userId === userId ? <ActionButtons comment={comment.id}/> : "";
+                  let buttons = comment.author.id === userId ? <ActionButtons comment={comment.id}/> : "";
                   let time = new Date(+comment.date);
 
                   let readyTime = dateFormat(time, "dd mmmm в HH:MM")

@@ -1,0 +1,47 @@
+.floors {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  &__rooms {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+}
+
+.roomName {
+  width: 22%;
+  height: 35px;
+  margin-bottom: 25px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border: solid 2px #7ff4a9;
+    border-radius: 15px;
+    color: #4b5461;
+    font-family: HelveticaNeue;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: normal;
+    text-align: center;
+  }
+
+  &__item:hover {
+    background-color: #7ff4a9;
+  }
+}

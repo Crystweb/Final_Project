@@ -39,7 +39,8 @@ class App extends Component {
       !this.props.comments ||
       !this.props.locations ||
       !this.props.statuses ||
-      !this.props.frequencies) {
+      !this.props.frequencies ||
+    !this.props.allTasks) {
       return (
         <Preloader/>
       )
@@ -54,7 +55,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({comments, startData}) => {
+const mapStateToProps = ({comments, startData, tasks}) => {
   return {
     user: startData.currentUser,
     positions: startData.positions,
@@ -62,7 +63,8 @@ const mapStateToProps = ({comments, startData}) => {
     comments: comments.lastComments,
     locations: startData.locations,
     statuses: startData.statuses,
-    frequencies: startData.frequencies
+    frequencies: startData.frequencies,
+    allTasks: tasks.allTasks
   }
 }
 

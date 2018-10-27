@@ -18,4 +18,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
   List<Task> findAllByExpiredIsBetween(Date from, Date to);
 
   List<Task> findAllByLocationsContains(Location location);
+
+  List<Task> findAllByUpdatedIsBetween(Date from, Date to);
 }

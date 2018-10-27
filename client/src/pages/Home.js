@@ -10,6 +10,7 @@ class Home extends Component {
         <nav className="navigation">
           <Link to={routes.comments.href}>{routes.comments.name}</Link>
           <Link to={routes.tasks.href}>{routes.tasks.name}</Link>
+          <Link to={routes.roomCheckIn.href}>{routes.roomCheckIn.name}</Link>
           <Link to={routes.employees.href}>{routes.employees.name}</Link>
         </nav>
       </div>
