@@ -1,12 +1,147 @@
 .tasks {
   display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 
-  &__items {
-    width: 100%;
+  box-sizing: border-box;
+  padding-left: 66px;
+  padding-right: 67px;
+
+  &-img {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 63px;
+    overflow: hidden;
+
+    & img {
+      max-width: 100%;
+    }
+  }
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 26px);
+
+
+    &__elem {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      width: 100%;
+      margin-top: 20px;
+
+      &-end {
+        width: 100%;
+        color: #4b5461;
+        font-family: HelveticaNeue, sans-serif;
+        font-size: 11px;
+        line-height: 17px;
+      }
+    }
   }
 }
+
+.task-complete {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 26px;
+  height: 26px;
+  background-image: url("../img/task-complete.png");
+}
+
+.tasks-list__elem {
+
+  &-title {
+    position: relative;
+    width: calc(100% - 25px);
+    min-width: 112px;
+    color: #4b5461;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 14px;
+    line-height: 15px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  &-subtitle {
+    width: 100%;
+    color: #9b9b9b;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 11px;
+    line-height: 12px;
+    margin-bottom: 5px;
+  }
+
+  &-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 5px;
+
+    & li {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+      padding-left: 25px;
+      margin-bottom: 5px;
+      line-height: 17px;
+      color: #4b5461;
+      font-family: HelveticaNeue, sans-serif;
+      font-size: 11px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.task {
+  &--priority:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    display: block;
+    width: 17px;
+    height: 17px;
+    background-image: url("../img/level of prior.png");
+    background-repeat: no-repeat;
+  }
+
+  &--location:before {
+    position: absolute;
+    top: 0;
+    left: 2.6px;
+    content: '';
+    display: block;
+    width: 14px;
+    height: 17px;
+    background-image: url("../img/location.png");
+    background-repeat: no-repeat;
+  }
+
+  &--delegator:before {
+    position: absolute;
+    top: 0;
+    left: 2px;
+    content: '';
+    display: block;
+    width: 13px;
+    height: 17px;
+    background-image: url("../img/to be done by.png");
+    background-repeat: no-repeat;
+  }
+}
+
+
 
 .control {
   display: flex;
@@ -42,6 +177,10 @@
     align-items: center;
   }
 }
+
+
+
+
 
 .createTask {
   display: flex;

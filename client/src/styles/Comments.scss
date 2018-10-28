@@ -246,23 +246,16 @@ button {
   &-change img {
     width: 20px;
     height: 20px;
+    background-repeat: no-repeat;
   }
 
   &-delete {
     width: 15px;
     height: 20px;
+    background-repeat: no-repeat;
   }
 }
 
-.comment-list__elem-buttons-change {
-  width: 20px;
-  height: 20px;
-}
-
-.comment-list__elem-buttons-delete {
-  width: 15px;
-  height: 20px;
-}
 
 .comment-list .comment-list__elem:last-child .comment-list__elem-point {
   height: calc(100% - 10px);
