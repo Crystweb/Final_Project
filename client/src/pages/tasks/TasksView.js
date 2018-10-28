@@ -106,12 +106,9 @@ class TasksView extends Component {
                     ? <li className="task--delegator">{task.assignee.forename} {task.assignee.surname}</li>
                     : <li className="task--delegator">{task.delegator.forename} {task.delegator.surname}</li>}
                 </ul>
-
                 {itIsHistory
                   ? <p className="tasks-list__elem-end">Закрыта {new Date(task.expired).toLocaleString()}</p>
                   : task.expired && <p className="tasks-list__elem-end">Срок: {new Date(task.expired).toLocaleString()}</p>}
-
-
               </li>
             )
           })}

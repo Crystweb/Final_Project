@@ -7,6 +7,10 @@
   padding-left: 66px;
   padding-right: 67px;
 
+  &-radions {
+    padding: 0;
+  }
+
   &-img {
     position: absolute;
     top: 0;
@@ -45,12 +49,17 @@
 }
 
 .task-complete {
+  display: flex;
   position: absolute;
   top: 0;
-  left: 100%;
+  left: calc(100% - 45px);
   width: 26px;
   height: 26px;
+  border: 0;
+  padding: 0;
   background-image: url("../img/task-complete.png");
+  font-size: 50px;
+  line-height: 50px;
 }
 
 .tasks-list__elem {
