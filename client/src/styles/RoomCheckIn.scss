@@ -21,24 +21,28 @@
 }
 
 .roomName {
-  width: 22%;
-  height: 35px;
-  margin-bottom: 25px;
-
+  min-width: 50px;
+  width: 15%;
+  padding: 6% 0;
+  margin-bottom: 6%;
+  position: relative;
+  margin-right: 6%;
   &__item {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    border: solid 2px #7ff4a9;
-    border-radius: 15px;
+    border: solid 1px #7ff4a9;
+    border-radius: 5px;
     color: #4b5461;
-    font-family: HelveticaNeue;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    font-family: HelveticaNeue, sans-serif;
     font-size: 15px;
-    font-style: normal;
     font-weight: 500;
-    letter-spacing: normal;
-    text-align: center;
   }
 
   &__item:hover {
