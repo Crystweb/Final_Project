@@ -8,6 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 import '../../styles/Tasks.css'
 import { addNewTask } from '../../actions/actions'
+import Select from 'react-select'
 
 class TaskFactory extends Component {
   constructor (props) {
@@ -136,102 +137,200 @@ class TaskFactory extends Component {
       successAdd,
       floorSelected
     } = this.state
+
+    let optionsLocation = []
+
+    allLocations.map(location => {
+      optionsLocation.push({value: location.id, label: location.title})
+    })
+
+    const location = (
+      <Select
+        className=""
+        defaultValue="locationChoice"
+        placeholder="Локация"
+        onChange={this.floorChecker}
+        ref={(input) => this.locationId = input}
+        disabled={!!floorId}
+        options={optionsLocation}
+      />
+    )
+
+    let optionsRoom = []
+
+    allLocations.some(location => location.id === (+this.locationId.value || +floorId)) &&
+    allLocations.find(location => location.id === (+this.locationId.value || +floorId)).children.map(children => {
+        optionsRoom.push({value: children.id, label: children.title})
+    })
+
+    const rooms = (
+      <Select
+        className=""
+        defaultValue="roomChoice"
+        ref={(input) => this.idForRoom = input}
+        name="roomsList"
+        disabled={!!roomId}
+        placeholder="Номер"
+        options={optionsRoom}
+      />
+    )
+
+      let optionsPriority = []
+
+    optionsPriority.push(
+      {value: 1, label: "1"},
+      {value: 2, label: "2"},
+      {value: 3, label: "3"},
+      {value: 4, label: "4"},
+      {value: 5, label: "5"}
+      )
+
+      const priority = <Select clasName=""
+                               defaultValue='0'
+                               id="priority"
+                               ref={input => this.taskPriority = input}
+                               placeholder="Приоритет"
+                               options={optionsPriority}
+                                      />
+
+        let optionsExecutor = []
+
+    allUsers.map(user => {
+      optionsExecutor.push({value: user.id,
+        label: user.employee.forename +
+        " " + user.employee.forename
+        + ", " + user.employee.title})
+    })
+
+      const executor = <Select className=""
+                               name='executors'
+                               defaultValue='test'
+                               ref={input => this.executorId = input}
+                               required={true}
+                               options={optionsExecutor}
+                      />
+
+        let optionsFrequency = []
+
+    allFrequencies.map(frequency => {
+      optionsFrequency.push({value: frequency, label: frequency})
+    })
+
+      const frequency = <Select className=""
+                                name='frequencies'
+                                defaultValue='0'
+                                ref={(input) => this.taskFrequency = input}
+                                options={optionsFrequency}
+                                placeholder="Повторяемость"
+          />
+
+
+
+
+
+
+
     const locationSelect =
       (<div>
-        <select
-          name='locationsList'
-          defaultValue='locationChoice'
-          ref={(input) => this.locationId = input}
-          onChange={this.floorChecker}
-          disabled={!!floorId}>
-          <option value="locationChoice" disabled hidden>
-            Локация
-          </option>
-          {allLocations.map(location => {
-            return (
-              <option value={location.id} key={location.id}>
-                {location.title}
-              </option>
-            )
-          })}
-        </select>
+        {location}
+        {/*<select*/}
+          {/*name='locationsList'*/}
+          {/*defaultValue='locationChoice'*/}
+          {/*ref={(input) => this.locationId = input}*/}
+          {/*onChange={this.floorChecker}*/}
+          {/*disabled={!!floorId}>*/}
+          {/*<option value="locationChoice" disabled hidden>*/}
+            {/*Локация*/}
+          {/*</option>*/}
+          {/*{allLocations.map(location => {*/}
+            {/*return (*/}
+              {/*<option value={location.id} key={location.id}>*/}
+                {/*{location.title}*/}
+              {/*</option>*/}
+            {/*)*/}
+          {/*})}*/}
+        {/*</select>*/}
         {isNaN(this.locationId.value) &&
         <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
       </div>)
     const roomSelect =
       (<div>
-        <select
-          name="roomsList"
-          defaultValue='roomChoice'
-          ref={(input) => this.idForRoom = input}
-          disabled={!!roomId}
-        >
-          <option value='roomChoice' disabled hidden>
-            Номер
-          </option>
-          {
-            allLocations.some(location => location.id === (+this.locationId.value || +floorId)) &&
-            allLocations.find(location => location.id === (+this.locationId.value || +floorId)).children.map(children => {
-              return (
-                <option value={children.id} key={children.id}>
-                  {children.title}
-                </option>
-              )
-            })}
-        </select>
+        {rooms}
+        {/*<select*/}
+          {/*name="roomsList"*/}
+          {/*defaultValue='roomChoice'*/}
+          {/*ref={(input) => this.idForRoom = input}*/}
+          {/*disabled={!!roomId}*/}
+        {/*>*/}
+          {/*<option value='roomChoice' disabled hidden>*/}
+            {/*Номер*/}
+          {/*</option>*/}
+          {/*{*/}
+            {/*allLocations.some(location => location.id === (+this.locationId.value || +floorId)) &&*/}
+            {/*allLocations.find(location => location.id === (+this.locationId.value || +floorId)).children.map(children => {*/}
+              {/*return (*/}
+                {/*<option value={children.id} key={children.id}>*/}
+                  {/*{children.title}*/}
+                {/*</option>*/}
+              {/*)*/}
+            {/*})}*/}
+        {/*</select>*/}
         {(this.idForRoom && isNaN(this.idForRoom.value)) &&
         <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
       </div>)
     const prioritySelect = (
       <div>
-        <select defaultValue='0' id="priority" ref={input => this.taskPriority = input}>
-          <option value="0" disabled hidden>
-          приоритет
-          </option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
+        {priority}
+        {/*<select defaultValue='0' id="priority" ref={input => this.taskPriority = input}>*/}
+          {/*<option value="0" disabled hidden>*/}
+          {/*приоритет*/}
+          {/*</option>*/}
+          {/*<option value="1">1</option>*/}
+          {/*<option value="2">2</option>*/}
+          {/*<option value="3">3</option>*/}
+          {/*<option value="4">4</option>*/}
+          {/*<option value="5">5</option>*/}
+        {/*</select>*/}
       </div>
     )
     const executorSelect = (
       <div>
-        <select
-          name='executors'
-          defaultValue='test'
-          required={true}
-          ref={input => this.executorId = input}>
-          <option disabled hidden value='test'>
-            Исполнитель
-          </option>
-          {allUsers.map(user => {
-            return (
-              <option value={user.id} key={user.id}>
-                {user.employee.forename} {user.employee.forename}, {user.employee.position.title}
-              </option>
-            )
-          })}
-        </select>
+        {executor}
+        {/*<select*/}
+          {/*name='executors'*/}
+          {/*defaultValue='test'*/}
+          {/*required={true}*/}
+          {/*ref={input => this.executorId = input}>*/}
+          {/*<option disabled hidden value='test'>*/}
+            {/*Исполнитель*/}
+          {/*</option>*/}
+          {/*{allUsers.map(user => {*/}
+            {/*return (*/}
+              {/*<option value={user.id} key={user.id}>*/}
+                {/*{user.employee.forename} {user.employee.forename}, {user.employee.position.title}*/}
+              {/*</option>*/}
+            {/*)*/}
+          {/*})}*/}
+        {/*</select>*/}
         {isNaN(this.executorId.value) &&
         <label className='task_errors' htmlFor='executors'>{errorExecutor}</label>}
       </div>
     )
     const frequenciesSelect = (
       <div>
-        <select name='frequencies' defaultValue='0' ref={(input) => this.taskFrequency = input}>
-          <option value='0' hidden disabled>
-            Повторяемость
-          </option>
-          {allFrequencies.map(frequency => {
-            return (
-              <option value={frequency} key={frequency}>
-                {frequency}
-              </option>
-            )
-          })}
-        </select>
+        {frequency}
+        {/*<select name='frequencies' defaultValue='0' ref={(input) => this.taskFrequency = input}>*/}
+          {/*<option value='0' hidden disabled>*/}
+            {/*Повторяемость*/}
+          {/*</option>*/}
+          {/*{allFrequencies.map(frequency => {*/}
+            {/*return (*/}
+              {/*<option value={frequency} key={frequency}>*/}
+                {/*{frequency}*/}
+              {/*</option>*/}
+            {/*)*/}
+          {/*})}*/}
+        {/*</select>*/}
         {!isNaN(this.taskFrequency.value) &&
         <label className='task_errors' htmlFor='frequencies'>{errorFrequency}</label>}
       </div>

@@ -81,12 +81,14 @@ class TasksView extends Component {
                 <div className="tasks-img">
                   {hasPhoto && <img alt='taskPhoto' src={task.imageLinks[0]}/>}
                 </div>
-                {itIsHistory ||
-                (task.assignee.id === currentUser.employee.id && <button
-                  className="task-complete"
-                  value={task.id}
-                  onClick={this.doTask.bind(this)}></button>)}
-                <h3 className="tasks-list__elem-title">{task.message}</h3>
+
+                <h3 className="tasks-list__elem-title">{task.message}
+                  {itIsHistory ||
+                  (task.assignee.id === currentUser.employee.id && <button
+                    className="task-complete"
+                    value={task.id}
+                    onClick={this.doTask.bind(this)}></button>)}
+                    </h3>
                 {task.updated && <h4 className="tasks-list__elem-subtitle">Создана: {new Date(task.updated).toLocaleDateString()}</h4>}
 
                 <ul className="tasks-list__elem-info">

@@ -14,7 +14,7 @@
   &-img {
     position: absolute;
     top: 0;
-    left: 100%;
+    left: calc(100% + 26px);
     width: 63px;
     overflow: hidden;
 
@@ -52,7 +52,7 @@
   display: flex;
   position: absolute;
   top: 0;
-  left: calc(100% - 45px);
+  left: 100%;
   width: 26px;
   height: 26px;
   border: 0;
@@ -66,7 +66,7 @@
 
   &-title {
     position: relative;
-    width: calc(100% - 25px);
+    width: calc(100% - 26px);
     min-width: 112px;
     color: #4b5461;
     font-family: HelveticaNeue, sans-serif;

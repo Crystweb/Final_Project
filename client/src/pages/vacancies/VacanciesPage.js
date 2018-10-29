@@ -16,6 +16,7 @@ import List from '../../../node_modules/@material-ui/core/List/List'
 import vacancyStyles from '../../constants/vacancyStylesJSS'
 import routes from '../../constants/routes'
 import { Link } from 'react-router-dom'
+import picture from '../../img/take pic.png'
 
 import axios from 'axios'
 
@@ -78,6 +79,9 @@ class VacanciesPage extends Component {
                   </Radio>
                   <Typography variant='caption'>открытые вакансии</Typography>
                 </Paper>
+
+
+
                 <Paper onClick={() => this.setState({showClosedVacancies: !showClosedVacancies})}
                   className={classes.radioButton} elevation={0}>
                   <Radio className={classes.radioButtonInner}
