@@ -158,6 +158,13 @@ body {
     font-size: 15px;
     font-weight: 500;
     text-transform: uppercase;
+
+    &:hover {
+      background-color: #fff;
+      color: #7ff4a9;
+      padding: 13px 19px;
+      border: 1px solid #7ff4a9;
+    }
   }
 
   &-errorText {
