@@ -6,7 +6,7 @@ import Employees from '../pages/Employees'
 import EmployeesPage from '../pages/employees/EmployeesPage'
 import EmployeesFactoryPage from '../pages/employees/EmployeesFactoryPage'
 import Vacancies from '../pages/vacancies/VacanciesPage'
-import VacanciesFactoryPage from "../pages/vacancies/VacanciesFactoryPage";
+import VacanciesFactoryPage from '../pages/vacancies/VacanciesFactoryPage'
 import Comments from '../pages/shifts/Shifts'
 import ShiftsHistory from '../pages/shifts/ShiftsHistory'
 import CreateNewComments from '../pages/shifts/CommentsFactory'
@@ -20,23 +20,26 @@ import Lodgers from '../pages/washingDate/Lodgers'
 import Header from './Header'
 import RoomCheckIn from '../pages/roomCheckin/RoomsList'
 import TasksForRoom from '../pages/roomCheckin/TasksForRoom'
+import SignIn from '../pages/authentication/SignIn'
 
 class Navigation extends Component {
   render () {
     const {header} = this.props
     return (
       <Switch>
+        <Route exact path={routes.signIn.href}
+          render={(props) => header ? <Header previousRoute={routes.signIn} {...props}/> : <SignIn {...props}/>}/>
         <Route exact path={routes.home.href}
           render={(props) => header ? <Header previousRoute={routes.home} {...props}/> : <Home {...props}/>}/>
         <Route exact path={routes.employees.href}
           render={(props) => header ? <Header previousRoute={routes.employees} {...props}/>
             : <Employees {...props}/>}/>
         <Route exact path={routes.employeesList.href}
-               render={(props) => header ? <Header previousRoute={routes.employeesList} {...props}/> : <EmployeesPage {...props}/>}/>
+          render={(props) => header ? <Header previousRoute={routes.employeesList} {...props}/> : <EmployeesPage {...props}/>}/>
         <Route exact path={routes.updateEmployee.href + ':employeeId'}
-                 render={(props) => header ? <Header previousRoute={routes.updateEmployee} {...props}/> : <EmployeesFactoryPage {...props}/>}/>
+          render={(props) => header ? <Header previousRoute={routes.updateEmployee} {...props}/> : <EmployeesFactoryPage {...props}/>}/>
         <Route exact path={routes.addNewEmployee.href}
-                 render={(props) => header ? <Header previousRoute={routes.addNewEmployee} {...props}/> : <EmployeesFactoryPage {...props}/>}/>
+          render={(props) => header ? <Header previousRoute={routes.addNewEmployee} {...props}/> : <EmployeesFactoryPage {...props}/>}/>
         <Route exact path={routes.vacancies.href}
           render={(props) => header ? <Header previousRoute={routes.vacancies} {...props}/>
             : <Vacancies {...props}/>}/>
@@ -53,10 +56,9 @@ class Navigation extends Component {
           render={(props) => header ? <Header previousRoute={routes.updateComment} {...props}/>
             : <CreateNewComments {...props}/>}/>
         <Route path={routes.updateVacancy.href + ':vacancyId'}
-               render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/> : <VacanciesFactoryPage {...props}/>}/>
+          render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/> : <VacanciesFactoryPage {...props}/>}/>
         <Route path={routes.addNewVacancy.href}
-               render={(props) => header ? <Header previousRoute={routes.addNewVacancy} {...props}/> : <VacanciesFactoryPage {...props}/>}/>
-
+          render={(props) => header ? <Header previousRoute={routes.addNewVacancy} {...props}/> : <VacanciesFactoryPage {...props}/>}/>
 
         <Route exact path={routes.tasks.href}
           render={(props) => header ? <Header previousRoute={routes.tasks} {...props}/> : <Tasks {...props}/>}/>
@@ -85,8 +87,8 @@ class Navigation extends Component {
           render={(props) => header ? <Header previousRoute={routes.taskForRoom} {...props}/>
             : <TasksForRoom {...props}/>}/>
         <Route exact path={routes.createNewTask.href + ':floorId/:roomId'}
-               render={(props) => header ? <Header previousRoute={routes.createTaskForRoom} {...props}/>
-                 : <CreateNewTask {...props}/>}/>
+          render={(props) => header ? <Header previousRoute={routes.createTaskForRoom} {...props}/>
+            : <CreateNewTask {...props}/>}/>
       </Switch>
     )
   }

@@ -16,6 +16,7 @@ import {
 import Preloader from './components/Preloader'
 import { startData } from './utils/utils'
 import Navigation from './components/Navigation'
+import SignIn from './pages/authentication/SignIn'
 
 class App extends Component {
   componentDidMount () {
@@ -33,24 +34,30 @@ class App extends Component {
   }
 
   render () {
-    if (!this.props.user ||
-      !this.props.schedules ||
-      !this.props.positions ||
-      !this.props.comments ||
-      !this.props.locations ||
-      !this.props.statuses ||
-      !this.props.frequencies ||
-    !this.props.allTasks) {
+    if (!this.props.user) {
       return (
-        <Preloader/>
+        <SignIn/>
       )
     } else {
-      return (
-        <div className="container">
-          <Navigation header={true}/>
-          <Navigation/>
-        </div>
-      )
+      if (!this.props.user ||
+        !this.props.schedules ||
+        !this.props.positions ||
+        !this.props.comments ||
+        !this.props.locations ||
+        !this.props.statuses ||
+        !this.props.frequencies ||
+        !this.props.allTasks) {
+        return (
+          <Preloader/>
+        )
+      } else {
+        return (
+          <div className="container">
+            <Navigation header={true}/>
+            <Navigation/>
+          </div>
+        )
+      }
     }
   }
 }

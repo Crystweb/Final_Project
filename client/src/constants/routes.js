@@ -1,4 +1,5 @@
 const routes = {
+  signIn: {name: 'вход', href: '/login', previousHref: null},
   home: {name: 'грилив отель', href: '/', previousHref: null},
   employees: {name: 'персонал', href: '/employees', previousHref: '/'},
   employeesList: {name: 'сотрудники', href: '/employees/list', previousHref: '/employees'},
