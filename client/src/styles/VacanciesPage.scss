@@ -13,3 +13,107 @@
   }
 }
 
+.vacancy__salary {
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+  border: solid 1px #4b5461;
+  box-sizing: border-box;
+  padding: 8px 10px;
+
+  font-family: HelveticaNeue, sans-serif;
+  font-size: 14px;
+  color: #4b5461;
+}
+
+
+.vacancy__wrap-select {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 80%;
+  height: 50px;
+  margin-bottom: 8px;
+
+  & .react-select__control {
+    width: 100%;
+  }
+
+  & .react-select__value-container {
+    width: auto;
+  }
+
+  & .react-select__indicators {
+    width: auto;
+    margin-right: 15px;
+  }
+}
+
+.vacancy__wrap-select .react-select__control {
+  width: 100%;
+}
+
+.vacancy__wrap-textarea {
+  position: relative;
+  width: 100%;
+  padding: 20% 0;
+  min-width: 248px;
+  margin-bottom: 15px;
+
+
+}
+
+.vacancy__textarea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 248px;
+  min-height: 88px;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border: solid 1px #c1c1c1;
+  border-radius: 5px;
+  background-color: #e5e5e5;
+  resize: none;
+  box-sizing: border-box;
+  color: #4b5461;
+  font-family: HelveticaNeue, sans-serif;
+  font-size: 11px;
+}
+
+.vacancy__btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+
+  & .taskFactory__errorText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;
+    font-size: 15px;
+    text-transform: uppercase;
+  }
+}
+
+.vacancy__create {
+  border-radius: 5px;
+  background-color: #7ff4a9;
+  padding: 11px 21px;
+  font-family: HelveticaNeue, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  color: #ffffff;
+  text-transform: uppercase;
+
+  &:hover {
+    padding: 10px 20px;
+    border: 1px solid #7ff4a9;
+    color: #7ff4a9;
+    background-color: #ffffff;
+  }
+}
