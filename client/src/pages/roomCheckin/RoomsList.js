@@ -9,21 +9,23 @@ class RoomsList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      floor: this.props.checkInLocations[0].id
+      floor: this.props.checkInLocations[0].id,
+      floorName: this.props.checkInLocations[0].title
     }
     this.chooseFloor = this.chooseFloor.bind(this)
   }
 
   chooseFloor (event) {
     this.setState({
-      floor: event.value
+      floor: event.value,
+      floorName: event.label
     })
     console.log(this.state.floor)
   }
 
   render () {
     const {checkInLocations} = this.props
-    const {floor} = this.state
+    const {floor, floorName} = this.state
     const chosenFloor = floor && checkInLocations.find(location => location.id === +floor).children
 
     let options = []
@@ -64,7 +66,7 @@ class RoomsList extends Component {
           onChange={this.chooseFloor}
           defaultValue={2}
           value={floor}
-          placeholder={"Этаж"}
+          placeholder={floorName}
           controlShouldRenderValue={true}
         />
 

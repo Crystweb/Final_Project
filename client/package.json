@@ -23,6 +23,7 @@
     "react-responsive-modal": "^3.2.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "react-select": "^2.1.1",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-form": "^7.3.0",
