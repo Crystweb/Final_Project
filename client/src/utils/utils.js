@@ -7,7 +7,6 @@ export const getLastShift = (callback) => {
 }
 
 export const startData = (
-  callbackUser,
   callbackPosition,
   callbackSchedule,
   callbackLocation,
@@ -16,9 +15,6 @@ export const startData = (
   callbackFrequency,
   callbackUsers,
   callbackTasks) => {
-  axios.get('/test/user')
-    .then(response => response.data)
-    .then(callbackUser)
   axios.get('/position/list')
     .then(response => response.data)
     .then(callbackPosition)

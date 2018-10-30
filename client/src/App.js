@@ -17,11 +17,11 @@ import Preloader from './components/Preloader'
 import { startData } from './utils/utils'
 import Navigation from './components/Navigation'
 import SignIn from './pages/authentication/SignIn'
+import axios from 'axios'
 
 class App extends Component {
   componentDidMount () {
     startData(
-      data => { this.props.addUser(data) },
       data => { this.props.addAllPositions(data) },
       data => { this.props.addSchedules(data) },
       data => { this.props.addAllLocation(data) },
@@ -31,6 +31,8 @@ class App extends Component {
       data => { this.props.addAllUsers(data) },
       data => { this.props.addTasks(data) }
     )
+      axios.get('/test/user')
+        .then(response => this.props.addUser(response.data))
   }
 
   render () {
@@ -64,7 +66,7 @@ class App extends Component {
 
 const mapStateToProps = ({comments, startData, tasks}) => {
   return {
-    user: startData.currentUser,
+
     positions: startData.positions,
     schedules: startData.schedules,
     comments: comments.lastComments,

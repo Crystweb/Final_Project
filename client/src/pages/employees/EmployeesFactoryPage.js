@@ -14,7 +14,6 @@ class EmployeesFactoryPage extends Component {
 
   handleSubmit = event => {
     const toUpdate = this.state.toUpdate
-    debugger
     event.preventDefault();
     axios({
       url: `/employee`,

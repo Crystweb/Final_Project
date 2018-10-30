@@ -5,6 +5,8 @@ import routes from '../../constants/routes'
 import Link from 'react-router-dom/es/Link'
 import * as _ from 'lodash'
 import axios from 'axios'
+import connect from 'react-redux/es/connect/connect'
+import { addCurrentUser } from '../../actions/actions'
 
 class SignIn extends Component {
   constructor (props) {
@@ -33,7 +35,16 @@ class SignIn extends Component {
     if (!userName || !userPassword) {
 
     }
-    axios.post('/login')
+    axios.post('/auth', {
+      params: {
+        name: userName,
+        password: userPassword
+      }
+    })
+      .then(() =>
+        axios.get('/test/user')
+          .then(response => this.props.addUser(response.data))
+      )
   }
 
   render () {
@@ -43,14 +54,16 @@ class SignIn extends Component {
         <div style={userName ? signInStyles.inputContainerWithData : signInStyles.inputContainerWithoutData}>
           <label style={signInStyles.label} htmlFor='userName'>Введите логин</label>
           <span style={signInStyles.inputBlock}>
-            <input style={userName ? signInStyles.withData : signInStyles.withoutData} name='userName' type='text' onChange={this.setUserName} maxLength={20}/>
+            <input style={userName ? signInStyles.withData : signInStyles.withoutData} name='userName' type='text'
+                   onChange={this.setUserName} maxLength={20}/>
             {userName && <img style={signInStyles.confirm} src={yesImg} alt="yes"/>}
           </span>
         </div>
         <div style={userPassword ? signInStyles.inputContainerWithData : signInStyles.inputContainerWithoutData}>
           <label style={signInStyles.label} htmlFor='userPassword'>Введите пароль</label>
           <span style={signInStyles.inputBlock}>
-            <input style={userPassword ? signInStyles.withData : signInStyles.withoutData} name='userPassword' type='password' onChange={this.setUserPassword} maxLength={20}/>
+            <input style={userPassword ? signInStyles.withData : signInStyles.withoutData} name='userPassword'
+                   type='password' onChange={this.setUserPassword} maxLength={20}/>
             {userPassword && <img style={signInStyles.confirm} src={yesImg} alt="yes"/>}
           </span>
         </div>
@@ -67,4 +80,15 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn
+const mapStateToProps = () => {
+
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addUser: (data) => {
+      dispatch(addCurrentUser(data))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
