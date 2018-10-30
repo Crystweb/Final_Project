@@ -28,9 +28,27 @@ class RoomsList extends Component {
 
     let options = []
 
-    {checkInLocations && checkInLocations.map(location => {
+    checkInLocations && checkInLocations.map(location => {
       options.push({value: location.id, label: location.title})
-    })}
+    })
+
+    const styles = {
+      dropdownIndicator: (base, state) => ({
+      }),
+
+      placeholder: (base, state) => ({
+      }),
+      valueContainer: (base, state) => ({
+      }),
+      control: (base, state) => ({
+      }),
+      indicatorsContainer: (base, state) => ({
+
+      }),
+      input: (base, start) => ({
+        display: "none"
+      })
+    }
 
 
     return (
@@ -39,12 +57,15 @@ class RoomsList extends Component {
       <div className='floors'>
 
         <Select
+          styles={styles}
           className='floors__select'
+          classNamePrefix="react-select"
           options={options}
           onChange={this.chooseFloor}
           defaultValue={2}
           value={floor}
           placeholder={"Этаж"}
+          controlShouldRenderValue={true}
         />
 
 

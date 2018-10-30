@@ -138,6 +138,23 @@ class TaskFactory extends Component {
       floorSelected
     } = this.state
 
+    const styles = {
+      dropdownIndicator: (base, state) => ({
+      }),
+
+      placeholder: (base, state) => ({
+      }),
+      valueContainer: (base, state) => ({
+      }),
+      control: (base, state) => ({
+      }),
+      indicatorsContainer: (base, state) => ({
+      }),
+      input: (base, start) => ({
+        display: "none"
+      })
+    }
+
     let optionsLocation = []
 
     allLocations.map(location => {
@@ -146,7 +163,9 @@ class TaskFactory extends Component {
 
     const location = (
       <Select
-        className=""
+        styles={styles}
+        classNamePrefix="react-select"
+        className="taskFactory__select"
         defaultValue="locationChoice"
         placeholder="Локация"
         onChange={this.floorChecker}
@@ -165,7 +184,9 @@ class TaskFactory extends Component {
 
     const rooms = (
       <Select
-        className=""
+        styles={styles}
+        classNamePrefix="react-select"
+        className="taskFactory__select"
         defaultValue="roomChoice"
         ref={(input) => this.idForRoom = input}
         name="roomsList"
@@ -185,12 +206,16 @@ class TaskFactory extends Component {
       {value: 5, label: "5"}
       )
 
-      const priority = <Select clasName=""
+      const priority = <Select
+        styles={styles}
+        classNamePrefix="react-select"
+                                className="taskFactory__select"
                                defaultValue='0'
                                id="priority"
                                ref={input => this.taskPriority = input}
                                placeholder="Приоритет"
                                options={optionsPriority}
+
                                       />
 
         let optionsExecutor = []
@@ -202,12 +227,17 @@ class TaskFactory extends Component {
         + ", " + user.employee.title})
     })
 
-      const executor = <Select className=""
+      const executor = <Select
+        styles={styles}
+        classNamePrefix="react-select"
+                              className="taskFactory__select"
                                name='executors'
                                defaultValue='test'
                                ref={input => this.executorId = input}
                                required={true}
                                options={optionsExecutor}
+                              placeholder='Исполнитель'
+
                       />
 
         let optionsFrequency = []
@@ -216,12 +246,16 @@ class TaskFactory extends Component {
       optionsFrequency.push({value: frequency, label: frequency})
     })
 
-      const frequency = <Select className=""
+      const frequency = <Select
+        styles={styles}
+        classNamePrefix="react-select"
+                                className="taskFactory__select"
                                 name='frequencies'
                                 defaultValue='0'
                                 ref={(input) => this.taskFrequency = input}
                                 options={optionsFrequency}
                                 placeholder="Повторяемость"
+
           />
 
 
@@ -231,7 +265,7 @@ class TaskFactory extends Component {
 
 
     const locationSelect =
-      (<div>
+      (<div className="taskFactory__wrap-select">
         {location}
         {/*<select*/}
           {/*name='locationsList'*/}
@@ -251,10 +285,10 @@ class TaskFactory extends Component {
           {/*})}*/}
         {/*</select>*/}
         {isNaN(this.locationId.value) &&
-        <label className='task_errors' htmlFor='locationsList'>{errorLocation}</label>}
+        <label className='taskFactory__errorText' htmlFor='locationsList'>{errorLocation}</label>}
       </div>)
     const roomSelect =
-      (<div>
+      (<div className="taskFactory__wrap-select">
         {rooms}
         {/*<select*/}
           {/*name="roomsList"*/}
@@ -276,10 +310,10 @@ class TaskFactory extends Component {
             {/*})}*/}
         {/*</select>*/}
         {(this.idForRoom && isNaN(this.idForRoom.value)) &&
-        <label className='task_errors' htmlFor='roomsList'>{errorRoom}</label>}
+        <label className='taskFactory__errorText' htmlFor='roomsList'>{errorRoom}</label>}
       </div>)
     const prioritySelect = (
-      <div>
+      <div className="taskFactory__wrap-select">
         {priority}
         {/*<select defaultValue='0' id="priority" ref={input => this.taskPriority = input}>*/}
           {/*<option value="0" disabled hidden>*/}
@@ -294,7 +328,7 @@ class TaskFactory extends Component {
       </div>
     )
     const executorSelect = (
-      <div>
+      <div className="taskFactory__wrap-select">
         {executor}
         {/*<select*/}
           {/*name='executors'*/}
@@ -313,11 +347,11 @@ class TaskFactory extends Component {
           {/*})}*/}
         {/*</select>*/}
         {isNaN(this.executorId.value) &&
-        <label className='task_errors' htmlFor='executors'>{errorExecutor}</label>}
+        <label className='taskFactory__errorText' htmlFor='executors'>{errorExecutor}</label>}
       </div>
     )
     const frequenciesSelect = (
-      <div>
+      <div className="taskFactory__wrap-select">
         {frequency}
         {/*<select name='frequencies' defaultValue='0' ref={(input) => this.taskFrequency = input}>*/}
           {/*<option value='0' hidden disabled>*/}
@@ -332,7 +366,7 @@ class TaskFactory extends Component {
           {/*})}*/}
         {/*</select>*/}
         {!isNaN(this.taskFrequency.value) &&
-        <label className='task_errors' htmlFor='frequencies'>{errorFrequency}</label>}
+        <label className='taskFactory__errorText' htmlFor='frequencies'>{errorFrequency}</label>}
       </div>
     )
 
@@ -345,7 +379,7 @@ class TaskFactory extends Component {
         {floorSelected && roomSelect}
         {prioritySelect}
         <DatePicker
-          placeholderText='Срок выполнения'
+          placeholderText='Выполнить до'
           minDate={moment()}
           selected={finishDate}
           showMonthDropdown
@@ -368,21 +402,33 @@ class TaskFactory extends Component {
         />
         {executorSelect}
         {frequenciesSelect}
+        <p className="taskFactory__wrap-textarea">
         <textarea
+          className="taskFactory__textarea"
           name="task"
           cols="30"
           rows="10"
           ref={input => this.textForTask = input}
-          placeholder='Введите текст'
+          placeholder='Привет друг, что бы ты хотел мне написать?'
         >
         </textarea>
+        </p>
+        <p className="taskFactory__btns">
         {this.textForTask.value ||
-        <label className='task_errors' htmlFor='task'>{errorText}</label>}
-        <input type="file" accept="image/*" onChange={this.makePhoto}/>
+        <label className='taskFactory__errorText' htmlFor='task'>{errorText}</label>}
+        <div className="taskFactory__wrap-foto">
+          Фото
+          <input className="taskFactory__foto"
+                 type="file"
+                 accept="image/*"
+                 onChange={this.makePhoto}/>
+        </div>
         <button
-          onClick={this.createTask}>Создать
+          className="taskFactory__create"
+          onClick={this.createTask}>Добавить
         </button>
         {successAdd && <h3>{successAdd}</h3>}
+      </p>
       </div>
     )
   }
