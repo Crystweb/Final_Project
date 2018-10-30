@@ -50,31 +50,35 @@ class SignIn extends Component {
   render () {
     const {userName, userPassword} = this.state
     return (
-      <div style={signInStyles.container}>
-        <div style={userName ? signInStyles.inputContainerWithData : signInStyles.inputContainerWithoutData}>
-          <label style={signInStyles.label} htmlFor='userName'>Введите логин</label>
-          <span style={signInStyles.inputBlock}>
-            <input style={userName ? signInStyles.withData : signInStyles.withoutData} name='userName' type='text'
+      <div className="signIn-container">
+        <div className={userName ? 'signIn__login' : 'signIn__loginActive'}>
+          <label className='signIn__login-label' htmlFor='userName'>Введите логин</label>
+          <span className="signIn__inputBlock">
+            <input className={userName ? 'signIn__inputWithData' : 'signIn__inputWithoutData'} name='userName' type='text'
                    onChange={this.setUserName} maxLength={20}/>
-            {userName && <img style={signInStyles.confirm} src={yesImg} alt="yes"/>}
+            {userName && <img className="signIn-confirm" src={yesImg} alt="yes"/>}
           </span>
         </div>
-        <div style={userPassword ? signInStyles.inputContainerWithData : signInStyles.inputContainerWithoutData}>
-          <label style={signInStyles.label} htmlFor='userPassword'>Введите пароль</label>
-          <span style={signInStyles.inputBlock}>
-            <input style={userPassword ? signInStyles.withData : signInStyles.withoutData} name='userPassword'
+        <div className={userName ? 'signIn__login' : 'signIn__loginActive'}>
+          <label className='signIn__login-label' htmlFor='userPassword'>Введите пароль</label>
+          <span className="signIn__inputBlock">
+            <input className={userName ? 'signIn__inputWithData' : 'signIn__inputWithoutData'} name='userPassword'
                    type='password' onChange={this.setUserPassword} maxLength={20}/>
-            {userPassword && <img style={signInStyles.confirm} src={yesImg} alt="yes"/>}
+            {userPassword && <img className="signIn-confirm" src={yesImg} alt="yes"/>}
           </span>
         </div>
-        <div style={signInStyles.signInServices}>
-          <span style={signInStyles.label}>
-            <input type='checkbox'/>
-            запомнить меня
-          </span>
-          <Link style={signInStyles.linkToRestorePassword} to={routes.taskForRoom.href}>Забыли пароль?</Link>
+        <div className="signIn-wrap-checkBoxForgetPass">
+          <label className="signIn-check">
+            <input className="signIn-check__realCheckbox"
+              type='checkbox'/>
+            <div className="signIn-check__fakeCheckbox">
+              <div className="signIn-check__fakeCheckbox-active"></div>
+            </div>
+            Запомнить меня
+          </label>
+          <Link className="signIn-linkToRestorePassword" to={routes.taskForRoom.href}>Забыли пароль?</Link>
         </div>
-        <span style={signInStyles.signIn} onClick={this.signIn}>ВОЙТИ</span>
+        <button className="signIn-btn" onClick={this.signIn}>ВОЙТИ</button>
       </div>
     )
   }
