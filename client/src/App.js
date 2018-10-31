@@ -31,17 +31,12 @@ class App extends Component {
       data => { this.props.addAllUsers(data) },
       data => { this.props.addTasks(data) }
     )
-      axios.get('/test/user')
-        .then(response => this.props.addUser(response.data))
+    axios.get('/test/user')
+      .then(response => this.props.addUser(response.data))
   }
 
   render () {
-    if (!this.props.user) {
-      return (
-        <SignIn/>
-      )
-    } else {
-      if (!this.props.user ||
+    if (!this.props.user ||
         !this.props.schedules ||
         !this.props.positions ||
         !this.props.comments ||
@@ -49,24 +44,27 @@ class App extends Component {
         !this.props.statuses ||
         !this.props.frequencies ||
         !this.props.allTasks) {
-        return (
-          <Preloader/>
-        )
-      } else {
-        return (
-          <div className="container">
-            <Navigation header={true}/>
-            <Navigation/>
-          </div>
-        )
-      }
+      return (
+        <Preloader/>
+      )
+    }
+    return (
+      <div className="container">
+        <Navigation header={true}/>
+        <Navigation/>
+      </div>
+    )
+    if (!this.props.user) {
+      return (
+        <SignIn/>
+      )
     }
   }
 }
 
 const mapStateToProps = ({comments, startData, tasks}) => {
   return {
-
+    user: startData.currentUser,
     positions: startData.positions,
     schedules: startData.schedules,
     comments: comments.lastComments,

@@ -20,15 +20,12 @@ import Lodgers from '../pages/washingDate/Lodgers'
 import Header from './Header'
 import RoomCheckIn from '../pages/roomCheckin/RoomsList'
 import TasksForRoom from '../pages/roomCheckin/TasksForRoom'
-import SignIn from '../pages/authentication/SignIn'
 
 class Navigation extends Component {
   render () {
     const {header} = this.props
     return (
       <Switch>
-        <Route exact path={routes.signIn.href}
-          render={(props) => header ? <Header previousRoute={routes.signIn} {...props}/> : <SignIn {...props}/>}/>
         <Route exact path={routes.home.href}
           render={(props) => header ? <Header previousRoute={routes.home} {...props}/> : <Home {...props}/>}/>
         <Route exact path={routes.employees.href}
@@ -59,7 +56,6 @@ class Navigation extends Component {
           render={(props) => header ? <Header previousRoute={routes.updateVacancy} {...props}/> : <VacanciesFactoryPage {...props}/>}/>
         <Route path={routes.addNewVacancy.href}
           render={(props) => header ? <Header previousRoute={routes.addNewVacancy} {...props}/> : <VacanciesFactoryPage {...props}/>}/>
-
         <Route exact path={routes.tasks.href}
           render={(props) => header ? <Header previousRoute={routes.tasks} {...props}/> : <Tasks {...props}/>}/>
         <Route exact path={routes.createNewTask.href}

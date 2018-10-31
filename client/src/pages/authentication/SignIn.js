@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { signInStyles } from '../../constants/SignInStyles'
 import yesImg from '../../img/yes.png'
 import routes from '../../constants/routes'
 import Link from 'react-router-dom/es/Link'
@@ -31,9 +30,9 @@ class SignIn extends Component {
   }
 
   signIn () {
-    const {userName, userPassword} = this.props
+    const {userName, userPassword} = this.state
     if (!userName || !userPassword) {
-
+      return null
     }
     axios.post('/auth', {
       params: {
@@ -55,15 +54,15 @@ class SignIn extends Component {
           <label className='signIn__login-label' htmlFor='userName'>Введите логин</label>
           <span className="signIn__inputBlock">
             <input className={userName ? 'signIn__inputWithData' : 'signIn__inputWithoutData'} name='userName' type='text'
-                   onChange={this.setUserName} maxLength={20}/>
+              onChange={this.setUserName} maxLength={20}/>
             {userName && <img className="signIn-confirm" src={yesImg} alt="yes"/>}
           </span>
         </div>
-        <div className={userName ? 'signIn__login' : 'signIn__loginActive'}>
+        <div className={userPassword ? 'signIn__login' : 'signIn__loginActive'}>
           <label className='signIn__login-label' htmlFor='userPassword'>Введите пароль</label>
           <span className="signIn__inputBlock">
-            <input className={userName ? 'signIn__inputWithData' : 'signIn__inputWithoutData'} name='userPassword'
-                   type='password' onChange={this.setUserPassword} maxLength={20}/>
+            <input className={userPassword ? 'signIn__inputWithData' : 'signIn__inputWithoutData'} name='userPassword'
+              type='password' onChange={this.setUserPassword} maxLength={20}/>
             {userPassword && <img className="signIn-confirm" src={yesImg} alt="yes"/>}
           </span>
         </div>
@@ -85,7 +84,7 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = () => {
-
+  return {}
 }
 const mapDispatchToProps = (dispatch) => {
   return {
