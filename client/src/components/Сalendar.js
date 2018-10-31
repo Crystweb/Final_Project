@@ -33,13 +33,26 @@ class Calendar extends Component {
           rowHeight={60}
           max={max}
           min={min}
-          width={320}
-          height={600}
+          width={300}
+          height={300}
           selected={selected}
           minDate={minDate}
           maxDate={maxDate}
           displayOptions={{
             showHeader: false
+          }}
+          theme={{
+            selectionColor: 'rgb(127, 244, 169)',
+            textColor: {
+              default: '#333',
+              active: '#4b5461'
+            },
+            weekdayColor: 'rgb(127, 244, 169)',
+            floatingNav: {
+              background: 'rgb(127, 244, 169)',
+              color: '#FFF',
+              chevron: '#FFA726'
+            }
           }}
           onSelect={date => {
             this.setState({
