@@ -53,6 +53,7 @@
     &__elem {
       display: flex;
       flex-direction: row;
+      margin-bottom: 25px;
     }
   }
 
@@ -61,7 +62,9 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
+    margin-right: 11px;
     overflow: hidden;
+
 
     & img {
       width: 100%;

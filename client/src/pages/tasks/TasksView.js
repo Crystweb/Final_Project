@@ -84,7 +84,7 @@ class TasksView extends Component {
 
                 <div className="tasks-img">
                   {hasPhoto && <Lightbox
-                    isOpen={this.state.lightboxIsOpen}
+                    isOpen={false}
                     onClickPrev={this.gotoPrevious}
                     onClickNext={this.gotoNext}
                     images={[{ src: task.imageLinks[0] }]}

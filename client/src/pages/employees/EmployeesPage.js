@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {getAllVacancies} from '../../actions/actions'
 import Preloader from '../../components/Preloader'
 import {withStyles} from '@material-ui/core/styles'
+import noPhoto from '../../img/no-photo.png'
 import Radio from '@material-ui/core/Radio'
 import Typography from '@material-ui/core/Typography/Typography'
 import RadioGroup from '@material-ui/core/RadioGroup'
@@ -58,7 +59,7 @@ class EmployeesPage extends Component {
 
               return <li className="employeeList__elem">
                   <div className="employee-fotoWrap">
-                    <img src="#" alt="#"/>
+                    <img src={noPhoto} alt="#"/>
                   </div>
                   <div className="employee-wrapInfo">
                 <h3 className="employee-data">
