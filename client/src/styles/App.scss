@@ -122,8 +122,9 @@ body {
   }
 
   &-textarea {
-    width: 100%;
+    width: calc(100% - 41px);
     height: 188px;
+    margin-left: 41px;
     margin-bottom: 15px;
     padding: 10px;
     border: solid 1px #c1c1c1;
@@ -138,7 +139,8 @@ body {
 
   &-btn {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-end;
   }
 
   &-send {
@@ -146,8 +148,7 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    order: 1;
-    width: 100%;
+    width: auto;
     margin-bottom: 8px;
     padding: 14px 20px;
     border: 0;
@@ -172,7 +173,6 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    order: 2;
     margin-bottom: 8px;
     color: rgba(193, 13, 13, 1);
     font-family: HelveticaNeue, sans-serif;
@@ -259,13 +259,11 @@ form {
     }
 
     &-errorText {
-      order: 1;
       margin-right: 8px;
       margin-bottom: 0;
     }
 
     &-send {
-      order: 2;
       width: auto;
       margin: 0;
     }

@@ -257,14 +257,6 @@
     }
   }
 
-  //&__select {
-  //  min-width: 200px;
-  //  height: 30px;
-  //  border-radius: 5px;
-  //  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-  //  margin-bottom: 11px;
-  //}
-
   &__errorText {
     font-family: HelveticaNeue, sans-serif;
     font-size: 11px;
@@ -284,6 +276,7 @@
       margin-right: 8px;
       font-size: 15px;
       text-transform: uppercase;
+      text-align: center;
     }
   }
 }
@@ -294,6 +287,12 @@
   height: 30px;
   margin-bottom: 20px;
 
+  & input::placeholder, input::-webkit-input-placeholder,
+  input::-moz-placeholder ,
+  input:-ms-input-placeholder ,
+  input:-moz-placeholder  {
+    color: #4a4a4a;
+  }
 
   & input {
     width: 100%;
