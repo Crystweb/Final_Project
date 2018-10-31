@@ -491,6 +491,11 @@
     font-size: 13px;
     color: #4b5461;
     margin-bottom: 10px;
+
+    & a {
+      color: #4b5461;
+      cursor: pointer;
+    }
   }
 
   &-info {
