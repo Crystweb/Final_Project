@@ -43,6 +43,43 @@ body {
   box-sizing: border-box;
 }
 
+.empty {
+
+  &-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  &-info {
+    margin-bottom: 8px;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 17px;
+    line-height: 17px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #4b5461;
+
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &-img {
+
+    width: 50%;
+
+    & img {
+      width: 100%;
+      margin: 0 50%;
+    }
+  }
+}
+
 .container {
   min-width: 320px;
   margin: 0 auto;

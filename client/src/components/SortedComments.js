@@ -5,6 +5,7 @@ import routes from "../constants/routes";
 import picture from "../img/add.png";
 import calendar from "../img/calendar.png";
 import ScheduleWithComments from './ScheduleWithComments'
+import NotFound from './NotFoundData'
 
 class PositionButtons extends Component {
   constructor (props) {
@@ -54,7 +55,7 @@ class PositionButtons extends Component {
     } else if (filterComments.length > 0 && arrayOfSchedules.length <= 0) {
       arrayOfReadyComments = this.createCommentsWithoutSchedules(filterComments)
     } else {
-      arrayOfReadyComments.push(<h1>None</h1>)
+      arrayOfReadyComments.push(<NotFound info={'записи не найдены'}/>)
     }
 
     return arrayOfReadyComments
