@@ -6,6 +6,7 @@ import axios from 'axios/index'
 import { addHitoryTasks, deleteTask } from '../../actions/actions'
 import Point from '../../components/Point'
 import NotFound from '../../components/NotFoundData'
+import Lightbox from 'react-images';
 
 class TasksView extends Component {
   constructor (props) {
@@ -79,9 +80,19 @@ class TasksView extends Component {
                 <Point color={color}/>
 
 
+
+
                 <div className="tasks-img">
-                  {hasPhoto && <img alt='taskPhoto' src={task.imageLinks[0]}/>}
+                  {hasPhoto && <Lightbox
+                    isOpen={this.state.lightboxIsOpen}
+                    onClickPrev={this.gotoPrevious}
+                    onClickNext={this.gotoNext}
+                    images={[{ src: task.imageLinks[0] }]}
+                    onClose={this.closeLightbox}
+                  /> }
                 </div>
+
+                {/*<img alt='taskPhoto' src={task.imageLinks[0]}/>*/}
 
                 <h3 className="tasks-list__elem-title">{task.message}
                   {itIsHistory ||
