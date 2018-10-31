@@ -5,6 +5,7 @@ import Preloader from '../../components/Preloader'
 import axios from 'axios/index'
 import { addHitoryTasks, deleteTask } from '../../actions/actions'
 import Point from '../../components/Point'
+import NotFound from '../../components/NotFoundData'
 
 class TasksView extends Component {
   constructor (props) {
@@ -67,7 +68,7 @@ class TasksView extends Component {
 
       return (
         <ul className="tasks-list">
-          {tasksForHistory && tasks.length === 0 && <p>Никто ничего не делал</p>}
+          {tasksForHistory && tasks.length === 0 && <NotFound/>}
           {tasks.map(task => {
             const isShowTask = currentUser.employee.id === task.assignee.id
             const hasPhoto = task.imageLinks.length > 0

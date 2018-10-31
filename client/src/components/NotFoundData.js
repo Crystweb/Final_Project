@@ -4,7 +4,9 @@ import emptyIcon from '../img/emptyBox.jpg'
 class NotFound extends Component{
 
   render() {
-    const {info} = this.props
+    let {info} = this.props
+
+    info ? info : info = 'записи не найдены'
 
     return (<div className="empty-wrap">
         <h1 className="empty-info">{info}</h1>
