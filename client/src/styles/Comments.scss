@@ -10,6 +10,10 @@
   align-items: center;
   padding: 0;
   line-height: 0;
+
+  &--alone {
+    justify-content: center;
+  }
 }
 
 .radioANDbuttons {

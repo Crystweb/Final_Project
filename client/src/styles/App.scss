@@ -43,6 +43,43 @@ body {
   box-sizing: border-box;
 }
 
+.empty {
+
+  &-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  &-info {
+    margin-bottom: 8px;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 17px;
+    line-height: 17px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #4b5461;
+
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &-img {
+
+    width: 50%;
+
+    & img {
+      width: 100%;
+      margin: 0 50%;
+    }
+  }
+}
+
 .container {
   min-width: 320px;
   margin: 0 auto;
@@ -121,10 +158,20 @@ body {
     line-height: 21px;
   }
 
-  &-textarea {
-    width: 100%;
-    height: 188px;
+  &-wrap-textarea {
+    position: relative;
+    width: calc(100% - 41px);
+    padding: 30% 0;
+    margin-left: 41px;
     margin-bottom: 15px;
+  }
+
+  &-textarea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     padding: 10px;
     border: solid 1px #c1c1c1;
     border-radius: 5px;
@@ -138,7 +185,8 @@ body {
 
   &-btn {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-end;
   }
 
   &-send {
@@ -146,8 +194,7 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    order: 1;
-    width: 100%;
+    width: auto;
     margin-bottom: 8px;
     padding: 14px 20px;
     border: 0;
@@ -172,7 +219,6 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    order: 2;
     margin-bottom: 8px;
     color: rgba(193, 13, 13, 1);
     font-family: HelveticaNeue, sans-serif;
@@ -259,13 +305,11 @@ form {
     }
 
     &-errorText {
-      order: 1;
       margin-right: 8px;
       margin-bottom: 0;
     }
 
     &-send {
-      order: 2;
       width: auto;
       margin: 0;
     }

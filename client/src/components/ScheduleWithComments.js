@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import ActionButtons from "./ActionButtons"
 import dateFormat from 'dateformat'
+import Point from './Point'
 
 
 class ScheduleWithComments extends Component {
@@ -37,12 +38,7 @@ class ScheduleWithComments extends Component {
                       <h3 className="comment-list__elem-title">
                         {comment.author.forename} {comment.author.surname}, {comment.author.position.title}
                       </h3>
-                      <div className="comment-list__elem-point">
-                        <div className="comment-list__elem-line"></div>
-                        <div className="point-big" style={{backgroundColor: dataObject.color}}>
-                          <div className="point-small"></div>
-                        </div>
-                      </div>
+                      <Point color={dataObject.color}/>
                       <h4 className="comment-list__elem-subtitle">
                         {readyTime}
                       </h4>
