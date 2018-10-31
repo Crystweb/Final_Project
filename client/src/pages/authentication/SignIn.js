@@ -6,6 +6,7 @@ import * as _ from 'lodash'
 import axios from 'axios'
 import connect from 'react-redux/es/connect/connect'
 import { addCurrentUser } from '../../actions/actions'
+import logo from '../../img/GreLive.png'
 
 class SignIn extends Component {
   constructor (props) {
@@ -50,6 +51,9 @@ class SignIn extends Component {
     const {userName, userPassword} = this.state
     return (
       <div className="signIn-container">
+        <div className='signIn__logo'>
+          <img src={logo} alt="logo"/>
+        </div>
         <div className={userName ? 'signIn__login' : 'signIn__loginActive'}>
           <label className='signIn__login-label' htmlFor='userName'>Введите логин</label>
           <span className="signIn__inputBlock">

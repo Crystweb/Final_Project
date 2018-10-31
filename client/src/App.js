@@ -36,14 +36,19 @@ class App extends Component {
   }
 
   render () {
+    if (!this.props.user) {
+      return (
+        <SignIn/>
+      )
+    }
     if (!this.props.user ||
-        !this.props.schedules ||
-        !this.props.positions ||
-        !this.props.comments ||
-        !this.props.locations ||
-        !this.props.statuses ||
-        !this.props.frequencies ||
-        !this.props.allTasks) {
+      !this.props.schedules ||
+      !this.props.positions ||
+      !this.props.comments ||
+      !this.props.locations ||
+      !this.props.statuses ||
+      !this.props.frequencies ||
+      !this.props.allTasks) {
       return (
         <Preloader/>
       )
@@ -54,11 +59,6 @@ class App extends Component {
         <Navigation/>
       </div>
     )
-    if (!this.props.user) {
-      return (
-        <SignIn/>
-      )
-    }
   }
 }
 
