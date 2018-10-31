@@ -3,7 +3,9 @@ import React, {Component} from 'react'
 class Point extends Component {
 
   render() {
-    const {color} = this.props
+    let {color} = this.props
+
+    color ? color : color = "#c7c8ca"
 
     return (
       <div className="comment-list__elem-point">
