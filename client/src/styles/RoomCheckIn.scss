@@ -3,6 +3,10 @@
   flex-flow: column wrap;
   justify-content: space-between;
 
+  &__select {
+    display: inline-block;
+  }
+
 
 
   &__item {
@@ -18,17 +22,18 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    margin-top: 40px;
+    margin-top: 25px;
   }
 }
 
 .roomName {
   min-width: 50px;
-  width: 15%;
-  padding: 6% 0;
+  width: 14%;
+  padding: 6.8% 0;
   margin-bottom: 6%;
   position: relative;
-  margin-right: 6%;
+  margin-right: 6.5%;
+
   &__item {
     display: flex;
     align-items: center;
