@@ -459,7 +459,7 @@
   &-fotoWrap {
     position: relative;
     width: 70px;
-    height: 70px;
+    height: 100%;
     border-radius: 50%;
     overflow: hidden;
     margin-right: 11px;
@@ -472,6 +472,10 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
+  }
+
+  &-wrapInfo {
+    max-width: calc(100% - 81px);
   }
 
   &-data {
@@ -489,6 +493,15 @@
     margin-bottom: 10px;
   }
 
+  &-info {
+    max-width: calc(100% - 80px);
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 11px;
+    line-height: 1.36;
+    color: #4b5461;
+  }
 
 }
+
+
 

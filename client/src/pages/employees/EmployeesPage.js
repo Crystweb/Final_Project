@@ -71,7 +71,7 @@ class EmployeesPage extends Component {
                 </h4>
 
                 <p className="employee-info">
-                  employee.info
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur doloremque, earum error eveniet excepturi fugiat itaque nam odit, placeat qui rerum sed sunt. Hic inventore libero molestiae, perferendis quod voluptatum.
                 </p>
                   </div>
 
