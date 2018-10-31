@@ -6,11 +6,14 @@ import axios from 'axios/index'
 import { addHitoryTasks, deleteTask } from '../../actions/actions'
 import Point from '../../components/Point'
 import NotFound from '../../components/NotFoundData'
-import Lightbox from 'react-images';
+import Lightbox from 'react-images'
 
 class TasksView extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      lightboxIsOpen: false
+    }
     this.doTask = this.doTask.bind(this)
   }
 
@@ -46,7 +49,7 @@ class TasksView extends Component {
       tasksForHistory
     } = this.props
 
-    const color = "#c7c8ca"
+    const color = '#c7c8ca'
 
     let myRoomTasksFiltered = showMyRoomTasks && allTasks
       .filter(task => !isNaN(+task.locations
@@ -64,9 +67,6 @@ class TasksView extends Component {
       return 0
     })
     if (tasks && currentUser) {
-
-
-
       return (
         <ul className="tasks-list">
           {tasksForHistory && tasks.length === 0 && <NotFound/>}
@@ -76,15 +76,12 @@ class TasksView extends Component {
             return (
               (showAll || isShowTask) &&
               <li className="tasks-list__elem"
-                  key={task.id}>
+                key={task.id}>
                 <Point color={color}/>
-
-
-
 
                 <div className="tasks-img">
                   {hasPhoto && <Lightbox
-                    isOpen={false}
+                    isOpen={this.state.lightboxIsOpen}
                     onClickPrev={this.gotoPrevious}
                     onClickNext={this.gotoNext}
                     images={[{ src: task.imageLinks[0] }]}
@@ -92,7 +89,7 @@ class TasksView extends Component {
                   /> }
                 </div>
 
-                {/*<img alt='taskPhoto' src={task.imageLinks[0]}/>*/}
+                {/* <img alt='taskPhoto' src={task.imageLinks[0]}/> */}
 
                 <h3 className="tasks-list__elem-title">{task.message}
                   {itIsHistory ||
@@ -100,7 +97,7 @@ class TasksView extends Component {
                     className="task-complete"
                     value={task.id}
                     onClick={this.doTask.bind(this)}></button>)}
-                    </h3>
+                </h3>
                 {task.updated && <h4 className="tasks-list__elem-subtitle">Создана: {new Date(task.updated).toLocaleDateString()}</h4>}
 
                 <ul className="tasks-list__elem-info">
@@ -110,7 +107,7 @@ class TasksView extends Component {
                   {task.locations.map(location => {
                     return (
                       <li className="task--location"
-                          key={location.id}
+                        key={location.id}
                       >
                         {location.title}
                       </li>
@@ -128,7 +125,6 @@ class TasksView extends Component {
           })}
         </ul>
       )
-
     } else {
       return (
         <Preloader/>

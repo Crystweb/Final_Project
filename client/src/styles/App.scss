@@ -44,7 +44,6 @@ body {
 }
 
 .empty {
-
   &-wrap {
     display: flex;
     flex-direction: column;
@@ -54,15 +53,15 @@ body {
 
   &-info {
     margin-bottom: 8px;
+    color: #4b5461;
     font-family: HelveticaNeue, sans-serif;
     font-size: 17px;
-    line-height: 17px;
-    font-weight: 500;
     font-style: normal;
-    font-stretch: normal;
+    font-weight: 500;
     letter-spacing: normal;
+    line-height: 17px;
     text-align: center;
-    color: #4b5461;
+    font-stretch: normal;
 
     &:first-letter {
       text-transform: uppercase;
@@ -70,7 +69,6 @@ body {
   }
 
   &-img {
-
     width: 50%;
 
     & img {
@@ -86,8 +84,8 @@ body {
 }
 
 .newComment {
-  box-sizing: border-box;
   padding-left: 41px;
+  box-sizing: border-box;
 
   &-elem {
     display: flex;
@@ -161,9 +159,9 @@ body {
   &-wrap-textarea {
     position: relative;
     width: calc(100% - 41px);
-    padding: 30% 0;
-    margin-left: 41px;
     margin-bottom: 15px;
+    margin-left: 41px;
+    padding: 30% 0;
   }
 
   &-textarea {
@@ -176,11 +174,11 @@ body {
     border: solid 1px #c1c1c1;
     border-radius: 5px;
     background-color: #e5e5e5;
-    resize: none;
-    box-sizing: border-box;
     color: #4b5461;
     font-family: HelveticaNeue, sans-serif;
     font-size: 11px;
+    resize: none;
+    box-sizing: border-box;
   }
 
   &-btn {
@@ -207,10 +205,10 @@ body {
     text-transform: uppercase;
 
     &:hover {
-      background-color: #fff;
-      color: #7ff4a9;
       padding: 13px 19px;
       border: 1px solid #7ff4a9;
+      background-color: #fff;
+      color: #7ff4a9;
     }
   }
 

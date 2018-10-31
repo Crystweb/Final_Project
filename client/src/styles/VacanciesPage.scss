@@ -16,15 +16,14 @@
 .vacancy__salary {
   width: 100%;
   height: 30px;
-  border-radius: 5px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-  border: solid 1px #4b5461;
-  box-sizing: border-box;
   padding: 8px 10px;
-
+  border: solid 1px #4b5461;
+  border-radius: 5px;
+  color: #4b5461;
   font-family: HelveticaNeue, sans-serif;
   font-size: 14px;
-  color: #4b5461;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .08);
+  box-sizing: border-box;
 }
 
 
@@ -57,9 +56,9 @@
 .vacancy__wrap-textarea {
   position: relative;
   width: 100%;
-  padding: 20% 0;
   min-width: 248px;
   margin-bottom: 15px;
+  padding: 20% 0;
 
 
 }
@@ -68,19 +67,19 @@
   position: absolute;
   top: 0;
   left: 0;
-  min-width: 248px;
-  min-height: 88px;
   width: 100%;
+  min-width: 248px;
   height: 100%;
+  min-height: 88px;
   padding: 10px;
   border: solid 1px #c1c1c1;
   border-radius: 5px;
   background-color: #e5e5e5;
-  resize: none;
-  box-sizing: border-box;
   color: #4b5461;
   font-family: HelveticaNeue, sans-serif;
   font-size: 11px;
+  resize: none;
+  box-sizing: border-box;
 }
 
 .vacancy__btns {
@@ -91,30 +90,30 @@
 
   & .taskFactory__errorText {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     margin-right: 8px;
     font-size: 15px;
-    text-transform: uppercase;
     text-align: center;
+    text-transform: uppercase;
   }
 }
 
 .vacancy__create {
+  padding: 11px 21px;
   border-radius: 5px;
   background-color: #7ff4a9;
-  padding: 11px 21px;
+  color: #fff;
   font-family: HelveticaNeue, sans-serif;
   font-size: 15px;
   font-weight: 500;
   text-align: center;
-  color: #ffffff;
   text-transform: uppercase;
 
   &:hover {
     padding: 10px 20px;
     border: 1px solid #7ff4a9;
+    background-color: #fff;
     color: #7ff4a9;
-    background-color: #ffffff;
   }
 }

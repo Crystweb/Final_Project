@@ -23,12 +23,13 @@
 }
 
 .roomName {
-  min-width: 50px;
-  width: 15%;
-  padding: 6% 0;
-  margin-bottom: 6%;
   position: relative;
+  width: 15%;
+  min-width: 50px;
   margin-right: 6%;
+  margin-bottom: 6%;
+  padding: 6% 0;
+
   &__item {
     display: flex;
     align-items: center;
@@ -41,10 +42,10 @@
     border: solid 1px #7ff4a9;
     border-radius: 5px;
     color: #4b5461;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
     font-family: HelveticaNeue, sans-serif;
     font-size: 15px;
     font-weight: 500;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .08);
   }
 
   &__item:hover {
