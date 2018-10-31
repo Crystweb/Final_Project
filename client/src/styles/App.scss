@@ -35,12 +35,19 @@ a:visited {
 }
 
 body {
-  max-width: 600px;
   margin: 0 auto;
-  padding: 0 8px;
   font-family: HelveticaNeue, sans-serif;
   overflow-x: hidden;
   box-sizing: border-box;
+}
+
+#root {
+  min-width: 320px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 4%;
 }
 
 .empty {
@@ -79,7 +86,7 @@ body {
 }
 
 .container {
-  min-width: 320px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -292,8 +299,9 @@ form {
 }
 
 @media (min-width: 375px) {
-  body {
-    padding: 0 25px;
+
+  #root {
+    padding: 0 8%;
   }
 
   .newComment {
@@ -311,5 +319,11 @@ form {
       width: auto;
       margin: 0;
     }
+  }
+}
+
+@media (min-width: 420px) {
+  #root {
+    padding: 0 33px;
   }
 }
