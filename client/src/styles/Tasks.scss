@@ -56,17 +56,11 @@
   font-weight: 700;
 }
 
-
-
-
-
-
 .signIn {
-
   &-confirm {
-      position: absolute;
-      right: 1px;
-      top: 6px;
+    position: absolute;
+    top: 6px;
+    right: 1px;
   }
 
   &-btn {
@@ -76,21 +70,21 @@
     background-color: #7ff4a9;
     color: white;
     text-transform: uppercase;
-    box-sizing: border-box;
     cursor: pointer;
+    box-sizing: border-box;
 
     &:hover {
+      border: 1px solid #7ff4a9;
       background-color: white;
       color: #7ff4a9;
-      border: 1px solid #7ff4a9;
     }
   }
 
   &-linkToRestorePassword {
+    color: #7ff4a9;
     font-family: HelveticaNeue, sans-serif;
     font-size: 13px;
     line-height: 18px;
-    color: #7ff4a9;
     cursor: pointer;
 
     &:visited {
@@ -101,11 +95,10 @@
   &-wrap-checkBoxForgetPass {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     width: 300px;
     margin-bottom: 40px;
-
   }
 
   &-container {
@@ -128,13 +121,13 @@
 
     &-label {
       display: block;
+      margin-bottom: 10px;
+      color: #4a4a4a;
       font-family: HelveticaNeue, sans-serif;
       font-size: 13px;
       font-weight: 300;
       line-height: 16px;
-      color: #4a4a4a;
-      opacity: 0.7;
-      margin-bottom: 10px;
+      opacity: .7;
     }
   }
 
@@ -147,35 +140,34 @@
     padding-bottom: 10px;
     border: none;
     border-bottom: 2px solid #7ff4a9;
-    font-size: 17px;
-    font-family: HelveticaNeue, sans-serif;
-    line-height: 24px;
     color: #4a4a4a;
-    opacity: 0.8;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 17px;
+    line-height: 24px;
+    opacity: .8;
   }
 
   &__inputWithoutData {
     width: 300px;
     padding-bottom: 10px;
     border: 0;
-    border-bottom: 1px solid #aaaaaa;
-    font-size: 17px;
-    font-family: HelveticaNeue, sans-serif;
-    line-height: 24px;
+    border-bottom: 1px solid #aaa;
     color: #4a4a4a;
-    opacity: 0.8;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 17px;
+    line-height: 24px;
+    opacity: .8;
   }
 
   &-check {
     display: flex;
     flex-direction: row;
     align-items: center;
+    color: #aaa;
     font-family: HelveticaNeueб sans-serif;
     font-size: 13px;
     line-height: 18px;
-    color: #aaaaaa;
     cursor: pointer;
-
 
     &__realCheckbox {
       display: none;
@@ -185,29 +177,25 @@
       position: relative;
       width: 15px;
       height: 15px;
-      border-radius: 50%;
-      border: solid 1px #aaaaaa;
       margin-right: 5px;
+      border: solid 1px #aaa;
+      border-radius: 50%;
 
       &-active {
+        display: none;
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
         width: 10px;
         height: 10px;
+        transform: translate(-50%, -50%);
         border-radius: 50%;
         background-color: #4a4a4a;
       }
     }
   }
-
-
 }
 
 .signIn-check__realCheckbox:checked + .signIn-check__fakeCheckbox .signIn-check__fakeCheckbox-active {
   display: block;
 }
-
-

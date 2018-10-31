@@ -48,8 +48,8 @@ body {
 }
 
 .newComment {
-  box-sizing: border-box;
   padding-left: 41px;
+  box-sizing: border-box;
 
   &-elem {
     display: flex;
@@ -128,11 +128,11 @@ body {
     border: solid 1px #c1c1c1;
     border-radius: 5px;
     background-color: #e5e5e5;
-    resize: none;
-    box-sizing: border-box;
     color: #4b5461;
     font-family: HelveticaNeue, sans-serif;
     font-size: 11px;
+    resize: none;
+    box-sizing: border-box;
   }
 
   &-btn {
