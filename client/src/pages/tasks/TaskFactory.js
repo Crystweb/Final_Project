@@ -379,6 +379,7 @@ class TaskFactory extends Component {
         {floorSelected && roomSelect}
         {prioritySelect}
         <DatePicker
+          className="date-picker"
           placeholderText='Выполнить до'
           minDate={moment()}
           selected={finishDate}
