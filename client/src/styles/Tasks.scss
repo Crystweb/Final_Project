@@ -13,8 +13,8 @@
 
   &-img {
     position: absolute;
-    top: 0;
-    left: calc(100% + 26px);
+    top: 35px;
+    left: 85%;
     width: 63px;
     overflow: hidden;
 
@@ -506,6 +506,19 @@
     font-size: 11px;
     line-height: 1.36;
     color: #4b5461;
+  }
+
+}
+
+@media (min-width: 420px) {
+
+  .tasks-img {
+    top: 0;
+    left: 100%;
+  }
+
+  .tasks-list__elem-title {
+    width: calc(100% - 45px);
   }
 
 }

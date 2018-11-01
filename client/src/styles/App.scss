@@ -246,7 +246,11 @@ body {
   padding: 10px 0 25px;
 
   &__title {
-    font-size: 25px;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: #4b5461;
+
   }
 
   &__item {
@@ -254,10 +258,20 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    font-family: SFProText, sans-serif;
+    font-size: 22px;
+    color: #4b5461;
+
+    & img {
+      margin-right: 6px;
+    }
   }
 
   &__pageName {
+    width: 40%;
+    max-width: 200px;
     text-transform: uppercase;
+    text-align: center;
   }
 }
 
