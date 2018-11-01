@@ -57,8 +57,6 @@ class VacanciesPage extends Component {
       toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'CLOSED')
     }
 
-    console.log(showClosedVacancies)
-
     if (!toFilterVacancies) {
       return <Preloader/>
     } else {

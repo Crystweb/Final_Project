@@ -18,6 +18,7 @@ import employeeStyles from '../../constants/employeeStylesJSS'
 import routes from "../../constants/routes";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import picture from "../../img/add.png";
 
 class EmployeesPage extends Component {
 
@@ -53,6 +54,12 @@ class EmployeesPage extends Component {
       return (
         <Fragment>
 
+          <div className="add_and_history add_and_history--employee">
+            <Link to={routes.addNewEmployee.href}>
+              <img alt="add comment" src={picture}/>
+            </Link>
+          </div>
+
           <ul className="employeeList">
 
             {employees.map(employee => {
@@ -67,11 +74,12 @@ class EmployeesPage extends Component {
                 </h3>
 
                 <h4 className="employee-tel">
-                  <a href={"tel:" + employee.tel}> employee.tel </ a>
+                  <a href={"tel:" + employee.phoneNumber}>{employee.phoneNumber}</ a>
                 </h4>
 
                 <p className="employee-info">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur doloremque, earum error eveniet excepturi fugiat itaque nam odit, placeat qui rerum sed sunt. Hic inventore libero molestiae, perferendis quod voluptatum.
+                  {employee.info}
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi esse expedita fuga molestiae recusandae tempore veniam vero voluptatem voluptatum. Alias aliquid animi eius in laborum laudantium nam nobis soluta totam.
                 </p>
                   </div>
 
