@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import axios from 'axios'
 import connect from "react-redux/es/connect/connect";
+import Select from 'react-select'
 
 class EmployeesFactoryPage extends Component {
 
@@ -59,29 +60,88 @@ class EmployeesFactoryPage extends Component {
     const {forename, surname, patronymic, positionId, phoneNumber, info} = this.state;
     const {positions} = this.props;
 
+    const styles = {
+      dropdownIndicator: (base, state) => ({
+      }),
+      placeholder: (base, state) => ({
+      }),
+      valueContainer: (base, state) => ({
+      }),
+      control: (base, state) => ({
+      }),
+      indicatorsContainer: (base, state) => ({
+      }),
+      input: (base, start) => ({
+        display: "none"
+      })
+    }
+
+    let options = []
+
+    positions.map(position =>
+      options.push({value: position.id, label: position.title})
+    )
+
+    let placeholder = options[0].label
+
+    let positionSelect = <Select
+      className="vacancy__select"
+      classNamePrefix="react-select"
+      styles={styles}
+      options={options}
+      ref={(input) => this.positionId = input}
+      defaultValue={positionId}
+      placeholder={"" + placeholder}
+
+    />
+
     return (
       <Fragment>
         <div>
-            <form onSubmit={this.handleSubmit}>
-              <label>
-                Forename:
-                <input type="text" defaultValue={forename} ref={(input) => this.forename = input}/>
-                Surname:
-                <input type="text" defaultValue={surname} ref={(input) => this.surname = input}/>
-                Patronymic:
-                <input type="text" defaultValue={patronymic} ref={(input) => this.patronymic = input}/>
-                Должность:
-                <select defaultValue={positionId} ref={(input) => this.positionId = input}>
-                  {positions.map(position =>
-                    <option key={position.id} value={position.id}>{position.title}</option>)}
-                </select>
-                Phone number:
-                <input type="text" defaultValue={phoneNumber} ref={(input) => this.phoneNumber = input}/>
-                Коментарий:
-                <textarea defaultValue={info} placeholder={'Введите Ваш коментарий'} ref={(input) => this.info = input}/>
-              </label>
-              <input type="submit" onClick={() => setTimeout(() => this.props.history.push('/employees/list'), 2000)}
-                     value={this.props.location.state ? "Изменить данные" : "Добавить сотрудника"}/>
+            <form
+              className="employee-form"
+              onSubmit={this.handleSubmit}>
+              <div className='employee-wrapp'>
+                <input
+                  className="vacancy__salary employee--m"
+                  type="text"
+                  placeholder='Имя'
+                  defaultValue={forename}
+                  ref={(input) => this.forename = input}/>
+                <input
+                  className="vacancy__salary employee--m"
+                  type="text"
+                  placeholder='Фамилия'
+                  defaultValue={surname}
+                  ref={(input) => this.surname = input}/>
+                <input
+                  className="vacancy__salary employee--m"
+                  type="text"
+                  placeholder='Отчество'
+                  defaultValue={patronymic} ref={(input) => this.patronymic = input}/>
+              <div className="taskFactory__wrap-select employee--m">
+                {positionSelect}
+              </div>
+                <input
+                  className="vacancy__salary employee--m"
+                  type="text"
+                  placeholder='Телефон'
+                  defaultValue={phoneNumber}
+                  ref={(input) => this.phoneNumber = input}/>
+              </div>
+                <div className="newComment-wrap-textarea">
+                  <textarea
+                    className="newComment-textarea"
+                    defaultValue={info} placeholder={'Введите Ваш коментарий'} ref={(input) => this.info = input}/>
+                </div>
+              <div className="taskFactory__btns">
+                <button className="newComment-send"
+                        type="submit"
+                        onClick={() => setTimeout(() => this.props.history.push('/employees/list'), 2000)}
+                        value={this.props.location.state ? "Изменить данные" : "Добавить сотрудника"}>
+                  {this.props.location.state ? "Изменить данные" : "Добавить сотрудника"}
+                </button>
+              </div>
             </form>
         </div>
         <p>{this.state.successAction}</p>
