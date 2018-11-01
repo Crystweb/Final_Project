@@ -50,6 +50,7 @@ class TasksView extends Component {
     } = this.props
 
     const color = '#c7c8ca'
+    let {lightboxIsOpen} = this.state
 
     let myRoomTasksFiltered = showMyRoomTasks && allTasks
       .filter(task => !isNaN(+task.locations
@@ -79,15 +80,15 @@ class TasksView extends Component {
                 key={task.id}>
                 <Point color={color}/>
 
-                <div className="tasks-img">
-                  {hasPhoto && <Lightbox
-                    isOpen={this.state.lightboxIsOpen}
-                    onClickPrev={this.gotoPrevious}
-                    onClickNext={this.gotoNext}
+                {hasPhoto &&<div className="tasks-img"
+                onClick={() => this.setState({lightboxIsOpen: true})}>
+                  <img src={task.imageLinks[0]} alt=""/>
+                   <Lightbox
+                    isOpen={lightboxIsOpen}
                     images={[{ src: task.imageLinks[0] }]}
-                    onClose={this.closeLightbox}
-                  /> }
-                </div>
+                    onClose={() => this.setState({lightboxIsOpen: false})}
+                  />
+                </div>}
 
                 {/* <img alt='taskPhoto' src={task.imageLinks[0]}/> */}
 
