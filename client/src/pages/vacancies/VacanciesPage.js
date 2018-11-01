@@ -57,6 +57,8 @@ class VacanciesPage extends Component {
       toFilterVacancies = vacancies.filter(vacancy => vacancy.status === 'CLOSED')
     }
 
+    console.log(showClosedVacancies)
+
     if (!toFilterVacancies) {
       return <Preloader/>
     } else {
@@ -71,11 +73,10 @@ class VacanciesPage extends Component {
                 value={toString(showClosedVacancies)}
                 >
               <li className="position-radio-buttons__elem">
-                <label onClick={() => this.setState({showClosedVacancies: !showClosedVacancies})}>
+                <label onClick={() => this.setState({showClosedVacancies: false})}>
                   <input name="position"
                          type='radio'
                          defaultChecked={!showClosedVacancies}
-                         onChange={() => this.setState({showClosedVacancies: !showClosedVacancies})}
                          value='d'
                         />
                   <div className="position-radio-buttons__fakeBtn">
@@ -85,11 +86,10 @@ class VacanciesPage extends Component {
                 </label>
               </li>
               <li className="position-radio-buttons__elem">
-                <label onClick={() => this.setState({showClosedVacancies: !showClosedVacancies})}>
+                <label onClick={() => this.setState({showClosedVacancies: true})}>
                   <input name="position"
                          type='radio'
                          defaultChecked={showClosedVacancies}
-                         onChange={() => this.setState({showClosedVacancies: !showClosedVacancies})}
                          value='d'
                   />
                   <div className="position-radio-buttons__fakeBtn">
