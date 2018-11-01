@@ -41,7 +41,7 @@ class RoomsList extends Component {
               </option>
             })}
           </select>
-          <Link to={}>
+          <Link to={routes.checkInHistory.href}>
             <img src={calendar} alt="calendar"/>
           </Link>
         </div>

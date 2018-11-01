@@ -14,7 +14,6 @@ class TasksHistory extends Component {
           selected={today}
           minDate={sixMonthAgo}
           maxDate={today}
-          isForCommeents={false}
           isForTasks={true}
         />
       </div>

@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from "react-router-dom";
-import routes from "../constants/routes";
-import picture from "../img/add.png";
-import calendar from "../img/calendar.png";
+import {Link} from 'react-router-dom'
+import routes from '../constants/routes'
+import picture from '../img/add.png'
+import calendar from '../img/calendar.png'
 import ScheduleWithComments from './ScheduleWithComments'
 
 class PositionButtons extends Component {
@@ -27,7 +27,6 @@ class PositionButtons extends Component {
   }
 
   createArrayOfReadyComments (schedulesWithColors, comments) {
-
     let arrayOfSchedules = schedulesWithColors.map(item => {
       let returnItem = Object.assign({}, item)
       let stringNumberStart = +item.start.toString().substr(0, 2)
@@ -61,7 +60,6 @@ class PositionButtons extends Component {
   }
 
   createCommentsByWhile (inputArrayOfSchedules, filterComments) {
-
     let time = new Date()
     let startTime = time.getHours() * 60 + time.getMinutes()
     let arrayOfSchedules = this.createArrayWithSortedSchedules(inputArrayOfSchedules, time)
@@ -122,8 +120,8 @@ class PositionButtons extends Component {
         .filter(comment => {
           let commentDate = new Date(+comment.date)
           let commentTime = commentDate.getHours() * 60 + commentDate.getMinutes()
-          return commentTime > startTime
-                 && commentTime <= timeFirstSchedule
+          return commentTime > startTime &&
+                 commentTime <= timeFirstSchedule
         })
 
       if (sortedComments.length > 0) {
@@ -142,7 +140,6 @@ class PositionButtons extends Component {
   }
 
   createArrayWithSortedSchedules (inputArrayOfSchedules, time) {
-
     let startTime = time.getHours() * 60 + time.getMinutes()
     let scheduleWithStartTime = null
     let readySchedules = []
@@ -178,7 +175,6 @@ class PositionButtons extends Component {
 
       readySchedules.push(firstSchedule)
     } else {
-
       let nearestTime = Math.abs(inputArrayOfSchedules[0].end - startTime)
       let nearesIndexSchedule = 0
 
@@ -203,7 +199,6 @@ class PositionButtons extends Component {
   }
 
   checkCurrentTimeInsideSchedule (inputArrayOfSchedules, time) {
-
     let startTime = time.getHours() * 60 + time.getMinutes()
 
     for (let i = 0; i < inputArrayOfSchedules.length; i++) {
@@ -216,7 +211,6 @@ class PositionButtons extends Component {
     }
 
     return false
-
   }
 
   render () {
@@ -230,21 +224,21 @@ class PositionButtons extends Component {
       })
     let readyComments = this.createArrayOfReadyComments(schedulesWithColors, comments)
     const selectPositionInputs = position.filter(position => position.pinnedToComment).map(position => {
-        return (
-          <li className="position-radio-buttons__elem">
-            <label key={position.id}>
-              <input name="position"
-                     type='radio'
-                     defaultChecked={this.state.view === position.title}
-                     value={position.title}/>
-              <div className="position-radio-buttons__fakeBtn">
-                <div className="position-radio-buttons__fakeBtn-active"></div>
-              </div>
-              <span>{position.title}</span>
-            </label>
-          </li>
-        )
-      }
+      return (
+        <li className="position-radio-buttons__elem">
+          <label key={position.id}>
+            <input name="position"
+              type='radio'
+              defaultChecked={this.state.view === position.title}
+              value={position.title}/>
+            <div className="position-radio-buttons__fakeBtn">
+              <div className="position-radio-buttons__fakeBtn-active"></div>
+            </div>
+            <span>{position.title}</span>
+          </label>
+        </li>
+      )
+    }
     )
     return (
       <section className="comments">
@@ -253,12 +247,12 @@ class PositionButtons extends Component {
             {selectPositionInputs}
           </ul>
           <div className="add_and_history">
-                <Link to={routes.addNewComments.href}>
-                  <img alt="add comment" src={picture}/>
-                </Link>
-                <Link to={routes.commentsHistory.href}>
-                  <img alt="calendar is here" src={calendar}/>
-                </Link>
+            <Link to={routes.addNewComments.href}>
+              <img alt="add comment" src={picture}/>
+            </Link>
+            <Link to={routes.commentsHistory.href}>
+              <img alt="calendar is here" src={calendar}/>
+            </Link>
           </div>
         </div>
         <div className="positionComments">

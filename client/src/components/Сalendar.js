@@ -7,6 +7,7 @@ import date_fns from 'date-fns/locale/ru'
 import InfiniteCalendar from 'react-infinite-calendar'
 import ShiftHistoryForSelectedDay from '../pages/shifts/ShiftsHistoryForSelectedDay'
 import TasksView from '../pages/tasks/TasksView'
+import CheckInHistoty from '../pages/roomCheckin/CheckInHistory'
 
 class Calendar extends Component {
   constructor (props) {
@@ -17,12 +18,13 @@ class Calendar extends Component {
   }
 
   render () {
-    const {max, min, selected, minDate, maxDate, addDate, isForComments, isForTasks} = this.props
+    const {max, min, selected, minDate, maxDate, addDate, isForComments, isForTasks, isForCheckIn} = this.props
     if (this.state.isDataSelected) {
       return (
         <Fragment>
           {isForComments && <ShiftHistoryForSelectedDay/>}
           {isForTasks && <TasksView itIsHistory={true} showAll={true}/>}
+          {isForCheckIn && <CheckInHistoty/>}
         </Fragment>
       )
     }
