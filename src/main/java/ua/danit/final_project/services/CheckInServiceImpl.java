@@ -47,6 +47,7 @@ public class CheckInServiceImpl extends SessionAware implements CheckInService {
     CheckIn checkIn = new CheckIn();
     checkIn.setEmployee(getEmployee());
     checkIn.setLocation(location);
+    checkIn.setCreated(new Date());
     return save(checkIn);
   }
 }

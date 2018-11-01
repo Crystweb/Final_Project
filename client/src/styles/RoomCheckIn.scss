@@ -3,6 +3,11 @@
   flex-flow: column wrap;
   justify-content: space-between;
 
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__item {
     display: flex;
     flex-direction: row;
@@ -43,5 +48,26 @@
 
   &__item:hover {
     background-color: #7ff4a9;
+  }
+}
+
+.roomActions {
+  display: flex;
+  justify-content: space-around;
+
+  &__success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 124px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #7ff4a9;
+    color: white;
+    font-family: HelveticaNeue-Medium;
+    font-size: 15px;
+    line-height: 12px;
+    text-transform: uppercase;
+    cursor: pointer;
   }
 }

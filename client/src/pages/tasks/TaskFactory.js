@@ -61,6 +61,7 @@ class TaskFactory extends Component {
   }
 
   createTask = () => {
+    const {roomId} = this.props.match.params
     const {locationId, textForTask, idForRoom, executorId, taskPriority, taskFrequency} = this
     const {finishDate, photo} = this.state
     const {allLocations, allUsers} = this.props
@@ -119,7 +120,7 @@ class TaskFactory extends Component {
             successAdd: 'Задача добавлена'
           })
         })
-        .then(() => this.props.history.push('/tasks'))
+        .then(() => roomId ? this.props.history.push(`/rooms/${roomId}`) : this.props.history.push(`/tasks`))
     }
   }
 
