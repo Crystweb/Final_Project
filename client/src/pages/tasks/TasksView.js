@@ -7,7 +7,6 @@ import { addHitoryTasks, deleteTask } from '../../actions/actions'
 import Point from '../../components/Point'
 import NotFound from '../../components/NotFoundData'
 import Lightbox from 'react-images'
-import ImgViewer from '../../components/ImgViewer'
 
 class TasksView extends Component {
   constructor (props) {

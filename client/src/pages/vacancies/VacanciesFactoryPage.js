@@ -89,16 +89,16 @@ class VacanciesFactoryPage extends Component {
 
     let placeholder = options[0].label
 
-    let positionSelect = <Select
-      className="vacancy__select"
-      classNamePrefix="react-select"
-      styles={styles}
-      options={options}
-      ref={(input) => this.positionId = input}
-      defaultValue={positionId}
-      placeholder={"" + placeholder}
-
-                                />
+    let positionSelect =
+      <Select
+        className="vacancy__select"
+        classNamePrefix="react-select"
+        styles={styles}
+        options={options}
+        ref={(input) => this.positionId = input}
+        defaultValue={positionId}
+        placeholder={"" + placeholder}
+      />
 
     if (!positions) {
       return <Preloader/>
@@ -135,7 +135,7 @@ class VacanciesFactoryPage extends Component {
           <button className="vacancy__create"
             type="submit" onClick={() => setTimeout(() => this.props.history.push('/employees/vacancies'), 1000)}
                   value={this.props.location.state ? "Изменить вакансию" : "Добавить вакансию"}>
-                  Добавить
+            {this.props.location.state ? "Изменить вакансию" : "Добавить вакансию"}
             </button>
           </div>
         </form>
