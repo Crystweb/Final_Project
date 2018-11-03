@@ -29,7 +29,14 @@ class TaskFactory extends Component {
       errorRoom: null,
       successAdd: null,
       photo: null,
-      floorSelected: !!this.props.match.params.floorId
+      floorSelected: !!this.props.match.params.floorId,
+
+      locationId: null,
+      textForTask: null,
+      idForRoom: null,
+      executorId: null,
+      taskPriority: null,
+      taskFrequency: null
     }
     _.bindAll(this, 'chooseDate', 'makePhoto', 'createTask', 'floorChecker')
   }
@@ -168,8 +175,10 @@ class TaskFactory extends Component {
         className="taskFactory__select"
         defaultValue="locationChoice"
         placeholder="Локация"
-        onChange={this.floorChecker}
-        ref={(input) => this.locationId = input}
+        onChange={value => {
+          this.locationId = value
+          this.floorChecker()
+        }}
         disabled={!!floorId}
         options={optionsLocation}
       />
@@ -188,7 +197,7 @@ class TaskFactory extends Component {
         classNamePrefix="react-select"
         className="taskFactory__select"
         defaultValue="roomChoice"
-        ref={(input) => this.idForRoom = input}
+        onChange={value => this.idForRoom = value}
         name="roomsList"
         disabled={!!roomId}
         placeholder="Номер"
@@ -213,7 +222,7 @@ class TaskFactory extends Component {
           className="taskFactory__select"
           defaultValue='0'
           id="priority"
-          ref={input => this.taskPriority = input}
+          onChange={value => this.taskPriority = value}
           placeholder="Приоритет"
           options={optionsPriority}
         />
@@ -234,7 +243,7 @@ class TaskFactory extends Component {
           className="taskFactory__select"
           name='executors'
           defaultValue='test'
-          ref={input => this.executorId = input}
+          onChange={value => this.executorId = value}
           required={true}
           options={optionsExecutor}
           placeholder='Исполнитель'
@@ -253,7 +262,7 @@ class TaskFactory extends Component {
           className="taskFactory__select"
           name='frequencies'
           defaultValue='0'
-          ref={(input) => this.taskFrequency = input}
+          onChange={value => this.taskFrequency = value}
           options={optionsFrequency}
           placeholder="Повторяемость"
           />
@@ -335,8 +344,7 @@ class TaskFactory extends Component {
         </textarea>
         </p>
         <p className="taskFactory__btns">
-        {this.textForTask.value ||
-        <label className='taskFactory__errorText' htmlFor='task'>{errorText}</label>}
+        <label className='taskFactory__errorText' htmlFor='task'>{errorText}</label>
         <div className="taskFactory__wrap-foto">
           Фото
           <input className="taskFactory__foto"
