@@ -4,6 +4,7 @@ import '../../styles/RoomCheckIn.css'
 import routes from '../../constants/routes'
 import Link from 'react-router-dom/es/Link'
 import calendar from '../../img/calendar.png'
+import { deleteDate } from '../../actions/actions'
 
 class RoomsList extends Component {
   constructor (props) {
@@ -18,7 +19,10 @@ class RoomsList extends Component {
     this.setState({
       floor: event.target.value
     })
-    console.log(this.state.floor)
+  }
+
+  componentDidMount () {
+    this.props.deleteSelectedDate()
   }
 
   render () {
@@ -46,25 +50,25 @@ class RoomsList extends Component {
           </Link>
         </div>
         {floor &&
-          <ul className='floors__rooms'>
-            {chosenFloor.map(room => {
-              return (
-                <li
-                  className='roomName'
-                  key={room.id}
-                  value={room.id}
+        <ul className='floors__rooms'>
+          {chosenFloor.map(room => {
+            return (
+              <li
+                className='roomName'
+                key={room.id}
+                value={room.id}
+              >
+                <Link
+                  className='roomName__item'
+                  to={routes.taskForRoom.href + room.id}
                 >
-                  <Link
-                    className='roomName__item'
-                    to={routes.taskForRoom.href + room.id}
-                  >
-                    {room.title}
-                  </Link>
-                </li>
-              )
-            })
-            }
-          </ul>
+                  {room.title}
+                </Link>
+              </li>
+            )
+          })
+          }
+        </ul>
         }
       </div>
     )
@@ -77,4 +81,12 @@ const mapStateToProps = ({startData}) => {
   }
 }
 
-export default connect(mapStateToProps)(RoomsList)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteSelectedDate: () => {
+      dispatch(deleteDate())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoomsList)
