@@ -20,7 +20,6 @@ class RoomsList extends Component {
       floor: event.value,
       floorName: event.label
     })
-    console.log(this.state.floor)
   }
 
   render () {

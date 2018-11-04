@@ -43,7 +43,6 @@ class TaskFactory extends Component {
   componentDidMount () {
     const {floorId, roomId} = this.props.match.params
     if (floorId || !isNaN(this.locationId)) {
-      console.log(floorId)
       this.locationId = +floorId
       this.setState({
         floorSelected: true,
@@ -99,7 +98,7 @@ class TaskFactory extends Component {
         errorText: 'Введите текст'
       })
     }
-    debugger
+
     if (textForTask.value && taskFrequency && executorId && locationId) {
       let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||
         allLocations
@@ -179,7 +178,7 @@ class TaskFactory extends Component {
         classNamePrefix="react-select"
         className="taskFactory__select"
         defaultValue="locationChoice"
-        value={allLocations.find(location => location.value === this.locationId)}
+        value={optionsLocation.find(location => location.value === this.locationId)}
         placeholder="Локация"
         onChange={value => {
           this.locationId = value.value
