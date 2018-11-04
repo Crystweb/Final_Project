@@ -6,28 +6,26 @@ import picture from "../img/add.png";
 import calendar from "../img/calendar.png";
 import ScheduleWithComments from './ScheduleWithComments'
 import NotFound from './NotFoundData'
+import {addSelectedDateFromCalendar} from "../actions/actions";
 
 class PositionButtons extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      view: this.props.currentUser.employee.position.title,
-      userId: this.props.currentUser.employee.id,
-      colors: ['#eff47f', '#7ff4f1', '#c7c8ca', '#00c7ff']
-    }
+  state = {
+    view: this.props.currentUser.employee.position.title,
+    userId: this.props.currentUser.employee.id,
+    colors: ['#eff47f', '#7ff4f1', '#c7c8ca', '#00c7ff']
   }
 
-  setPositionView (event) {
+  setPositionView(event) {
     this.setState({view: event.target.value})
   }
 
-  getRandomColor (indexColors) {
+  getRandomColor(indexColors) {
     const colors = ['orange', 'darkkhaki', 'dimgray', 'rosybrown', 'red', 'saddlebrown', 'tan', 'yellowgreen', 'palegreen']
 
     return colors[indexColors]
   }
 
-  createArrayOfReadyComments (schedulesWithColors, comments) {
+  createArrayOfReadyComments(schedulesWithColors, comments) {
 
     let arrayOfSchedules = schedulesWithColors.map(item => {
       let returnItem = Object.assign({}, item)
@@ -39,11 +37,7 @@ class PositionButtons extends Component {
       returnItem.title = 'Смена с ' + stringNumberStart.toString() + ' по ' + stringNumberEnd.toString()
 
       return returnItem
-    }).sort((item1, item2) => {
-      if (item1.start > item2.start) return -1
-      if (item1.start < item2.start) return 1
-      return 0
-    })
+    }).sort((item1, item2) => item2.start - item1.start)
 
     let arrayOfReadyComments = []
     let filterComments = comments
@@ -61,7 +55,7 @@ class PositionButtons extends Component {
     return arrayOfReadyComments
   }
 
-  createCommentsByWhile (inputArrayOfSchedules, filterComments) {
+  createCommentsByWhile(inputArrayOfSchedules, filterComments) {
 
     let time = new Date()
     let startTime = time.getHours() * 60 + time.getMinutes()
@@ -82,7 +76,7 @@ class PositionButtons extends Component {
             let end = currentSchedule.end
             return (
               (end > startTime &&
-              ((commentTime < startTime && commentTime <= end) || (commentTime > startTime && commentTime >= end)))
+                ((commentTime < startTime && commentTime <= end) || (commentTime > startTime && commentTime >= end)))
               ||
               (commentTime < startTime && commentTime >= end)
             )
@@ -104,7 +98,8 @@ class PositionButtons extends Component {
           })
 
         if (sortedComments.length > 0) {
-          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={currentSchedule} userId={this.state.userId}/>)
+          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={currentSchedule}
+                                                 userId={this.state.userId}/>)
         }
         startTime = currentSchedule.start
         if (arrayOfSchedules.length <= 0) {
@@ -123,7 +118,7 @@ class PositionButtons extends Component {
           let commentDate = new Date(+comment.date)
           let commentTime = commentDate.getHours() * 60 + commentDate.getMinutes()
           return commentTime > startTime
-                 && commentTime <= timeFirstSchedule
+            && commentTime <= timeFirstSchedule
         })
 
       if (sortedComments.length > 0) {
@@ -134,14 +129,17 @@ class PositionButtons extends Component {
     return resultArray
   }
 
-  createCommentsWithoutSchedules (filterComments) {
+  createCommentsWithoutSchedules(filterComments) {
     let sortedComments = filterComments
     let resultArray = []
-    resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null} userId={this.state.userId}/>)
+    resultArray.push(<ScheduleWithComments comments={sortedComments}
+                                           schedule={null}
+                                           userId={this.state.userId}
+                                           key={1}/>)
     return resultArray
   }
 
-  createArrayWithSortedSchedules (inputArrayOfSchedules, time) {
+  createArrayWithSortedSchedules(inputArrayOfSchedules, time) {
 
     let startTime = time.getHours() * 60 + time.getMinutes()
     let scheduleWithStartTime = null
@@ -202,7 +200,7 @@ class PositionButtons extends Component {
     return readySchedules
   }
 
-  checkCurrentTimeInsideSchedule (inputArrayOfSchedules, time) {
+  checkCurrentTimeInsideSchedule(inputArrayOfSchedules, time) {
 
     let startTime = time.getHours() * 60 + time.getMinutes()
 
@@ -219,7 +217,7 @@ class PositionButtons extends Component {
 
   }
 
-  render () {
+  render() {
     const {position, comments, schedules} = this.props
     let indexColors = 0
     const schedulesWithColors = schedules
@@ -231,7 +229,7 @@ class PositionButtons extends Component {
     let readyComments = this.createArrayOfReadyComments(schedulesWithColors, comments)
     const selectPositionInputs = position.filter(position => position.pinnedToComment).map(position => {
         return (
-          <li className="position-radio-buttons__elem">
+          <li className="position-radio-buttons__elem" key={position.id}>
             <label key={position.id}>
               <input name="position"
                      type='radio'
@@ -253,12 +251,12 @@ class PositionButtons extends Component {
             {selectPositionInputs}
           </ul>
           <div className="add_and_history">
-                <Link to={routes.addNewComments.href}>
-                  <img alt="add comment" src={picture}/>
-                </Link>
-                <Link to={routes.commentsHistory.href}>
-                  <img alt="calendar is here" src={calendar}/>
-                </Link>
+            <Link to={routes.addNewComments.href}>
+              <img alt="add comment" src={picture}/>
+            </Link>
+            <Link to={routes.commentsHistoryCalendar.href}>
+              <img alt="calendar is here" src={calendar}/>
+            </Link>
           </div>
         </div>
         <div className="positionComments">
@@ -277,4 +275,10 @@ const mapStateToProps = ({startData}) => {
   }
 }
 
-export default connect(mapStateToProps)(PositionButtons)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addDate: (date) => dispatch(addSelectedDateFromCalendar(date))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PositionButtons)

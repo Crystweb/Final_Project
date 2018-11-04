@@ -8,6 +8,7 @@ const routes = {
   vacancies: {name: 'вакансии', href: '/employees/vacancies', previousHref: '/employees'},
   comments: {name: 'смены', href: '/shifts', previousHref: '/'},
   commentsHistory: {name: 'История смен', href: '/shifts/history', previousHref: '/shifts'},
+  commentsHistoryCalendar: {name: 'История смен', href: '/shifts/history/calendar', previousHref: '/shifts'},
   addNewComments: {name: 'Передать смену', href: '/shift/new', previousHref: '/shifts'},
   updateComment: {name: 'изменить комментарий ', href: '/shift/update/', previousHref: '/shifts'},
   addNewVacancy: {name: 'добавить вакансию', href: '/employees/vacancies/service/', previousHref: '/employees/vacancies'},

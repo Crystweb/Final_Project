@@ -148,7 +148,6 @@ class TaskFactory extends Component {
     const styles = {
       dropdownIndicator: (base, state) => ({
       }),
-
       placeholder: (base, state) => ({
       }),
       valueContainer: (base, state) => ({
@@ -158,7 +157,6 @@ class TaskFactory extends Component {
       indicatorsContainer: (base, state) => ({
       }),
       input: (base, start) => ({
-        display: "none"
       })
     }
 

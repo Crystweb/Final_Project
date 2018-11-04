@@ -27,14 +27,14 @@ class ScheduleWithComments extends Component {
           <h2 className="schedule-elem__title">{dataObject.title}</h2>
           <ul className="comment-list">
             {comments
-              .map(comment => {
+              .map((comment, index) => {
                   let buttons = comment.author.id === userId ? <ActionButtons comment={comment.id}/> : "";
                   let time = new Date(+comment.date);
 
                   let readyTime = dateFormat(time, "dd mmmm в HH:MM")
 
                   return (
-                    <li className="comment-list__elem">
+                    <li className="comment-list__elem" key={index}>
                       <h3 className="comment-list__elem-title">
                         {comment.author.forename} {comment.author.surname}, {comment.author.position.title}
                       </h3>
