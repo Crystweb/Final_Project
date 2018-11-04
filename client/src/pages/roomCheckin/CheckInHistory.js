@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Calendar from '../../components/Сalendar'
 import connect from 'react-redux/es/connect/connect'
 import axios from 'axios/index'
-import { addChecKHistory, addSelectedDateFromCalendar } from '../../actions/actions'
+import { addChecKHistory } from '../../actions/actions'
 
 class CheckInHistory extends Component {
   constructor (props) {
@@ -16,17 +16,6 @@ class CheckInHistory extends Component {
     this.setState({
       floorId: event.target.value
     })
-  }
-
-  componentDidMount () {
-    if (this.props.date) {
-      axios.get('/check-in', {
-        params: {
-          date: this.props.date
-        }
-      })
-        .then(response => this.props.roomCheckHistory(response.data))
-    }
   }
 
   render () {
@@ -46,49 +35,49 @@ class CheckInHistory extends Component {
         </div>
       )
     }
-
-    const addCheckIn = () => {
-      if (this.props.date) {
-        axios.get('/check-in', {
-          params: {
-            date: this.props.date
-          }
-        })
-          .then(response => this.props.roomCheckHistory(response.data))
+    if (!this.props.сheckInForSelectedDate) {
+      const addCheckIn = () => {
+        if (this.props.date) {
+          axios.get('/check-in', {
+            params: {
+              date: this.props.date
+            }
+          })
+            .then(response => this.props.roomCheckHistory(response.data))
+        }
       }
+      addCheckIn()
     }
-    addCheckIn()
-    if (this.props.сheckInForSelectedDate) {
-      const {floors, сheckInForSelectedDate} = this.props
-      const currentFloor = floors.find(floor => floor.id = this.state.floorId)
-      const checkForCurrentFloor = сheckInForSelectedDate
-        .filter(check => currentFloor.children.some(child => child.id === check.location.id))
-      const floorChoice = (
-        <div>
-          <select
-            onChange={this.chooseFloor.bind(this)}
-            defaultValue={2}
-          >
-            {floors && floors.map(location => {
-              return <option
-                key={location.id}
-                className='floors__item'
-                value={location.id}>
-                {location.title}
-              </option>
-            })}
-          </select>
-        </div>
-      )
-      return (
-        <div>
-          {floorChoice}
-          <div>
 
-          </div>
+    const {floors, сheckInForSelectedDate} = this.props
+    const currentFloor = floors.find(floor => floor.id = this.state.floorId)
+    const checkForCurrentFloor = сheckInForSelectedDate
+      .filter(check => currentFloor.children.some(child => child.id === check.location.id))
+    const floorChoice = (
+      <div>
+        <select
+          onChange={this.chooseFloor.bind(this)}
+          defaultValue={2}
+        >
+          {floors && floors.map(location => {
+            return <option
+              key={location.id}
+              className='floors__item'
+              value={location.id}>
+              {location.title}
+            </option>
+          })}
+        </select>
+      </div>
+    )
+    return (
+      <div>
+        <h3>3333</h3>
+        <div>
+
         </div>
-      )
-    }
+      </div>
+    )
   }
 }
 
