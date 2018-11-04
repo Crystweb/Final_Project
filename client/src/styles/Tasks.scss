@@ -61,26 +61,25 @@
 }
 
 .tasks-list__elem {
-
   &-title {
     position: relative;
     width: calc(100% - 26px);
     min-width: 112px;
+    margin-bottom: 5px;
     color: #4b5461;
     font-family: HelveticaNeue, sans-serif;
     font-size: 14px;
-    line-height: 15px;
     font-weight: bold;
-    margin-bottom: 5px;
+    line-height: 15px;
   }
 
   &-subtitle {
     width: 100%;
+    margin-bottom: 5px;
     color: #9b9b9b;
     font-family: HelveticaNeue, sans-serif;
     font-size: 11px;
     line-height: 12px;
-    margin-bottom: 5px;
   }
 
   &-info {
@@ -96,10 +95,10 @@
       position: relative;
       width: 100%;
       box-sizing: border-box;
-      padding-left: 25px;
       margin-bottom: 5px;
-      line-height: 17px;
+      padding-left: 25px;
       color: #4b5461;
+      line-height: 17px;
       font-family: HelveticaNeue, sans-serif;
       font-size: 11px;
 
@@ -123,32 +122,30 @@
     background-repeat: no-repeat;
   }
 
-  &--location:before {
+  &--location::before {
     position: absolute;
     top: 0;
     left: 2.6px;
-    content: '';
     display: block;
+    content: '';
     width: 14px;
     height: 17px;
     background-image: url("../img/location.png");
     background-repeat: no-repeat;
   }
 
-  &--delegator:before {
+  &--delegator::before {
     position: absolute;
     top: 0;
     left: 2px;
-    content: '';
     display: block;
+    content: '';
     width: 13px;
     height: 17px;
     background-image: url("../img/to be done by.png");
     background-repeat: no-repeat;
   }
 }
-
-
 
 .createTask {
   display: flex;
@@ -160,9 +157,7 @@
   }
 }
 
-
 .taskFactory {
-
   &__textarea {
     position: absolute;
     top: 0;
@@ -183,14 +178,14 @@
   }
 
   &__create {
+    padding: 11px 21px;
     border-radius: 5px;
     background-color: #7ff4a9;
-    padding: 11px 21px;
+    color: #fff;
     font-family: HelveticaNeue, sans-serif;
     font-size: 15px;
     font-weight: 500;
     text-align: center;
-    color: #ffffff;
     text-transform: uppercase;
 
     &:hover {
@@ -203,22 +198,22 @@
 
   &__wrap-foto {
     position: relative;
-    border-radius: 5px;
     padding: 11px 21px;
+    margin-right: 10px;
+    border-radius: 5px;
     background-color: #4b5461;
+    color: #fff;
     font-family: HelveticaNeue, sans-serif;
     font-size: 15px;
     font-weight: 500;
     text-align: center;
-    color: #ffffff;
     text-transform: uppercase;
-    margin-right: 10px;
 
     &:hover {
       padding: 10px 20px;
       border: 1px solid #4b5461;
+      background-color: #fff;
       color: #4b5461;
-      background-color: #ffffff;
     }
   }
 
@@ -244,8 +239,8 @@
     }
 
     & .react-select__value-container {
-      width: 100%;
       position: relative;
+      width: 100%;
     }
 
     & .react-select__indicators {
@@ -255,9 +250,9 @@
   }
 
   &__errorText {
+    color: rgba(193, 13, 13, 75);
     font-family: HelveticaNeue, sans-serif;
     font-size: 11px;
-    color: rgba(193, 13, 13, 0.75);
   }
 
   &__btns {
@@ -268,53 +263,49 @@
 
     & .taskFactory__errorText {
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       margin-right: 8px;
       font-size: 15px;
-      text-transform: uppercase;
       text-align: center;
+      text-transform: uppercase;
     }
   }
 }
 
 .react-datepicker__input-container {
-  min-width: 200px;
   width: 100%;
   height: 30px;
+  min-width: 200px;
   margin-bottom: 20px;
 
-  & input::placeholder, input::-webkit-input-placeholder,
-  input::-moz-placeholder ,
-  input:-ms-input-placeholder ,
-  input:-moz-placeholder  {
+  & input::placeholder {
     color: #4a4a4a;
   }
 
   & input {
     width: 100%;
     height: 100%;
+    padding: 8px 10px 7px;
     border: solid 1px #4b5461;
     border-radius: 5px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    color: #4a4a4a;
     font-family: HelveticaNeue, sans-serif;
     font-size: 14px;
-    color: #4a4a4a;
     box-sizing: border-box;
-    padding: 8px 10px 7px 10px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
   }
 }
 
 .taskFactory__wrap-textarea {
   position: relative;
   width: 100%;
-  padding: 20% 0;
   min-width: 248px;
+  padding: 20% 0;
   margin-bottom: 15px;
 }
 
 .react-select {
-
   &__input {
     display: flex;
     position: absolute;
@@ -322,24 +313,24 @@
 
   &__control {
     position: relative;
-    min-width: 85px;
-    height: 30px;
-    width: 20%;
-    border-radius: 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    width: 20%;
+    height: 30px;
+    min-width: 85px;
+    border-radius: 5px;
+    padding-left: 10px;
     border: solid 1px #4b5461;
     box-sizing: border-box;
-    padding-left: 10px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
   }
 
   &__dropdown-indicator {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
     align-items: center;
+    justify-content: flex-end;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
@@ -347,9 +338,9 @@
   }
 
   &__value-container {
-    min-width: 45px;
     width: 48%;
     height: 100%;
+    min-width: 45px;
   }
   
   &__indicator-separator {
@@ -358,13 +349,13 @@
 
   &__placeholder {
     display: flex;
-    justify-content: flex-start;
     align-items: center;
+    justify-content: flex-start;
     width: 100%;
     height: 100%;
+    color: #4a4a4a;
     font-family: HelveticaNeue, sans-serif;
     font-size: 14px;
-    color: #4a4a4a;
   }
 }
 
@@ -450,9 +441,9 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
       max-width: 100%;
+      width: 100%;
+      transform: translate(-50%, -50%);
     }
   }
 
@@ -469,10 +460,10 @@
   }
 
   &-tel {
+    margin-bottom: 10px;
+    color: #4b5461;
     font-family: HelveticaNeue, sans-serif;
     font-size: 13px;
-    color: #4b5461;
-    margin-bottom: 10px;
 
     & a {
       color: #4b5461;
