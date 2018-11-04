@@ -298,7 +298,6 @@
   }
 }
 
-/* eslint-enable */
 .taskFactory__wrap-textarea {
   position: relative;
   width: 100%;
@@ -344,6 +343,7 @@
     min-width: 45px;
     height: 100%;
   }
+
   &__indicator-separator {
     display: none;
   }
@@ -645,4 +645,6 @@
 .signIn-check__realCheckbox:checked + .signIn-check__fakeCheckbox .signIn-check__fakeCheckbox-active {
   display: block;
 }
+
+/* eslint-enable */
 
