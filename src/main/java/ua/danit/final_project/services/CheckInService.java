@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface CheckInService {
 
-  List<CheckIn> getCheckInsByDate(@Nullable Date date);
+  List<CheckIn> getCheckInsByDate(@Nullable Long millis);
 
   CheckIn save(CheckIn checkIn);
-  
+
   CheckIn save(Location location);
 }

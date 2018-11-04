@@ -2,8 +2,14 @@ import React, { Component } from 'react'
 import routes from '../constants/routes'
 import { Link } from 'react-router-dom'
 import '../styles/Home.css'
+import connect from 'react-redux/es/connect/connect'
+import { deleteCurrentFloor } from '../actions/actions'
 
 class Home extends Component {
+  componentDidMount () {
+    this.props.currentFloor && this.props.deleteCurrentFloor()
+  }
+
   render () {
     return (
       <div className="container">
@@ -18,4 +24,18 @@ class Home extends Component {
   }
 }
 
-export default Home
+const mapStateToProps = ({checkIn}) => {
+  return {
+    currentFloor: checkIn.floorId
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteCurrentFloor: () => {
+      dispatch(deleteCurrentFloor())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

@@ -3,6 +3,8 @@ import axios from 'axios'
 import { UPDATE_COMMENT } from '../constants/actionTypes'
 import { DELETE_CALENDAR_DATE } from '../constants/actionTypes'
 import { ADD_ROOM_CHECK_HISTORY } from '../constants/actionTypes'
+import { SAVE_CURRENT_FLOOR } from '../constants/actionTypes'
+import { DELETE_CURRENT_FLOOR } from '../constants/actionTypes'
 
 export function addShift (shift) {
   return {
@@ -162,5 +164,18 @@ export function addChecKHistory (roomCheck) {
   return {
     type: ADD_ROOM_CHECK_HISTORY,
     roomCheck
+  }
+}
+
+export function saveFlloorId (floor) {
+  return {
+    type: SAVE_CURRENT_FLOOR,
+    floor
+  }
+}
+
+export function deleteCurrentFloor () {
+  return {
+    type: DELETE_CURRENT_FLOOR
   }
 }

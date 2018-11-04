@@ -18,6 +18,7 @@ class TasksForRoom extends Component {
     if (window.confirm('Утверждаете, что провели проверку номера?')) {
       const id = this.props.currentRoom.id
       axios.post(`/check-in/${id}`)
+        .then(() => this.props.history.push('/rooms'))
     }
   }
 

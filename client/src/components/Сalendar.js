@@ -10,21 +10,15 @@ import TasksView from '../pages/tasks/TasksView'
 import CheckInHistoty from '../pages/roomCheckin/CheckInHistory'
 
 class Calendar extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      isDataSelected: false
-    }
-  }
 
   render () {
     const {max, min, selected, minDate, maxDate, addDate, isForComments, isForTasks, isForCheckIn} = this.props
-    if (this.state.isDataSelected) {
+    if (this.props.date) {
       return (
         <Fragment>
           {isForComments && <ShiftHistoryForSelectedDay/>}
           {isForTasks && <TasksView itIsHistory={true} showAll={true}/>}
-          {isForCheckIn && <CheckInHistoty/>}
+          {isForCheckIn && <CheckInHistoty date={this.props.date}/>}
         </Fragment>
       )
     }
@@ -57,9 +51,6 @@ class Calendar extends Component {
             }
           }}
           onSelect={date => {
-            this.setState({
-              isDataSelected: true
-            })
             addDate(date.getTime())
           }}
           locale={{
@@ -76,8 +67,10 @@ class Calendar extends Component {
   }
 }
 
-const mapStateToProps = () => {
-  return {}
+const mapStateToProps = ({selectedDate}) => {
+  return {
+    date: selectedDate.historySelectedDate
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

@@ -30,8 +30,8 @@ public class CheckInController {
   }
 
   @GetMapping
-  public List<CheckInDto> findByDate(@RequestParam(value = "date", required = false) Date date) {
-    return checkInService.getCheckInsByDate(date)
+  public List<CheckInDto> findByDate(@RequestParam(value = "date", required = false) Long millis) {
+    return checkInService.getCheckInsByDate(millis)
         .stream()
         .map(mapper::checkInToCheckInDto)
         .collect(Collectors.toList());

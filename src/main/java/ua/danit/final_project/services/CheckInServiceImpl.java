@@ -9,6 +9,7 @@ import ua.danit.final_project.entities.CheckIn;
 import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.repositories.CheckInRepository;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -23,14 +24,15 @@ public class CheckInServiceImpl extends SessionAware implements CheckInService {
   }
 
   @Override
-  public List<CheckIn> getCheckInsByDate(@Nullable Date date) {
+  public List<CheckIn> getCheckInsByDate(@Nullable Long milliseconds) {
     Date startOfADay;
     Date endOfADay;
 
-    if (date == null) {
+    if (milliseconds == null) {
       startOfADay = DateTime.now().withTimeAtStartOfDay().toDate();
       endOfADay = DateTime.now().withTimeAtStartOfDay().plusDays(1).toDate();
     } else {
+      Timestamp date = new Timestamp(milliseconds);
       startOfADay = new DateTime(date).withTimeAtStartOfDay().toDate();
       endOfADay = new DateTime(date).withTimeAtStartOfDay().plusDays(1).toDate();
     }

@@ -4,13 +4,13 @@ import '../../styles/RoomCheckIn.css'
 import routes from '../../constants/routes'
 import Link from 'react-router-dom/es/Link'
 import calendar from '../../img/calendar.png'
-import { deleteDate } from '../../actions/actions'
+import { deleteDate, saveFlloorId } from '../../actions/actions'
 
 class RoomsList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      floor: this.props.checkInLocations[0].id
+      floor: this.props.savedFloor || this.props.checkInLocations[0].id
     }
     this.chooseFloor = this.chooseFloor.bind(this)
   }
@@ -19,10 +19,11 @@ class RoomsList extends Component {
     this.setState({
       floor: event.target.value
     })
+    this.props.saveFloor(event.target.value)
   }
 
   componentDidMount () {
-    this.props.deleteSelectedDate()
+    this.props.date && this.props.deleteSelectedDate()
   }
 
   render () {
@@ -34,7 +35,7 @@ class RoomsList extends Component {
         <div className='floors__navigation'>
           <select
             onChange={this.chooseFloor}
-            defaultValue={2}
+            defaultValue={floor}
           >
             {checkInLocations && checkInLocations.map(location => {
               return <option
@@ -75,9 +76,11 @@ class RoomsList extends Component {
   }
 }
 
-const mapStateToProps = ({startData}) => {
+const mapStateToProps = ({startData, checkIn, selectedDate}) => {
   return {
-    checkInLocations: startData.locations.filter((location) => location.children.length > 0)
+    checkInLocations: startData.locations.filter((location) => location.children.length > 0),
+    savedFloor: checkIn.floorId,
+    date: selectedDate.historySelectedDate
   }
 }
 
@@ -85,6 +88,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deleteSelectedDate: () => {
       dispatch(deleteDate())
+    },
+    saveFloor: (data) => {
+      dispatch(saveFlloorId(data))
     }
   }
 }
