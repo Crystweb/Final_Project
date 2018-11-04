@@ -2,10 +2,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   box-sizing: border-box;
-  padding-left: 33px;
   padding-right: 34px;
+  padding-left: 33px;
 
   &-radions {
     padding: 0;
@@ -28,7 +27,6 @@
     flex-direction: column;
     align-items: center;
     width: calc(100% - 26px);
-
 
     &__elem {
       display: flex;
@@ -55,8 +53,8 @@
   left: 100%;
   width: 26px;
   height: 26px;
-  border: 0;
   padding: 0;
+  border: 0;
   background-image: url("../img/task-complete.png");
   font-size: 50px;
   line-height: 50px;
@@ -111,8 +109,6 @@
     }
   }
 }
-
-
 
 .task {
   &--priority:before {

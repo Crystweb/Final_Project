@@ -49,9 +49,6 @@ class ScheduleWithComments extends Component {
                 }
               )
             }
-            )
-
-          }
         </ul>
       </div>
     )
