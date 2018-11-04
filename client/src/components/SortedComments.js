@@ -254,7 +254,7 @@ class PositionButtons extends Component {
             <Link to={routes.addNewComments.href}>
               <img alt="add comment" src={picture}/>
             </Link>
-            <Link to={routes.commentsHistoryCalendar.href}>
+            <Link to={routes.commentsHistory.href}>
               <img alt="calendar is here" src={calendar}/>
             </Link>
           </div>

@@ -93,7 +93,7 @@ class VacanciesFactoryPage extends Component {
       <Select
         className="vacancy__select"
         classNamePrefix="react-select"
-        styles={styles}
+      styles={styles}
         options={options}
         ref={(input) => this.positionId = input}
         defaultValue={positionId}

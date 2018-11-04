@@ -99,6 +99,8 @@ class TaskFactory extends Component {
       })
     }
 
+    debugger
+
     if (textForTask.value && taskFrequency && executorId && locationId) {
       let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||
         allLocations
