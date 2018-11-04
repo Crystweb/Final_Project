@@ -111,10 +111,10 @@
 
 .task {
   &--priority::before {
+    display: block;
     position: absolute;
     top: 0;
     left: 0;
-    display: block;
     width: 17px;
     height: 17px;
     background-image: url("../img/level of prior.png");
