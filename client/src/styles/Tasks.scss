@@ -369,21 +369,17 @@
 }
 
 .react-select__indicators {
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
   position: absolute;
   top: 0;
   left: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
 }
-
-
-
-
 
 .control {
   display: flex;
@@ -420,11 +416,6 @@
   }
 }
 
-
-
-
-
-
 .task_errors {
   color: red;
   font-family: HelveticaNeue;
@@ -433,7 +424,6 @@
 }
 
 .employee {
-
   &List {
     display: flex;
     flex-direction: column;
@@ -450,19 +440,19 @@
   &-fotoWrap {
     position: relative;
     width: 70px;
-    min-height: 70px;
     height: 70px;
+    min-height: 70px;
+    margin-right: 11px;
     border-radius: 50%;
     overflow: hidden;
-    margin-right: 11px;
 
     & img {
-      width: 100%;
-      max-width: 100%;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      width: 100%;
+      max-width: 100%;
     }
   }
 
@@ -471,11 +461,11 @@
   }
 
   &-data {
+    margin-bottom: 5px;
+    color: #4b5461;
     font-family: HelveticaNeue, sans-serif;
     font-size: 14px;
     font-weight: 500;
-    color: #4b5461;
-    margin-bottom: 5px;
   }
 
   &-tel {
@@ -492,16 +482,14 @@
 
   &-info {
     max-width: 100%;
+    color: #4b5461;
     font-family: HelveticaNeue, sans-serif;
     font-size: 11px;
     line-height: 1.36;
-    color: #4b5461;
   }
-
 }
 
 @media (min-width: 420px) {
-
   .tasks-img {
     top: 0;
     left: 100%;
@@ -510,7 +498,6 @@
   .tasks-list__elem-title {
     width: calc(100% - 45px);
   }
-
 }
 
 .signIn {

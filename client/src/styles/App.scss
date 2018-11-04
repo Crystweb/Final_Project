@@ -42,9 +42,9 @@ body {
 }
 
 #root {
+  width: 100%;
   min-width: 320px;
   max-width: 600px;
-  width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
   padding: 0 4%;
@@ -70,7 +70,7 @@ body {
     text-align: center;
     font-stretch: normal;
 
-    &:first-letter {
+    &::first-letter {
       text-transform: uppercase;
     }
   }
@@ -246,11 +246,10 @@ body {
   padding: 10px 0 25px;
 
   &__title {
+    color: #4b5461;
     font-family: HelveticaNeue, sans-serif;
     font-size: 22px;
     font-weight: 500;
-    color: #4b5461;
-
   }
 
   &__item {
@@ -258,9 +257,9 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    color: #4b5461;
     font-family: SFProText, sans-serif;
     font-size: 22px;
-    color: #4b5461;
 
     & img {
       margin-right: 6px;
@@ -270,8 +269,8 @@ body {
   &__pageName {
     width: 48%;
     max-width: 200px;
-    text-transform: uppercase;
     text-align: center;
+    text-transform: uppercase;
   }
 }
 
@@ -303,19 +302,17 @@ label {
   flex-direction: column;
 }
 
-
 @font-face {
   font-family: HelveticaNeue;
   src: url(../fonts/HelveticaNeue.ttf);
 }
 
-
 .ImgViewer-wrap {
   position: fixed;
-  opacity: 0.5;
-  background-color: black;
   width: 100%;
   height: 100vh;
+  background-color: black;
+  opacity: 5;
 }
 
 .ImgViewer-fotoWrap {
@@ -332,7 +329,6 @@ label {
 }
 
 @media (min-width: 375px) {
-
   #root {
     padding: 0 8%;
   }
@@ -360,6 +356,3 @@ label {
     padding: 0 33px;
   }
 }
-
-
-

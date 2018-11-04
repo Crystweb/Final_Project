@@ -35,9 +35,10 @@
   position: relative;
   width: 14%;
   min-width: 50px;
-  padding: 6.8% 0;
-  margin-bottom: 6%;
   margin-right: 6.5%;
+  margin-bottom: 6%;
+  padding: 6.8% 0;
+
 
   &__item {
     display: flex;
@@ -52,9 +53,9 @@
     border-radius: 5px;
     color: #4b5461;
     font-family: HelveticaNeue, sans-serif;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
     font-size: 15px;
     font-weight: 500;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
   }
 
   &__item:hover {
