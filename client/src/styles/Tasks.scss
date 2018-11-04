@@ -98,9 +98,9 @@
       margin-bottom: 5px;
       padding-left: 25px;
       color: #4b5461;
-      line-height: 17px;
       font-family: HelveticaNeue, sans-serif;
       font-size: 11px;
+      line-height: 17px;
 
       &:last-child {
         margin-bottom: 0;
@@ -111,13 +111,13 @@
 
 .task {
   &--priority:before {
+    display: block;
+    width: 17px;
+    height: 17px;
     position: absolute;
     top: 0;
     left: 0;
     content: '';
-    display: block;
-    width: 17px;
-    height: 17px;
     background-image: url("../img/level of prior.png");
     background-repeat: no-repeat;
   }
@@ -135,13 +135,13 @@
   }
 
   &--delegator::before {
+    display: block;
     position: absolute;
     top: 0;
     left: 2px;
-    display: block;
-    content: '';
     width: 13px;
     height: 17px;
+    content: '';
     background-image: url("../img/to be done by.png");
     background-repeat: no-repeat;
   }
@@ -162,10 +162,10 @@
     position: absolute;
     top: 0;
     left: 0;
-    min-width: 248px;
-    min-height: 88px;
     width: 100%;
+    min-width: 248px;
     height: 100%;
+    min-height: 88px;
     padding: 10px;
     border: solid 1px #c1c1c1;
     border-radius: 5px;
@@ -192,14 +192,14 @@
       padding: 10px 20px;
       border: 1px solid #7ff4a9;
       color: #7ff4a9;
-      background-color: #ffffff;
+      background-color: #fff;
     }
   }
 
   &__wrap-foto {
     position: relative;
-    padding: 11px 21px;
     margin-right: 10px;
+    padding: 11px 21px;
     border-radius: 5px;
     background-color: #4b5461;
     color: #fff;
@@ -275,14 +275,14 @@
 
 .react-datepicker__input-container {
   width: 100%;
-  height: 30px;
   min-width: 200px;
+  height: 30px;
   margin-bottom: 20px;
 
   & input::placeholder {
     color: #4a4a4a;
   }
-
+  /* eslint-disable */
   & input {
     width: 100%;
     height: 100%;
@@ -296,13 +296,13 @@
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
   }
 }
-
+/* eslint-enable */
 .taskFactory__wrap-textarea {
   position: relative;
   width: 100%;
   min-width: 248px;
-  padding: 20% 0;
   margin-bottom: 15px;
+  padding: 20% 0;
 }
 
 .react-select {
@@ -312,15 +312,15 @@
   }
 
   &__control {
-    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    position: relative;
     width: 20%;
-    height: 30px;
     min-width: 85px;
-    border-radius: 5px;
+    height: 30px;
     padding-left: 10px;
+    border-radius: 5px;
     border: solid 1px #4b5461;
     box-sizing: border-box;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
@@ -339,10 +339,9 @@
 
   &__value-container {
     width: 48%;
-    height: 100%;
     min-width: 45px;
+    height: 100%;
   }
-  
   &__indicator-separator {
     display: none;
   }
@@ -441,8 +440,8 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      max-width: 100%;
       width: 100%;
+      max-width: 100%;
       transform: translate(-50%, -50%);
     }
   }
