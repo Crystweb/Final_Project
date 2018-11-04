@@ -110,28 +110,28 @@
 }
 
 .task {
-  &--priority:before {
-    display: block;
-    width: 17px;
-    height: 17px;
+  &--priority::before {
     position: absolute;
     top: 0;
     left: 0;
-    content: '';
+    display: block;
+    width: 17px;
+    height: 17px;
     background-image: url("../img/level of prior.png");
     background-repeat: no-repeat;
+    content: '';
   }
 
   &--location::before {
+    display: block;
     position: absolute;
     top: 0;
     left: 2.6px;
-    display: block;
-    content: '';
     width: 14px;
     height: 17px;
     background-image: url("../img/location.png");
     background-repeat: no-repeat;
+    content: '';
   }
 
   &--delegator::before {
@@ -141,9 +141,9 @@
     left: 2px;
     width: 13px;
     height: 17px;
-    content: '';
     background-image: url("../img/to be done by.png");
     background-repeat: no-repeat;
+    content: '';
   }
 }
 
@@ -191,8 +191,8 @@
     &:hover {
       padding: 10px 20px;
       border: 1px solid #7ff4a9;
-      color: #7ff4a9;
       background-color: #fff;
+      color: #7ff4a9;
     }
   }
 
@@ -282,6 +282,7 @@
   & input::placeholder {
     color: #4a4a4a;
   }
+
   /* eslint-disable */
   & input {
     width: 100%;
@@ -296,6 +297,7 @@
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
   }
 }
+
 /* eslint-enable */
 .taskFactory__wrap-textarea {
   position: relative;
@@ -320,8 +322,8 @@
     min-width: 85px;
     height: 30px;
     padding-left: 10px;
-    border-radius: 5px;
     border: solid 1px #4b5461;
+    border-radius: 5px;
     box-sizing: border-box;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
   }
