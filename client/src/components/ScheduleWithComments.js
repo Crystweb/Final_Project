@@ -1,28 +1,26 @@
 import React, {Component} from 'react'
-import ActionButtons from "./ActionButtons"
+import ActionButtons from './ActionButtons'
 import dateFormat from 'dateformat'
 import Point from './Point'
 
-
 class ScheduleWithComments extends Component {
-
   render () {
-
-    const {comments, schedule, userId} = this.props;
-    let dataObject = null;
+    const {comments, schedule, userId} = this.props
+    let dataObject = null
     if (schedule) {
-      dataObject =      {
-        title : schedule.title,
-        color : schedule.color
-      };
+      dataObject = {
+        title: schedule.title,
+        color: schedule.color
+      }
     } else {
       dataObject = {
-        title : "Без смены",
-        color : "#c7c8ca"
-      };
+        title: 'Без смены',
+        color: '#c7c8ca'
+      }
     }
 
     return (
+
         <div className="schedule-elem">
           <h2 className="schedule-elem__title">{dataObject.title}</h2>
           <ul className="comment-list">
@@ -50,14 +48,14 @@ class ScheduleWithComments extends Component {
                   )
                 }
               )
-
             }
-          </ul>
-        </div>
+            )
+
+          }
+        </ul>
+      </div>
     )
   }
 }
 
-
-
-export default ScheduleWithComments;
+export default ScheduleWithComments

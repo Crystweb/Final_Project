@@ -38,9 +38,8 @@ class CreateNewComments extends Component {
       })
     }
     if (!_.isEmpty(textComment) && !_.isEmpty(checkedPositions)) {
-
-      const data = commentForUpdate ?
-        {
+      const data = commentForUpdate
+        ? {
           id: this.state.commentForUpdate.id,
           message: this.state.textComment,
           positions: positionForComment,
@@ -100,31 +99,32 @@ class CreateNewComments extends Component {
       )
     } else {
       return (<div className="container">
-          <div className="newComment">
+        <div className="newComment">
           {this.props.allPositionsForComments.filter(position => position.pinnedToComment).map(position => {
-              return (
-                <div className="newComment-elem">
-                  <label key={position.id}>
-                    <input
-                      name="position"
-                      type="checkbox"
-                      checked={true && checkedPositions.includes(position.title)}
-                      value={position.title}
-                      onChange={this.setCheckedPosition.bind(this)}
-                    />
-                    <div className="newComment-elem__fakeRadio">
-                      <div className="newComment-elem__fakeCheckMark">
-                      </div>
+            return (
+              <div className="newComment-elem">
+                <label key={position.id}>
+                  <input
+                    name="position"
+                    type="checkbox"
+                    checked={true && checkedPositions.includes(position.title)}
+                    value={position.title}
+                    onChange={this.setCheckedPosition.bind(this)}
+                  />
+                  <div className="newComment-elem__fakeRadio">
+                    <div className="newComment-elem__fakeCheckMark">
                     </div>
-                    {position.title}
-                  </label>
-                  {errorCheckedPosition && <p className="newComment-elem__error">{errorCheckedPosition}</p>}
-                </div>
-              )
-            }
+                  </div>
+                  {position.title}
+                </label>
+                {errorCheckedPosition && <p className="newComment-elem__error">{errorCheckedPosition}</p>}
+              </div>
+            )
+          }
           )
           }
           <h3 className="newComment-title">Добавить коментарий</h3>
+
           </div>
           <div className="newComment-wrap-textarea">
           <textarea className="newComment-textarea"
@@ -138,20 +138,20 @@ class CreateNewComments extends Component {
           <div className="newComment-btn">
           {errorText && <label className="newComment-errorText" htmlFor='commentField'>{errorText}</label>}
           {isUpdate || <button className="newComment-send" type="button"
-                              value=" Добавить комментарий "
-                              onClick={this.commentForFactory.bind(this)}>
+            value=" Добавить комментарий "
+            onClick={this.commentForFactory.bind(this)}>
                               Добавить комментарий
-                        </button>}
+          </button>}
           {isUpdate && <button className="newComment-send"
-                              type="button"
-                              value="Изменить комментарий"
-                              onClick={this.commentForFactory.bind(this)}>
+            type="button"
+            value="Изменить комментарий"
+            onClick={this.commentForFactory.bind(this)}>
                               Изменить комментарий
-                        </button>
+          </button>
           }
-          </div>
-          <p>{successPost}</p>
         </div>
+        <p>{successPost}</p>
+      </div>
       )
     }
   }
