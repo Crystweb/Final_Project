@@ -79,7 +79,6 @@ class TasksView extends Component {
               <li className="tasks-list__elem"
                 key={task.id}>
                 <Point color={color}/>
-
                 {hasPhoto && <div className="tasks-img"
                 onClick={() => this.setState({lightbox: task.imageLinks[0]})}>
                   <img src={task.imageLinks[0]} alt=""/>
@@ -89,9 +88,6 @@ class TasksView extends Component {
                     onClose={() => this.setState({lightbox: null})}
                   />
                 </div>}
-
-                {/* <img alt='taskPhoto' src={task.imageLinks[0]}/> */}
-
                 <h3 className="tasks-list__elem-title">{task.message}
                   {itIsHistory ||
                   (task.assignee.id === currentUser.employee.id && <button

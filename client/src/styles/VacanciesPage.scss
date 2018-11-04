@@ -50,7 +50,8 @@
   }
 
   & .react-select__value-container {
-    width: auto;
+    width: 100%;
+    position: relative;
   }
 
   & .react-select__indicators {

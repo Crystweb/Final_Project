@@ -15,10 +15,10 @@ class TaskFactory extends Component {
     super(props)
     this.locationId = React.createRef()
     this.textForTask = React.createRef()
-    this.idForRoom = React.createRef()
-    this.executorId = React.createRef()
-    this.taskPriority = React.createRef()
-    this.taskFrequency = React.createRef()
+    // this.idForRoom = React.createRef()
+    // this.executorId = React.createRef()
+    // this.taskPriority = React.createRef()
+    // this.taskFrequency = React.createRef()
 
     this.state = {
       finishDate: null,
@@ -31,11 +31,10 @@ class TaskFactory extends Component {
       photo: null,
       floorSelected: !!this.props.match.params.floorId,
 
-      locationId: null,
-      textForTask: null,
+      // locationId: null,
       idForRoom: null,
       executorId: null,
-      taskPriority: null,
+      taskPriority: 0,
       taskFrequency: null
     }
     _.bindAll(this, 'chooseDate', 'makePhoto', 'createTask', 'floorChecker')
@@ -43,10 +42,12 @@ class TaskFactory extends Component {
 
   componentDidMount () {
     const {floorId, roomId} = this.props.match.params
-    if (floorId || !isNaN(this.locationId.value)) {
-      this.locationId.value = floorId
-      this.setState({floorSelected: true})
-      this.idForRoom.value = roomId
+    if (floorId || !isNaN(this.locationId)) {
+      console.log(floorId)
+      this.locationId = +floorId
+      this.setState({
+        floorSelected: true,
+        idForRoom: +roomId})
     }
   }
 
@@ -60,7 +61,7 @@ class TaskFactory extends Component {
     let {allLocations} = this.props
     this.setState({
       floorSelected: allLocations.filter(location => location.children.length > 0)
-        .some(location => location.id === +this.locationId.value)
+        .some(location => location.id === this.locationId)
     })
   }
 
@@ -69,25 +70,26 @@ class TaskFactory extends Component {
   }
 
   createTask = () => {
-    const {locationId, textForTask, idForRoom, executorId, taskPriority, taskFrequency} = this
-    const {finishDate, photo} = this.state
+    const {textForTask, locationId} = this
+    const {finishDate, photo, idForRoom, executorId, taskPriority, taskFrequency} = this.state
     const {allLocations, allUsers} = this.props
-    if (isNaN(locationId.value)) {
+
+    if (!locationId) {
       this.setState({
         errorLocation: 'Выберите локацию'
       })
     }
-    if (idForRoom && isNaN(idForRoom.value)) {
+    if (!idForRoom) {
       this.setState({
         errorRoom: 'Выберите номер'
       })
     }
-    if (isNaN(executorId.value)) {
+    if (!executorId) {
       this.setState({
         errorExecutor: 'Выберите отвественного'
       })
     }
-    if (!isNaN(taskFrequency.value)) {
+    if (!taskFrequency) {
       this.setState({
         errorFrequency: 'Укажите повторяемость'
       })
@@ -97,18 +99,19 @@ class TaskFactory extends Component {
         errorText: 'Введите текст'
       })
     }
-    if (textForTask.value && isNaN(taskFrequency.value) && +executorId.value && +locationId.value) {
-      let locations = ((idForRoom && +idForRoom.value) && allLocations.find(location => location.id === +locationId.value).children) ||
+    debugger
+    if (textForTask.value && taskFrequency && executorId && locationId) {
+      let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||
         allLocations
-      let locationType = (idForRoom && +idForRoom.value) || (locationId && +locationId.value)
+      let locationType = idForRoom || locationId
       let body = {
-        assignee: allUsers.find(user => user.id === +executorId.value).employee,
+        assignee: allUsers.find(user => user.id === executorId).employee,
         message: textForTask.value,
         status: 'OPENED',
         updated: new Date(),
-        frequency: taskFrequency.value,
+        frequency: taskFrequency,
         expired: finishDate,
-        priority: taskPriority.value,
+        priority: taskPriority,
         locations: [locations.find(location => location.id === locationType)]
       }
       let formData = new FormData()
@@ -116,6 +119,7 @@ class TaskFactory extends Component {
       if (photo) {
         formData.append('file', photo)
       }
+
       axios({
         method: 'post',
         url: `/task`,
@@ -157,6 +161,9 @@ class TaskFactory extends Component {
       indicatorsContainer: (base, state) => ({
       }),
       input: (base, start) => ({
+        display: 'flex',
+        position: 'absolute',
+        top: '4px'
       })
     }
 
@@ -172,20 +179,20 @@ class TaskFactory extends Component {
         classNamePrefix="react-select"
         className="taskFactory__select"
         defaultValue="locationChoice"
+        value={allLocations.find(location => location.value === this.locationId)}
         placeholder="Локация"
         onChange={value => {
-          this.locationId = value
+          this.locationId = value.value
           this.floorChecker()
         }}
-        disabled={!!floorId}
         options={optionsLocation}
       />
     )
 
     let optionsRoom = []
 
-    allLocations.some(location => location.id === (+this.locationId.value || +floorId)) &&
-    allLocations.find(location => location.id === (+this.locationId.value || +floorId)).children.map(children => {
+    allLocations.some(location => location.id === (this.locationId || floorId)) &&
+    allLocations.find(location => location.id === (this.locationId || floorId)).children.map(children => {
         optionsRoom.push({value: children.id, label: children.title})
     })
 
@@ -195,9 +202,9 @@ class TaskFactory extends Component {
         classNamePrefix="react-select"
         className="taskFactory__select"
         defaultValue="roomChoice"
-        onChange={value => this.idForRoom = value}
+        value={optionsRoom.find(room => room.value === this.state.idForRoom)}
+        onChange={value => this.setState({idForRoom: value.value})}
         name="roomsList"
-        disabled={!!roomId}
         placeholder="Номер"
         options={optionsRoom}
       />
@@ -218,16 +225,16 @@ class TaskFactory extends Component {
           styles={styles}
           classNamePrefix="react-select"
           className="taskFactory__select"
-          defaultValue='0'
+          defaultValue={0}
           id="priority"
-          onChange={value => this.taskPriority = value}
+          onChange={value => this.setState({taskPriority: value.value})}
           placeholder="Приоритет"
           options={optionsPriority}
         />
 
-        let optionsExecutor = []
+      let optionsExecutor = []
 
-    allUsers.map(user => {
+      allUsers.map(user => {
       optionsExecutor.push({value: user.id,
         label: user.employee.forename +
         " " + user.employee.forename
@@ -241,7 +248,7 @@ class TaskFactory extends Component {
           className="taskFactory__select"
           name='executors'
           defaultValue='test'
-          onChange={value => this.executorId = value}
+          onChange={value => this.setState({executorId: value.value})}
           required={true}
           options={optionsExecutor}
           placeholder='Исполнитель'
@@ -260,7 +267,7 @@ class TaskFactory extends Component {
           className="taskFactory__select"
           name='frequencies'
           defaultValue='0'
-          onChange={value => this.taskFrequency = value}
+          onChange={value => this.setState({taskFrequency: value.value})}
           options={optionsFrequency}
           placeholder="Повторяемость"
           />
@@ -268,13 +275,13 @@ class TaskFactory extends Component {
     const locationSelect =
       (<div className="taskFactory__wrap-select">
         {location}
-        {isNaN(this.locationId.value) &&
+        {!this.locationId &&
         <label className='taskFactory__errorText' htmlFor='locationsList'>{errorLocation}</label>}
       </div>)
     const roomSelect =
       (<div className="taskFactory__wrap-select">
         {rooms}
-        {(this.idForRoom && isNaN(this.idForRoom.value)) &&
+        {!this.state.idForRoom  &&
         <label className='taskFactory__errorText' htmlFor='roomsList'>{errorRoom}</label>}
       </div>)
     const prioritySelect = (
@@ -285,14 +292,14 @@ class TaskFactory extends Component {
     const executorSelect = (
       <div className="taskFactory__wrap-select">
         {executor}
-        {isNaN(this.executorId.value) &&
+        {!this.state.executorId &&
         <label className='taskFactory__errorText' htmlFor='executors'>{errorExecutor}</label>}
       </div>
     )
     const frequenciesSelect = (
       <div className="taskFactory__wrap-select">
         {frequency}
-        {!isNaN(this.taskFrequency.value) &&
+        {!this.state.taskFrequency &&
         <label className='taskFactory__errorText' htmlFor='frequencies'>{errorFrequency}</label>}
       </div>
     )
