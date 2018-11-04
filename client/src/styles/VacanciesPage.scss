@@ -24,8 +24,6 @@
   font-size: 14px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .08);
   box-sizing: border-box;
-
-
 }
 
 .employee--m {
@@ -50,8 +48,8 @@
   }
 
   & .react-select__value-container {
-    width: 100%;
     position: relative;
+    width: 100%;
   }
 
   & .react-select__indicators {
@@ -70,8 +68,6 @@
   min-width: 248px;
   margin-bottom: 15px;
   padding: 20% 0;
-
-
 }
 
 .vacancy__textarea {
