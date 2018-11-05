@@ -28,8 +28,6 @@
   box-sizing: border-box;
 }
 
-
-
 .position-radio-buttons {
   display: flex;
   flex-direction: column;
@@ -183,16 +181,16 @@ button {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-left: 41px;
   box-sizing: border-box;
 }
 
 .comment-list__elem {
   display: flex;
   flex-direction: column;
+  margin-left: 33px;
+  margin-right: 34px;
   position: relative;
   margin-bottom: 15px;
-  margin-right: 34px;
 }
 
 .comment-list .comment-list__elem:last-child {

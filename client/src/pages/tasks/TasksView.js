@@ -79,21 +79,21 @@ class TasksView extends Component {
               <li className="tasks-list__elem"
                 key={task.id}>
                 <Point color={color}/>
+                {hasPhoto && <div className="tasks-img"
+                onClick={() => this.setState({lightbox: task.imageLinks[0]})}>
+                  <img src={task.imageLinks[0]} alt=""/>
+                   <Lightbox
+                    isOpen={lightbox === task.imageLinks[0]}
+                    images={[{ src: task.imageLinks[0] }]}
+                    onClose={() => this.setState({lightbox: null})}
+                  />
+                </div>}
                 <h3 className="tasks-list__elem-title">{task.message}
                   {itIsHistory ||
                   (task.assignee.id === currentUser.employee.id && <button
                     className="task-complete"
                     value={task.id}
                     onClick={this.doTask.bind(this)}></button>)}
-                  {hasPhoto && <div className="tasks-img"
-                                    onClick={() => this.setState({lightbox: task.imageLinks[0]})}>
-                    <img src={task.imageLinks[0]} alt=""/>
-                    <Lightbox
-                      isOpen={lightbox === task.imageLinks[0]}
-                      images={[{ src: task.imageLinks[0] }]}
-                      onClose={() => this.setState({lightbox: null})}
-                    />
-                  </div>}
                 </h3>
                 {task.updated && <h4 className="tasks-list__elem-subtitle">Создана: {new Date(task.updated).toLocaleDateString()}</h4>}
 

@@ -13,7 +13,7 @@ import Select from 'react-select'
 class TaskFactory extends Component {
   constructor (props) {
     super(props)
-    this.locationId = React.createRef()
+    this.locationId = null
     this.textForTask = React.createRef()
     // this.idForRoom = React.createRef()
     // this.executorId = React.createRef()
@@ -73,7 +73,7 @@ class TaskFactory extends Component {
     const {finishDate, photo, idForRoom, executorId, taskPriority, taskFrequency} = this.state
     const {allLocations, allUsers} = this.props
 
-    if (!locationId || !locationId.current) {
+    if (!locationId) {
       this.setState({
         errorLocation: 'Выберите локацию'
       })
@@ -98,8 +98,6 @@ class TaskFactory extends Component {
         errorText: 'Введите текст'
       })
     }
-
-  debugger
 
     if (textForTask.value && taskFrequency && executorId && locationId) {
       let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||
