@@ -3,6 +3,8 @@
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
+  padding-right: 34px;
+  padding-left: 33px;
 
   &-radions {
     padding: 0;
@@ -11,7 +13,7 @@
   &-img {
     position: absolute;
     top: 35px;
-    left: 100%;
+    left: 85%;
     width: 63px;
     overflow: hidden;
 
@@ -25,8 +27,6 @@
     flex-direction: column;
     align-items: center;
     width: calc(100% - 26px);
-    padding-left: 41px;
-    box-sizing: border-box;
 
     &__elem {
       display: flex;
@@ -151,7 +151,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  box-sizing: border-box;
 
   & > div {
     width: 80%;
@@ -482,28 +481,14 @@
   }
 }
 
-@media (min-width: 375px) {
-  .createTask {
-    padding-left: 41px;
-  }
-
-  .tasks {
-    padding-left: 33px;
-
-    &-list {
-      padding-left: 0;
-    }
-  }
-}
-
 @media (min-width: 420px) {
   .tasks-img {
     top: 0;
-    left: calc(100% + 45px);
+    left: 100%;
   }
 
   .tasks-list__elem-title {
-    width: calc(100% - 83px);
+    width: calc(100% - 45px);
   }
 }
 
