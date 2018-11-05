@@ -11,7 +11,13 @@ class VacanciesFactoryPage extends Component {
     super(props);
     this.state = {
       toUpdate: false,
-      successAction: ''
+      successAction: '',
+      id: null,
+      positionId: null,
+      salary: null,
+      status: null,
+      publication: null
+
     };
 
 

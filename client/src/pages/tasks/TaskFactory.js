@@ -73,7 +73,7 @@ class TaskFactory extends Component {
     const {finishDate, photo, idForRoom, executorId, taskPriority, taskFrequency} = this.state
     const {allLocations, allUsers} = this.props
 
-    if (!locationId) {
+    if (!locationId || !locationId.current) {
       this.setState({
         errorLocation: 'Выберите локацию'
       })
@@ -99,7 +99,7 @@ class TaskFactory extends Component {
       })
     }
 
-
+  debugger
 
     if (textForTask.value && taskFrequency && executorId && locationId) {
       let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||

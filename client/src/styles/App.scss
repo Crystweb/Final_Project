@@ -239,9 +239,9 @@ body {
 
 .header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
   padding: 10px 0 25px;
 
   &__title {
@@ -278,8 +278,8 @@ body {
   &__pageName {
     width: 100%;
     text-align: center;
-    text-transform: uppercase;
     order: 2;
+    text-transform: uppercase;
   }
 }
 
@@ -289,7 +289,7 @@ body {
   }
 
   .newComment-wrap-textarea {
-    width: calc(100% - 41px);;
+    width: calc(100% - 41px);
     margin-left: 41px;
   }
 }
