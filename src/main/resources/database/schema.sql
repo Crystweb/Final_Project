@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `e_patronymic` VARCHAR(32),
   `e_phone_number` VARCHAR(32),
   `e_info` VARCHAR(255),
+  `e_mail` VARCHAR(32),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
   FOREIGN KEY (`p_id`) REFERENCES `position`(`id`)
