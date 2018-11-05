@@ -241,6 +241,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 10px 0 25px;
 
   &__title {
@@ -264,11 +265,21 @@ body {
     }
   }
 
+  &__profile {
+    width: 100%;
+    max-width: 45px;
+
+    & img {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
   &__pageName {
-    width: 48%;
-    max-width: 200px;
+    width: 100%;
     text-align: center;
     text-transform: uppercase;
+    order: 2;
   }
 }
 
