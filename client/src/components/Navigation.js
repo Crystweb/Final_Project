@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import routes from '../constants/routes'
 import Home from '../pages/Home'
+import Profile from '../pages/profile/Profile'
 import Employees from '../pages/Employees'
 import EmployeesPage from '../pages/employees/EmployeesPage'
 import EmployeesFactoryPage from '../pages/employees/EmployeesFactoryPage'
@@ -28,6 +29,8 @@ class Navigation extends Component {
       <Switch>
         <Route exact path={routes.home.href}
           render={(props) => header ? <Header previousRoute={routes.home} {...props}/> : <Home {...props}/>}/>
+        <Route exact path={routes.profile.href}
+          render={(props) => header ? <Header previousRoute={routes.profile} {...props}/> : <Profile {...props}/>}/>
         <Route exact path={routes.employees.href}
           render={(props) => header ? <Header previousRoute={routes.employees} {...props}/>
             : <Employees {...props}/>}/>

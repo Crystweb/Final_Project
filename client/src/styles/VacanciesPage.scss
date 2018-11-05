@@ -13,6 +13,10 @@
   }
 }
 
+.vacancy-list {
+  box-sizing: border-box;
+}
+
 .vacancy__salary {
   width: 100%;
   height: 30px;
@@ -29,10 +33,6 @@
 .employee--m {
   width: 80%;
   margin-bottom: 20px;
-}
-
-.employee-wrapp {
-  margin-left: 41px;
 }
 
 .vacancy__wrap-select {
@@ -122,5 +122,20 @@
     border: 1px solid #7ff4a9;
     background-color: #fff;
     color: #7ff4a9;
+  }
+}
+
+@media (min-width: 375px) {
+  .vacancy__wrap {
+    padding-left: 41px;
+    box-sizing: border-box;
+  }
+
+  .employee-wrapp {
+    margin-left: 41px;
+  }
+
+  .vacancy-list {
+    padding-left: 0;
   }
 }

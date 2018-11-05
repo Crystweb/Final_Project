@@ -11,7 +11,13 @@ class VacanciesFactoryPage extends Component {
     super(props);
     this.state = {
       toUpdate: false,
-      successAction: ''
+      successAction: '',
+      id: null,
+      positionId: null,
+      salary: null,
+      status: null,
+      publication: null
+
     };
 
 
@@ -103,9 +109,8 @@ class VacanciesFactoryPage extends Component {
     if (!positions) {
       return <Preloader/>
     } else return (
-      <div className="container">
+      <div className="container vacancy__wrap">
         <form onSubmit={this.handleSubmit}>
-          <label>
             <div className="vacancy__wrap-select">
             {positionSelect}
             </div>
@@ -130,7 +135,6 @@ class VacanciesFactoryPage extends Component {
               ref={(input) => this.info = input}
               defaultValue={info}/>
             </div>
-          </label>
           <div className="vacancy__btns">
           <button className="vacancy__create"
             type="submit" onClick={() => setTimeout(() => this.props.history.push('/employees/vacancies'), 1000)}
