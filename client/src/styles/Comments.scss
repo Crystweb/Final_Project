@@ -24,15 +24,8 @@
 .radioANDbuttons {
   display: flex;
   justify-content: flex-start;
-  padding-right: 67px;
-  padding-left: 66px;
   line-height: 16px;
   box-sizing: border-box;
-
-  padding-left: 33px;
-  padding-right: 34px;
-
-
 }
 
 
@@ -190,18 +183,16 @@ button {
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-left: 41px;
+  box-sizing: border-box;
 }
 
 .comment-list__elem {
   display: flex;
   flex-direction: column;
-
-  margin-left: 33px;
-  margin-right: 34px;
   position: relative;
-  margin-right: 67px;
   margin-bottom: 15px;
-  margin-left: 66px;
+  margin-right: 34px;
 }
 
 .comment-list .comment-list__elem:last-child {
@@ -303,6 +294,22 @@ button {
 @font-face {
   font-family: HelveticaNeue;
   src: url(../fonts/HelveticaNeue.ttf);
+}
+
+@media (min-width: 375px) {
+  .radioANDbuttons {
+    padding-left: 33px;
+    padding-right: 34px;
+  }
+
+  .comment-list {
+    padding-left: 0;
+  }
+
+  .comment-list__elem {
+    margin-left: 33px;
+  }
+
 }
 
 /* stylelint-enable */
