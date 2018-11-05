@@ -12,13 +12,12 @@ import CheckInHistoty from '../pages/roomCheckin/CheckInHistory'
 class Calendar extends Component {
 
   render () {
-    const {max, min, selected, minDate, maxDate, addDate, isForComments, isForTasks, isForCheckIn} = this.props
+    const {max, min, selected, minDate, maxDate, addDate, isForComments, isForTasks, isForCheckIn, getChekIn} = this.props
     if (this.props.date) {
       return (
         <Fragment>
           {isForComments && <ShiftHistoryForSelectedDay/>}
           {isForTasks && <TasksView itIsHistory={true} showAll={true}/>}
-          {isForCheckIn && <CheckInHistoty date={this.props.date}/>}
         </Fragment>
       )
     }
@@ -52,6 +51,7 @@ class Calendar extends Component {
           }}
           onSelect={date => {
             addDate(date.getTime())
+            isForCheckIn ? getChekIn(date.getTime()) : null
           }}
           locale={{
             locale: date_fns,
