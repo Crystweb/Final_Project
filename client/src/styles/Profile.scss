@@ -12,23 +12,25 @@
 
 .profile_title h1{
   color: #727375;
+  letter-spacing: 6px;
   padding: 3px;
-  font-size: 40px;
+  font-size: 21px;
   font-weight: bold;
   text-transform: capitalize;
 }
 
-.profile_img{
+.profile{
+  display: flex;
   margin-top: 35px;
 }
 
 .user_photo{
-  width: 150px;
+  width: 100px;
   border-radius: 12px;
 }
 
 .profile_info{
-  margin-top: 20px;
+  margin-left: 20px;
   max-width: 200px;
   margin-bottom: 25px;
   border: solid 2px #b4b8bd;
@@ -38,10 +40,17 @@
   justify-content: center;
 }
 
-.profile_info p{
+.text{
   color: #4b5461;
   font-family: HelveticaNeue;
   font-style: normal;
+}
+
+.profile_data{
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .profile_info input{
@@ -60,6 +69,7 @@
 }
 
 .button_save{
+  margin-top: 50px;
   padding: 14px 20px;
   border-radius: 5px;
   background-color: #7ff4a9;

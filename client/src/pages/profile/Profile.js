@@ -11,19 +11,26 @@ class Profile extends Component {
         <div className="profile_column">
           <div className="profile_title">
             <h1>{user.surname}&nbsp;{user.forename}</h1>
+            <div>
+              <span className="text">{user.phoneNumber}&nbsp;&nbsp;&nbsp;{user.mail}</span>
+            </div>
           </div>
+          <div className= "profile">
           <div className="profile_img">
-           <img className="user_photo" src={current_user} alt="Нет фото"/>
+           <img className="user_photo" src={current_user} alt="Вставить фотографию :"/>
+
           </div>
+
           <div className="profile_info">
-            <p>Ваш номер телефона :</p>
-            <a href="tel: {user.phoneNumber}">{user.phoneNumber}</a>
-            <a href="mailto: example@mail.ru">example@mail.ru</a>
-            <input name="u_phone" type="tel" defaultValue={user.phoneNumber}/>
-            <p>Ваш e-mail :</p>
-            <input name="u_mail" type="email" defaultValue={user.mail}/>
+            <div className= "profile_data">
+              <p className="text">{user.info}</p>
+            </div>
           </div>
-          <button className="button_save">изменить</button>
+
+
+
+          </div>
+          <button type="submit" className="button_save">изменить профиль</button>
         </div>
       </div>
     )
