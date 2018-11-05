@@ -12,9 +12,12 @@ class TasksForRoom extends Component {
     if (tasksForCurrentRoom && currentRoom && currentFloor) {
       routes.createTaskForRoom.previousHref = '/rooms/' + currentRoom.id
       return (
-        <div>
-          <Link to={routes.createNewTask.href + currentFloor.id + '/' + currentRoom.id}><img src={picture}
+        <div className="tasks">
+          <div className="room__add">
+          <Link
+            to={routes.createNewTask.href + currentFloor.id + '/' + currentRoom.id}><img src={picture}
             alt="add"/></Link>
+          </div>
           <TasksView
             tasksForRoom={tasksForCurrentRoom}
             showAll={true}

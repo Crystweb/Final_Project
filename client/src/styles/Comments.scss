@@ -10,6 +10,15 @@
   height: 72px;
   padding: 0;
   line-height: 0;
+
+  &--alone {
+    justify-content: center;
+  }
+
+  &--employee {
+    justify-content: center;
+    align-items: flex-end;
+  }
 }
 
 .radioANDbuttons {
@@ -19,6 +28,11 @@
   padding-left: 66px;
   line-height: 16px;
   box-sizing: border-box;
+
+  padding-left: 33px;
+  padding-right: 34px;
+
+
 }
 
 
@@ -156,7 +170,6 @@ button {
 
 .schedule-elem {
   width: 100%;
-  min-width: 320px;
   height: 100%;
   margin: 0 auto;
   margin-bottom: 15px;
@@ -182,6 +195,9 @@ button {
 .comment-list__elem {
   display: flex;
   flex-direction: column;
+
+  margin-left: 33px;
+  margin-right: 34px;
   position: relative;
   margin-right: 67px;
   margin-bottom: 15px;
@@ -248,23 +264,16 @@ button {
   &-change img {
     width: 20px;
     height: 20px;
+    background-repeat: no-repeat;
   }
 
   &-delete {
     width: 15px;
     height: 20px;
+    background-repeat: no-repeat;
   }
 }
 
-.comment-list__elem-buttons-change {
-  width: 20px;
-  height: 20px;
-}
-
-.comment-list__elem-buttons-delete {
-  width: 15px;
-  height: 20px;
-}
 
 .comment-list .comment-list__elem:last-child .comment-list__elem-point {
   height: calc(100% - 10px);

@@ -3,3 +3,14 @@ ul {
     margin: 0;
   }
 }
+
+.react-datepicker__month-container {
+  width: 77%;
+}
+
+@media (min-width: 460px) {
+  .react-datepicker__month-container {
+    width: auto;
+  }
+}
+

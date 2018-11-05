@@ -4,10 +4,16 @@ import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 import axios from 'axios/index'
 import { addHitoryTasks, deleteTask } from '../../actions/actions'
+import Point from '../../components/Point'
+import NotFound from '../../components/NotFoundData'
+import Lightbox from 'react-images'
 
 class TasksView extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      lightbox: null
+    }
     this.doTask = this.doTask.bind(this)
   }
 
@@ -42,6 +48,10 @@ class TasksView extends Component {
       itIsHistory,
       tasksForHistory
     } = this.props
+
+    const color = '#c7c8ca'
+    const {lightbox} = this.state
+
     let myRoomTasksFiltered = showMyRoomTasks && allTasks
       .filter(task => !isNaN(+task.locations
         .map(location => location.title)))
@@ -59,42 +69,58 @@ class TasksView extends Component {
     })
     if (tasks && currentUser) {
       return (
-        <div>
-          {tasksForHistory && tasks.length === 0 && <p>Никто ничего не делал</p>}
+        <ul className="tasks-list">
+          {tasksForHistory && tasks.length === 0 && <NotFound/>}
           {tasks.map(task => {
             const isShowTask = currentUser.employee.id === task.assignee.id
             const hasPhoto = task.imageLinks.length > 0
-            return <div key={task.id}>
-              {(showAll || isShowTask) &&
-              <div className='myTask'>
-                <li className='myTask__item' key={task.id}>
-                  <h3>{task.message}</h3>
-                  <div>{task.locations.map(location => {
+            return (
+              (showAll || isShowTask) &&
+              <li className="tasks-list__elem"
+                key={task.id}>
+                <Point color={color}/>
+                {hasPhoto && <div className="tasks-img"
+                onClick={() => this.setState({lightbox: task.imageLinks[0]})}>
+                  <img src={task.imageLinks[0]} alt=""/>
+                   <Lightbox
+                    isOpen={lightbox === task.imageLinks[0]}
+                    images={[{ src: task.imageLinks[0] }]}
+                    onClose={() => this.setState({lightbox: null})}
+                  />
+                </div>}
+                <h3 className="tasks-list__elem-title">{task.message}
+                  {itIsHistory ||
+                  (task.assignee.id === currentUser.employee.id && <button
+                    className="task-complete"
+                    value={task.id}
+                    onClick={this.doTask.bind(this)}></button>)}
+                </h3>
+                {task.updated && <h4 className="tasks-list__elem-subtitle">Создана: {new Date(task.updated).toLocaleDateString()}</h4>}
+
+                <ul className="tasks-list__elem-info">
+                  {!!task.priority && <li className="task--priority">
+                    Важность: {task.priority}
+                  </li>}
+                  {task.locations.map(location => {
                     return (
-                      <h5 key={location.id}>{location.title}</h5>
+                      <li className="task--location"
+                        key={location.id}
+                      >
+                        {location.title}
+                      </li>
                     )
                   })}
-                  </div>
-                  {!!task.priority && <p>Важность: {task.priority}</p>}
                   {itIsHistory
-                    ? <p>Закрыта {new Date(task.expired).toLocaleString()}</p>
-                    : task.expired && <p>Срок: {new Date(task.expired).toLocaleString()}</p>}
-                  {itIsHistory
-                    ? <p>{task.assignee.forename} {task.assignee.surname}</p>
-                    : <p>{task.delegator.forename} {task.delegator.surname}</p>}
-                  {task.updated &&
-                  <p>Создана: {new Date(task.updated).toLocaleDateString()}</p>}
-                </li>
-                {itIsHistory ||
-                (task.assignee.id === currentUser.employee.id && <button
-                  value={task.id}
-                  onClick={this.doTask.bind(this)}>Выполнить
-                </button>)}
-                {hasPhoto && <img alt='taskPhoto' src={task.imageLinks[0]}/>}
-              </div>}
-            </div>
+                    ? <li className="task--delegator">{task.assignee.forename} {task.assignee.surname}</li>
+                    : <li className="task--delegator">{task.delegator.forename} {task.delegator.surname}</li>}
+                </ul>
+                {itIsHistory
+                  ? <p className="tasks-list__elem-end">Закрыта {new Date(task.expired).toLocaleString()}</p>
+                  : task.expired && <p className="tasks-list__elem-end">Срок: {new Date(task.expired).toLocaleString()}</p>}
+              </li>
+            )
           })}
-        </div>
+        </ul>
       )
     } else {
       return (
