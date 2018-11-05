@@ -7,7 +7,6 @@ import date_fns from 'date-fns/locale/ru'
 import InfiniteCalendar from 'react-infinite-calendar'
 import ShiftHistoryForSelectedDay from '../pages/shifts/ShiftsHistoryForSelectedDay'
 import TasksView from '../pages/tasks/TasksView'
-import CheckInHistoty from '../pages/roomCheckin/CheckInHistory'
 
 class Calendar extends Component {
 

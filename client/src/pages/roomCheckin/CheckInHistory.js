@@ -48,7 +48,6 @@ const mapStateToProps = ({selectedDate, checkIn}) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  debugger
   return {
     roomCheckHistory: (data) => {
       dispatch(addChecKHistory(data))
