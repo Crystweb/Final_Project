@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/App.css'
 import routes from '../constants/routes'
+import user_icon from '../img/user_icon.png'
 import logo from '../img/logo_f50.png'
 import back from '../img/back.png'
 import logout from '../img/log-out-button.png'
@@ -9,7 +10,7 @@ import Preloader from './Preloader'
 
 class Header extends Component {
   render () {
-    const {previousRoute} = this.props
+    const {previousRoute} = this.props;
     if (previousRoute === undefined) {
       return (
         <Preloader/>
