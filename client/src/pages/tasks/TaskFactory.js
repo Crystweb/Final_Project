@@ -138,7 +138,7 @@ class TaskFactory extends Component {
 
   render () {
     const {allUsers, allLocations, allStatuses, allFrequencies} = this.props
-    const {floorId, roomId} = this.props.match.params
+    const {floorId} = this.props.match.params
     const {
       finishDate,
       errorExecutor,
@@ -169,10 +169,11 @@ class TaskFactory extends Component {
     }
 
     let optionsLocation = []
-
+    /* eslint-disable */
     allLocations.map(location => {
       optionsLocation.push({value: location.id, label: location.title})
     })
+    /* eslint-enable */
 
     const location = (
       <Select
@@ -191,11 +192,12 @@ class TaskFactory extends Component {
     )
 
     let optionsRoom = []
-
+    /* eslint-disable */
     allLocations.some(location => location.id === (this.locationId || floorId)) &&
     allLocations.find(location => location.id === (this.locationId || floorId)).children.map(children => {
-        optionsRoom.push({value: children.id, label: children.title})
+      optionsRoom.push({value: children.id, label: children.title})
     })
+    /* eslint-enable */
 
     const rooms = (
       <Select
@@ -234,13 +236,14 @@ class TaskFactory extends Component {
         />
 
       let optionsExecutor = []
-
+    /* eslint-disable */
       allUsers.map(user => {
-      optionsExecutor.push({value: user.id,
-        label: user.employee.forename +
-        " " + user.employee.forename
-        + ", " + user.employee.title})
-    })
+        optionsExecutor.push({value: user.id,
+          label: user.employee.forename +
+          " " + user.employee.forename
+          + ", " + user.employee.title})
+      })
+    /* eslint-enable */
 
       const executor =
         <Select
@@ -256,10 +259,11 @@ class TaskFactory extends Component {
         />
 
         let optionsFrequency = []
-
+    /* eslint-disable */
     allFrequencies.map(frequency => {
       optionsFrequency.push({value: frequency, label: frequency})
     })
+    /* eslint-enable */
 
       const frequency =
         <Select

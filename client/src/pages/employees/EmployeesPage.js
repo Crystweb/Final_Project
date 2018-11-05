@@ -28,6 +28,8 @@ class EmployeesPage extends Component {
       })
   }
 
+
+
   deleteEmployee(id) {
     if (window.confirm('Вы уверены, что хотите удалить вакансию?')) {
       axios.delete(`/employee/${id}`)
@@ -36,8 +38,7 @@ class EmployeesPage extends Component {
   }
 
   render() {
-    const {showOnlyCRM_users, employees} = this.state;
-    const {classes} = this.props;
+    const {employees} = this.state;
 
     if (!this.state.employees) {
       return <Preloader/>

@@ -28,10 +28,11 @@ class RoomsList extends Component {
     const chosenFloor = floor && checkInLocations.find(location => location.id === +floor).children
 
     let options = []
-
+    /* eslint-disable */
     checkInLocations && checkInLocations.map(location => {
       options.push({value: location.id, label: location.title})
     })
+    /* eslint-enable */
 
     const styles = {
       dropdownIndicator: (base, state) => ({

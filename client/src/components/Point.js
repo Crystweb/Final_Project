@@ -5,7 +5,9 @@ class Point extends Component {
   render() {
     let {color} = this.props
 
-    color ? color : color = "#c7c8ca"
+    if (!color) {
+      color = "#c7c8ca"
+    }
 
     return (
       <div className="comment-list__elem-point">

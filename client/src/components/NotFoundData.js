@@ -6,7 +6,9 @@ class NotFound extends Component{
   render() {
     let {info} = this.props
 
-    info ? info : info = 'записи не найдены'
+    if (!info) {
+      info = 'записи не найдены'
+    }
 
     return (<div className="empty-wrap">
         <h1 className="empty-info">{info}</h1>
@@ -14,7 +16,6 @@ class NotFound extends Component{
           <img src={emptyIcon} alt="empty"/>
         </div>
       </div>
-
     )
   }
 }
