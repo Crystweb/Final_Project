@@ -3,7 +3,7 @@ import Calendar from '../../components/Сalendar'
 import CheckInHistoryForSelectedDate from './CheckInHistoryForSelectedDate'
 import connect from 'react-redux/es/connect/connect'
 import axios from 'axios'
-import { addChecKHistory } from '../../actions/actions'
+import { addChecKHistory, addSelectedDateFromCalendar } from '../../actions/actions'
 
 class CheckInHistory extends Component {
 
@@ -14,6 +14,7 @@ class CheckInHistory extends Component {
       }
     })
       .then(response => this.props.roomCheckHistory(response.data))
+      .then(() =>  this.props.addDate(date))
   }
 
   render () {
@@ -49,9 +50,8 @@ const mapStateToProps = ({selectedDate, checkIn}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    roomCheckHistory: (data) => {
-      dispatch(addChecKHistory(data))
-    }
+    roomCheckHistory: data => dispatch(addChecKHistory(data)),
+    addDate: date => dispatch(addSelectedDateFromCalendar(date))
   }
 }
 
