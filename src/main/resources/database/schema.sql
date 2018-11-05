@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `task_comment` (
 CREATE TABLE IF NOT EXISTS `task_img` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `task_id` BIGINT NOT NULL,
-  `url` VARCHAR(255) NOT NULL UNIQUE,
+  `url` VARCHAR(255) NOT NULL,
   `aws_key` VARCHAR(255),
   `created_at` TIMESTAMP,
   `last_update` TIMESTAMP,
