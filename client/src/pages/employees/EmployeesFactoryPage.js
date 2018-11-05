@@ -20,14 +20,14 @@ class EmployeesFactoryPage extends Component {
       url: `/employee`,
       method: toUpdate ? 'PUT' : 'POST',
       data: toUpdate ? {
-        position: this.props.positions.find(p => p.id === +this.positionId.value),
+        position: this.props.positions.find(p => p.id === +this.position),
         forename: this.forename.value,
         surname: this.surname.value,
         patronymic: this.patronymic.value,
         phoneNumber: this.phoneNumber.value,
         info: this.info.value
       } : {
-        position: this.props.positions.find(p => p.id === +this.positionId.value),
+        position: this.props.positions.find(p => p.id === +this.position),
         forename: this.forename.value,
         surname: this.surname.value,
         patronymic: this.patronymic.value,
@@ -89,7 +89,7 @@ class EmployeesFactoryPage extends Component {
       classNamePrefix="react-select"
       styles={styles}
       options={options}
-      ref={(input) => this.positionId = input}
+      onChange={value => this.position = value.value }
       defaultValue={positionId}
       placeholder={"" + placeholder}
 

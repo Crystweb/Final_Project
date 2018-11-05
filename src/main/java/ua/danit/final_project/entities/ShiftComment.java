@@ -35,7 +35,7 @@ public class ShiftComment implements Serializable {
   @JoinColumn(name = "employee_id", nullable = false)
   private Employee author;
 
-  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY)
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinTable(
