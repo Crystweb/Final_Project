@@ -31,10 +31,6 @@
   margin-bottom: 20px;
 }
 
-.employee-wrapp {
-  margin-left: 41px;
-}
-
 .vacancy__wrap-select {
   display: flex;
   flex-direction: column;
@@ -122,5 +118,16 @@
     border: 1px solid #7ff4a9;
     background-color: #fff;
     color: #7ff4a9;
+  }
+}
+
+@media (min-width: 375px) {
+  .vacancy__wrap {
+    padding-left: 41px;
+    box-sizing: border-box;
+  }
+
+  .employee-wrapp {
+    margin-left: 41px;
   }
 }

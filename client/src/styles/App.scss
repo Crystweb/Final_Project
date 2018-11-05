@@ -91,7 +91,6 @@ body {
 }
 
 .newComment {
-  padding-left: 41px;
   box-sizing: border-box;
 
   &-elem {
@@ -165,9 +164,8 @@ body {
 
   &-wrap-textarea {
     position: relative;
-    width: calc(100% - 41px);
+    width: 100%;
     margin-bottom: 20px;
-    margin-left: 41px;
     padding: 30% 0;
   }
 
@@ -271,6 +269,17 @@ body {
     max-width: 200px;
     text-align: center;
     text-transform: uppercase;
+  }
+}
+
+@media (min-width: 375px) {
+  .newComment {
+    padding-left: 41px;
+  }
+
+  .newComment-wrap-textarea {
+    width: calc(100% - 41px);;
+    margin-left: 41px;
   }
 }
 
