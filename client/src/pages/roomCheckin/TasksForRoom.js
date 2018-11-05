@@ -28,10 +28,11 @@ class TasksForRoom extends Component {
       routes.createTaskForRoom.previousHref = '/rooms/' + currentRoom.id
       return (
         <div className="tasks">
-          <div className="room__add">
-          <Link
-            to={routes.createNewTask.href + currentFloor.id + '/' + currentRoom.id}><img src={picture}
-            alt="add"/></Link>
+          <div className='roomActions'>
+            <span className='roomActions__success' onClick={this.doCheckIn}>
+              Проверен
+            </span>
+            <Link to={routes.createNewTask.href + currentFloor.id + '/' + currentRoom.id}><img src={picture} alt="add"/></Link>
           </div>
           <TasksView
             tasksForRoom={tasksForCurrentRoom}

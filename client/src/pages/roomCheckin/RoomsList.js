@@ -11,8 +11,7 @@ class RoomsList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      floor: this.props.savedFloor || this.props.checkInLocations[0].id
-      floor: this.props.checkInLocations[0].id,
+      floor: this.props.savedFloor || this.props.checkInLocations[0].id,
       floorName: this.props.checkInLocations[0].title
     }
     this.chooseFloor = this.chooseFloor.bind(this)
@@ -23,7 +22,7 @@ class RoomsList extends Component {
       floor: event.value,
       floorName: event.label
     })
-    this.props.saveFloor(event.target.value)
+    this.props.saveFloor(event.value)
   }
 
   componentDidMount () {
@@ -65,7 +64,7 @@ class RoomsList extends Component {
 
 
       <div className='floors'>
-
+        <div className='floors__navigation'>
         <Select
           styles={styles}
           className='floors__select'
@@ -77,8 +76,10 @@ class RoomsList extends Component {
           placeholder={floorName}
           controlShouldRenderValue={true}
         />
-
-
+        <Link to={routes.checkInHistory.href}>
+          <img src={calendar} alt="calendar"/>
+        </Link>
+        </div>
         {floor &&
         <ul className='floors__rooms'>
           {chosenFloor.map(room => {

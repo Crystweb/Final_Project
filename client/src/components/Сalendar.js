@@ -50,6 +50,7 @@ class Calendar extends Component {
           }}
           onSelect={date => {
             addDate(date.getTime())
+            // eslint-disable-next-line
             isForCheckIn ? getChekIn(date.getTime()) : false
           }}
           locale={{
