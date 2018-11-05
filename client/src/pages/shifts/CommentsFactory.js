@@ -124,15 +124,18 @@ class CreateNewComments extends Component {
           )
           }
           <h3 className="newComment-title">Добавить коментарий</h3>
-        </div>
-        <textarea className="newComment-textarea"
-          name='commentField'
-          value={textComment}
-          placeholder={'Привет друг, что бы ты хотел мне написать?'}
-          cols="30"
-          rows="10"
-          onChange={this.addText.bind(this)}/>
-        <div className="newComment-btn">
+
+          </div>
+          <div className="newComment-wrap-textarea">
+          <textarea className="newComment-textarea"
+            name='commentField'
+            value={textComment}
+            placeholder={'Привет друг, что бы ты хотел мне написать?'}
+            cols="30"
+            rows="10"
+            onChange={this.addText.bind(this)}/>
+          </div>
+          <div className="newComment-btn">
           {errorText && <label className="newComment-errorText" htmlFor='commentField'>{errorText}</label>}
           {isUpdate || <button className="newComment-send" type="button"
             value=" Добавить комментарий "

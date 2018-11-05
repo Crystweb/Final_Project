@@ -61,54 +61,69 @@ class Tasks extends Component {
     const {user, tasks} = this.props
     if (tasks && user) {
       const showEditButtons = user.employee.position.pinnedToComment === true
-      return <div className="tasks">
-        <TasksView
-          showAll={this.state.showAll}
-          showMyHotelTasks={this.state.showMyHotelTasks}
-          showMyRoomTasks={this.state.showMyRoomTasks}
-        />
-        <div className='tasks__items'>
-          <div className='control'>
+
+      return (
+        <div className="tasks">
+          <div className="radioANDbuttons tasks-radions">
             {showEditButtons &&
-            <div className='control__buttons'>
-              <Link to={routes.createNewTask.href}><img src={picture} alt="add"/></Link>
-              <Link to={routes.tasksHistory.href}><img src={calendar} alt="calendar"/></Link>
-            </div>
-            }
-            <div className='control__radio'>
-              <ul>
-                {showEditButtons && <li>
+            <ul className="position-radio-buttons">
+              <li className="position-radio-buttons__elem">
+                <label>
                   <input
                     name='tasks'
                     type='radio'
                     value='allTasks'
                     defaultChecked={false}
                     onClick={this.showAllActualTasks}/>
-                  Все задачи
-                </li>}
-                <li>
+                  <div className="position-radio-buttons__fakeBtn">
+                    <div className="position-radio-buttons__fakeBtn-active"></div>
+                  </div>
+                  <span>Все задачи</span>
+                </label>
+              </li>
+              <li className="position-radio-buttons__elem">
+                <label>
                   <input
                     name='tasks'
                     type='radio'
                     value='myHotelTasks'
                     onClick={this.showMyActualHotelTasks}
                     defaultChecked={true}/>
-                  Мои задачи Отель
-                </li>
-                <li>
+                  <div className="position-radio-buttons__fakeBtn">
+                    <div className="position-radio-buttons__fakeBtn-active"></div>
+                  </div>
+                  <span>Мои задачи Отель</span>
+                </label>
+              </li>
+              <li className="position-radio-buttons__elem">
+                <label>
                   <input
                     name='tasks'
                     type='radio'
                     value='myRoomsTasks'
                     onClick={this.showMyActualRoomTasks}
                     defaultChecked={false}/>
-                  Мои задачи Номера
-                </li>
-              </ul>
+                  <div className="position-radio-buttons__fakeBtn">
+                    <div className="position-radio-buttons__fakeBtn-active"></div>
+                  </div>
+                  <span>Мои задачи Номера</span>
+                </label>
+              </li>
+            </ul>
+            }
+            {showEditButtons && <div className='add_and_history'>
+              <Link to={routes.createNewTask.href}><img src={picture} alt="add"/></Link>
+              <Link to={routes.tasksHistory.href}><img src={calendar} alt="calendar"/></Link>
             </div>
+              }
           </div>
-        </div>
-      </div>
+            <TasksView
+              showAll={this.state.showAll}
+              showMyHotelTasks={this.state.showMyHotelTasks}
+              showMyRoomTasks={this.state.showMyRoomTasks}
+            />
+          </div>
+      )
     } else {
       return (
         <Preloader/>

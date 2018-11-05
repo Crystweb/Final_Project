@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import ActionButtons from './ActionButtons'
 import dateFormat from 'dateformat'
+import Point from './Point'
 
 class ScheduleWithComments extends Component {
   render () {
@@ -19,40 +20,35 @@ class ScheduleWithComments extends Component {
     }
 
     return (
-      <div className="schedule-elem">
-        <h2 className="schedule-elem__title">{dataObject.title}</h2>
-        <ul className="comment-list">
-          {comments
-            .map(comment => {
-              let buttons = comment.author.id === userId ? <ActionButtons comment={comment.id}/> : ''
-              let time = new Date(+comment.date)
 
-              let readyTime = dateFormat(time, 'dd mmmm в HH:MM')
+        <div className="schedule-elem">
+          <h2 className="schedule-elem__title">{dataObject.title}</h2>
+          <ul className="comment-list">
+            {comments
+              .map((comment, index) => {
+                  let buttons = comment.author.id === userId ? <ActionButtons comment={comment.id}/> : "";
+                  let time = new Date(+comment.date);
 
-              return (
-                <li className="comment-list__elem">
-                  <h3 className="comment-list__elem-title">
-                    {comment.author.forename} {comment.author.surname}, {comment.author.position.title}
-                  </h3>
-                  <div className="comment-list__elem-point">
-                    <div className="comment-list__elem-line"></div>
-                    <div className="point-big" style={{backgroundColor: dataObject.color}}>
-                      <div className="point-small"></div>
-                    </div>
-                  </div>
-                  <h4 className="comment-list__elem-subtitle">
-                    {readyTime}
-                  </h4>
-                  <p className="comment-list__elem-info">
-                    {comment.message}
-                  </p>
-                  {buttons}
-                </li>
+                  let readyTime = dateFormat(time, "dd mmmm в HH:MM")
+
+                  return (
+                    <li className="comment-list__elem" key={index}>
+                      <h3 className="comment-list__elem-title">
+                        {comment.author.forename} {comment.author.surname}, {comment.author.position.title}
+                      </h3>
+                      <Point color={dataObject.color}/>
+                      <h4 className="comment-list__elem-subtitle">
+                        {readyTime}
+                      </h4>
+                      <p className="comment-list__elem-info">
+                        {comment.message}
+                      </p>
+                      {buttons}
+                    </li>
+                  )
+                }
               )
             }
-            )
-
-          }
         </ul>
       </div>
     )

@@ -10,18 +10,23 @@
   height: 72px;
   padding: 0;
   line-height: 0;
+
+  &--alone {
+    justify-content: center;
+  }
+
+  &--employee {
+    justify-content: center;
+    align-items: flex-end;
+  }
 }
 
 .radioANDbuttons {
   display: flex;
   justify-content: flex-start;
-  padding-right: 67px;
-  padding-left: 66px;
   line-height: 16px;
   box-sizing: border-box;
 }
-
-
 
 .position-radio-buttons {
   display: flex;
@@ -156,7 +161,6 @@ button {
 
 .schedule-elem {
   width: 100%;
-  min-width: 320px;
   height: 100%;
   margin: 0 auto;
   margin-bottom: 15px;
@@ -177,15 +181,16 @@ button {
   display: flex;
   flex-direction: column;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .comment-list__elem {
   display: flex;
   flex-direction: column;
+  margin-left: 33px;
+  margin-right: 34px;
   position: relative;
-  margin-right: 67px;
   margin-bottom: 15px;
-  margin-left: 66px;
 }
 
 .comment-list .comment-list__elem:last-child {
@@ -248,23 +253,16 @@ button {
   &-change img {
     width: 20px;
     height: 20px;
+    background-repeat: no-repeat;
   }
 
   &-delete {
     width: 15px;
     height: 20px;
+    background-repeat: no-repeat;
   }
 }
 
-.comment-list__elem-buttons-change {
-  width: 20px;
-  height: 20px;
-}
-
-.comment-list__elem-buttons-delete {
-  width: 15px;
-  height: 20px;
-}
 
 .comment-list .comment-list__elem:last-child .comment-list__elem-point {
   height: calc(100% - 10px);
@@ -294,6 +292,21 @@ button {
 @font-face {
   font-family: HelveticaNeue;
   src: url(../fonts/HelveticaNeue.ttf);
+}
+
+@media (min-width: 375px) {
+  .radioANDbuttons {
+    padding-left: 33px;
+  }
+
+  .comment-list {
+    padding-left: 0;
+  }
+
+  .comment-list__elem {
+    margin-left: 33px;
+  }
+
 }
 
 /* stylelint-enable */

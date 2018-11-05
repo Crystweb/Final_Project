@@ -54,6 +54,9 @@ public class Employee implements Serializable {
   @Column(name = "e_info")
   private String info;
 
+  @Column(name = "e_mail")
+  private String mail;
+
   public boolean hasUser() {
     return user != null;
   }

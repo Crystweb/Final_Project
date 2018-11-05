@@ -5,19 +5,23 @@ import routes from '../../constants/routes'
 import Link from 'react-router-dom/es/Link'
 import calendar from '../../img/calendar.png'
 import { deleteDate, saveFlloorId } from '../../actions/actions'
+import Select from 'react-select'
 
 class RoomsList extends Component {
   constructor (props) {
     super(props)
     this.state = {
       floor: this.props.savedFloor || this.props.checkInLocations[0].id
+      floor: this.props.checkInLocations[0].id,
+      floorName: this.props.checkInLocations[0].title
     }
     this.chooseFloor = this.chooseFloor.bind(this)
   }
 
   chooseFloor (event) {
     this.setState({
-      floor: event.target.value
+      floor: event.value,
+      floorName: event.label
     })
     this.props.saveFloor(event.target.value)
   }
@@ -28,28 +32,53 @@ class RoomsList extends Component {
 
   render () {
     const {checkInLocations} = this.props
-    const {floor} = this.state
+    const {floor, floorName} = this.state
     const chosenFloor = floor && checkInLocations.find(location => location.id === +floor).children
+
+    let options = []
+    /* eslint-disable */
+    checkInLocations && checkInLocations.map(location => {
+      options.push({value: location.id, label: location.title})
+    })
+    /* eslint-enable */
+
+    const styles = {
+      dropdownIndicator: (base, state) => ({
+      }),
+
+      placeholder: (base, state) => ({
+      }),
+      valueContainer: (base, state) => ({
+      }),
+      control: (base, state) => ({
+      }),
+      indicatorsContainer: (base, state) => ({
+
+      }),
+      input: (base, start) => ({
+        display: "none"
+      })
+    }
+
+
     return (
+
+
       <div className='floors'>
-        <div className='floors__navigation'>
-          <select
-            onChange={this.chooseFloor}
-            defaultValue={floor}
-          >
-            {checkInLocations && checkInLocations.map(location => {
-              return <option
-                key={location.id}
-                className='floors__item'
-                value={location.id}>
-                {location.title}
-              </option>
-            })}
-          </select>
-          <Link to={routes.checkInHistory.href}>
-            <img src={calendar} alt="calendar"/>
-          </Link>
-        </div>
+
+        <Select
+          styles={styles}
+          className='floors__select'
+          classNamePrefix="react-select"
+          options={options}
+          onChange={this.chooseFloor}
+          defaultValue={2}
+          value={floor}
+          placeholder={floorName}
+          controlShouldRenderValue={true}
+        />
+
+
         {floor &&
         <ul className='floors__rooms'>
           {chosenFloor.map(room => {

@@ -41,11 +41,11 @@ INSERT INTO `user_role` (u_id, r_id) VALUES (1,2);
 INSERT INTO `user_role` (u_id, r_id) VALUES (2,3);
 INSERT INTO `user_role` (u_id, r_id) VALUES (2,5);
 
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'blablabla1');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '090586403', 'blablabla2');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '092586403', 'blablabla3');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (5,3,'Artem', 'Tymchuk',  'Dmytrovich',  '094586403', 'blablabla4');
-INSERT INTO `employee`(u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info) VALUES (4,3,'Rostyslav', 'Barmakov',  'Dmytrovich',  '094586003', 'blablabla5');
+INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'blablabla1', 'vasya@gmail.com');
+INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '090586403', 'blablabla2', 'petya@gmail.com');
+INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '092586403', 'blablabla3', 'maximka@gmail.com');
+INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (5,3,'Artem', 'Tymchuk',  'Dmytrovich',  '094586403', 'blablabla4', 'artyom@gmail.com');
+INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (4,3,'Rostyslav', 'Barmakov',  'Dmytrovich',  '094586003', 'blablabla5', 'warfawl@gmail.com');
 
 INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '10:00:00', '21:00:00', TIMESTAMPADD(DAY, -3, CURRENT_TIMESTAMP) );
 INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '21:00:00', '10:00:00', TIMESTAMPADD(DAY, -2, CURRENT_TIMESTAMP) );
@@ -248,6 +248,12 @@ INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority
 INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (4, 3, 'починить замок', @OPENED, 1, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
 INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (4, 3, 'покрасить дверь', @OPENED, 3, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
 INSERT INTO `task` (e_id_assignee, e_id_delegator, t_message, t_status, priority, t_frequency, updated, expired) VALUES (4, 3, 'поменять лампочку в светильнике', @OPENED, 2, 'ONCE', CURRENT_TIMESTAMP, TIMESTAMPADD(DAY, 3, CURRENT_TIMESTAMP));
+
+INSERT INTO `task_img` (task_id, url) VALUES (2, 'https://images.unsplash.com/photo-1533467915241-eac02e856653?ixlib=rb-0.3.5&s=5a355bc035d9fd2297e68804e4fdb433&w=1000&q=80');
+INSERT INTO `task_img` (task_id, url) VALUES (3, 'http://storage.agravery.com/uploads/files/flowers/ukraine/bouquet-3158350.jpg');
+INSERT INTO `task_img` (task_id, url) VALUES (4, 'https://cdn6.sellbe.com/p66/s-66281/product/26/205816.jpg');
+INSERT INTO `task_img` (task_id, url) VALUES (5, 'https://camellia.ua/upload/kamelia_flora/cat/82/1b/635x635/fc269977_56b4b3f1a7b06.jpg');
+INSERT INTO `task_img` (task_id, url) VALUES (6, 'http://roza.if.ua/wp-content/uploads/2017/05/961.jpg');
 
 INSERT INTO `task_location` (t_id, l_id) VALUES (1,2);
 INSERT INTO `task_location` (t_id, l_id) VALUES (2,2);

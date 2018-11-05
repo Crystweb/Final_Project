@@ -1,5 +1,6 @@
 const routes = {
   home: {name: 'грилив отель', href: '/', previousHref: null},
+  profile: {name: 'Профиль', href: '/profile', previousHref: '/'},
   employees: {name: 'персонал', href: '/employees', previousHref: '/'},
   employeesList: {name: 'сотрудники', href: '/employees/list', previousHref: '/employees'},
   updateEmployee: {name: 'изменить данные сотрудника', href: '/employees/list/factory/', previousHref: '/employees/list'},
@@ -8,6 +9,7 @@ const routes = {
   vacancies: {name: 'вакансии', href: '/employees/vacancies', previousHref: '/employees'},
   comments: {name: 'смены', href: '/shifts', previousHref: '/'},
   commentsHistory: {name: 'История смен', href: '/shifts/history', previousHref: '/shifts'},
+  commentsHistoryCalendar: {name: 'История смен', href: '/shifts/history/calendar', previousHref: '/shifts'},
   addNewComments: {name: 'Передать смену', href: '/shift/new', previousHref: '/shifts'},
   updateComment: {name: 'изменить комментарий ', href: '/shift/update/', previousHref: '/shifts'},
   addNewVacancy: {name: 'добавить вакансию', href: '/employees/vacancies/service/', previousHref: '/employees/vacancies'},

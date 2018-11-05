@@ -1,0 +1,21 @@
+import React, {Component} from 'react'
+
+class ImgViewer extends Component{
+
+  render() {
+
+    const {img} = this.props
+
+    return (
+      <div className="ImgViewer-wrap">
+        <div className="ImgViewer-fotoWrap">
+          <img src={img} alt="#"/>
+        </div>
+      </div>
+
+    )
+  }
+
+}
+
+export default ImgViewer

@@ -21,14 +21,14 @@ class Calendar extends Component {
       )
     }
     return (
-      <div>
+      <div className="calendar-wrap">
         <InfiniteCalendar
           className="day"
           rowHeight={60}
           max={max}
           min={min}
-          width={300}
-          height={300}
+          width={320}
+          height={320}
           selected={selected}
           minDate={minDate}
           maxDate={maxDate}
