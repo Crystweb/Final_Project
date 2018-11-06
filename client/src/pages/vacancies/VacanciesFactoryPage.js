@@ -13,7 +13,7 @@ class VacanciesFactoryPage extends Component {
       toUpdate: false,
       successAction: '',
       id: null,
-      positionId: null,
+      position: null,
       salary: null,
       status: null,
       publication: null
@@ -31,14 +31,14 @@ class VacanciesFactoryPage extends Component {
       method: toUpdate ? 'PUT' : 'POST',
       data: toUpdate ? {
             id: this.state.id,
-            positionId: this.positionId.value,
+            position: this.props.positions.find(position => position.id === this.state.position),
             info: this.info.value,
             salary: this.salary.value,
             status: this.status.value,
             publication: this.state.publication
           }
       : {
-      positionId: this.positionId.value,
+      position: this.props.positions.find(position => position.id === this.state.position),
       info: this.info.value,
       salary: this.salary.value
       },
@@ -53,7 +53,7 @@ class VacanciesFactoryPage extends Component {
     if (item) {
       this.setState({
         id: item.id,
-        positionId: item.positionId,
+        position: item.positionId,
         status: item.status,
         salary: item.salary,
         info: item.info,
@@ -101,7 +101,7 @@ class VacanciesFactoryPage extends Component {
         classNamePrefix="react-select"
       styles={styles}
         options={options}
-        ref={(input) => this.positionId = input}
+        onChange={value => this.setState({position: value.value})}
         defaultValue={positionId}
         placeholder={"" + placeholder}
       />
