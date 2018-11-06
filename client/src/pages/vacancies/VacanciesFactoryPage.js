@@ -14,22 +14,24 @@ class VacanciesFactoryPage extends Component {
       successAction: '',
       id: null,
       positionId: null,
+      info: null,
       salary: null,
       status: null,
-      publication: null
-
+      publication: null,
+      sendingData: false,
+      positionIdError: null,
+      infoError: null
     };
-
-
   }
 
-  handleSubmit = (event) => {
-    const toUpdate = this.state.toUpdate;
-    event.preventDefault();
-    axios({
-      url: '/vacancy',
-      method: toUpdate ? 'PUT' : 'POST',
-      data: toUpdate ? {
+  createVacancy = () => {
+    const {toUpdate, sendingData} = this.state;
+
+    if (!sendingData) {
+      axios({
+        url: '/vacancy',
+        method: toUpdate ? 'PUT' : 'POST',
+        data: toUpdate ? {
             id: this.state.id,
             positionId: this.positionId.value,
             info: this.info.value,
@@ -37,14 +39,17 @@ class VacanciesFactoryPage extends Component {
             status: this.status.value,
             publication: this.state.publication
           }
-      : {
-      positionId: this.positionId.value,
-      info: this.info.value,
-      salary: this.salary.value
-      },
-    })
-      .then((response) => this.setState({
-        successAction: toUpdate ? 'Вакансия изменена успешно' : 'Создана новая вакансия'}))
+          : {
+            positionId: this.positionId.value,
+            info: this.info.value,
+            salary: this.salary.value
+          },
+      })
+        .then((response) => this.setState({
+          successAction: toUpdate ? 'Вакансия изменена успешно' : 'Создана новая вакансия'
+        }))
+        .then(() => this.props.history.push('/employees/vacancies'))
+    }
   };
 
   componentWillMount() {
@@ -102,15 +107,14 @@ class VacanciesFactoryPage extends Component {
       styles={styles}
         options={options}
         ref={(input) => this.positionId = input}
-        defaultValue={positionId}
-        placeholder={"" + placeholder}
+        placeholder={"Позиция"}
       />
 
     if (!positions) {
       return <Preloader/>
     } else return (
       <div className="container vacancy__wrap">
-        <form onSubmit={this.handleSubmit}>
+        <div>
             <div className="vacancy__wrap-select">
             {positionSelect}
             </div>
@@ -136,13 +140,14 @@ class VacanciesFactoryPage extends Component {
               defaultValue={info}/>
             </div>
           <div className="vacancy__btns">
-          <button className="vacancy__create"
-            type="submit" onClick={() => setTimeout(() => this.props.history.push('/employees/vacancies'), 1000)}
-                  value={this.props.location.state ? "Изменить вакансию" : "Добавить вакансию"}>
+          <button
+              className="vacancy__create"
+              onClick={this.createVacancy}
+              value={this.props.location.state ? "Изменить вакансию" : "Добавить вакансию"}>
             {this.props.location.state ? "Изменить вакансию" : "Добавить вакансию"}
             </button>
           </div>
-        </form>
+        </div>
         <p>{this.state.successAction}</p>
       </div>
     )

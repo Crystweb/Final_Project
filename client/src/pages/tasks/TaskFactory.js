@@ -340,7 +340,7 @@ class TaskFactory extends Component {
         />
         {executorSelect}
         {frequenciesSelect}
-        <p className="taskFactory__wrap-textarea">
+        <section className="taskFactory__wrap-textarea">
         <textarea
           className="taskFactory__textarea"
           name="task"
@@ -350,8 +350,8 @@ class TaskFactory extends Component {
           placeholder='Привет друг, что бы ты хотел мне написать?'
         >
         </textarea>
-        </p>
-        <p className="taskFactory__btns">
+        </section>
+        <section className="taskFactory__btns">
         <label className='taskFactory__errorText' htmlFor='task'>{errorText}</label>
         <div className="taskFactory__wrap-foto">
           Фото
@@ -365,7 +365,7 @@ class TaskFactory extends Component {
           onClick={this.createTask}>Добавить
         </button>
         {successAdd && <h3>{successAdd}</h3>}
-      </p>
+      </section>
       </div>
     )
   }

@@ -53,7 +53,7 @@ class EmployeesPage extends Component {
           <ul className="employeeList">
 
             {employees.map(employee => {
-              return <li className="employeeList__elem">
+              return <li className="employeeList__elem" key={employee.id}>
                   <div className="employee-fotoWrap">
                     <img src={noPhoto} alt="#"/>
                   </div>
