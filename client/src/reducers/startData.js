@@ -3,7 +3,7 @@ import {
   GET_CURRENT_USER, GET_FREQUENCIES,
   GET_LOCATIONS,
   GET_SCHEDULES,
-  GET_TASK_STATUSES
+  GET_TASK_STATUSES, USER_DOWNLOAD
 } from '../constants/actionTypes'
 
 const initialState = {
@@ -13,7 +13,8 @@ const initialState = {
   locations: null,
   statuses: null,
   frequencies: null,
-  users: null
+  users: null,
+  userDownload: null
 }
 
 export default function startDataReducer (state = initialState, action) {
@@ -29,9 +30,11 @@ export default function startDataReducer (state = initialState, action) {
     case GET_TASK_STATUSES:
       return {...state, statuses: action.statuses}
     case GET_FREQUENCIES:
-      return{...state, frequencies: action.frequencies}
+      return {...state, frequencies: action.frequencies}
     case GET_ALL_USERS:
       return {...state, users: action.users}
+    case USER_DOWNLOAD:
+      return {...state, userDownload: action.bool}
     default:
       return state
   }

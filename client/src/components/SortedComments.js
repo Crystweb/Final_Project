@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from "react-router-dom";
-import routes from "../constants/routes";
-import picture from "../img/add.png";
-import calendar from "../img/calendar.png";
+import {Link} from 'react-router-dom'
+import routes from '../constants/routes'
+import picture from '../img/add.png'
+import calendar from '../img/calendar.png'
 import ScheduleWithComments from './ScheduleWithComments'
 import NotFound from './NotFoundData'
-import {addSelectedDateFromCalendar} from "../actions/actions";
+import {addSelectedDateFromCalendar} from '../actions/actions'
 
 class PositionButtons extends Component {
   state = {
@@ -15,18 +15,17 @@ class PositionButtons extends Component {
     colors: ['#eff47f', '#7ff4f1', '#c7c8ca', '#00c7ff']
   }
 
-  setPositionView(event) {
+  setPositionView (event) {
     this.setState({view: event.target.value})
   }
 
-  getRandomColor(indexColors) {
+  getRandomColor (indexColors) {
     const colors = ['orange', 'darkkhaki', 'dimgray', 'rosybrown', 'red', 'saddlebrown', 'tan', 'yellowgreen', 'palegreen']
 
     return colors[indexColors]
   }
 
-  createArrayOfReadyComments(schedulesWithColors, comments) {
-
+  createArrayOfReadyComments (schedulesWithColors, comments) {
     let arrayOfSchedules = schedulesWithColors.map(item => {
       let returnItem = Object.assign({}, item)
       let stringNumberStart = +item.start.toString().substr(0, 2)
@@ -55,8 +54,7 @@ class PositionButtons extends Component {
     return arrayOfReadyComments
   }
 
-  createCommentsByWhile(inputArrayOfSchedules, filterComments) {
-
+  createCommentsByWhile (inputArrayOfSchedules, filterComments) {
     let time = new Date()
     let startTime = time.getHours() * 60 + time.getMinutes()
     let arrayOfSchedules = this.createArrayWithSortedSchedules(inputArrayOfSchedules, time)
@@ -117,8 +115,8 @@ class PositionButtons extends Component {
         .filter(comment => {
           let commentDate = new Date(+comment.date)
           let commentTime = commentDate.getHours() * 60 + commentDate.getMinutes()
-          return commentTime > startTime
-            && commentTime <= timeFirstSchedule
+          return commentTime > startTime &&
+            commentTime <= timeFirstSchedule
         })
 
       if (sortedComments.length > 0) {
@@ -129,18 +127,17 @@ class PositionButtons extends Component {
     return resultArray
   }
 
-  createCommentsWithoutSchedules(filterComments) {
+  createCommentsWithoutSchedules (filterComments) {
     let sortedComments = filterComments
     let resultArray = []
     resultArray.push(<ScheduleWithComments comments={sortedComments}
-                                           schedule={null}
-                                           userId={this.state.userId}
-                                           key={1}/>)
+      schedule={null}
+      userId={this.state.userId}
+      key={1}/>)
     return resultArray
   }
 
-  createArrayWithSortedSchedules(inputArrayOfSchedules, time) {
-
+  createArrayWithSortedSchedules (inputArrayOfSchedules, time) {
     let startTime = time.getHours() * 60 + time.getMinutes()
     let scheduleWithStartTime = null
     let readySchedules = []
@@ -176,7 +173,6 @@ class PositionButtons extends Component {
 
       readySchedules.push(firstSchedule)
     } else {
-
       let nearestTime = Math.abs(inputArrayOfSchedules[0].end - startTime)
       let nearesIndexSchedule = 0
 
@@ -200,8 +196,7 @@ class PositionButtons extends Component {
     return readySchedules
   }
 
-  checkCurrentTimeInsideSchedule(inputArrayOfSchedules, time) {
-
+  checkCurrentTimeInsideSchedule (inputArrayOfSchedules, time) {
     let startTime = time.getHours() * 60 + time.getMinutes()
 
     for (let i = 0; i < inputArrayOfSchedules.length; i++) {
@@ -214,10 +209,9 @@ class PositionButtons extends Component {
     }
 
     return false
-
   }
 
-  render() {
+  render () {
     const {position, comments, schedules} = this.props
     let indexColors = 0
     const schedulesWithColors = schedules
@@ -228,21 +222,21 @@ class PositionButtons extends Component {
       })
     let readyComments = this.createArrayOfReadyComments(schedulesWithColors, comments)
     const selectPositionInputs = position.filter(position => position.pinnedToComment).map(position => {
-        return (
-          <li className="position-radio-buttons__elem" key={position.id}>
-            <label key={position.id}>
-              <input name="position"
-                     type='radio'
-                     defaultChecked={this.state.view === position.title}
-                     value={position.title}/>
-              <div className="position-radio-buttons__fakeBtn">
-                <div className="position-radio-buttons__fakeBtn-active"></div>
-              </div>
-              <span>{position.title}</span>
-            </label>
-          </li>
-        )
-      }
+      return (
+        <li className="position-radio-buttons__elem" key={position.id}>
+          <label key={position.id}>
+            <input name="position"
+              type='radio'
+              defaultChecked={this.state.view === position.title}
+              value={position.title}/>
+            <div className="position-radio-buttons__fakeBtn">
+              <div className="position-radio-buttons__fakeBtn-active"></div>
+            </div>
+            <span>{position.title}</span>
+          </label>
+        </li>
+      )
+    }
     )
     return (
       <section className="comments">
