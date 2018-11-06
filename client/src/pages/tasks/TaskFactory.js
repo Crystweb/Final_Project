@@ -28,7 +28,8 @@ class TaskFactory extends Component {
       idForRoom: null,
       executorId: null,
       taskPriority: 0,
-      taskFrequency: null
+      taskFrequency: null,
+      sendingData: false
     }
     _.bindAll(this, 'chooseDate', 'makePhoto', 'createTask', 'floorChecker')
   }
@@ -63,7 +64,7 @@ class TaskFactory extends Component {
 
   createTask = () => {
     const {textForTask} = this
-    const {finishDate, photo, idForRoom, executorId, taskPriority, taskFrequency, locationId} = this.state
+    const {finishDate, photo, idForRoom, executorId, taskPriority, taskFrequency, locationId, sendingData} = this.state
     const {allLocations, allUsers, roomId} = this.props
 
     if (!locationId) {
@@ -92,7 +93,7 @@ class TaskFactory extends Component {
       })
     }
 
-    if (textForTask.value && taskFrequency && executorId && locationId) {
+    if (textForTask.value && taskFrequency && executorId && locationId && !sendingData) {
       let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||
         allLocations
       let locationType = idForRoom || locationId
@@ -111,6 +112,7 @@ class TaskFactory extends Component {
       if (photo) {
         formData.append('file', photo)
       }
+      this.setState({sendingData: true})
 
       axios({
         method: 'post',
@@ -120,7 +122,8 @@ class TaskFactory extends Component {
         .then((response) => this.props.addTask(response.data))
         .then(() => {
           this.setState({
-            successAdd: 'Задача добавлена'
+            successAdd: 'Задача добавлена',
+            sendingData: false
           })
         })
         .then(() => roomId ? this.props.history.push(`/rooms/${roomId}`) : this.props.history.push(`/tasks`))
@@ -236,7 +239,7 @@ class TaskFactory extends Component {
         optionsExecutor.push({value: user.id,
           label: user.employee.forename +
           " " + user.employee.forename
-          + ", " + user.employee.title})
+          + ", " + user.employee.position.title})
       })
     /* eslint-enable */
 

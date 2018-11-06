@@ -66,7 +66,6 @@ class EmployeesPage extends Component {
                 </h4>
                 <p className="employee-info">
                   {employee.info}
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi esse expedita fuga molestiae recusandae tempore veniam vero voluptatem voluptatum. Alias aliquid animi eius in laborum laudantium nam nobis soluta totam.
                 </p>
                   </div>
                 </li>
