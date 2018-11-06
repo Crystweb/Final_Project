@@ -36,8 +36,8 @@ class TaskFactory extends Component {
   componentDidMount () {
     const {floorId, roomId} = this.props.match.params
     if (floorId) {
-      this.state.locationId = +floorId
       this.setState({
+        locationId: +floorId,
         floorSelected: true,
         idForRoom: +roomId})
     }
@@ -176,7 +176,9 @@ class TaskFactory extends Component {
         value={optionsLocation.find(location => location.value === this.state.locationId)}
         placeholder="Локация"
         onChange={value => {
-          this.state.locationId = value.value
+          this.setState({
+            locationId: value.value
+          })
           this.floorChecker()
         }}
         options={optionsLocation}
