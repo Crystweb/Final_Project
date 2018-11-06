@@ -7,12 +7,15 @@ class EmployeesFactoryPage extends Component {
 
   constructor(props) {
     super(props)
+
+    /* eslint-disable */
     this.positionId = React.createRef()
     this.forename = React.createRef()
     this.surname - React.createRef()
     this.patronymic - React.createRef()
     this.phoneNumber - React.createRef()
     this.info - React.createRef()
+    /* eslint-enable */
 
     this.state = {
       toUpdate: false,
@@ -91,7 +94,7 @@ class EmployeesFactoryPage extends Component {
 
 
   render() {
-    const {forename, surname, patronymic, positionId, phoneNumber, info} = this.state;
+    const {forename, surname, patronymic, phoneNumber, info} = this.state;
     const {positions} = this.props;
 
     const styles = {
@@ -115,8 +118,6 @@ class EmployeesFactoryPage extends Component {
     positions.map(position =>
       options.push({value: position.id, label: position.title})
     )
-
-    let placeholder = options[0].label
 
     let positionSelect = <Select
       className="vacancy__select"

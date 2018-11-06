@@ -83,7 +83,7 @@ class VacanciesFactoryPage extends Component {
 
   render() {
     const {positions} = this.props;
-    const {positionId, status, salary, info, toUpdate} = this.state;
+    const {status, salary, info, toUpdate} = this.state;
 
     const styles = {
       dropdownIndicator: (base, state) => ({

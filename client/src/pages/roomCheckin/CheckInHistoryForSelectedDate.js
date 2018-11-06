@@ -37,9 +37,11 @@ class CheckInHistoryForSelectedDate extends Component {
 
     let floorsOptions = []
 
+    /* eslint-disable */
     floors && floors.map(location => {
       floorsOptions.push({value: location.id, label: location.title})
     })
+    /* eslint-enable */
 
     const floorChoice =
       <Select
