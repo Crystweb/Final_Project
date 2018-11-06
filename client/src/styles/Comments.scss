@@ -16,8 +16,8 @@
   }
 
   &--employee {
-    justify-content: center;
     align-items: flex-end;
+    justify-content: center;
   }
 }
 
@@ -187,10 +187,10 @@ button {
 .comment-list__elem {
   display: flex;
   flex-direction: column;
-  margin-left: 33px;
-  margin-right: 34px;
   position: relative;
+  margin-right: 34px;
   margin-bottom: 15px;
+  margin-left: 33px;
 }
 
 .comment-list .comment-list__elem:last-child {

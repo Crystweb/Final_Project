@@ -5,8 +5,6 @@ import { DELETE_CALENDAR_DATE } from '../constants/actionTypes'
 import { ADD_ROOM_CHECK_HISTORY } from '../constants/actionTypes'
 import { SAVE_CURRENT_FLOOR } from '../constants/actionTypes'
 import { DELETE_CURRENT_FLOOR } from '../constants/actionTypes'
-import { START_USER_DOWNLOAD } from '../constants/actionTypes'
-import { FINISH_USER_DOWNLOAD } from '../constants/actionTypes'
 import { USER_DOWNLOAD } from '../constants/actionTypes'
 
 export function addShift (shift) {
@@ -189,4 +187,3 @@ export function downloadUser (bool) {
     bool
   }
 }
-
