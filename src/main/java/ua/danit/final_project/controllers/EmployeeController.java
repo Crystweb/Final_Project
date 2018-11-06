@@ -9,43 +9,43 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import ua.danit.final_project.configuration.SessionAware;
-import ua.danit.final_project.dto.DefaultMapper;
 import ua.danit.final_project.dto.EmployeeDto;
 import ua.danit.final_project.entities.Employee;
 import ua.danit.final_project.services.crud.EmployeeService;
+
+import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController extends SessionAware {
 
   private final EmployeeService employeeService;
-  private final DefaultMapper mapper;
 
   @Autowired
-  public EmployeeController(EmployeeService employeeService,
-                            DefaultMapper mapper) {
+  public EmployeeController(EmployeeService employeeService) {
     this.employeeService = employeeService;
-    this.mapper = mapper;
   }
 
   @GetMapping
   public List<EmployeeDto> getEmployeeDto() {
-    return employeeService.getAll()
-            .stream()
-            .map(mapper::employeeToEmployeeDto)
-            .collect(Collectors.toList());
+    return employeeService.getAll();
   }
 
   @PostMapping
-  public EmployeeDto createEmployee(@RequestBody EmployeeDto employeeDto) {
-    Employee employee = mapper.employeeDtoToEmployee(employeeDto);
-    employee = employeeService.save(employee);
+  public EmployeeDto createEmployee(@RequestBody EmployeeDto employee) {
+    return employeeService.save(employee);
+  }
 
-    return mapper.employeeToEmployeeDto(employee);
+  @PostMapping("/{id}")
+  public String addImage(@RequestPart("file") MultipartFile file,
+                         @PathVariable("id") Employee employee) throws IOException {
+    final EmployeeDto employeeDto = employeeService.addImage(employee, file);
+    return employeeDto.getImage();
   }
 
   @PutMapping

@@ -69,8 +69,6 @@ class EmployeesFactoryPage extends Component {
           sendingData: false
         }))
         .then(() => this.props.history.push('/employees/list'))
-    } else {
-      console.log("error")
     }
   }
 
