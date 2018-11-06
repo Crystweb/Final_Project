@@ -96,7 +96,6 @@ class TaskFactory extends Component {
         errorText: 'Введите текст'
       })
     }
-    debugger
     if (textForTask.value && taskFrequency && executorId && locationId && !sendingData) {
       let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||
         allLocations

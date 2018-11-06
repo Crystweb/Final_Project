@@ -86,6 +86,7 @@ class TasksView extends Component {
                    <Lightbox
                     isOpen={lightbox === task.imageLinks[0]}
                     images={[{ src: task.imageLinks[0] }]}
+                    onClickImage={() => this.setState({lightbox: null})}
                     onClose={() => this.setState({lightbox: null})}
                   />
                 </div>}
