@@ -3,13 +3,15 @@ import { connect } from 'react-redux'
 import '../../styles/RoomCheckIn.css'
 import routes from '../../constants/routes'
 import Link from 'react-router-dom/es/Link'
+import calendar from '../../img/calendar.png'
+import { deleteDate, saveFlloorId } from '../../actions/actions'
 import Select from 'react-select'
 
 class RoomsList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      floor: this.props.checkInLocations[0].id,
+      floor: this.props.savedFloor || this.props.checkInLocations[0].id,
       floorName: this.props.checkInLocations[0].title
     }
     this.chooseFloor = this.chooseFloor.bind(this)
@@ -20,6 +22,11 @@ class RoomsList extends Component {
       floor: event.value,
       floorName: event.label
     })
+    this.props.saveFloor(event.value)
+  }
+
+  componentDidMount () {
+    this.props.date && this.props.deleteSelectedDate()
   }
 
   render () {
@@ -57,7 +64,7 @@ class RoomsList extends Component {
 
 
       <div className='floors'>
-
+        <div className='floors__navigation'>
         <Select
           styles={styles}
           className='floors__select'
@@ -69,38 +76,53 @@ class RoomsList extends Component {
           placeholder={floorName}
           controlShouldRenderValue={true}
         />
-
-
+        <Link to={routes.checkInHistory.href}>
+          <img src={calendar} alt="calendar"/>
+        </Link>
+        </div>
         {floor &&
-          <ul className='floors__rooms'>
-            {chosenFloor.map(room => {
-              return (
-                <li
-                  className='roomName'
-                  key={room.id}
-                  value={room.id}
+        <ul className='floors__rooms'>
+          {chosenFloor.map(room => {
+            return (
+              <li
+                className='roomName'
+                key={room.id}
+                value={room.id}
+              >
+                <Link
+                  className='roomName__item'
+                  to={routes.taskForRoom.href + room.id}
                 >
-                  <Link
-                    className='roomName__item'
-                    to={routes.taskForRoom.href + room.id}
-                  >
-                    {room.title}
-                  </Link>
-                </li>
-              )
-            })
-            }
-          </ul>
+                  {room.title}
+                </Link>
+              </li>
+            )
+          })
+          }
+        </ul>
         }
       </div>
     )
   }
 }
 
-const mapStateToProps = ({startData}) => {
+const mapStateToProps = ({startData, checkIn, selectedDate}) => {
   return {
-    checkInLocations: startData.locations.filter((location) => location.children.length > 0)
+    checkInLocations: startData.locations.filter((location) => location.children.length > 0),
+    savedFloor: checkIn.floorId,
+    date: selectedDate.historySelectedDate
   }
 }
 
-export default connect(mapStateToProps)(RoomsList)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteSelectedDate: () => {
+      dispatch(deleteDate())
+    },
+    saveFloor: (data) => {
+      dispatch(saveFlloorId(data))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoomsList)

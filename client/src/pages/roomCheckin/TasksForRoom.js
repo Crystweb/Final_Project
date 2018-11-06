@@ -5,18 +5,34 @@ import routes from '../../constants/routes'
 import picture from '../../img/add.png'
 import { Link } from 'react-router-dom'
 import Preloader from '../../components/Preloader'
+import '../../styles/RoomCheckIn.css'
+import axios from 'axios'
 
 class TasksForRoom extends Component {
+  constructor (props) {
+    super(props)
+    this.doCheckIn = this.doCheckIn.bind(this)
+  }
+
+  doCheckIn () {
+    if (window.confirm('Утверждаете, что провели проверку номера?')) {
+      const id = this.props.currentRoom.id
+      axios.post(`/check-in/${id}`)
+        .then(() => this.props.history.push('/rooms'))
+    }
+  }
+
   render () {
     const {tasksForCurrentRoom, currentRoom, currentFloor} = this.props
     if (tasksForCurrentRoom && currentRoom && currentFloor) {
       routes.createTaskForRoom.previousHref = '/rooms/' + currentRoom.id
       return (
         <div className="tasks">
-          <div className="room__add">
-          <Link
-            to={routes.createNewTask.href + currentFloor.id + '/' + currentRoom.id}><img src={picture}
-            alt="add"/></Link>
+          <div className='roomActions'>
+            <span className='roomActions__success' onClick={this.doCheckIn}>
+              Проверен
+            </span>
+            <Link to={routes.createNewTask.href + currentFloor.id + '/' + currentRoom.id}><img src={picture} alt="add"/></Link>
           </div>
           <TasksView
             tasksForRoom={tasksForCurrentRoom}

@@ -8,6 +8,7 @@ import calendar from '../../img/calendar.png'
 import '../../styles/Tasks.css'
 import Preloader from '../../components/Preloader'
 import TasksView from './TasksView'
+import { deleteDate } from '../../actions/actions'
 
 class Tasks extends Component {
   constructor (props) {
@@ -52,6 +53,9 @@ class Tasks extends Component {
     )
   }
 
+  componentDidMount () {
+    this.props.date && this.props.deleteSelectedDate()
+  }
 
   render () {
     const {user, tasks} = this.props
@@ -128,11 +132,20 @@ class Tasks extends Component {
   }
 }
 
-const mapStateToProps = ({tasks, startData}) => {
+const mapStateToProps = ({tasks, startData, selectedDate}) => {
   return {
     tasks: tasks.allTasks,
-    user: startData.currentUser
+    user: startData.currentUser,
+    date: selectedDate.historySelectedDate
   }
 }
 
-export default connect(mapStateToProps)(Tasks)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteSelectedDate: () => {
+      dispatch(deleteDate())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tasks)

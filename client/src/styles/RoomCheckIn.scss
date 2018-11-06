@@ -3,6 +3,11 @@
   flex-flow: column wrap;
   justify-content: space-between;
 
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__select {
     display: inline-block;
   }
@@ -39,7 +44,6 @@
   margin-bottom: 6%;
   padding: 6.8% 0;
 
-  /* eslint-disable */
   &__item {
     display: flex;
     align-items: center;
@@ -63,4 +67,23 @@
   }
 }
 
-/* eslint-enable */
+.roomActions {
+  display: flex;
+  justify-content: space-between;
+
+  &__success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 124px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #7ff4a9;
+    color: white;
+    font-family: HelveticaNeue-Medium;
+    font-size: 15px;
+    line-height: 12px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+}

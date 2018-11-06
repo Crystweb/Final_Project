@@ -12,7 +12,6 @@ import ua.danit.final_project.dto.DefaultMapper;
 import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.services.CheckInService;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +29,8 @@ public class CheckInController {
   }
 
   @GetMapping
-  public List<CheckInDto> findByDate(@RequestParam(value = "date", required = false) Date date) {
-    return checkInService.getCheckInsByDate(date)
+  public List<CheckInDto> findByDate(@RequestParam(value = "date", required = false) Long millis) {
+    return checkInService.getCheckInsByDate(millis)
         .stream()
         .map(mapper::checkInToCheckInDto)
         .collect(Collectors.toList());

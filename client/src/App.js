@@ -36,8 +36,7 @@ class App extends Component {
   }
 
   render () {
-    if (!this.props.user ||
-      !this.props.schedules ||
+    if (!this.props.schedules ||
       !this.props.positions ||
       !this.props.comments ||
       !this.props.locations ||
@@ -48,13 +47,11 @@ class App extends Component {
         <Preloader/>
       )
     }
-
     if (!this.props.user) {
       return (
         <SignIn/>
       )
     }
-
     return (
       <div className="container">
         <Navigation header={true}/>

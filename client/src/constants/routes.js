@@ -22,7 +22,8 @@ const routes = {
   lodgers: {name: 'Постояльцы', href: '/washingData/lodgers', previousHref: '/washingData'},
   roomCheckIn: {name: 'Обход номеров', href: '/rooms', previousHref: '/'},
   taskForRoom: {name: 'Задачи', href: '/rooms/', previousHref: '/rooms'},
-  createTaskForRoom: {name: 'Создать', href: '/tasks/add/'}
+  createTaskForRoom: {name: 'Создать', href: '/tasks/add/'},
+  checkInHistory: {name: 'Обходы', href: '/check', previousHref: '/rooms'}
 }
 
 export default routes
