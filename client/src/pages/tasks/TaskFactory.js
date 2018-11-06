@@ -50,11 +50,11 @@ class TaskFactory extends Component {
     })
   }
 
-  floorChecker = () => {
+  floorChecker = (id) => {
     let {allLocations} = this.props
     this.setState({
       floorSelected: allLocations.filter(location => location.children.length > 0)
-        .some(location => location.id === this.state.locationId)
+        .some(location => location.id === id)
     })
   }
 
@@ -96,7 +96,7 @@ class TaskFactory extends Component {
         errorText: 'Введите текст'
       })
     }
-
+    debugger
     if (textForTask.value && taskFrequency && executorId && locationId && !sendingData) {
       let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||
         allLocations
@@ -186,7 +186,7 @@ class TaskFactory extends Component {
           this.setState({
             locationId: value.value
           })
-          this.floorChecker()
+          this.floorChecker(value.value)
         }}
         options={optionsLocation}
       />
