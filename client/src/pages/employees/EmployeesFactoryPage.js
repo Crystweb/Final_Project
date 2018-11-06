@@ -123,7 +123,10 @@ class EmployeesFactoryPage extends Component {
       classNamePrefix="react-select"
       styles={styles}
       options={options}
-      onChange={value => this.positionId = value.value }
+      onChange={value => {
+        this.positionId = value.value
+        this.setState({positionIdError: null})
+      }}
       placeholder={"Позиция"}
     />
 
