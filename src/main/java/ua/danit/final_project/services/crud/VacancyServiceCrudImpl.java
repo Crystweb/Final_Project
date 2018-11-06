@@ -43,10 +43,11 @@ public class VacancyServiceCrudImpl extends SessionAware implements VacancyServi
   public VacancyDto create(VacancyDto vacancyDto) {
     vacancyDto.setPublication(new Timestamp(System.currentTimeMillis()));
     Vacancy vacancy = mapper.vacancyDtoToVacancy(vacancyDto);
-    vacancy = vacancyRepository.save(vacancy);
 
+    vacancy.setStatus(Vacancy.VacancyStatus.OPENED);
     vacancy.setEmployee(getEmployee());
 
+    vacancy = vacancyRepository.save(vacancy);
     return mapper.vacancyToVacancyDto(vacancy);
   }
 
