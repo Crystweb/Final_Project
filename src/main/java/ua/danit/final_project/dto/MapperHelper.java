@@ -4,6 +4,8 @@ import org.mapstruct.AfterMapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ua.danit.final_project.entities.Employee;
+import ua.danit.final_project.entities.EmployeeImage;
 import ua.danit.final_project.entities.Task;
 import ua.danit.final_project.entities.TaskComment;
 import ua.danit.final_project.entities.TaskImage;
@@ -45,6 +47,14 @@ public class MapperHelper {
           .map(TaskImage::getUrl)
           .collect(Collectors.toList())
       );
+    }
+  }
+
+  @AfterMapping
+  public void mapImageLink(Employee employee, @MappingTarget EmployeeDto employeeDto) {
+    EmployeeImage image = employee.getEmployeeImage();
+    if (image != null) {
+      employeeDto.setImage(image.getUrl());
     }
   }
 }

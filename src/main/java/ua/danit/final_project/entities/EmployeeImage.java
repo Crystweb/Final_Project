@@ -7,19 +7,19 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "task_img")
-public class TaskImage extends AbstractImage implements Serializable {
+@Table(name = "employee_img")
+public class EmployeeImage extends AbstractImage implements Serializable {
 
   @JsonIgnore
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @ManyToOne
-  @JoinColumn(name = "task_id")
-  private Task task;
+  @OneToOne
+  @JoinColumn(name = "employee_id")
+  private Employee employee;
 }

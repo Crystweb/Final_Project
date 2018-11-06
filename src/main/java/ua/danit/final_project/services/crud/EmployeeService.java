@@ -1,19 +1,21 @@
 package ua.danit.final_project.services.crud;
 
+import org.springframework.web.multipart.MultipartFile;
+import ua.danit.final_project.dto.EmployeeDto;
 import ua.danit.final_project.entities.Employee;
-import ua.danit.final_project.entities.Position;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface EmployeeService {
 
   Employee getById(Long id);
 
-  List<Employee> getAll();
+  List<EmployeeDto> getAll();
 
-  Employee save(Employee employee);
+  EmployeeDto save(EmployeeDto employeeDto);
+
+  EmployeeDto addImage(Employee employee, MultipartFile file) throws IOException;
 
   void deleteById(Long id);
-
-  Position getPositionByTitle(String title);
 }

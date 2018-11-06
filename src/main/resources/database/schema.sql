@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS `shift_comment_position`;
 DROP TABLE IF EXISTS `shift_comment`;
 DROP TABLE IF EXISTS `work_shift`;
 DROP TABLE IF EXISTS `schedule`;
+DROP TABLE IF EXISTS `employee_img`;
 DROP TABLE IF EXISTS `employee`;
 DROP TABLE IF EXISTS `user_role`;
 DROP TABLE IF EXISTS `user`;
@@ -87,6 +88,17 @@ CREATE TABLE IF NOT EXISTS `employee` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`u_id`) REFERENCES `user`(`id`),
   FOREIGN KEY (`p_id`) REFERENCES `position`(`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `employee_img` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `employee_id` BIGINT NOT NULL,
+  `url` VARCHAR(255) NOT NULL,
+  `aws_key` VARCHAR(255),
+  `created_at` TIMESTAMP,
+  `last_update` TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`employee_id`) REFERENCES `employee`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS `schedule` (
