@@ -244,6 +244,11 @@ body {
   justify-content: space-between;
   padding: 10px 0 25px;
 
+  &-leftIcon {
+    width: 85px;
+    height: 26px;
+  }
+
   &__title {
     color: #4b5461;
     font-family: HelveticaNeue, sans-serif;
