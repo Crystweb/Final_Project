@@ -36,7 +36,6 @@ class VacanciesFactoryPage extends Component {
     if (!positionId || isNaN(positionId - 1)) {
       this.setState({positionIdError: "Выберите позицию"})
     }
-    debugger
     if (!sendingData && positionId && info.value) {
       axios({
         url: '/vacancy',
@@ -76,6 +75,10 @@ class VacanciesFactoryPage extends Component {
         toUpdate: true
       })
     }
+  }
+
+  changeInfoError = (e) => {
+    this.setState({infoError: null})
   }
 
   render() {
@@ -141,7 +144,10 @@ class VacanciesFactoryPage extends Component {
               className="vacancy__textarea"
               rows="5"
               placeholder={'Привет друг, что бы ты хотел мне написать?'}
-              ref={(input) => this.info = input}
+              ref={input => {
+                this.info = input
+              }}
+              onChange={this.changeInfoError}
               defaultValue={info}/>
             </div>
           <div className="vacancy__btns">

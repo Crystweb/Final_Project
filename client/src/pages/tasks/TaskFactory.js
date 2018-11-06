@@ -62,6 +62,10 @@ class TaskFactory extends Component {
     this.setState({photo: event.target.files[0]})
   }
 
+  changeErrorText = (event) => {
+    this.setState({errorText: null})
+  }
+
   createTask = () => {
     const {textForTask} = this
     const {finishDate, photo, idForRoom, executorId, taskPriority, taskFrequency, locationId, sendingData} = this.state
@@ -347,6 +351,7 @@ class TaskFactory extends Component {
           cols="30"
           rows="10"
           ref={input => this.textForTask = input}
+          onChange={this.changeErrorText}
           placeholder='Привет друг, что бы ты хотел мне написать?'
         >
         </textarea>
