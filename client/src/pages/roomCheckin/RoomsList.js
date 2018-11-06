@@ -44,7 +44,6 @@ class RoomsList extends Component {
     const styles = {
       dropdownIndicator: (base, state) => ({
       }),
-
       placeholder: (base, state) => ({
       }),
       valueContainer: (base, state) => ({
@@ -52,7 +51,6 @@ class RoomsList extends Component {
       control: (base, state) => ({
       }),
       indicatorsContainer: (base, state) => ({
-
       }),
       input: (base, start) => ({
         display: "none"
@@ -61,8 +59,6 @@ class RoomsList extends Component {
 
 
     return (
-
-
       <div className='floors'>
         <div className='floors__navigation'>
         <Select
