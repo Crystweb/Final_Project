@@ -12,7 +12,6 @@ import ua.danit.final_project.dto.DefaultMapper;
 import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.services.CheckInService;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
