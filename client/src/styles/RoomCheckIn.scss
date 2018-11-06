@@ -68,17 +68,16 @@
 }
 
 .chekIn-location {
-  position: relative;
   display: block;
+  position: relative;
   height: 17px;
-  margin-left: 25px;
   margin-bottom: 5px;
+  margin-left: 25px;
   color: #4b5461;
   font-family: HelveticaNeue, sans-serif;
   font-size: 14px;
   font-weight: bold;
   line-height: 1.07;
-
 
   &::before {
     display: block;
@@ -94,14 +93,13 @@
 }
 
 .checkIn-delegator {
-  position: relative;
   display: block;
+  position: relative;
   height: 17px;
-  margin-left: 25px;
   margin-bottom: 5px;
+  margin-left: 25px;
   color: #4b5461;
   font-family: HelveticaNeue, sans-serif;
-
 
   &::before {
     display: block;
@@ -147,21 +145,20 @@
 }
 
 .checkIn-wrap {
-
   & .react-select__single-value {
+    display: flex;
     position: relative;
     left: 2px;
-    display: flex;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
     max-width: 100%;
     height: 100%;
+    margin-left: 0;
     margin-right: 0;
     color: #4a4a4a;
     font-family: HelveticaNeue, sans-serif;
     font-size: 14px;
-    margin-left: 0;
   }
 }
 
