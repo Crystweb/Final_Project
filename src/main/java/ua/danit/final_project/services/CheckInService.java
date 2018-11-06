@@ -4,7 +4,6 @@ import org.springframework.lang.Nullable;
 import ua.danit.final_project.entities.CheckIn;
 import ua.danit.final_project.entities.Location;
 
-import java.util.Date;
 import java.util.List;
 
 public interface CheckInService {
