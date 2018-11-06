@@ -102,8 +102,8 @@ class CreateNewComments extends Component {
         <div className="newComment">
           {this.props.allPositionsForComments.filter(position => position.pinnedToComment).map(position => {
             return (
-              <div className="newComment-elem">
-                <label key={position.id}>
+              <div className="newComment-elem" key={position.id}>
+                <label>
                   <input
                     name="position"
                     type="checkbox"

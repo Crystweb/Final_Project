@@ -41,11 +41,11 @@ INSERT INTO `user_role` (u_id, r_id) VALUES (1,2);
 INSERT INTO `user_role` (u_id, r_id) VALUES (2,3);
 INSERT INTO `user_role` (u_id, r_id) VALUES (2,5);
 
-INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'blablabla1', 'vasya@gmail.com');
-INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '090586403', 'blablabla2', 'petya@gmail.com');
-INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '092586403', 'blablabla3', 'maximka@gmail.com');
-INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (5,3,'Artem', 'Tymchuk',  'Dmytrovich',  '094586403', 'blablabla4', 'artyom@gmail.com');
-INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (4,3,'Rostyslav', 'Barmakov',  'Dmytrovich',  '094586003', 'blablabla5', 'warfawl@gmail.com');
+INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (1,1,'Vasyl', 'Vasyliv', 'Vasylovich', '4509654345', 'Чесність і шляхетність. (Айвенго попереджає про небезпеку Ісаака, з яким хотів розправитися храмовник, допомагає вийти із замку ', 'vasya@gmail.com');
+INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (2,2,'Petro', 'Petriv',  'Petrovych',  '090586403', 'Походження героя. (Айвенго належав до шанованого старовинного роду саксів. Його батько — Седрік Сакс )', 'petya@gmail.com');
+INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (3,3,'Maxim', 'Maximov',  'Petrovych',  '092586403', 'Вірність королю Річарду. (Повернувшись після хрестового походу, він вірно служить королю Річарду, ', 'maximka@gmail.com');
+INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (5,3,'Artem', 'Tymchuk',  'Dmytrovich',  '094586403', 'Здатність на сильне кохання. (Айвенго усім серцем покохав вихованку Седріка — леді Ровену.', 'artyom@gmail.com');
+INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail) VALUES (4,3,'Rostyslav', 'Barmakov',  'Dmytrovich',  '094586003', 'Готовність допомогти людям у біді. (Ребекку, дочку Ісаака, несправедливо звинуватили в ча', 'warfawl@gmail.com');
 
 INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '10:00:00', '21:00:00', TIMESTAMPADD(DAY, -3, CURRENT_TIMESTAMP) );
 INSERT INTO `schedule` (p_id, start, end, created_at) VALUES (2,  '21:00:00', '10:00:00', TIMESTAMPADD(DAY, -2, CURRENT_TIMESTAMP) );

@@ -28,7 +28,8 @@ class TaskFactory extends Component {
       idForRoom: null,
       executorId: null,
       taskPriority: 0,
-      taskFrequency: null
+      taskFrequency: null,
+      sendingData: false
     }
     _.bindAll(this, 'chooseDate', 'makePhoto', 'createTask', 'floorChecker')
   }
@@ -49,11 +50,11 @@ class TaskFactory extends Component {
     })
   }
 
-  floorChecker = () => {
+  floorChecker = (id) => {
     let {allLocations} = this.props
     this.setState({
       floorSelected: allLocations.filter(location => location.children.length > 0)
-        .some(location => location.id === this.state.locationId)
+        .some(location => location.id === id)
     })
   }
 
@@ -61,9 +62,13 @@ class TaskFactory extends Component {
     this.setState({photo: event.target.files[0]})
   }
 
+  changeErrorText = (event) => {
+    this.setState({errorText: null})
+  }
+
   createTask = () => {
     const {textForTask} = this
-    const {finishDate, photo, idForRoom, executorId, taskPriority, taskFrequency, locationId} = this.state
+    const {finishDate, photo, idForRoom, executorId, taskPriority, taskFrequency, locationId, sendingData} = this.state
     const {allLocations, allUsers, roomId} = this.props
 
     if (!locationId) {
@@ -91,8 +96,8 @@ class TaskFactory extends Component {
         errorText: 'Введите текст'
       })
     }
-
-    if (textForTask.value && taskFrequency && executorId && locationId) {
+    debugger
+    if (textForTask.value && taskFrequency && executorId && locationId && !sendingData) {
       let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||
         allLocations
       let locationType = idForRoom || locationId
@@ -111,6 +116,7 @@ class TaskFactory extends Component {
       if (photo) {
         formData.append('file', photo)
       }
+      this.setState({sendingData: true})
 
       axios({
         method: 'post',
@@ -120,7 +126,8 @@ class TaskFactory extends Component {
         .then((response) => this.props.addTask(response.data))
         .then(() => {
           this.setState({
-            successAdd: 'Задача добавлена'
+            successAdd: 'Задача добавлена',
+            sendingData: false
           })
         })
         .then(() => roomId ? this.props.history.push(`/rooms/${roomId}`) : this.props.history.push(`/tasks`))
@@ -179,7 +186,7 @@ class TaskFactory extends Component {
           this.setState({
             locationId: value.value
           })
-          this.floorChecker()
+          this.floorChecker(value.value)
         }}
         options={optionsLocation}
       />
@@ -236,7 +243,7 @@ class TaskFactory extends Component {
         optionsExecutor.push({value: user.id,
           label: user.employee.forename +
           " " + user.employee.forename
-          + ", " + user.employee.title})
+          + ", " + user.employee.position.title})
       })
     /* eslint-enable */
 
@@ -337,18 +344,19 @@ class TaskFactory extends Component {
         />
         {executorSelect}
         {frequenciesSelect}
-        <p className="taskFactory__wrap-textarea">
+        <section className="taskFactory__wrap-textarea">
         <textarea
           className="taskFactory__textarea"
           name="task"
           cols="30"
           rows="10"
           ref={input => this.textForTask = input}
+          onChange={this.changeErrorText}
           placeholder='Привет друг, что бы ты хотел мне написать?'
         >
         </textarea>
-        </p>
-        <p className="taskFactory__btns">
+        </section>
+        <section className="taskFactory__btns">
         <label className='taskFactory__errorText' htmlFor='task'>{errorText}</label>
         <div className="taskFactory__wrap-foto">
           Фото
@@ -362,7 +370,7 @@ class TaskFactory extends Component {
           onClick={this.createTask}>Добавить
         </button>
         {successAdd && <h3>{successAdd}</h3>}
-      </p>
+      </section>
       </div>
     )
   }

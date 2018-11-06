@@ -7,6 +7,7 @@ import { addHitoryTasks, deleteTask } from '../../actions/actions'
 import Point from '../../components/Point'
 import NotFound from '../../components/NotFoundData'
 import Lightbox from 'react-images'
+import dateFormat from "dateformat";
 
 class TasksView extends Component {
   constructor (props) {
@@ -95,7 +96,8 @@ class TasksView extends Component {
                     value={task.id}
                     onClick={this.doTask.bind(this)}></button>)}
                 </h3>
-                {task.updated && <h4 className="tasks-list__elem-subtitle">Создана: {new Date(task.updated).toLocaleDateString()}</h4>}
+                {task.updated && <h4 className="tasks-list__elem-subtitle">{"Создана: "
+                   + dateFormat(task.updated, "dd mmmm в HH:MM")}</h4>}
 
                 <ul className="tasks-list__elem-info">
                   {!!task.priority && <li className="task--priority">
@@ -115,8 +117,12 @@ class TasksView extends Component {
                     : <li className="task--delegator">{task.delegator.forename} {task.delegator.surname}</li>}
                 </ul>
                 {itIsHistory
-                  ? <p className="tasks-list__elem-end">Закрыта {new Date(task.expired).toLocaleString()}</p>
-                  : task.expired && <p className="tasks-list__elem-end">Срок: {new Date(task.expired).toLocaleString()}</p>}
+                  ? <p className="tasks-list__elem-end">
+                    {"Закрыта: " + dateFormat(task.expired, "dd mmmm в HH:MM")}</p>
+                  : task.expired &&
+                  <p className="tasks-list__elem-end">
+                  {"Срок: " + dateFormat(task.expired, "dd mmmm в HH:MM")}
+                  </p>}
               </li>
             )
           })}
