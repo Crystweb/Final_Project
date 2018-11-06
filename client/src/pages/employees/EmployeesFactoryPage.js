@@ -28,7 +28,7 @@ class EmployeesFactoryPage extends Component {
     const {toUpdate, sendingData} = this.state
     const {positionId, forename, surname} = this
 
-    if (!positionId || !positionId.current) {
+    if (!positionId || isNaN(positionId - 1)) {
       this.setState({
         positionIdError: 'Выберите позицию'
       })

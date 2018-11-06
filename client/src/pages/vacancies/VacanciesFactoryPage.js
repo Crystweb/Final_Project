@@ -9,13 +9,14 @@ class VacanciesFactoryPage extends Component {
 
   constructor(props) {
     super(props);
+    this.salary = React.createRef()
+    this.info = React.createRef()
+
     this.state = {
       toUpdate: false,
       successAction: '',
       id: null,
       positionId: null,
-      info: null,
-      salary: null,
       status: null,
       publication: null,
       sendingData: false,
@@ -25,22 +26,31 @@ class VacanciesFactoryPage extends Component {
   }
 
   createVacancy = () => {
-    const {toUpdate, sendingData} = this.state;
+    const {toUpdate, sendingData, positionId} = this.state;
+    const {info} = this
+    const {positions} = this.props
 
-    if (!sendingData) {
+    if (!info.value) {
+      this.setState({infoError: "Введите информацию"})
+    }
+    if (!positionId || isNaN(positionId - 1)) {
+      this.setState({positionIdError: "Выберите позицию"})
+    }
+    debugger
+    if (!sendingData && positionId && info.value) {
       axios({
         url: '/vacancy',
         method: toUpdate ? 'PUT' : 'POST',
         data: toUpdate ? {
             id: this.state.id,
-            positionId: this.positionId.value,
+            position: positions.find(position => position.id === this.state.positionId),
             info: this.info.value,
             salary: this.salary.value,
-            status: this.status.value,
+            status: this.state.status.value,
             publication: this.state.publication
           }
           : {
-            positionId: this.positionId.value,
+            position: positions.find(position => position.id === this.state.positionId),
             info: this.info.value,
             salary: this.salary.value
           },
@@ -68,8 +78,6 @@ class VacanciesFactoryPage extends Component {
     }
   }
 
-
-
   render() {
     const {positions} = this.props;
     const {positionId, status, salary, info, toUpdate} = this.state;
@@ -77,7 +85,6 @@ class VacanciesFactoryPage extends Component {
     const styles = {
       dropdownIndicator: (base, state) => ({
       }),
-
       placeholder: (base, state) => ({
       }),
       valueContainer: (base, state) => ({
@@ -85,7 +92,6 @@ class VacanciesFactoryPage extends Component {
       control: (base, state) => ({
       }),
       indicatorsContainer: (base, state) => ({
-
       }),
       input: (base, start) => ({
         display: "none"
@@ -98,15 +104,13 @@ class VacanciesFactoryPage extends Component {
       options.push({value: position.id, label: position.title})
     )
 
-    let placeholder = options[0].label
-
     let positionSelect =
       <Select
         className="vacancy__select"
         classNamePrefix="react-select"
-      styles={styles}
+        styles={styles}
         options={options}
-        ref={(input) => this.positionId = input}
+        onChange={value => this.setState({positionId: value.value, positionIdError: null})}
         placeholder={"Позиция"}
       />
 
@@ -117,6 +121,7 @@ class VacanciesFactoryPage extends Component {
         <div>
             <div className="vacancy__wrap-select">
             {positionSelect}
+              {this.state.positionIdError && <p className="taskFactory__errorText">{this.state.positionIdError}</p>}
             </div>
             {toUpdate &&
             <p> Status: </p>}
@@ -140,6 +145,7 @@ class VacanciesFactoryPage extends Component {
               defaultValue={info}/>
             </div>
           <div className="vacancy__btns">
+            {this.state.infoError && <label className="newComment-errorText" htmlFor='commentField'>{this.state.infoError}</label>}
           <button
               className="vacancy__create"
               onClick={this.createVacancy}
