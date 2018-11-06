@@ -347,3 +347,6 @@ INSERT INTO `dish_comment` (u_id, d_id, c_message, c_date) VALUES (3, 3, 'broke 
 INSERT INTO `check_in` (employee_id, location_id, created_at) VALUES (1, 15, CURRENT_TIMESTAMP);
 INSERT INTO `check_in` (employee_id, location_id, created_at) VALUES (2, 16, CURRENT_TIMESTAMP);
 INSERT INTO `check_in` (employee_id, location_id, created_at) VALUES (3, 17, CURRENT_TIMESTAMP);
+
+INSERT INTO `employee_img` (employee_id, url) VALUES (4, 'https://mediananny.com/content/images_new/news/620x408/93013.jpg');
+

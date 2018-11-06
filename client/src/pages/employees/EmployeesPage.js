@@ -10,6 +10,7 @@ import routes from "../../constants/routes";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import picture from "../../img/add.png";
+import Lightbox from 'react-images'
 
 class EmployeesPage extends Component {
 
@@ -18,6 +19,7 @@ class EmployeesPage extends Component {
     this.state = {
       employees: [],
       showOnlyCRM_users: false,
+      lightbox: null
     }
   }
 
@@ -55,14 +57,23 @@ class EmployeesPage extends Component {
             {employees.map(employee => {
               return <li className="employeeList__elem" key={employee.id}>
                   <div className="employee-fotoWrap">
-                    <img src={noPhoto} alt="#"/>
+                    {employee.image ? <div
+                                      onClick={() => this.setState({lightbox: employee.image})}>
+                      <img src={employee.image} alt=""/>
+                      <Lightbox
+                        isOpen={this.state.lightbox === employee.image}
+                        images={[{ src: employee.image }]}
+                        onClickImage={() => this.setState({lightbox: null})}
+                        onClose={() => this.setState({lightbox: null})}
+                      />
+                    </div> : <div><img src={noPhoto} alt="#"/></div>}
                   </div>
                   <div className="employee-wrapInfo">
                 <h3 className="employee-data">
                   {employee.forename + " " + employee.surname}
                 </h3>
                 <h4 className="employee-tel">
-                  <a href={"tel:" + employee.phoneNumber}>{employee.phoneNumber}</ a>
+                  <a href={"tel:" + employee.phoneNumber}>{employee.phoneNumber}</a>
                 </h4>
                 <p className="employee-info">
                   {employee.info}
