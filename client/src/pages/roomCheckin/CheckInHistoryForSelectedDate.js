@@ -14,10 +14,10 @@ class CheckInHistoryForSelectedDate extends Component {
   }
 
   render () {
-      const {floors, history} = this.props
-      const currentFloor = floors.find(floor => floor.id === this.state.floorId)
-      const checkForCurrentFloor = (history || [])
-        .filter(check => currentFloor.children.some(child => child.id === check.location.id))
+    const {floors, history} = this.props
+    const currentFloor = floors.find(floor => floor.id === this.state.floorId)
+    const checkForCurrentFloor = (history || [])
+      .filter(check => currentFloor.children.some(child => child.id === check.location.id))
 
     const styles = {
       dropdownIndicator: (base, state) => ({
@@ -31,7 +31,7 @@ class CheckInHistoryForSelectedDate extends Component {
       indicatorsContainer: (base, state) => ({
       }),
       input: (base, start) => ({
-        display: "none"
+        display: 'none'
       })
     }
 
@@ -54,24 +54,24 @@ class CheckInHistoryForSelectedDate extends Component {
         placeholder={currentFloor.title}
       />
 
-      return (
-        <div className="checkIn-wrap">
-          {floorChoice}
-          <ul className="tasks-list">
-            {checkForCurrentFloor
-              .sort((item1, item2) => item2.created - item1.created)
-              .map(check => {
+    return (
+      <div className="checkIn-wrap">
+        {floorChoice}
+        <ul className="tasks-list">
+          {checkForCurrentFloor
+            .sort((item1, item2) => item2.created - item1.created)
+            .map(check => {
               return <li className="tasks-list__elem" key={check.id}>
                 <Point/>
                 <p className="chekIn-location">{check.location.title}</p>
                 <p className="checkIn-delegator">{check.employee.forename} {check.employee.surname}</p>
-                <p className="checkIn-date">{"Выполнено: " + dateFormat(check.created, "dd mmmm в HH:MM")}</p>
+                <p className="checkIn-date">{'Выполнено: ' + dateFormat(check.created, 'dd mmmm в HH:MM')}</p>
               </li>
             })}
-          </ul>
-        </div>
-      )
-    }
+        </ul>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = ({checkIn, startData}) => {
@@ -79,7 +79,5 @@ const mapStateToProps = ({checkIn, startData}) => {
     floors: startData.locations.filter(location => location.children.length > 0)
   }
 }
-
-
 
 export default connect(mapStateToProps)(CheckInHistoryForSelectedDate)

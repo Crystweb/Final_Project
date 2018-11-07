@@ -6,7 +6,6 @@ import axios from 'axios'
 import { addChecKHistory, addSelectedDateFromCalendar } from '../../actions/actions'
 
 class CheckInHistory extends Component {
-
   getCheckInForSelectedDate (date) {
     axios.get('/check-in', {
       params: {
@@ -14,7 +13,7 @@ class CheckInHistory extends Component {
       }
     })
       .then(response => this.props.roomCheckHistory(response.data))
-      .then(() =>  this.props.addDate(date))
+      .then(() => this.props.addDate(date))
   }
 
   render () {
@@ -29,8 +28,7 @@ class CheckInHistory extends Component {
             selected={today}
             minDate={sixMonthAgo}
             maxDate={today}
-            isForCheckIn={true}
-            getChekIn={this.getCheckInForSelectedDate.bind(this)}
+            getData={this.getCheckInForSelectedDate.bind(this)}
           />
         </div>
       )
@@ -44,7 +42,7 @@ class CheckInHistory extends Component {
 const mapStateToProps = ({selectedDate, checkIn}) => {
   return {
     date: selectedDate.historySelectedDate,
-    сheckInForSelectedDate: checkIn.roomCheckHistory,
+    сheckInForSelectedDate: checkIn.roomCheckHistory
   }
 }
 
