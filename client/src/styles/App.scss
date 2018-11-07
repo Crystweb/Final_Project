@@ -39,6 +39,7 @@ body {
   font-family: HelveticaNeue, sans-serif;
   overflow-x: hidden;
   box-sizing: border-box;
+  padding-bottom: 20px;
 }
 
 #root {
@@ -166,7 +167,7 @@ body {
     position: relative;
     width: 100%;
     margin-bottom: 20px;
-    padding: 30% 0;
+    padding: 20% 0;
   }
 
   &-textarea {
