@@ -53,7 +53,6 @@ public class WorkShiftController extends SessionAware {
   @PostMapping("/comment")
   public ShiftCommentDto createComment(@RequestBody ShiftCommentDto shiftCommentDto) throws JsonProcessingException {
     User userFromToken = getCurrentUser();
-    ShiftCommentDto ex = shiftCommentDto;
     ShiftComment shiftComment = mapper.shiftCommentDtoToShiftComment(shiftCommentDto);
     shiftComment.setAuthor(userFromToken.getEmployee());
 
