@@ -18,11 +18,13 @@ class Header extends Component {
     } else {
       return (
         <header className='header'>
+          <div className="header-leftIcon">
           {(previousRoute.previousHref != null) || <img src={logout} alt="logout"/>}
           {previousRoute.previousHref && <Link to={previousRoute.previousHref} className='header__item'>
             <img src={back} alt='logo'/>
             <h4>Назад</h4>
           </Link>}
+          </div>
           {/*<h3 className='header__pageName'>{previousRoute.name}</h3>*/}
           <Link to={routes.profile.href} className='header__profile'><img src={user_icon} alt='profile'/></Link>
           <Link to={routes.home.href} className='header__title'><img src={logo} alt='logo'/></Link>

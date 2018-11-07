@@ -94,13 +94,13 @@
       align-items: center;
       position: relative;
       width: 100%;
-      box-sizing: border-box;
       margin-bottom: 5px;
       padding-left: 25px;
       color: #4b5461;
       font-family: HelveticaNeue, sans-serif;
       font-size: 11px;
       line-height: 17px;
+      box-sizing: border-box;
 
       &:last-child {
         margin-bottom: 0;
@@ -171,11 +171,11 @@
     border: solid 1px #c1c1c1;
     border-radius: 5px;
     background-color: #e5e5e5;
-    resize: none;
-    box-sizing: border-box;
     color: #4b5461;
     font-family: HelveticaNeue, sans-serif;
     font-size: 11px;
+    resize: none;
+    box-sizing: border-box;
   }
 
   &__create {
@@ -294,8 +294,8 @@
     color: #4a4a4a;
     font-family: HelveticaNeue, sans-serif;
     font-size: 14px;
-    box-sizing: border-box;
     box-shadow: 0 1px 3px 0 #f9f9f9;
+    box-sizing: border-box;
   }
 }
 
@@ -324,8 +324,8 @@
     padding-left: 10px;
     border: solid 1px #4b5461;
     border-radius: 5px;
-    box-sizing: border-box;
     box-shadow: 0 1px 3px 0 #f9f9f9;
+    box-sizing: border-box;
   }
 
   &__dropdown-indicator {
@@ -335,8 +335,8 @@
     justify-content: flex-end;
     width: 100%;
     height: 100%;
-    box-sizing: border-box;
     padding-right: 8px;
+    box-sizing: border-box;
   }
 
   &__value-container {
@@ -355,6 +355,7 @@
     justify-content: flex-start;
     width: 100%;
     height: 100%;
+    margin-left: 0;
     color: #4a4a4a;
     font-family: HelveticaNeue, sans-serif;
     font-size: 14px;

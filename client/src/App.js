@@ -11,7 +11,7 @@ import {
   addFrequencies,
   addShift,
   addTasks,
-  addTaskStatuses
+  addTaskStatuses, downloadUser
 } from './actions/actions'
 import Preloader from './components/Preloader'
 import { startData } from './utils/utils'
@@ -33,25 +33,22 @@ class App extends Component {
       data => { this.props.addAllUsers(data) },
       data => { this.props.addTasks(data) }
     )
+    this.props.userDownloadStatus(false)
     axios.get('/test/user')
-      .then(response => this.props.addUser(response.data));
+      .then(response => this.props.addUser(response.data))
+      .then(() => this.props.userDownloadStatus(true));
 
       webSocketDialog();
   }
 
   render () {
-    if (!this.props.schedules ||
-      !this.props.positions ||
-      !this.props.comments ||
-      !this.props.locations ||
-      !this.props.statuses ||
-      !this.props.frequencies ||
-      !this.props.allTasks) {
+    const {schedules, positions, comments, locations, frequencies, allTasks, isUserDownloaded, statuses} = this.props
+    if (!schedules || !positions || !comments || !locations || !frequencies || !allTasks || !statuses) {
       return (
         <Preloader/>
       )
     }
-    if (!this.props.user) {
+    if (!isUserDownloaded) {
       return (
         <SignIn/>
       )
@@ -74,39 +71,23 @@ const mapStateToProps = ({comments, startData, tasks}) => {
     locations: startData.locations,
     statuses: startData.statuses,
     frequencies: startData.frequencies,
-    allTasks: tasks.allTasks
+    allTasks: tasks.allTasks,
+    isUserDownloaded: startData.userDownload
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addUser: (data) => {
-      dispatch(addCurrentUser(data))
-    },
-    addAllPositions: (data) => {
-      dispatch(addAllPositions(data))
-    },
-    addSchedules: (data) => {
-      dispatch(addAllSchedules(data))
-    },
-    addAllLocation: (data) => {
-      dispatch(addAllLocation(data))
-    },
-    addShift: (data) => {
-      dispatch(addShift(data))
-    },
-    addStatuses: (data) => {
-      dispatch(addTaskStatuses(data))
-    },
-    addFrequencies: (data) => {
-      dispatch(addFrequencies(data))
-    },
-    addAllUsers: (data) => {
-      dispatch(addAllUsers(data))
-    },
-    addTasks: (data) => {
-      dispatch(addTasks(data))
-    }
+    addUser: data => dispatch(addCurrentUser(data)),
+    addAllPositions: data => dispatch(addAllPositions(data)),
+    addSchedules: data => dispatch(addAllSchedules(data)),
+    addAllLocation: data => dispatch(addAllLocation(data)),
+    addShift: data => dispatch(addShift(data)),
+    addStatuses: data => dispatch(addTaskStatuses(data)),
+    addFrequencies: data => dispatch(addFrequencies(data)),
+    addAllUsers: data => dispatch(addAllUsers(data)),
+    addTasks: data => dispatch(addTasks(data)),
+    userDownloadStatus: data => dispatch(downloadUser(data))
   }
 }
 

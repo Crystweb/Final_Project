@@ -11,8 +11,10 @@ class RoomsList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      floor: this.props.savedFloor || this.props.checkInLocations[0].id,
-      floorName: this.props.checkInLocations[0].title
+      floor: props.savedFloor || props.checkInLocations[0].id,
+      floorName:
+        props.savedFloor ? props.checkInLocations.find(location => location.id === props.savedFloor).title
+          : props.checkInLocations[0].title
     }
     this.chooseFloor = this.chooseFloor.bind(this)
   }
@@ -42,43 +44,31 @@ class RoomsList extends Component {
     /* eslint-enable */
 
     const styles = {
-      dropdownIndicator: (base, state) => ({
-      }),
-
-      placeholder: (base, state) => ({
-      }),
-      valueContainer: (base, state) => ({
-      }),
-      control: (base, state) => ({
-      }),
-      indicatorsContainer: (base, state) => ({
-
-      }),
+      dropdownIndicator: (base, state) => ({}),
+      placeholder: (base, state) => ({}),
+      valueContainer: (base, state) => ({}),
+      control: (base, state) => ({}),
+      indicatorsContainer: (base, state) => ({}),
       input: (base, start) => ({
-        display: "none"
+        display: 'none'
       })
     }
 
-
     return (
-
-
       <div className='floors'>
         <div className='floors__navigation'>
-        <Select
-          styles={styles}
-          className='floors__select'
-          classNamePrefix="react-select"
-          options={options}
-          onChange={this.chooseFloor}
-          defaultValue={2}
-          value={floor}
-          placeholder={floorName}
-          controlShouldRenderValue={true}
-        />
-        <Link to={routes.checkInHistory.href}>
-          <img src={calendar} alt="calendar"/>
-        </Link>
+          <Select
+            styles={styles}
+            className='floors__select'
+            classNamePrefix="react-select"
+            options={options}
+            onChange={this.chooseFloor}
+            placeholder={floorName}
+            controlShouldRenderValue={true}
+          />
+          <Link to={routes.checkInHistory.href}>
+            <img src={calendar} alt="calendar"/>
+          </Link>
         </div>
         {floor &&
         <ul className='floors__rooms'>

@@ -28,7 +28,8 @@ class TaskFactory extends Component {
       idForRoom: null,
       executorId: null,
       taskPriority: 0,
-      taskFrequency: null
+      taskFrequency: null,
+      sendingData: false
     }
     _.bindAll(this, 'chooseDate', 'makePhoto', 'createTask', 'floorChecker')
   }
@@ -49,11 +50,11 @@ class TaskFactory extends Component {
     })
   }
 
-  floorChecker = () => {
+  floorChecker = (id) => {
     let {allLocations} = this.props
     this.setState({
       floorSelected: allLocations.filter(location => location.children.length > 0)
-        .some(location => location.id === this.state.locationId)
+        .some(location => location.id === id)
     })
   }
 
@@ -61,9 +62,13 @@ class TaskFactory extends Component {
     this.setState({photo: event.target.files[0]})
   }
 
+  changeErrorText = (event) => {
+    this.setState({errorText: null})
+  }
+
   createTask = () => {
     const {textForTask} = this
-    const {finishDate, photo, idForRoom, executorId, taskPriority, taskFrequency, locationId} = this.state
+    const {finishDate, photo, idForRoom, executorId, taskPriority, taskFrequency, locationId, sendingData} = this.state
     const {allLocations, allUsers, roomId} = this.props
 
     if (!locationId) {
@@ -91,8 +96,8 @@ class TaskFactory extends Component {
         errorText: 'Введите текст'
       })
     }
-
-    if (textForTask.value && taskFrequency && executorId && locationId) {
+    
+    if (textForTask.value && taskFrequency && executorId && locationId && !sendingData) {
       let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||
         allLocations
       let locationType = idForRoom || locationId
@@ -111,6 +116,7 @@ class TaskFactory extends Component {
       if (photo) {
         formData.append('file', photo)
       }
+      this.setState({sendingData: true})
 
       axios({
         method: 'post',
@@ -120,7 +126,8 @@ class TaskFactory extends Component {
         .then((response) => this.props.addTask(response.data))
         .then(() => {
           this.setState({
-            successAdd: 'Задача добавлена'
+            successAdd: 'Задача добавлена',
+            sendingData: false
           })
         })
         .then(() => roomId ? this.props.history.push(`/rooms/${roomId}`) : this.props.history.push(`/tasks`))
@@ -179,7 +186,7 @@ class TaskFactory extends Component {
           this.setState({
             locationId: value.value
           })
-          this.floorChecker()
+          this.floorChecker(value.value)
         }}
         options={optionsLocation}
       />
@@ -208,17 +215,17 @@ class TaskFactory extends Component {
       />
     )
 
-      let optionsPriority = []
+    let optionsPriority = []
 
     optionsPriority.push(
-      {value: 1, label: "1"},
-      {value: 2, label: "2"},
-      {value: 3, label: "3"},
-      {value: 4, label: "4"},
-      {value: 5, label: "5"}
-      )
+      {value: 1, label: '1'},
+      {value: 2, label: '2'},
+      {value: 3, label: '3'},
+      {value: 4, label: '4'},
+      {value: 5, label: '5'}
+    )
 
-      const priority =
+    const priority =
         <Select
           styles={styles}
           classNamePrefix="react-select"
@@ -230,17 +237,17 @@ class TaskFactory extends Component {
           options={optionsPriority}
         />
 
-      let optionsExecutor = []
+    let optionsExecutor = []
     /* eslint-disable */
       allUsers.map(user => {
         optionsExecutor.push({value: user.id,
           label: user.employee.forename +
           " " + user.employee.forename
-          + ", " + user.employee.title})
+          + ", " + user.employee.position.title})
       })
     /* eslint-enable */
 
-      const executor =
+    const executor =
         <Select
           styles={styles}
           classNamePrefix="react-select"
@@ -253,14 +260,14 @@ class TaskFactory extends Component {
           placeholder='Исполнитель'
         />
 
-        let optionsFrequency = []
+    let optionsFrequency = []
     /* eslint-disable */
     allFrequencies.map(frequency => {
       optionsFrequency.push({value: frequency, label: frequency})
     })
     /* eslint-enable */
 
-      const frequency =
+    const frequency =
         <Select
           styles={styles}
           classNamePrefix="react-select"
@@ -270,7 +277,7 @@ class TaskFactory extends Component {
           onChange={value => this.setState({taskFrequency: value.value})}
           options={optionsFrequency}
           placeholder="Повторяемость"
-          />
+        />
 
     const locationSelect =
       (<div className="taskFactory__wrap-select">
@@ -281,7 +288,7 @@ class TaskFactory extends Component {
     const roomSelect =
       (<div className="taskFactory__wrap-select">
         {rooms}
-        {!this.state.idForRoom  &&
+        {!this.state.idForRoom &&
         <label className='taskFactory__errorText' htmlFor='roomsList'>{errorRoom}</label>}
       </div>)
     const prioritySelect = (
@@ -337,32 +344,33 @@ class TaskFactory extends Component {
         />
         {executorSelect}
         {frequenciesSelect}
-        <p className="taskFactory__wrap-textarea">
-        <textarea
-          className="taskFactory__textarea"
-          name="task"
-          cols="30"
-          rows="10"
-          ref={input => this.textForTask = input}
-          placeholder='Привет друг, что бы ты хотел мне написать?'
-        >
-        </textarea>
-        </p>
-        <p className="taskFactory__btns">
-        <label className='taskFactory__errorText' htmlFor='task'>{errorText}</label>
-        <div className="taskFactory__wrap-foto">
+        <section className="taskFactory__wrap-textarea">
+          <textarea
+            className="taskFactory__textarea"
+            name="task"
+            cols="30"
+            rows="10"
+            ref={input => this.textForTask = input}
+            onChange={this.changeErrorText}
+            placeholder='Привет друг, что бы ты хотел мне написать?'
+          >
+          </textarea>
+        </section>
+        <section className="taskFactory__btns">
+          <label className='taskFactory__errorText' htmlFor='task'>{errorText}</label>
+          <div className="taskFactory__wrap-foto">
           Фото
-          <input className="taskFactory__foto"
-                 type="file"
-                 accept="image/*"
-                 onChange={this.makePhoto}/>
-        </div>
-        <button
-          className="taskFactory__create"
-          onClick={this.createTask}>Добавить
-        </button>
-        {successAdd && <h3>{successAdd}</h3>}
-      </p>
+            <input className="taskFactory__foto"
+              type="file"
+              accept="image/*"
+              onChange={this.makePhoto}/>
+          </div>
+          <button
+            className="taskFactory__create"
+            onClick={this.createTask}>Добавить
+          </button>
+          {successAdd && <h3>{successAdd}</h3>}
+        </section>
       </div>
     )
   }
