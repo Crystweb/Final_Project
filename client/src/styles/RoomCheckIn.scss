@@ -29,6 +29,24 @@
   }
 }
 
+.floor-wrap {
+  & .react-select__single-value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    color: #4a4a4a;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 14px;
+  }
+}
+
 .room__add {
   display: flex;
   flex-direction: row;
@@ -150,7 +168,7 @@
     align-items: center;
     justify-content: flex-start;
     position: relative;
-    left: 2px;
+    left: 0;
     width: 100%;
     max-width: 100%;
     height: 100%;

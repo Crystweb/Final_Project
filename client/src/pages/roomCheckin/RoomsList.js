@@ -57,6 +57,7 @@ class RoomsList extends Component {
     return (
       <div className='floors'>
         <div className='floors__navigation'>
+          <div className="floor-wrap">
           <Select
             styles={styles}
             className='floors__select'
@@ -66,6 +67,7 @@ class RoomsList extends Component {
             placeholder={floorName}
             controlShouldRenderValue={true}
           />
+          </div>
           <Link to={routes.checkInHistory.href}>
             <img src={calendar} alt="calendar"/>
           </Link>
