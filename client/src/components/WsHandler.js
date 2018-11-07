@@ -2,23 +2,23 @@ import SockJS from 'sockjs-client'
 import Stomp from 'stompjs'
 import { Component } from 'react'
 import connect from 'react-redux/es/connect/connect'
-import { addNewComment, updateComment } from '../actions/actions'
+import { addNewComment, addNewTask, deleteTask, updateComment } from '../actions/actions'
 
 class WsHandler extends Component {
-
   componentDidMount () {
     const ws = new SockJS(`http://localhost:9000/ws_0001`)
     const stompClient = Stomp.over(ws)
     stompClient.connect({}, () => {
       stompClient.subscribe('/events/task', resp => {
-        console.log(resp.body)
+        const newTask = JSON.parse(resp.body)
+        const isClosedTask = this.props.allTasks.some(task => task.id === +newTask.id)
+        isClosedTask ? this.props.deleteClosedTask(newTask) : this.props.addTask(newTask)
       })
       stompClient.subscribe('/events/comment', resp => {
-        console.log(this.props.allComments)
         const newComment = JSON.parse(resp.body)
-        this.props.addComment(newComment)
+        const isUpdate = this.props.allComments.some(comment => comment.id === +newComment.id)
+        isUpdate ? this.props.commentUpdate(newComment) : this.props.addComment(newComment)
       })
-      stompClient.s
     })
   }
 
@@ -29,16 +29,16 @@ class WsHandler extends Component {
   }
 }
 
-const mapStateToProps = ({comments}) => {
-  return {
-
-  }
+const mapStateToProps = () => {
+  return {}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addComment: data => dispatch(addNewComment(data)),
-    commentUpdate: data => dispatch(updateComment(data))
+    commentUpdate: data => dispatch(updateComment(data)),
+    addTask: data => dispatch(addNewTask(data)),
+    deleteClosedTask: data => dispatch(deleteTask(data))
   }
 }
 

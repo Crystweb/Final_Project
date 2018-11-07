@@ -54,7 +54,7 @@ class App extends Component {
     }
     return (
       <div className="container">
-        <WsHandler/>
+        <WsHandler allComments={comments} allTasks={allTasks}/>
         <Navigation header={true}/>
         <Navigation/>
       </div>

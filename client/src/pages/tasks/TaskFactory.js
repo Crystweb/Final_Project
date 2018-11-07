@@ -7,7 +7,6 @@ import * as _ from 'lodash'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 import '../../styles/Tasks.css'
-import { addNewTask } from '../../actions/actions'
 import Select from 'react-select'
 
 class TaskFactory extends Component {
@@ -97,7 +96,7 @@ class TaskFactory extends Component {
       })
     }
 
-    
+
     if (textForTask.value && taskFrequency && executorId && locationId && !sendingData) {
       let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||
         allLocations
@@ -124,7 +123,6 @@ class TaskFactory extends Component {
         url: `/task`,
         data: formData
       })
-        .then((response) => this.props.addTask(response.data))
         .then(() => {
           this.setState({
             successAdd: 'Задача добавлена',
@@ -386,12 +384,4 @@ const mapStateToProps = ({startData}) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addTask: (data) => {
-      dispatch(addNewTask(data))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TaskFactory)
+export default connect(mapStateToProps)(TaskFactory)
