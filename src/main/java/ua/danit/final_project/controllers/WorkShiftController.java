@@ -1,5 +1,6 @@
 package ua.danit.final_project.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ua.danit.final_project.configuration.SessionAware;
 import ua.danit.final_project.dto.DefaultMapper;
-import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.dto.ShiftCommentDto;
+import ua.danit.final_project.entities.Schedule;
 import ua.danit.final_project.entities.ShiftComment;
 import ua.danit.final_project.entities.User;
 import ua.danit.final_project.services.WorkCommentService;
+import ua.danit.final_project.services.websocket.WebSocketService;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,12 +31,15 @@ public class WorkShiftController extends SessionAware {
 
   private final WorkCommentService workCommentService;
   private final DefaultMapper mapper;
+  private final WebSocketService webSocketService;
 
   @Autowired
   public WorkShiftController(WorkCommentService workCommentService,
-                             DefaultMapper mapper) {
+                             DefaultMapper mapper,
+                             WebSocketService webSocketService) {
     this.workCommentService = workCommentService;
     this.mapper = mapper;
+    this.webSocketService = webSocketService;
   }
 
   @GetMapping
@@ -45,14 +51,16 @@ public class WorkShiftController extends SessionAware {
   }
 
   @PostMapping("/comment")
-  public ShiftCommentDto createComment(@RequestBody ShiftCommentDto shiftCommentDto) {
+  public ShiftCommentDto createComment(@RequestBody ShiftCommentDto shiftCommentDto) throws JsonProcessingException {
     User userFromToken = getCurrentUser();
     ShiftComment shiftComment = mapper.shiftCommentDtoToShiftComment(shiftCommentDto);
     shiftComment.setAuthor(userFromToken.getEmployee());
 
     shiftComment = workCommentService.addComment(shiftComment);
+    shiftCommentDto = mapper.shiftCommentToShiftCommentDto(shiftComment);
+    webSocketService.updateComment(shiftCommentDto);
 
-    return mapper.shiftCommentToShiftCommentDto(shiftComment);
+    return shiftCommentDto;
   }
 
   @PutMapping("/comment")

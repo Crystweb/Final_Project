@@ -73,7 +73,7 @@ public class TaskController {
                      @RequestParam(name = "task") String taskString) throws IOException {
     TaskDto taskDto = objectMapper.readValue(taskString, TaskDto.class);
     taskDto = taskService.create(taskDto, file);
-    webSocketService.updateTask(objectMapper.writeValueAsString(taskDto));
+    webSocketService.updateTask(taskDto);
     return taskDto;
   }
 
