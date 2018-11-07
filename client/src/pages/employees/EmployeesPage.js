@@ -48,6 +48,9 @@ class EmployeesPage extends Component {
     let resultEmployee = [];
     let searchValue = this.searchInput.value
 
+    if (searchValue && searchValue.toLowerCase()){
+      searchValue = searchValue.toLowerCase()
+    }
 
     if (search) {
       resultEmployee = filterCollection(employees, searchValue, true, 'forename', 'surname', 'info', 'position.title', 'phoneNumber')
