@@ -18,21 +18,218 @@ a {
   cursor: default;
 }
 
+input {
+  outline: none;
+}
+
+button {
+  outline: none;
+}
+
+textarea {
+  outline: none;
+}
+
 a:visited {
   color: #4b5461;
 }
 
 body {
+  margin: 0 auto;
+  font-family: HelveticaNeue, sans-serif;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
   min-width: 320px;
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 25px;
-  font-family: HelveticaNeue;
-  overflow-x: hidden;
+  padding: 0 4%;
+  box-sizing: border-box;
+}
+
+.empty {
+  &-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  &-info {
+    margin-bottom: 8px;
+    color: #4b5461;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: normal;
+    line-height: 17px;
+    text-align: center;
+    font-stretch: normal;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &-img {
+    width: 50%;
+
+    & img {
+      width: 100%;
+      margin: 0 50%;
+    }
+  }
 }
 
 .container {
+  width: 100%;
   margin: 0 auto;
+}
+
+.newComment {
+  box-sizing: border-box;
+
+  &-elem {
+    display: flex;
+    flex-direction: column;
+    height: 34px;
+    margin-bottom: 5px;
+
+    & label {
+      display: flex;
+      flex-direction: row;
+      width: 50%;
+      min-width: 250px;
+      color: #4a4a4a;
+      font-family: HelveticaNeue, sans-serif;
+      font-size: 14px;
+      line-height: 1.43;
+    }
+
+    & input {
+      display: none;
+    }
+
+    &__fakeCheckMark {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 9px;
+      height: 9px;
+      transform: translate(-50%, -50%);
+      background-image: url("../img/done.png");
+    }
+
+    & input:checked + &__fakeRadio &__fakeCheckMark {
+      display: block;
+    }
+
+    & img {
+      display: none;
+    }
+
+    &__fakeRadio {
+      position: relative;
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      border: solid 1px #4b5461;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0);
+    }
+
+    &__error {
+      margin-left: 26px;
+      color: rgba(193, 13, 13, 1);
+      font-family: HelveticaNeue, sans-serif;
+      font-size: 11px;
+    }
+  }
+
+  &-title {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: #4b5461;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 21px;
+  }
+
+  &-wrap-textarea {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 30% 0;
+  }
+
+  &-textarea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    border: solid 1px #c1c1c1;
+    border-radius: 5px;
+    background-color: #e5e5e5;
+    color: #4b5461;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 11px;
+    resize: none;
+    box-sizing: border-box;
+  }
+
+  &-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  &-send {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    margin-bottom: 8px;
+    padding: 14px 20px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #7ff4a9;
+    color: #fff;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+
+    &:hover {
+      padding: 13px 19px;
+      border: 1px solid #7ff4a9;
+      background-color: #fff;
+      color: #7ff4a9;
+    }
+  }
+
+  &-errorText {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    color: rgba(193, 13, 13, 1);
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    text-transform: uppercase;
+  }
 }
 
 .calendar {
@@ -42,12 +239,21 @@ body {
 
 .header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding: 10px 0 25px;
 
+  &-leftIcon {
+    width: 85px;
+    height: 26px;
+  }
+
   &__title {
-    font-size: 25px;
+    color: #4b5461;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 22px;
+    font-weight: 500;
   }
 
   &__item {
@@ -55,10 +261,41 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    color: #4b5461;
+    font-family: SFProText, sans-serif;
+    font-size: 22px;
+
+    & img {
+      margin-right: 6px;
+    }
+  }
+
+  &__profile {
+    width: 100%;
+    max-width: 45px;
+
+    & img {
+      width: 100%;
+      max-width: 100%;
+    }
   }
 
   &__pageName {
+    order: 2;
+    width: 100%;
+    text-align: center;
     text-transform: uppercase;
+  }
+}
+
+@media (min-width: 375px) {
+  .newComment {
+    padding-left: 41px;
+  }
+
+  .newComment-wrap-textarea {
+    width: calc(100% - 41px);
+    margin-left: 41px;
   }
 }
 
@@ -69,7 +306,7 @@ body {
   height: auto;
   margin: 0 auto;
   border: 1px solid lime;
-  font-family: HelveticaNeue;
+  font-family: HelveticaNeue, sans-serif;
   font-weight: 700;
   text-decoration: none;
 }
@@ -80,7 +317,7 @@ body {
   margin: 10px;
   border: 1px solid;
   background-color: transparent;
-  font-family: HelveticaNeue;
+  font-family: HelveticaNeue, sans-serif;
   font-weight: 700;
   text-decoration: none;
 }
@@ -90,11 +327,57 @@ label {
   flex-direction: column;
 }
 
-form {
-  padding: 15px;
-}
-
 @font-face {
   font-family: HelveticaNeue;
   src: url(../fonts/HelveticaNeue.ttf);
+}
+
+.ImgViewer-wrap {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: black;
+  opacity: 5;
+}
+
+.ImgViewer-fotoWrap {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+
+  & img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (min-width: 375px) {
+  #root {
+    padding: 0 8%;
+  }
+
+  .newComment {
+    &-btn {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+
+    &-errorText {
+      margin-right: 8px;
+      margin-bottom: 0;
+    }
+
+    &-send {
+      width: auto;
+      margin: 0;
+    }
+  }
+}
+
+@media (min-width: 420px) {
+  #root {
+    padding: 0 33px;
+  }
 }

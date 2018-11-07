@@ -11,16 +11,19 @@ import {
   addFrequencies,
   addShift,
   addTasks,
-  addTaskStatuses
+  addTaskStatuses, downloadUser
 } from './actions/actions'
 import Preloader from './components/Preloader'
 import { startData } from './utils/utils'
 import Navigation from './components/Navigation'
+import SignIn from './pages/authentication/SignIn'
+import axios from 'axios'
+import Stomp from 'stompjs'
+import SockJS from 'sockjs-client'
 
 class App extends Component {
   componentDidMount () {
     startData(
-      data => { this.props.addUser(data) },
       data => { this.props.addAllPositions(data) },
       data => { this.props.addSchedules(data) },
       data => { this.props.addAllLocation(data) },
@@ -30,31 +33,36 @@ class App extends Component {
       data => { this.props.addAllUsers(data) },
       data => { this.props.addTasks(data) }
     )
+    this.props.userDownloadStatus(false)
+    axios.get('/test/user')
+      .then(response => this.props.addUser(response.data))
+      .then(() => this.props.userDownloadStatus(true));
+
+      webSocketDialog();
   }
 
   render () {
-    if (!this.props.user ||
-      !this.props.schedules ||
-      !this.props.positions ||
-      !this.props.comments ||
-      !this.props.locations ||
-      !this.props.statuses ||
-      !this.props.frequencies) {
+    const {schedules, positions, comments, locations, frequencies, allTasks, isUserDownloaded, statuses} = this.props
+    if (!schedules || !positions || !comments || !locations || !frequencies || !allTasks || !statuses) {
       return (
         <Preloader/>
       )
-    } else {
+    }
+    if (!isUserDownloaded) {
       return (
-        <div className="container">
-          <Navigation header={true}/>
-          <Navigation/>
-        </div>
+        <SignIn/>
       )
     }
+    return (
+      <div className="container">
+        <Navigation header={true}/>
+        <Navigation/>
+      </div>
+    )
   }
 }
 
-const mapStateToProps = ({comments, startData}) => {
+const mapStateToProps = ({comments, startData, tasks}) => {
   return {
     user: startData.currentUser,
     positions: startData.positions,
@@ -62,40 +70,38 @@ const mapStateToProps = ({comments, startData}) => {
     comments: comments.lastComments,
     locations: startData.locations,
     statuses: startData.statuses,
-    frequencies: startData.frequencies
+    frequencies: startData.frequencies,
+    allTasks: tasks.allTasks,
+    isUserDownloaded: startData.userDownload
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addUser: (data) => {
-      dispatch(addCurrentUser(data))
-    },
-    addAllPositions: (data) => {
-      dispatch(addAllPositions(data))
-    },
-    addSchedules: (data) => {
-      dispatch(addAllSchedules(data))
-    },
-    addAllLocation: (data) => {
-      dispatch(addAllLocation(data))
-    },
-    addShift: (data) => {
-      dispatch(addShift(data))
-    },
-    addStatuses: (data) => {
-      dispatch(addTaskStatuses(data))
-    },
-    addFrequencies: (data) => {
-      dispatch(addFrequencies(data))
-    },
-    addAllUsers: (data) => {
-      dispatch(addAllUsers(data))
-    },
-    addTasks: (data) => {
-      dispatch(addTasks(data))
-    }
+    addUser: data => dispatch(addCurrentUser(data)),
+    addAllPositions: data => dispatch(addAllPositions(data)),
+    addSchedules: data => dispatch(addAllSchedules(data)),
+    addAllLocation: data => dispatch(addAllLocation(data)),
+    addShift: data => dispatch(addShift(data)),
+    addStatuses: data => dispatch(addTaskStatuses(data)),
+    addFrequencies: data => dispatch(addFrequencies(data)),
+    addAllUsers: data => dispatch(addAllUsers(data)),
+    addTasks: data => dispatch(addTasks(data)),
+    userDownloadStatus: data => dispatch(downloadUser(data))
   }
+}
+
+export const webSocketDialog = (callback) => {
+    let ws = new SockJS(`http://localhost:9000/ws_0001`)
+    let stompClient = Stomp.over(ws)
+    stompClient.connect({}, frame => {
+        stompClient.subscribe('/events/task', resp => {
+            console.log(resp.body)
+        });
+        stompClient.subscribe('/events/comment', resp => {
+            console.log(resp.body)
+        });
+    })
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

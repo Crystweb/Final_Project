@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +34,7 @@ public class ShiftComment implements Serializable {
   @JoinColumn(name = "employee_id", nullable = false)
   private Employee author;
 
-  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY)
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinTable(

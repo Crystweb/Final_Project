@@ -16,8 +16,10 @@ import ua.danit.final_project.dto.TaskDto;
 import ua.danit.final_project.entities.Location;
 import ua.danit.final_project.entities.Task;
 import ua.danit.final_project.services.tasks.TaskService;
+import ua.danit.final_project.services.websocket.WebSocketService;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -26,12 +28,15 @@ public class TaskController {
 
   private final TaskService taskService;
   private final ObjectMapper objectMapper;
+  private final WebSocketService webSocketService;
 
   @Autowired
   public TaskController(TaskService taskService,
-                        ObjectMapper objectMapper) {
+                        ObjectMapper objectMapper,
+                        WebSocketService webSocketService) {
     this.taskService = taskService;
     this.objectMapper = objectMapper;
+    this.webSocketService = webSocketService;
   }
 
   @GetMapping("/status")
@@ -42,6 +47,14 @@ public class TaskController {
   @GetMapping("/frequency")
   public List<Task.TaskFrequency> getFrequencies() {
     return taskService.getFrequencies();
+  }
+
+  @GetMapping("/date")
+  public List<TaskDto> findByDateBetween(@RequestParam("from") Long from,
+                                         @RequestParam("to") Long to) {
+    Date dateFrom = new Date(from);
+    Date dateTo = new Date(to);
+    return taskService.findAllByDateBetween(dateFrom, dateTo);
   }
 
   @GetMapping
@@ -59,7 +72,9 @@ public class TaskController {
   public TaskDto create(@RequestPart(name = "file", required = false) MultipartFile file,
                      @RequestParam(name = "task") String taskString) throws IOException {
     TaskDto taskDto = objectMapper.readValue(taskString, TaskDto.class);
-    return taskService.create(taskDto, file);
+    taskDto = taskService.create(taskDto, file);
+    webSocketService.updateTask(taskDto);
+    return taskDto;
   }
 
   @PutMapping

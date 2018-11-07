@@ -42,3 +42,35 @@
   line-height: 1.07;
   font-stretch: normal;
 }
+
+.employee {
+  &List {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &__elem {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 25px;
+    }
+  }
+
+  &-fotoWrap {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    margin-right: 11px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    & img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      max-width: 100%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

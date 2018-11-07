@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 57px;
 
   a {
     display: flex;
@@ -29,3 +30,7 @@
   }
 }
 
+.shiftHistory-dateTitle {
+  margin-bottom: 20px;
+  text-align: center;
+}

@@ -3,17 +3,19 @@ import combineReducers from 'redux/es/combineReducers'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import shift from '../reducers/comments'
-import shiftHistorySelectedDate from '../reducers/shiftHistorySelectedDate'
+import shiftHistorySelectedDate from '../reducers/selectedDate'
 import user from '../reducers/startData'
 import tasks from '../reducers/tasks'
 import vacanciesReducer from '../reducers/vacanciesReducer'
+import roomCheck from '../reducers/roomCheck'
 
 const reducers = {
   comments: shift,
-  shiftHistorySelectedDate: shiftHistorySelectedDate,
+  selectedDate: shiftHistorySelectedDate,
   startData: user,
   vacancies: vacanciesReducer,
-  tasks: tasks
+  tasks: tasks,
+  checkIn: roomCheck
 }
 
 const rootReducer = combineReducers(reducers)

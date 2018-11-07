@@ -7,6 +7,7 @@ import ua.danit.final_project.entities.Task;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public interface TaskService {
@@ -24,4 +25,6 @@ public interface TaskService {
   List<Task.TaskFrequency> getFrequencies();
 
   List<TaskDto> findAllByLocation(Location location);
+
+  List<TaskDto> findAllByDateBetween(Date from, Date to);
 }

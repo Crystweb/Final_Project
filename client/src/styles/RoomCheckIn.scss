@@ -1,0 +1,169 @@
+.floors {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__select {
+    display: inline-block;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  &__rooms {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin-top: 25px;
+  }
+}
+
+.room__add {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.roomName {
+  position: relative;
+  width: 14%;
+  min-width: 50px;
+  margin-right: 6.5%;
+  margin-bottom: 6%;
+  padding: 6.8% 0;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: solid 1px #7ff4a9;
+    border-radius: 5px;
+    color: #4b5461;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 1px 3px 0 #f9f9f9;
+  }
+
+  &__item:hover {
+    background-color: #7ff4a9;
+  }
+}
+
+.chekIn-location {
+  display: block;
+  position: relative;
+  height: 17px;
+  margin-bottom: 5px;
+  margin-left: 25px;
+  color: #4b5461;
+  font-family: HelveticaNeue, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.07;
+
+  &::before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -23px;
+    width: 14px;
+    height: 17px;
+    background-image: url("../img/location.png");
+    background-repeat: no-repeat;
+    content: '';
+  }
+}
+
+.checkIn-delegator {
+  display: block;
+  position: relative;
+  height: 17px;
+  margin-bottom: 5px;
+  margin-left: 25px;
+  color: #4b5461;
+  font-family: HelveticaNeue, sans-serif;
+
+  &::before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -22px;
+    width: 13px;
+    height: 17px;
+    background-image: url("../img/to be done by.png");
+    background-repeat: no-repeat;
+    content: '';
+  }
+}
+
+.checkIn-date {
+  height: 17px;
+  color: #4b5461;
+  font-family: HelveticaNeue, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.36;
+}
+
+.roomActions {
+  display: flex;
+  justify-content: space-between;
+
+  &__success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 124px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #7ff4a9;
+    color: white;
+    font-family: HelveticaNeue-Medium, sans-serif;
+    font-size: 15px;
+    line-height: 12px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+}
+
+.checkIn-wrap {
+  & .react-select__single-value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    left: 2px;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    color: #4a4a4a;
+    font-family: HelveticaNeue, sans-serif;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 375px) {
+  .checkIn-wrap {
+    padding-left: 33px;
+  }
+}

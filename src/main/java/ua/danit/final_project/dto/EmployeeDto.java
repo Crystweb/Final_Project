@@ -13,4 +13,6 @@ public class EmployeeDto implements Serializable {
   private String patronymic; // NOSONAR
   private String phoneNumber; // NOSONAR
   private String info; // NOSONAR
+  private String mail; // NOSONAR
+  private String image; // NOSONAR
 }

@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import '../../styles/Comments.css'
 import Preloader from '../../components/Preloader'
-import { getLastShift } from '../../utils/utils'
 import { connect } from 'react-redux'
-import { addShift } from '../../actions/actions'
+import { addShift, deleteDate } from '../../actions/actions'
 import SortedComments from '../../components/SortedComments'
 
 class Shifts extends Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -16,11 +14,8 @@ class Shifts extends Component {
   }
 
   componentDidMount () {
-    getLastShift(data => {
-      this.props.addShift(data)
-    })
+    this.props.date && this.props.deleteSelectedDate()
   }
-
   render () {
     if (!this.props.lastComments) {
       return (
@@ -31,18 +26,19 @@ class Shifts extends Component {
     } else {
       return (
         <div className="container">
-            <SortedComments comments={this.props.lastComments}/>
+          <SortedComments comments={this.props.lastComments}/>
         </div>
       )
     }
   }
 }
 
-const mapStateToProps = ({comments, startData}) => {
+const mapStateToProps = ({comments, startData, selectedDate}) => {
   return {
     lastComments: comments.lastComments,
     currentSchedules: startData.schedules,
-    user: startData.currentUser
+    user: startData.currentUser,
+    date: selectedDate.historySelectedDate
   }
 }
 
@@ -50,6 +46,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addShift: (data) => {
       dispatch(addShift(data))
+    },
+    deleteSelectedDate: () => {
+      dispatch(deleteDate())
     }
   }
 }

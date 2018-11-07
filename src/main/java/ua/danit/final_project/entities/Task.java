@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -68,7 +67,7 @@ public class Task implements Serializable {
   @Column
   private Integer priority;
 
-  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY)
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinTable(

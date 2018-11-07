@@ -4,6 +4,13 @@ ul {
   }
 }
 
-img {
-  max-height: 38px;
+.react-datepicker__month-container {
+  width: 77%;
 }
+
+@media (min-width: 460px) {
+  .react-datepicker__month-container {
+    width: auto;
+  }
+}
+
