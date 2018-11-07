@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react'
 import axios from 'axios'
 import connect from "react-redux/es/connect/connect";
 import Select from 'react-select'
+import InputMask from 'react-input-mask';
 
 class EmployeesFactoryPage extends Component {
 
@@ -94,7 +95,7 @@ class EmployeesFactoryPage extends Component {
 
 
   render() {
-    const {forename, surname, patronymic, phoneNumber, info} = this.state;
+    const {forename, surname, patronymic, info} = this.state;
     const {positions} = this.props;
 
     const styles = {
@@ -168,12 +169,13 @@ class EmployeesFactoryPage extends Component {
                 {this.state.positionIdError &&
                 <label className='taskFactory__errorText'>{this.state.positionIdError}</label>}
               </div>
-                <input
+                <InputMask
                   className="vacancy__salary employee-m"
-                  type="text"
+                  mask="+38 (999) 999 99 99"
+                  inputRef={inputTel => this.phoneNumber = inputTel}
+                  alwaysShowMask={false}
                   placeholder='Телефон'
-                  defaultValue={phoneNumber}
-                  ref={input => this.phoneNumber = input}/>
+                />
               </div>
                 <div className="newComment-wrap-textarea">
                   <textarea

@@ -20,6 +20,7 @@
     "react-image-lightbox": "^5.0.0",
     "react-images": "^0.5.19",
     "react-infinite-calendar": "^2.3.1",
+    "react-input-mask": "^2.0.4",
     "react-redux": "^5.0.7",
     "react-responsive-modal": "^3.2.0",
     "react-router-dom": "^4.3.1",
