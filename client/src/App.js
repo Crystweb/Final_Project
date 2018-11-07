@@ -18,8 +18,8 @@ import { startData } from './utils/utils'
 import Navigation from './components/Navigation'
 import SignIn from './pages/authentication/SignIn'
 import axios from 'axios'
-import Stomp from 'stompjs'
-import SockJS from 'sockjs-client'
+import WsHandler from './components/WsHandler'
+
 
 class App extends Component {
   componentDidMount () {
@@ -38,7 +38,6 @@ class App extends Component {
       .then(response => this.props.addUser(response.data))
       .then(() => this.props.userDownloadStatus(true));
 
-      webSocketDialog();
   }
 
   render () {
@@ -55,6 +54,7 @@ class App extends Component {
     }
     return (
       <div className="container">
+        <WsHandler/>
         <Navigation header={true}/>
         <Navigation/>
       </div>
@@ -91,17 +91,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export const webSocketDialog = (callback) => {
-    let ws = new SockJS(`http://localhost:9000/ws_0001`)
-    let stompClient = Stomp.over(ws)
-    stompClient.connect({}, frame => {
-        stompClient.subscribe('/events/task', resp => {
-            console.log(resp.body)
-        });
-        stompClient.subscribe('/events/comment', resp => {
-            console.log(resp.body)
-        });
-    })
-}
+
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

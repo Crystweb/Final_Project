@@ -64,13 +64,15 @@ public class WorkShiftController extends SessionAware {
   }
 
   @PutMapping("/comment")
-  public ShiftCommentDto updateComment(@RequestBody ShiftCommentDto shiftCommentDto) throws IllegalAccessException {
+  public ShiftCommentDto updateComment(@RequestBody ShiftCommentDto shiftCommentDto) throws IllegalAccessException, JsonProcessingException {
     User userFromToken = getCurrentUser();
     ShiftComment shiftComment = mapper.shiftCommentDtoToShiftComment(shiftCommentDto);
     shiftComment.setAuthor(getEmployee());
     shiftComment = workCommentService.updateComment(shiftComment, userFromToken);
+    shiftCommentDto = mapper.shiftCommentToShiftCommentDto(shiftComment);
+    webSocketService.updateComment(shiftCommentDto);
 
-    return mapper.shiftCommentToShiftCommentDto(shiftComment);
+    return shiftCommentDto;
   }
 
   @DeleteMapping("/comment/{id}")
