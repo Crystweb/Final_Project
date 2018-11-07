@@ -96,6 +96,8 @@ class TaskFactory extends Component {
         errorText: 'Введите текст'
       })
     }
+
+    
     if (textForTask.value && taskFrequency && executorId && locationId && !sendingData) {
       let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||
         allLocations
@@ -214,17 +216,17 @@ class TaskFactory extends Component {
       />
     )
 
-      let optionsPriority = []
+    let optionsPriority = []
 
     optionsPriority.push(
-      {value: 1, label: "1"},
-      {value: 2, label: "2"},
-      {value: 3, label: "3"},
-      {value: 4, label: "4"},
-      {value: 5, label: "5"}
-      )
+      {value: 1, label: '1'},
+      {value: 2, label: '2'},
+      {value: 3, label: '3'},
+      {value: 4, label: '4'},
+      {value: 5, label: '5'}
+    )
 
-      const priority =
+    const priority =
         <Select
           styles={styles}
           classNamePrefix="react-select"
@@ -236,7 +238,7 @@ class TaskFactory extends Component {
           options={optionsPriority}
         />
 
-      let optionsExecutor = []
+    let optionsExecutor = []
     /* eslint-disable */
       allUsers.map(user => {
         optionsExecutor.push({value: user.id,
@@ -246,7 +248,7 @@ class TaskFactory extends Component {
       })
     /* eslint-enable */
 
-      const executor =
+    const executor =
         <Select
           styles={styles}
           classNamePrefix="react-select"
@@ -259,14 +261,14 @@ class TaskFactory extends Component {
           placeholder='Исполнитель'
         />
 
-        let optionsFrequency = []
+    let optionsFrequency = []
     /* eslint-disable */
     allFrequencies.map(frequency => {
       optionsFrequency.push({value: frequency, label: frequency})
     })
     /* eslint-enable */
 
-      const frequency =
+    const frequency =
         <Select
           styles={styles}
           classNamePrefix="react-select"
@@ -276,7 +278,7 @@ class TaskFactory extends Component {
           onChange={value => this.setState({taskFrequency: value.value})}
           options={optionsFrequency}
           placeholder="Повторяемость"
-          />
+        />
 
     const locationSelect =
       (<div className="taskFactory__wrap-select">
@@ -287,7 +289,7 @@ class TaskFactory extends Component {
     const roomSelect =
       (<div className="taskFactory__wrap-select">
         {rooms}
-        {!this.state.idForRoom  &&
+        {!this.state.idForRoom &&
         <label className='taskFactory__errorText' htmlFor='roomsList'>{errorRoom}</label>}
       </div>)
     const prioritySelect = (
@@ -344,32 +346,32 @@ class TaskFactory extends Component {
         {executorSelect}
         {frequenciesSelect}
         <section className="taskFactory__wrap-textarea">
-        <textarea
-          className="taskFactory__textarea"
-          name="task"
-          cols="30"
-          rows="10"
-          ref={input => this.textForTask = input}
-          onChange={this.changeErrorText}
-          placeholder='Привет друг, что бы ты хотел мне написать?'
-        >
-        </textarea>
+          <textarea
+            className="taskFactory__textarea"
+            name="task"
+            cols="30"
+            rows="10"
+            ref={input => this.textForTask = input}
+            onChange={this.changeErrorText}
+            placeholder='Привет друг, что бы ты хотел мне написать?'
+          >
+          </textarea>
         </section>
         <section className="taskFactory__btns">
-        <label className='taskFactory__errorText' htmlFor='task'>{errorText}</label>
-        <div className="taskFactory__wrap-foto">
+          <label className='taskFactory__errorText' htmlFor='task'>{errorText}</label>
+          <div className="taskFactory__wrap-foto">
           Фото
-          <input className="taskFactory__foto"
-                 type="file"
-                 accept="image/*"
-                 onChange={this.makePhoto}/>
-        </div>
-        <button
-          className="taskFactory__create"
-          onClick={this.createTask}>Добавить
-        </button>
-        {successAdd && <h3>{successAdd}</h3>}
-      </section>
+            <input className="taskFactory__foto"
+              type="file"
+              accept="image/*"
+              onChange={this.makePhoto}/>
+          </div>
+          <button
+            className="taskFactory__create"
+            onClick={this.createTask}>Добавить
+          </button>
+          {successAdd && <h3>{successAdd}</h3>}
+        </section>
       </div>
     )
   }

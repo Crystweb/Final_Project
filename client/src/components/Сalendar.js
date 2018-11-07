@@ -1,25 +1,14 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import 'react-infinite-calendar/styles.css'
 import '../styles/Calendar.css'
-import { connect } from 'react-redux'
-import { addSelectedDateFromCalendar } from '../actions/actions'
 import date_fns from 'date-fns/locale/ru'
 import InfiniteCalendar from 'react-infinite-calendar'
-import ShiftHistoryForSelectedDay from '../pages/shifts/ShiftsHistoryForSelectedDay'
-import TasksView from '../pages/tasks/TasksView'
 
 class Calendar extends Component {
 
   render () {
-    const {max, min, selected, minDate, addDate, maxDate, isForComments, isForTasks, isForCheckIn, getChekIn} = this.props
-    if (this.props.date) {
-      return (
-        <Fragment>
-          {isForComments && <ShiftHistoryForSelectedDay/>}
-          {isForTasks && <TasksView itIsHistory={true} showAll={true}/>}
-        </Fragment>
-      )
-    }
+    const {max, min, selected, minDate, maxDate, getData} = this.props
+
     return (
       <div className="calendar-wrap">
         <InfiniteCalendar
@@ -49,9 +38,7 @@ class Calendar extends Component {
             }
           }}
           onSelect={date => {
-            addDate(date.getTime())
-            // eslint-disable-next-line
-            isForCheckIn ? getChekIn(date.getTime()) : false
+            getData(date.getTime())
           }}
           locale={{
             locale: date_fns,
@@ -67,16 +54,4 @@ class Calendar extends Component {
   }
 }
 
-const mapStateToProps = ({selectedDate}) => {
-  return {
-    date: selectedDate.historySelectedDate
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addDate: (date) => dispatch(addSelectedDateFromCalendar(date))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Calendar)
+export default Calendar
