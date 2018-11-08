@@ -43,6 +43,12 @@ spring:
       settings:
         trace: true
         web-allow-others: true
+
+jwt:
+  header: Authorization
+  secret: 9bd927c6
+  expiration: 604800
+
 aws:
   credentials:
     key: "${S3_KEY}"
