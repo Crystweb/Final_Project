@@ -25,6 +25,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -90,5 +91,9 @@ public class User implements UserDetails, Serializable {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  public Date getLastPasswordResetDate() {
+    return null;
   }
 }

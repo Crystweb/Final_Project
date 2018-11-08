@@ -75,10 +75,14 @@ public class AuthenticationController {
     String authToken = request.getHeader(tokenHeader);
     final String token = authToken.substring(7);
     String username = jwtTokenUtil.getUsernameFromToken(token);
-    userDetailsService.loadUserByUsername(username);
+    final User user = (User) userDetailsService.loadUserByUsername(username);
 
-    String refreshedToken = jwtTokenUtil.refreshToken(token);
-    return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
+    if (jwtTokenUtil.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
+      String refreshedToken = jwtTokenUtil.refreshToken(token);
+      return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
+    } else {
+      return ResponseEntity.badRequest().body(null);
+    }
   }
 
   @GetMapping("/user/current")
