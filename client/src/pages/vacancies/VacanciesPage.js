@@ -39,7 +39,7 @@ class VacanciesPage extends Component {
   render () {
     const {showClosedVacancies} = this.state
     const {vacancies, classes, positions, currentUser} = this.props
-    const id = currentUser.employee.id
+//     const id = currentUser.employee.id
     let toFilterVacancies = []
 
     if (!showClosedVacancies) {
