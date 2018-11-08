@@ -26,10 +26,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Entity
 @Table(name = "user")
@@ -53,8 +50,8 @@ public class User implements UserDetails, Serializable {
   @JsonIgnore
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinTable(name = "user_role",
-          joinColumns = {@JoinColumn(name = "u_id")},
-          inverseJoinColumns = {@JoinColumn(name = "r_id")})
+      joinColumns = {@JoinColumn(name = "u_id")},
+      inverseJoinColumns = {@JoinColumn(name = "r_id")})
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   private List<Role> roles;

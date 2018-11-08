@@ -42,10 +42,11 @@ public class ErrorResponseTests {
 
   @Test(expected = HttpClientErrorException.class)
   public void clientErrorResponseSent() {
-        template.exchange("http://localhost:" + port + "/location",
-            HttpMethod.GET,
-            null,
-            new ParameterizedTypeReference<List<Location>>(){});
+    template.exchange("http://localhost:" + port + "/location",
+        HttpMethod.GET,
+        null,
+        new ParameterizedTypeReference<List<Location>>() {
+        });
   }
 
   @Test(expected = HttpServerErrorException.class)
@@ -53,6 +54,7 @@ public class ErrorResponseTests {
     template.exchange("http://localhost:" + port + "/location/main",
         HttpMethod.GET,
         null,
-        new ParameterizedTypeReference<List<Location>>(){});
+        new ParameterizedTypeReference<List<Location>>() {
+        });
   }
 }

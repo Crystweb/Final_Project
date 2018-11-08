@@ -12,15 +12,15 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class JwtAuthenticationRequest implements Serializable {
 
-    private static final long serialVersionUID = -8445943548965154778L;
+  private static final long serialVersionUID = -8445943548965154778L;
 
-    private String userName;
-    private String userPassword;
+  private String userName;
+  private String userPassword;
 
-    public JwtAuthenticationRequest() {
-        super();
-    }
+  public JwtAuthenticationRequest() {
+    super();
+  }
 
-    }
+}
 
 

@@ -16,8 +16,8 @@ import ua.danit.final_project.services.ScheduleService;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringRunner.class)

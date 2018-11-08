@@ -64,6 +64,13 @@ public class GeneralExceptionHandler {
         .body(new ErrorResponse("Access denied.", 403));
   }
 
+  @ExceptionHandler(AuthenticationException.class)
+  public ResponseEntity<ErrorResponse> handleIllegalAccess(AuthenticationException exception) {
+    logger.warn(exception.getMessage());
+    return ResponseEntity.status(HttpStatus.FORBIDDEN)
+        .body(new ErrorResponse("Incorrect username or password", 403));
+  }
+
   @ExceptionHandler({IllegalArgumentException.class})
   public ResponseEntity<ErrorResponse> handleIllegalArgument(IllegalArgumentException exception) {
     logger.warn(exception.getMessage());
@@ -75,12 +82,5 @@ public class GeneralExceptionHandler {
   public ResponseEntity<ErrorResponse> uploadMaxSizeException() {
     return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
         .body(new ErrorResponse(String.format("Maximum upload size exceeded (%s)", maxSize), 413));
-  }
-
-  @ExceptionHandler(AuthenticationException.class)
-  public ResponseEntity<ErrorResponse> handleIllegalAccess(AuthenticationException exception) {
-    logger.warn(exception.getMessage());
-    return ResponseEntity.status(HttpStatus.FORBIDDEN)
-        .body(new ErrorResponse("Incorrect username or password", 403));
   }
 }
