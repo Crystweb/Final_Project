@@ -109,7 +109,7 @@ class VacanciesPage extends Component {
                   {vacancy.info}
                 </p>
 
-
+                <div className="vacancy-list__elem-buttons">
                   <button onClick={() => this.deleteVacancy(vacancy.id)} className={classes.buttons}>
                       <img alt="trash" src={trash}/>
                   </button>
@@ -119,6 +119,7 @@ class VacanciesPage extends Component {
                           <img alt="update" src={update}/>
                       </Link>
                   </button>
+                </div>
 
               </li>
             })}
