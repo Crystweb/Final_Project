@@ -8,8 +8,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class JwtAuthenticationRequest {
 
-  private String userName;
-  private String userPassword;
+  private String userName; // NOSONAR
+  private String userPassword; //NOSONAR
 
 }
 
