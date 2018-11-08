@@ -30,6 +30,11 @@ email:
   username: ""
   password: ""
 
+jwt:
+  header: ""
+  secret: ""
+  expiration: ""
+
 aws:
   credentials:
     key: ""
