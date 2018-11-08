@@ -5,23 +5,23 @@ import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultClock;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import ua.danit.final_project.entities.User;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JwtTokenUtil implements Serializable {
+public class JwtTokenUtil {
 
-  static final String CLAIM_KEY_USERNAME = "sub";
-  static final String CLAIM_KEY_CREATED = "iat";
-  private static final long serialVersionUID = -3301605591108950415L;
+  private final Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
+
   private Clock clock = DefaultClock.INSTANCE;
 
   @Value("${jwt.secret}")
@@ -65,6 +65,7 @@ public class JwtTokenUtil implements Serializable {
 
   private Boolean ignoreTokenExpiration(String token) {
     // here you specify tokens, for that the expiration is ignored
+    logger.debug(token);
     return false;
   }
 
