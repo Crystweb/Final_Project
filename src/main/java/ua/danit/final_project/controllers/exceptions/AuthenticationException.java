@@ -1,4 +1,4 @@
-package ua.danit.final_project.configuration.security;
+package ua.danit.final_project.controllers.exceptions;
 
 public class AuthenticationException extends RuntimeException {
     public AuthenticationException(String message, Throwable cause) {

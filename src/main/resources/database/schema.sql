@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `position` (
 CREATE TABLE IF NOT EXISTS `user` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `u_login` VARCHAR(32) NOT NULL UNIQUE,
-  `u_password` VARCHAR(32) NOT NULL,
+  `u_password` VARCHAR(255) NOT NULL,
   `position_id` BIGINT,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`position_id`) REFERENCES `position`(`id`)

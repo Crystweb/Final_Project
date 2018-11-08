@@ -36,13 +36,11 @@ class SignIn extends Component {
       return null
     }
     axios.post('/auth', {
-      params: {
-        name: userName,
-        password: userPassword
-      }
+      userName: userName,
+      userPassword: userPassword
     })
       .then(() =>
-        axios.get('/test/user')
+        axios.get('/user/current')
           .then(response => this.props.addUser(response.data))
       )
   }

@@ -2,6 +2,7 @@ package ua.danit.final_project.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -45,7 +46,7 @@ public class User implements UserDetails, Serializable {
   @Column(name = "u_login", unique = true, nullable = false)
   private String login;
 
-  @JsonIgnore
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @Column(name = "u_password", nullable = false)
   private String password;
 

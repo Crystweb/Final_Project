@@ -43,6 +43,13 @@ public class GeneralExceptionHandler {
         .body(new ErrorResponse("Mismatched JSON input.", 400));
   }
 
+  @ExceptionHandler(UserAlreadyExistsException.class)
+  public ResponseEntity<ErrorResponse> handleUploadException(UserAlreadyExistsException exception) {
+    logger.warn(exception.getMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(new ErrorResponse(exception.getMessage(), 400));
+  }
+
   @ExceptionHandler({EntityNotFoundException.class})
   public ResponseEntity<ErrorResponse> handleNotFound(EntityNotFoundException exception) {
     logger.warn(exception.getMessage());
@@ -68,5 +75,12 @@ public class GeneralExceptionHandler {
   public ResponseEntity<ErrorResponse> uploadMaxSizeException() {
     return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
         .body(new ErrorResponse(String.format("Maximum upload size exceeded (%s)", maxSize), 413));
+  }
+
+  @ExceptionHandler(AuthenticationException.class)
+  public ResponseEntity<ErrorResponse> handleIllegalAccess(AuthenticationException exception) {
+    logger.warn(exception.getMessage());
+    return ResponseEntity.status(HttpStatus.FORBIDDEN)
+        .body(new ErrorResponse("Incorrect username or password", 403));
   }
 }
