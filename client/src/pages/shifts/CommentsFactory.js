@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 import * as _ from 'lodash'
 import '../../styles/App.css'
+import { toastr } from 'react-redux-toastr'
 
 class CreateNewComments extends Component {
   constructor (props) {
@@ -60,6 +61,8 @@ class CreateNewComments extends Component {
           checkedPositions: [],
           successPost: commentForUpdate ? 'Комментарий изменен' : 'Комментарий добавлен'
         }))
+        .then(() => commentForUpdate ? toastr.success('Комментарий изменен') :
+          toastr.success('Добавлен новый комментарий'))
         .then(() => this.props.history.push('/shifts'))
     }
   }

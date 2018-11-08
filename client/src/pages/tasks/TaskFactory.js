@@ -8,6 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 import '../../styles/Tasks.css'
 import Select from 'react-select'
+import { toastr } from 'react-redux-toastr'
 
 class TaskFactory extends Component {
   constructor (props) {
@@ -129,6 +130,7 @@ class TaskFactory extends Component {
             sendingData: false
           })
         })
+        .then(() =>  toastr.success('Задача добавлена успешно'))
         .then(() => roomId ? this.props.history.push(`/rooms/${roomId}`) : this.props.history.push(`/tasks`))
     }
   }

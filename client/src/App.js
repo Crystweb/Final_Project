@@ -19,7 +19,8 @@ import Navigation from './components/Navigation'
 import SignIn from './pages/authentication/SignIn'
 import axios from 'axios'
 import WsHandler from './components/WsHandler'
-
+import ToastrMessage from './components/ToastrMessage'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class App extends Component {
   componentDidMount () {
@@ -36,12 +37,12 @@ class App extends Component {
     this.props.userDownloadStatus(false)
     axios.get('/test/user')
       .then(response => this.props.addUser(response.data))
-      .then(() => this.props.userDownloadStatus(true));
+      .then(() => this.props.userDownloadStatus(true))
 
   }
 
   render () {
-    const {schedules, positions, comments, locations, frequencies, allTasks, isUserDownloaded, statuses} = this.props
+    const {schedules, positions, comments, locations, frequencies, allTasks, isUserDownloaded, statuses, user} = this.props
     if (!schedules || !positions || !comments || !locations || !frequencies || !allTasks || !statuses) {
       return (
         <Preloader/>
@@ -54,7 +55,8 @@ class App extends Component {
     }
     return (
       <div className="container">
-        <WsHandler allComments={comments} allTasks={allTasks}/>
+        <ToastrMessage/>
+        <WsHandler allComments={comments} allTasks={allTasks} user={user}/>
         <Navigation header={true}/>
         <Navigation/>
       </div>
@@ -90,7 +92,5 @@ const mapDispatchToProps = (dispatch) => {
     userDownloadStatus: data => dispatch(downloadUser(data))
   }
 }
-
-
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

@@ -7,6 +7,7 @@ import Point from '../../components/Point'
 import NotFound from '../../components/NotFoundData'
 import Lightbox from 'react-images'
 import dateFormat from 'dateformat'
+import { toastr } from 'react-redux-toastr'
 
 class TasksView extends Component {
   constructor (props) {
@@ -20,13 +21,15 @@ class TasksView extends Component {
   doTask (event) {
     let task = this.props.allTasks.find(task => task.id === +event.target.value)
     task.status = 'CLOSED'
-    if (window.confirm('Вы выполнили задачу?')) {
-      axios({
+    const toastrConfirmOptions = {
+      onOk: () => axios({
         method: 'put',
         url: `/task`,
         data: task
       })
-    }
+        .then(() => toastr.success('Успешно', 'Задача выполнена'))
+    };
+    toastr.confirm('Выполнили задачу?', toastrConfirmOptions)
   }
 
   render () {

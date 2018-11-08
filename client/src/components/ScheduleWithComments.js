@@ -20,15 +20,15 @@ class ScheduleWithComments extends Component {
     }
 
     return (
-
         <div className="schedule-elem">
           <h2 className="schedule-elem__title">{dataObject.title}</h2>
           <ul className="comment-list">
             {comments
               .map((comment, index) => {
-                  let buttons = comment.author.id === userId ? <ActionButtons comment={comment.id}/> : "";
-                  let time = new Date(+comment.date);
-
+                let time = new Date(+comment.date)
+                let isTimeExpired = new Date().getMilliseconds() > (time + 1800000)
+                  let buttons = (comment.author.id === userId) && isTimeExpired
+                    ? <ActionButtons comment={comment.id}/> : ""
                   let readyTime = dateFormat(time, "dd mmmm в HH:MM")
 
                   return (

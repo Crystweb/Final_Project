@@ -26,7 +26,7 @@ class Shifts extends Component {
     } else {
       return (
         <div className="container">
-          <SortedComments comments={this.props.lastComments}/>
+          <SortedComments create={true} comments={this.props.lastComments}/>
         </div>
       )
     }

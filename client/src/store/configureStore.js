@@ -8,6 +8,7 @@ import user from '../reducers/startData'
 import tasks from '../reducers/tasks'
 import vacanciesReducer from '../reducers/vacanciesReducer'
 import roomCheck from '../reducers/roomCheck'
+import {reducer as toastrReducer} from 'react-redux-toastr'
 
 const reducers = {
   comments: shift,
@@ -15,7 +16,8 @@ const reducers = {
   startData: user,
   vacancies: vacanciesReducer,
   tasks: tasks,
-  checkIn: roomCheck
+  checkIn: roomCheck,
+  toastr: toastrReducer
 }
 
 const rootReducer = combineReducers(reducers)

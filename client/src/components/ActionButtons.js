@@ -7,13 +7,17 @@ import {Link} from 'react-router-dom'
 import connect from 'react-redux/es/connect/connect'
 import { deleteComment } from '../actions/actions'
 import axios from 'axios'
+import { toastr } from 'react-redux-toastr'
 
 class ActionButtons extends Component {
   deleteComment (id) {
-    if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
-      axios.delete(`/workshift/comment/${id}`)
+    const toastrConfirmOptions = {
+      onOk: () => axios.delete(`/workshift/comment/${id}`)
         .then(() => this.props.deleteCurrentComment(id))
-    }
+        .then(() =>  toastr.success('Успешно', 'Комментарий удален'))
+    };
+    toastr.confirm('Вы уверены, что хотите удалить комментарий?', toastrConfirmOptions)
+
   }
 
   render () {
@@ -43,9 +47,7 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteCurrentComment: (id) => {
-      dispatch(deleteComment(id))
-    }
+    deleteCurrentComment: id => dispatch(deleteComment(id))
   }
 }
 
