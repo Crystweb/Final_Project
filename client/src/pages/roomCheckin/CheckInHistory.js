@@ -2,16 +2,12 @@ import React, { Component } from 'react'
 import Calendar from '../../components/Сalendar'
 import CheckInHistoryForSelectedDate from './CheckInHistoryForSelectedDate'
 import connect from 'react-redux/es/connect/connect'
-import axios from 'axios'
+import api from '../../services/Api'
 import { addChecKHistory, addSelectedDateFromCalendar } from '../../actions/actions'
 
 class CheckInHistory extends Component {
   getCheckInForSelectedDate (date) {
-    axios.get('/check-in', {
-      params: {
-        date: date
-      }
-    })
+    api.get(`/check-in?date=${date}`)
       .then(response => this.props.roomCheckHistory(response.data))
       .then(() => this.props.addDate(date))
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../../styles/Tasks.css'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
-import axios from 'axios/index'
+import api from '../../services/Api'
 import Point from '../../components/Point'
 import NotFound from '../../components/NotFoundData'
 import Lightbox from 'react-images'
@@ -22,11 +22,7 @@ class TasksView extends Component {
     let task = this.props.allTasks.find(task => task.id === +event.target.value)
     task.status = 'CLOSED'
     const toastrConfirmOptions = {
-      onOk: () => axios({
-        method: 'put',
-        url: `/task`,
-        data: task
-      })
+      onOk: () => api.put(`/task`, {data: task})
         .then(() => toastr.success('Успешно', 'Задача выполнена'))
     };
     toastr.confirm('Выполнили задачу?', toastrConfirmOptions)

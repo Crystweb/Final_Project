@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import api from '../../services/Api'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 import * as _ from 'lodash'
@@ -49,11 +49,7 @@ class CreateNewComments extends Component {
           positions: positionForComment,
           date: new Date()
         }
-      axios({
-        url: '/workshift/comment',
-        method: commentForUpdate ? 'PUT' : 'POST',
-        data: data
-      })
+      commentForUpdate ? api.put('/workshift/comment', {data: data}) : api.post('/workshift/comment',{data: data})
         .then(() => this.setState({
           errorText: null,
           errorCheckedPosition: null,

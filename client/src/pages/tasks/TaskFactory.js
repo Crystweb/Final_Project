@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
-import axios from 'axios'
+import api from '../../services/Api'
 import moment from 'moment'
 import * as _ from 'lodash'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -119,11 +119,7 @@ class TaskFactory extends Component {
       }
       this.setState({sendingData: true})
 
-      axios({
-        method: 'post',
-        url: `/task`,
-        data: formData
-      })
+      api.post(`/task`, {data: formData})
         .then(() => {
           this.setState({
             successAdd: 'Задача добавлена',

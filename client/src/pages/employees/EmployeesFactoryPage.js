@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react'
-import axios from 'axios'
-import connect from "react-redux/es/connect/connect";
+import api from '../../services/Api'
+import connect from "react-redux/es/connect/connect"
 import Select from 'react-select'
-import InputMask from 'react-input-mask';
+import InputMask from 'react-input-mask'
 
 class EmployeesFactoryPage extends Component {
 
@@ -49,26 +49,24 @@ class EmployeesFactoryPage extends Component {
     }
     if (!sendingData && positionId && forename && surname) {
       this.setState({sendingData: true})
-      axios({
-        url: `/employee`,
-        method: toUpdate ? 'PUT' : 'POST',
-        data: toUpdate ? {
-          position: this.props.positions.find(p => p.id === +this.positionId),
-          forename: forename,
-          surname: surname,
-          patronymic: this.patronymic.value,
-          phoneNumber: this.phoneNumber.value,
-          info: this.info.value
-        } : {
-          position: this.props.positions.find(p => p.id === +this.positionId),
-          forename: forename,
-          surname: surname,
-          patronymic: this.patronymic.value,
-          phoneNumber: this.phoneNumber.value,
-          info: this.info.value
-        }
-      })
-        .then((response) => this.setState({
+
+      const requestBody = toUpdate ? {
+        position: this.props.positions.find(p => p.id === +this.positionId),
+        forename: forename,
+        surname: surname,
+        patronymic: this.patronymic.value,
+        phoneNumber: this.phoneNumber.value,
+        info: this.info.value
+      } : {
+        position: this.props.positions.find(p => p.id === +this.positionId),
+        forename: forename,
+        surname: surname,
+        patronymic: this.patronymic.value,
+        phoneNumber: this.phoneNumber.value,
+        info: this.info.value
+      }
+      toUpdate ? api.put('/employee', requestBody) : api.post('/employee',requestBody)
+        .then(() => this.setState({
           successAction: toUpdate ? 'Данные сотрудника изменены' : 'Создан новый сотрудник',
           sendingData: false
         }))

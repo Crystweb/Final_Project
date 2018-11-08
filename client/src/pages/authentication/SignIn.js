@@ -3,7 +3,7 @@ import yesImg from '../../img/yes.png'
 import routes from '../../constants/routes'
 import Link from 'react-router-dom/es/Link'
 import * as _ from 'lodash'
-import axios from 'axios'
+import api from '../../services/Api'
 import connect from 'react-redux/es/connect/connect'
 import { addCurrentUser } from '../../actions/actions'
 import logo from '../../img/GreLive.png'
@@ -35,14 +35,14 @@ class SignIn extends Component {
     if (!userName || !userPassword) {
       return null
     }
-    axios.post('/auth', {
+    api.post('/auth', {
       params: {
         name: userName,
         password: userPassword
       }
     })
       .then(() =>
-        axios.get('/test/user')
+        api.get('/test/user')
           .then(response => this.props.addUser(response.data))
       )
   }

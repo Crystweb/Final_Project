@@ -6,13 +6,13 @@ import routes from '../constants/routes'
 import {Link} from 'react-router-dom'
 import connect from 'react-redux/es/connect/connect'
 import { deleteComment } from '../actions/actions'
-import axios from 'axios'
+import api from '../services/Api'
 import { toastr } from 'react-redux-toastr'
 
 class ActionButtons extends Component {
   deleteComment (id) {
     const toastrConfirmOptions = {
-      onOk: () => axios.delete(`/workshift/comment/${id}`)
+      onOk: () => api.deleteApi(`/workshift/comment/${id}`)
         .then(() => this.props.deleteCurrentComment(id))
         .then(() =>  toastr.success('Успешно', 'Комментарий удален'))
     };

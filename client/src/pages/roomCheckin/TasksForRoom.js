@@ -6,7 +6,7 @@ import picture from '../../img/add.png'
 import { Link } from 'react-router-dom'
 import Preloader from '../../components/Preloader'
 import '../../styles/RoomCheckIn.css'
-import axios from 'axios'
+import api from '../../services/Api'
 
 class TasksForRoom extends Component {
   constructor (props) {
@@ -17,7 +17,7 @@ class TasksForRoom extends Component {
   doCheckIn () {
     if (window.confirm('Утверждаете, что провели проверку номера?')) {
       const id = this.props.currentRoom.id
-      axios.post(`/check-in/${id}`)
+      api.post(`/check-in/${id}`)
         .then(() => this.props.history.push('/rooms'))
     }
   }
