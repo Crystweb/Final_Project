@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PositionServiceImpl implements PositionService {
+public class PositionServiceImpl implements PositionService{
 
   private final PositionRepository positionRepository;
   private final DefaultMapper mapper;

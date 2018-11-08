@@ -11,6 +11,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import ua.danit.final_project.controllers.LocationController;
 import ua.danit.final_project.entities.Location;
@@ -34,15 +35,24 @@ public class ErrorResponseTests {
   public void initMock() {
     Mockito.when(locationController.getLocations())
         .thenThrow(EntityNotFoundException.class);
+
+    Mockito.when(locationController.getMainLocations())
+        .thenThrow(NullPointerException.class);
   }
 
   @Test(expected = HttpClientErrorException.class)
   public void clientErrorResponseSent() {
-    template.exchange("http://localhost:" + port + "/location",
-        HttpMethod.GET,
-        null,
-        new ParameterizedTypeReference<List<Location>>() {
-        });
+        template.exchange("http://localhost:" + port + "/location",
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<List<Location>>(){});
   }
 
+  @Test(expected = HttpServerErrorException.class)
+  public void serverErrorResponseSent() {
+    template.exchange("http://localhost:" + port + "/location/main",
+        HttpMethod.GET,
+        null,
+        new ParameterizedTypeReference<List<Location>>(){});
+  }
 }

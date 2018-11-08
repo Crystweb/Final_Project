@@ -5,9 +5,8 @@ import Link from 'react-router-dom/es/Link'
 import * as _ from 'lodash'
 import axios from 'axios'
 import connect from 'react-redux/es/connect/connect'
-import { addCurrentUser, saveToken } from '../../actions/actions'
+import { addCurrentUser } from '../../actions/actions'
 import logo from '../../img/GreLive.png'
-import { getCurrentUser } from '../../utils/utils'
 
 class SignIn extends Component {
   constructor (props) {
@@ -37,13 +36,15 @@ class SignIn extends Component {
       return null
     }
     axios.post('/auth', {
-      userName: userName,
-      userPassword: userPassword
+      params: {
+        name: userName,
+        password: userPassword
+      }
     })
-      .then(response => {
-        localStorage.setItem('token', response.data.token)
-        getCurrentUser(data => this.props.addUser(data))
-      })
+      .then(() =>
+        axios.get('/test/user')
+          .then(response => this.props.addUser(response.data))
+      )
   }
 
   render () {
@@ -56,9 +57,8 @@ class SignIn extends Component {
         <div className={userName ? 'signIn__login' : 'signIn__loginActive'}>
           <label className='signIn__login-label' htmlFor='userName'>Введите логин</label>
           <span className="signIn__inputBlock">
-            <input className={userName ? 'signIn__inputWithData' : 'signIn__inputWithoutData'} name='userName'
-                   type='text'
-                   onChange={this.setUserName} maxLength={20}/>
+            <input className={userName ? 'signIn__inputWithData' : 'signIn__inputWithoutData'} name='userName' type='text'
+              onChange={this.setUserName} maxLength={20}/>
             {userName && <img className="signIn-confirm" src={yesImg} alt="yes"/>}
           </span>
         </div>
@@ -66,14 +66,14 @@ class SignIn extends Component {
           <label className='signIn__login-label' htmlFor='userPassword'>Введите пароль</label>
           <span className="signIn__inputBlock">
             <input className={userPassword ? 'signIn__inputWithData' : 'signIn__inputWithoutData'} name='userPassword'
-                   type='password' onChange={this.setUserPassword} maxLength={20}/>
+              type='password' onChange={this.setUserPassword} maxLength={20}/>
             {userPassword && <img className="signIn-confirm" src={yesImg} alt="yes"/>}
           </span>
         </div>
         <div className="signIn-wrap-checkBoxForgetPass">
           <label className="signIn-check">
             <input className="signIn-check__realCheckbox"
-                   type='checkbox'/>
+              type='checkbox'/>
             <div className="signIn-check__fakeCheckbox">
               <div className="signIn-check__fakeCheckbox-active"></div>
             </div>
@@ -92,7 +92,9 @@ const mapStateToProps = () => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    addUser: (data) => dispatch(addCurrentUser(data))
+    addUser: (data) => {
+      dispatch(addCurrentUser(data))
+    }
   }
 }
 

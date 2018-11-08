@@ -1,7 +1,6 @@
 package ua.danit.final_project.dto;
 
 import lombok.Data;
-
 import java.io.Serializable;
 
 @Data

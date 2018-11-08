@@ -44,9 +44,9 @@ public class TaskTests {
 
     Mockito.when(mockTaskRepository.save(any(Task.class)))
         .then((Answer<Task>) invocationOnMock -> {
-          Task argument = invocationOnMock.getArgument(0);
-          argument.setId(++mockId);
-          return argument;
+            Task argument = invocationOnMock.getArgument(0);
+            argument.setId(++mockId);
+            return argument;
         });
     Mockito.when(mockTaskRepository.findById(any()))
         .thenReturn(Optional.of(task));

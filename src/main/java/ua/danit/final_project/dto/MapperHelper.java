@@ -21,7 +21,7 @@ public class MapperHelper {
 
   @Autowired
   public MapperHelper(
-      TaskRepository taskRepository) {
+                      TaskRepository taskRepository) {
     this.taskRepository = taskRepository;
   }
 

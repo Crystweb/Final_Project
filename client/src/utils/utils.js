@@ -33,17 +33,10 @@ export const startData = (
   axios.get('/task/frequency')
     .then(response => response.data)
     .then(callbackFrequency)
+  axios.get('/user')
+    .then(response => response.data)
+    .then(callbackUsers)
   axios.get('/task')
     .then(response => response.data)
     .then(callbackTasks)
-}
-
-export const getCurrentUser = (callback) => {
-  axios.get('/user/current',{
-  headers: { "Authorization": "Bearer " + localStorage.getItem('token')},
-  credentials: 'include',
-  mode: 'cors'
-})
-  .then(response => response.data)
-  .then(callback)
 }

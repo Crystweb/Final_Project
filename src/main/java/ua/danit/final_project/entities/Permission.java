@@ -3,7 +3,8 @@ package ua.danit.final_project.entities;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.springframework.security.core.GrantedAuthority;
+
+import javax.persistence.Id;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -22,7 +22,7 @@ import java.util.List;
 @Entity
 @Table(name = "permission")
 @Data
-public class Permission implements GrantedAuthority, Serializable {
+public class Permission implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,14 +35,10 @@ public class Permission implements GrantedAuthority, Serializable {
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinTable(
-      name = "role_permission",
-      joinColumns = {@JoinColumn(name = "p_id")},
-      inverseJoinColumns = {@JoinColumn(name = "r_id")})
+          name = "role_permission",
+          joinColumns = {@JoinColumn(name = "p_id")},
+          inverseJoinColumns = {@JoinColumn(name = "r_id")})
   private List<Role> roles;
 
 
-  @Override
-  public String getAuthority() {
-    return name;
-  }
 }

@@ -38,9 +38,9 @@ public class ShiftComment implements Serializable {
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinTable(
-      name = "shift_comment_position",
-      joinColumns = {@JoinColumn(name = "comment_id")},
-      inverseJoinColumns = {@JoinColumn(name = "position_id")})
+          name = "shift_comment_position",
+          joinColumns = {@JoinColumn(name = "comment_id")},
+          inverseJoinColumns = {@JoinColumn(name = "position_id")})
   private List<Position> positions;
 
   @Column(name = "c_message", nullable = false)

@@ -12,7 +12,7 @@ import ua.danit.final_project.dto.ShiftCommentDto;
 import ua.danit.final_project.dto.TaskDto;
 
 @Service
-public class WebSocketService extends SessionAware {
+public class WebSocketService extends SessionAware  {
 
   private static final String EVENTS_TASK = "/events/task";
   private static final String EVENTS_WORKSHIFT_COMMENT = "/events/comment";

@@ -38,16 +38,16 @@ public class Role implements Serializable {
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinTable(
-      name = "role_permission",
-      joinColumns = {@JoinColumn(name = "r_id")},
-      inverseJoinColumns = {@JoinColumn(name = "p_id")})
+          name = "role_permission",
+          joinColumns = {@JoinColumn(name = "r_id")},
+          inverseJoinColumns = {@JoinColumn(name = "p_id")})
   private List<Permission> permissions;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinTable(name = "user_role",
-      joinColumns = {@JoinColumn(name = "r_id")},
-      inverseJoinColumns = {@JoinColumn(name = "u_id")})
+          joinColumns = {@JoinColumn(name = "r_id")},
+          inverseJoinColumns = {@JoinColumn(name = "u_id")})
   private List<User> users;
 }
