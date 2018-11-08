@@ -42,11 +42,11 @@ class App extends Component {
 
   render () {
     const {schedules, positions, comments, locations, frequencies, allTasks, isUserDownloaded, statuses} = this.props
-    if (!schedules || !positions || !comments || !locations || !frequencies || !allTasks || !statuses) {
-      return (
-        <Preloader/>
-      )
-    }
+    // if (!schedules || !positions || !comments || !locations || !frequencies || !allTasks || !statuses) {
+    //   return (
+    //     <Preloader/>
+    //   )
+    // }
     if (!isUserDownloaded) {
       return (
         <SignIn/>

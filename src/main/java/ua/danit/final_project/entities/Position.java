@@ -1,12 +1,13 @@
 package ua.danit.final_project.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,8 +44,8 @@ public class Position {
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinTable(
-          name = "shift_comment_position",
-          joinColumns = {@JoinColumn(name = "position_id")},
-          inverseJoinColumns = {@JoinColumn(name = "comment_id")})
+      name = "shift_comment_position",
+      joinColumns = {@JoinColumn(name = "position_id")},
+      inverseJoinColumns = {@JoinColumn(name = "comment_id")})
   private List<ShiftComment> shiftComments;
 }

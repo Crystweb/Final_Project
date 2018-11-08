@@ -31,11 +31,11 @@ spring:
   profiles: dev
 
   datasource:
-      username: sa
-      password:
-      driver-class-name: org.h2.Driver
-      url: jdbc:h2:mem:hotel;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL;
-      platform: h2
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:hotel;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL;
+    platform: h2
   h2:
     console:
       enabled: true
@@ -43,6 +43,12 @@ spring:
       settings:
         trace: true
         web-allow-others: true
+
+jwt:
+  header: Authorization
+  secret: 9bd927c6
+  expiration: 604800
+
 aws:
   credentials:
     key: "${S3_KEY}"
