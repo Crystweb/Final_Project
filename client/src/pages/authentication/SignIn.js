@@ -7,6 +7,7 @@ import axios from 'axios'
 import connect from 'react-redux/es/connect/connect'
 import { addCurrentUser, saveToken } from '../../actions/actions'
 import logo from '../../img/GreLive.png'
+import { getCurrentUser } from '../../utils/utils'
 
 class SignIn extends Component {
   constructor (props) {
@@ -40,14 +41,9 @@ class SignIn extends Component {
       userPassword: userPassword
     })
       .then(response => {
-        this.props.addToken(response.data.token)
-        axios.get('/user/current',{
-          headers: { "Authorization": "Bearer " + response.data.token},
-          credentials: 'include',
-          mode: 'cors'
-        })
-          .then(response => this.props.addUser(response.data))}
-      )
+        localStorage.setItem('token', response.data.token)
+        getCurrentUser(data => this.props.addUser(data))
+      })
   }
 
   render () {
@@ -96,8 +92,7 @@ const mapStateToProps = () => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    addUser: (data) => dispatch(addCurrentUser(data)),
-    addToken: (data) => dispatch(saveToken(data))
+    addUser: (data) => dispatch(addCurrentUser(data))
   }
 }
 
