@@ -3,7 +3,6 @@ import '../../styles/Tasks.css'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 import axios from 'axios/index'
-import { deleteTask } from '../../actions/actions'
 import Point from '../../components/Point'
 import NotFound from '../../components/NotFoundData'
 import Lightbox from 'react-images'
@@ -27,7 +26,6 @@ class TasksView extends Component {
         url: `/task`,
         data: task
       })
-        .then(response => this.props.deleteClosedTask(response.data))
     }
   }
 
@@ -79,6 +77,7 @@ class TasksView extends Component {
                   <Lightbox
                     isOpen={lightbox === task.imageLinks[0]}
                     images={[{ src: task.imageLinks[0] }]}
+                    onClickImage={() => this.setState({lightbox: null})}
                     onClose={() => this.setState({lightbox: null})}
                   />
                 </div>}
@@ -137,10 +136,4 @@ const mapStateToProps = ({tasks, startData, selectedDate}) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteClosedTask: data => dispatch(deleteTask(data)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TasksView)
+export default connect(mapStateToProps)(TasksView)

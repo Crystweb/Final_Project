@@ -4,15 +4,12 @@ import update from '../img/edit.png'
 import trash from '../img/delete.png'
 import routes from '../constants/routes'
 import {Link} from 'react-router-dom'
-import connect from 'react-redux/es/connect/connect'
-import { deleteComment } from '../actions/actions'
 import axios from 'axios'
 
 class ActionButtons extends Component {
   deleteComment (id) {
     if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
       axios.delete(`/workshift/comment/${id}`)
-        .then(() => this.props.deleteCurrentComment(id))
     }
   }
 
@@ -37,16 +34,4 @@ class ActionButtons extends Component {
   }
 }
 
-const mapStateToProps = () => {
-  return {}
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteCurrentComment: (id) => {
-      dispatch(deleteComment(id))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ActionButtons)
+export default ActionButtons

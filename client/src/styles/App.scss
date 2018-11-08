@@ -36,6 +36,7 @@ a:visited {
 
 body {
   margin: 0 auto;
+  padding-bottom: 20px;
   font-family: HelveticaNeue, sans-serif;
   overflow-x: hidden;
   box-sizing: border-box;
@@ -166,7 +167,7 @@ body {
     position: relative;
     width: 100%;
     margin-bottom: 20px;
-    padding: 30% 0;
+    padding: 20% 0;
   }
 
   &-textarea {

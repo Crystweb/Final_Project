@@ -2,6 +2,8 @@ package ua.danit.final_project.services.websocket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ public class WebSocketService extends SessionAware  {
 
   private static final String EVENTS_TASK = "/events/task";
   private static final String EVENTS_WORKSHIFT_COMMENT = "/events/comment";
+  private static final String EVENTS_WORKSHIFT_COMMENT_REMOVAL = "/events/rm/comment";
 
   private final SimpMessagingTemplate template;
   private final ObjectMapper mapper;
@@ -31,5 +34,15 @@ public class WebSocketService extends SessionAware  {
 
   public void updateComment(ShiftCommentDto shiftCommentDto) throws JsonProcessingException {
     template.convertAndSend(EVENTS_WORKSHIFT_COMMENT, mapper.writeValueAsString(shiftCommentDto));
+  }
+
+  public void deleteComment(Long id) {
+    template.convertAndSend(EVENTS_WORKSHIFT_COMMENT_REMOVAL, new RemovalResponse(id));
+  }
+
+  @AllArgsConstructor
+  @Data
+  private class RemovalResponse {
+    private final Long id; // NOSONAR
   }
 }

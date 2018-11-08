@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../../styles/Comments.css'
 import Preloader from '../../components/Preloader'
 import { connect } from 'react-redux'
-import { addShift, deleteDate } from '../../actions/actions'
+import { deleteDate } from '../../actions/actions'
 import SortedComments from '../../components/SortedComments'
 
 class Shifts extends Component {
@@ -44,12 +44,7 @@ const mapStateToProps = ({comments, startData, selectedDate}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addShift: (data) => {
-      dispatch(addShift(data))
-    },
-    deleteSelectedDate: () => {
-      dispatch(deleteDate())
-    }
+    deleteSelectedDate: () => dispatch(deleteDate())
   }
 }
 
