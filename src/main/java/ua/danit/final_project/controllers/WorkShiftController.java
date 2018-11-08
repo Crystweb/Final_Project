@@ -45,9 +45,9 @@ public class WorkShiftController extends SessionAware {
   @GetMapping
   public List<ShiftCommentDto> getByDate(@RequestParam(name = "date", required = false) Long millis) {
     return workCommentService.getShiftCommentsByDate(millis)
-            .stream()
-            .map(mapper::shiftCommentToShiftCommentDto)
-            .collect(Collectors.toList());
+        .stream()
+        .map(mapper::shiftCommentToShiftCommentDto)
+        .collect(Collectors.toList());
   }
 
   @PostMapping("/comment")

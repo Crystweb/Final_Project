@@ -19,7 +19,7 @@ public class Consumer implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name  = "c_name", nullable = false, unique = true)
+  @Column(name = "c_name", nullable = false, unique = true)
   private String name;
 
   @Column(name = "c_description")
