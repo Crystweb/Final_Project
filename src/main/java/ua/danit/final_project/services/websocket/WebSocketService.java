@@ -36,7 +36,7 @@ public class WebSocketService extends SessionAware  {
     template.convertAndSend(EVENTS_WORKSHIFT_COMMENT, mapper.writeValueAsString(shiftCommentDto));
   }
 
-  public void deleteComment(Long id) throws JsonProcessingException {
+  public void deleteComment(Long id) {
     template.convertAndSend(EVENTS_WORKSHIFT_COMMENT_REMOVAL, new RemovalResponse(id));
   }
 

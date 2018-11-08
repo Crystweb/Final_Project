@@ -35,8 +35,6 @@ public class WorkShiftController extends SessionAware {
   private final DefaultMapper mapper;
   private final WebSocketService webSocketService;
 
-  private final Logger logger = LoggerFactory.getLogger(WorkShiftController.class);
-
   @Autowired
   public WorkShiftController(WorkCommentService workCommentService,
                              DefaultMapper mapper,
@@ -89,9 +87,8 @@ public class WorkShiftController extends SessionAware {
       webSocketService.deleteComment(shiftComment.getId());
     } catch (IllegalAccessException e) {
       return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-    } catch (JsonProcessingException e) {
-      logger.error(e.getMessage(), e);
     }
+
     return ResponseEntity.ok().build();
   }
 
