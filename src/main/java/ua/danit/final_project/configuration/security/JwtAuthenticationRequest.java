@@ -9,7 +9,7 @@ import lombok.Data;
 public class JwtAuthenticationRequest {
 
   private String userName; // NOSONAR
-  private String userPassword; //NOSONAR
+  private String userPassword; // NOSONAR
 
 }
 
