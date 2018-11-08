@@ -103,7 +103,7 @@ class EmployeesPage extends Component {
                                         {employee.info}
                                     </p>
                                 </div>
-                                <div className="employee-list__elem-buttons">
+                                <div className="employee-page__elem-buttons">
                                     <button onClick={() => this.deleteEmployee(employee.id)}
                                             className={classes.buttons}>
                                         <img alt="trash" src={trash}/>
