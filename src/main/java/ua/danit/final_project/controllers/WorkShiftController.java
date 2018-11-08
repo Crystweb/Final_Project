@@ -1,6 +1,8 @@
 package ua.danit.final_project.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,8 @@ public class WorkShiftController extends SessionAware {
   private final WorkCommentService workCommentService;
   private final DefaultMapper mapper;
   private final WebSocketService webSocketService;
+
+  private final Logger logger = LoggerFactory.getLogger(WorkShiftController.class);
 
   @Autowired
   public WorkShiftController(WorkCommentService workCommentService,
@@ -82,8 +86,11 @@ public class WorkShiftController extends SessionAware {
 
     try {
       workCommentService.deleteComment(shiftComment, userFromToken);
+      webSocketService.deleteComment(shiftComment.getId());
     } catch (IllegalAccessException e) {
       return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    } catch (JsonProcessingException e) {
+      logger.error(e.getMessage(), e);
     }
     return ResponseEntity.ok().build();
   }
