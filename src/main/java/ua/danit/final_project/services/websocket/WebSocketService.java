@@ -43,6 +43,6 @@ public class WebSocketService extends SessionAware  {
   @AllArgsConstructor
   @Data
   private class RemovalResponse {
-    private final Long id;
+    private final Long id; // NOSONAR
   }
 }
