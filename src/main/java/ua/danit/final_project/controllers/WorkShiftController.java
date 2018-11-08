@@ -82,9 +82,11 @@ public class WorkShiftController extends SessionAware {
 
     try {
       workCommentService.deleteComment(shiftComment, userFromToken);
+      webSocketService.deleteComment(shiftComment.getId());
     } catch (IllegalAccessException e) {
       return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
+
     return ResponseEntity.ok().build();
   }
 
