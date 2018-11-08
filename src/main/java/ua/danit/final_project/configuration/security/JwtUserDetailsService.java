@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.danit.final_project.repositories.UserRepository;
 
 
-@Service
+@Service("jwtUserDetailsService")
 public class JwtUserDetailsService implements UserDetailsService {
 
   private final UserRepository userRepository;

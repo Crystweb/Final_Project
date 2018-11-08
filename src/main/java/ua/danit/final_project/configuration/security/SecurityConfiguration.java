@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -20,12 +21,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private final JwtAuthenticationEntryPoint unauthorizedHandler;
   private final JwtUserDetailsService jwtUserDetailsService;
+  private final JwtAuthorizationTokenFilter jwtAuthorizationTokenFilter;
 
   @Autowired
   public SecurityConfiguration(JwtAuthenticationEntryPoint unauthorizedHandler,
-                               JwtUserDetailsService jwtUserDetailsService) {
+                               JwtUserDetailsService jwtUserDetailsService,
+                               JwtAuthorizationTokenFilter jwtAuthorizationTokenFilter) {
     this.unauthorizedHandler = unauthorizedHandler;
     this.jwtUserDetailsService = jwtUserDetailsService;
+    this.jwtAuthorizationTokenFilter = jwtAuthorizationTokenFilter;
   }
 
   @Autowired
@@ -48,6 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .headers()
         .frameOptions().sameOrigin()  // required to set for H2 else H2 Console will be blank.
         .cacheControl();
+    http.addFilterBefore(jwtAuthorizationTokenFilter, UsernamePasswordAuthenticationFilter.class);
   }
 
   @Override
