@@ -108,19 +108,18 @@ class VacanciesPage extends Component {
                 <p className="comment-list__elem-info">
                   {vacancy.info}
                 </p>
-                {vacancy.authorId === id &&
-                <button onClick={() => this.deleteVacancy(vacancy.id)} className={classes.buttons}>
-                  <img alt="trash"
-                       src={trash}/>
-                </button>}
-                {vacancy.authorId === id &&
-                <button className={classes.buttons}>
-                  <Link to={{pathname: routes.updateVacancy.href + vacancy.id, state: vacancy}}>
-                    <img alt="update"
-                         src={update}
-                         />
-                  </Link>
-                </button>}
+
+
+                  <button onClick={() => this.deleteVacancy(vacancy.id)} className={classes.buttons}>
+                      <img alt="trash" src={trash}/>
+                  </button>
+
+                  <button className={classes.buttons}>
+                      <Link to={{pathname: routes.updateVacancy.href + vacancy.id, state: vacancy}}>
+                          <img alt="update" src={update}/>
+                      </Link>
+                  </button>
+
               </li>
             })}
           </div>
