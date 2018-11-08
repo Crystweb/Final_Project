@@ -18,7 +18,7 @@ INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Старшая го
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Старший бармен', false);
 INSERT INTO `position` (p_title, pinned_to_comment) VALUES ('Завхоз', false);
 
-INSERT INTO `user` (u_login, u_password, position_id) VALUES ('admin','admin', 1);
+INSERT INTO `user` (u_login, u_password, position_id) VALUES ('admin','$2a$10$yKj28aFTziVYvmegHoSLy.WZVPJINyt8xCKZDhSPfxu2j7dtAFtRe', 1);
 INSERT INTO `user` (u_login, u_password, position_id) VALUES ('login2','1', 2);
 INSERT INTO `user` (u_login, u_password, position_id) VALUES ('login 3','1', 3);
 INSERT INTO `user` (u_login, u_password, position_id) VALUES ('login 4','1', 1);
