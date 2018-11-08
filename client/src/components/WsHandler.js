@@ -8,7 +8,8 @@ import { toastr } from 'react-redux-toastr'
 class WsHandler extends Component {
   componentDidMount () {
     const {user, allTasks, allComments} = this.props
-    const ws = new SockJS(`http://localhost:9000/ws_0001`)
+    
+    const ws = new SockJS(`http://localhost:9000/ws_0001?token=Bearer ${localStorage.getItem('token')}`)
     const stompClient = Stomp.over(ws)
     stompClient.connect({}, () => {
       stompClient.subscribe('/events/task', resp => {
