@@ -1,6 +1,6 @@
 package ua.danit.final_project.controllers.security;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,9 +38,10 @@ public class AuthenticationController {
   private final RegistrationService registrationService;
   private final DefaultMapper mapper;
 
+  @Autowired
   public AuthenticationController(AuthenticationManager authenticationManager,
                                   JwtTokenUtil jwtTokenUtil,
-                                  @Qualifier("jwtUserDetailsService") UserDetailsService userDetailsService,
+                                  UserDetailsService userDetailsService,
                                   RegistrationService registrationService,
                                   DefaultMapper mapper) {
     this.authenticationManager = authenticationManager;
@@ -51,8 +52,9 @@ public class AuthenticationController {
   }
 
   @PostMapping("/auth")
-  public ResponseEntity<JwtAuthenticationResponse> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest)
-      throws AuthenticationException {
+  public ResponseEntity<JwtAuthenticationResponse> createAuthenticationToken(
+      @RequestBody JwtAuthenticationRequest authenticationRequest
+  ) throws AuthenticationException {
 
     authenticate(authenticationRequest.getUserName(), authenticationRequest.getUserPassword());
 
