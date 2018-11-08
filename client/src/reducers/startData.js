@@ -15,7 +15,6 @@ const initialState = {
   frequencies: null,
   users: null,
   userDownload: null,
-  token: null
 }
 
 export default function startDataReducer (state = initialState, action) {
@@ -36,8 +35,6 @@ export default function startDataReducer (state = initialState, action) {
       return {...state, users: action.users}
     case USER_DOWNLOAD:
       return {...state, userDownload: action.bool}
-    case SAVE_TOKEN:
-      return {...state, token: action.token}
     default:
       return state
   }
