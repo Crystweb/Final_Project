@@ -38,8 +38,7 @@ class VacanciesPage extends Component {
 
   render () {
     const {showClosedVacancies} = this.state
-    const {vacancies, classes, positions, currentUser} = this.props
-    const id = currentUser.employee.id
+    const {vacancies, classes, positions} = this.props
     let toFilterVacancies = []
 
     if (!showClosedVacancies) {
@@ -113,7 +112,6 @@ class VacanciesPage extends Component {
                   <button onClick={() => this.deleteVacancy(vacancy.id)} className={classes.buttons}>
                       <img alt="trash" src={trash}/>
                   </button>
-
                   <button className={classes.buttons}>
                       <Link to={{pathname: routes.updateVacancy.href + vacancy.id, state: vacancy}}>
                           <img alt="update" src={update}/>
