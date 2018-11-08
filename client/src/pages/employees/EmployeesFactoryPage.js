@@ -144,7 +144,7 @@ class EmployeesFactoryPage extends Component {
                   type="text"
                   placeholder='Имя'
                   defaultValue={forename}
-                  onChange={input => this.setState({forename: input.value, forenameError: null})}
+                  onChange={event => this.setState({forename: event.target.value, forenameError: null})}
                 />
                 {this.state.forenameError &&
                 <label className='taskFactory__errorText'>{this.state.forenameError}</label>}
@@ -155,7 +155,7 @@ class EmployeesFactoryPage extends Component {
                   type="text"
                   placeholder='Фамилия'
                   defaultValue={surname}
-                  onChange={input => this.setState({surname: input.value, surnameError: null})}
+                  onChange={event => this.setState({surname: event.target.value , surnameError: null})}
                 />
                 {this.state.surnameError &&
                 <label className='taskFactory__errorText'>{this.state.surnameError}</label>}

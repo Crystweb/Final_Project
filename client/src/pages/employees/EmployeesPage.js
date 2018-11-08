@@ -11,15 +11,18 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import picture from "../../img/add.png";
 import Lightbox from 'react-images'
+import filterCollection from '../../components/filterCollection'
 
 class EmployeesPage extends Component {
 
   constructor(props) {
     super(props);
+    this.searchInput = React.createRef()
     this.state = {
       employees: [],
       showOnlyCRM_users: false,
-      lightbox: null
+      lightbox: null,
+      seacrh: null
     }
   }
 
@@ -39,8 +42,21 @@ class EmployeesPage extends Component {
     }
   }
 
+
   render() {
-    const {employees} = this.state;
+    const {employees, search} = this.state;
+    let resultEmployee = [];
+    let searchValue = this.searchInput.value
+
+    if (searchValue && searchValue.toLowerCase()){
+      searchValue = searchValue.toLowerCase()
+    }
+
+    if (search) {
+      resultEmployee = filterCollection(employees, searchValue, true, 'forename', 'surname', 'info', 'position.title', 'phoneNumber')
+    } else {
+      resultEmployee = employees
+    }
 
     if (!this.state.employees) {
       return <Preloader/>
@@ -48,13 +64,20 @@ class EmployeesPage extends Component {
       return (
         <Fragment>
           <div className="add_and_history add_and_history--employee">
+            <input
+              className="employee-search"
+              type="text"
+              placeholder="Поиск"
+              onChange={() => this.setState({search: true})}
+              ref={input => this.searchInput = input}
+            />
             <Link to={routes.addNewEmployee.href}>
               <img alt="add comment" src={picture}/>
             </Link>
           </div>
           <ul className="employeeList">
 
-            {employees.map(employee => {
+            {resultEmployee.map(employee => {
               return <li className="employeeList__elem" key={employee.id}>
                   <div className="employee-fotoWrap">
                     {employee.image ? <div
@@ -98,7 +121,8 @@ const mapStateToProps = (state) => {
   return {
     vacancies: state.vacancies,
     positions: state.startData.positions,
-    currentUser: state.startData.currentUser
+    currentUser: state.startData.currentUser,
+    employeees: state.employees
   }
 };
 
