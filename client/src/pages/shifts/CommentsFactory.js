@@ -3,7 +3,6 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
 import * as _ from 'lodash'
-import { addNewComment, updateComment } from '../../actions/actions'
 import '../../styles/App.css'
 
 class CreateNewComments extends Component {
@@ -54,7 +53,6 @@ class CreateNewComments extends Component {
         method: commentForUpdate ? 'PUT' : 'POST',
         data: data
       })
-        .then(response => commentForUpdate ? this.props.commentUpdate(response.data) : this.props.addComment(response.data))
         .then(() => this.setState({
           errorText: null,
           errorCheckedPosition: null,
@@ -170,15 +168,4 @@ const mapStateToProps = ({comments, startData}, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addComment: (data) => {
-      dispatch(addNewComment(data))
-    },
-    commentUpdate: (data) => {
-      dispatch(updateComment(data))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNewComments)
+export default connect(mapStateToProps)(CreateNewComments)

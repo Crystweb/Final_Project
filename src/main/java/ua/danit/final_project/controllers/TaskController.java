@@ -1,5 +1,6 @@
 package ua.danit.final_project.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -78,7 +79,8 @@ public class TaskController {
   }
 
   @PutMapping
-  public TaskDto update(@RequestBody TaskDto taskDto) {
+  public TaskDto update(@RequestBody TaskDto taskDto) throws JsonProcessingException {
+    webSocketService.updateTask(taskDto);
     return taskService.update(taskDto);
   }
 
