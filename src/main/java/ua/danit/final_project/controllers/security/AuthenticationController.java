@@ -51,7 +51,7 @@ public class AuthenticationController {
   }
 
   @PostMapping("/auth")
-  public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest)
+  public ResponseEntity<JwtAuthenticationResponse> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest)
       throws AuthenticationException {
 
     authenticate(authenticationRequest.getUserName(), authenticationRequest.getUserPassword());
@@ -71,7 +71,7 @@ public class AuthenticationController {
   }
 
   @GetMapping("/refresh")
-  public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
+  public ResponseEntity<JwtAuthenticationResponse> refreshAndGetAuthenticationToken(HttpServletRequest request) {
     String authToken = request.getHeader(tokenHeader);
     final String token = authToken.substring(7);
     String username = jwtTokenUtil.getUsernameFromToken(token);
