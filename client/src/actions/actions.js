@@ -6,6 +6,7 @@ import { ADD_ROOM_CHECK_HISTORY } from '../constants/actionTypes'
 import { SAVE_CURRENT_FLOOR } from '../constants/actionTypes'
 import { DELETE_CURRENT_FLOOR } from '../constants/actionTypes'
 import { USER_DOWNLOAD } from '../constants/actionTypes'
+import { SAVE_TOKEN } from '../constants/actionTypes'
 
 export function addShift (shift) {
   return {
@@ -185,5 +186,12 @@ export function downloadUser (bool) {
   return {
     type: USER_DOWNLOAD,
     bool
+  }
+}
+
+export function saveToken (token) {
+  return {
+    type: SAVE_TOKEN,
+    token
   }
 }
