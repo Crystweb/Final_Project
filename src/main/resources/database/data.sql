@@ -729,11 +729,11 @@ VALUES (2,
 INSERT INTO `task_img` (task_id, url)
 VALUES (3, 'https://tomesto.ru/img/place/000/022/815/bar-gadkiy-koyot-coyote-ugly-na-ulitse-arbat_97611_full-74670.jpg');
 INSERT INTO `task_img` (task_id, url)
-VALUES (4, 'https://cdn6.sellbe.com/p66/s-66281/product/26/205816.jpg');
+VALUES (4, 'https://restoran-hrustal.com.ua/wp-content/uploads/2017/03/bg101.jpg');
 INSERT INTO `task_img` (task_id, url)
-VALUES (5, 'https://camellia.ua/upload/kamelia_flora/cat/82/1b/635x635/fc269977_56b4b3f1a7b06.jpg');
+VALUES (5, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVenAvgiXoaJIjq0apH9Mf_NhMRO_PcN0FoqJUwJ2pKob8XJA9OQ');
 INSERT INTO `task_img` (task_id, url)
-VALUES (6, 'http://roza.if.ua/wp-content/uploads/2017/05/961.jpg');
+VALUES (6, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDHaKGwTKzjLlZKcmibjQGgFI16Z_foIBIcoEny81DCBnFkDDb');
 
 INSERT INTO `task_location` (t_id, l_id)
 VALUES (1, 2);
