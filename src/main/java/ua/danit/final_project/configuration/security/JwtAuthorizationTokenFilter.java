@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -43,7 +44,11 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
                                   FilterChain chain) throws ServletException, IOException {
     logger.debug("processing authentication for '{}'", request.getRequestURL());
 
-    final String requestHeader = request.getHeader(this.tokenHeader);
+    String requestHeader = request.getHeader(this.tokenHeader);
+
+    if (StringUtils.isEmpty(requestHeader)) {
+      requestHeader = request.getParameter("token");
+    }
 
     String username = null;
     String authToken = null;

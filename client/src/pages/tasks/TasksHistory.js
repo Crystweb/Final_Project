@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import Calendar from '../../components/Сalendar'
-import axios from 'axios/index'
+import api from '../../services/Api'
 import { addHitoryTasks, addSelectedDateFromCalendar } from '../../actions/actions'
 import connect from 'react-redux/es/connect/connect'
 import TasksView from './TasksView'
 
 class TasksHistory extends Component {
   getTasksForSelectedDate (date) {
-    axios.get(`/task/date?from=${date}&to=${date + 86400000}`)
+    api.get(`/task/date?from=${date}&to=${date + 86400000}`)
       .then(response => this.props.addTasksHistory(response.data))
       .then(() => this.props.addDate(date))
   }
