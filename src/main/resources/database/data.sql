@@ -1,5 +1,6 @@
 SET @OPENED = 'OPENED';
 SET @CLOSED = 'CLOSED';
+SET @PWD = '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK';
 
 INSERT INTO `role` (`r_name`)
 VALUES ('owner');
@@ -34,15 +35,17 @@ INSERT INTO `position` (p_title, pinned_to_comment)
 VALUES ('Завхоз', false);
 
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('admin', '$2a$10$yKj28aFTziVYvmegHoSLy.WZVPJINyt8xCKZDhSPfxu2j7dtAFtRe', 1);
+VALUES ('admin', @PWD, 1);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('login2', '1', 2);
+VALUES ('user1', @PWD, 2);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('login 3', '1', 3);
+VALUES ('user2', @PWD, 3);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('login 4', '1', 1);
+VALUES ('user3', @PWD, 4);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('Artem', 'pwd', 2);
+VALUES ('user4', @PWD, 5);
+INSERT INTO `user` (u_login, u_password, position_id)
+VALUES ('user5', @PWD, 1);
 
 INSERT INTO `permission` (p_name)
 VALUES ('change comment');
@@ -915,3 +918,12 @@ INSERT INTO `check_in` (employee_id, location_id, created_at)
 VALUES (2, 16, CURRENT_TIMESTAMP);
 INSERT INTO `check_in` (employee_id, location_id, created_at)
 VALUES (3, 17, CURRENT_TIMESTAMP);
+
+INSERT INTO `employee_img` (employee_id, url)
+VALUES (1,
+        'http://xflash.ucoz.ru/_ld/14/1457.png');
+INSERT INTO `employee_img` (employee_id, url)
+VALUES (2, 'https://images.clipartlogo.com/files/istock/previews/9385/93854667-vector-detailed-character-office-worker.jpg');
+
+INSERT INTO `employee_img` (employee_id, url)
+VALUES (3, 'https://st2.depositphotos.com/2894069/11787/v/950/depositphotos_117878640-stock-illustration-vector-detailed-character-office-worker.jpg');
