@@ -110,24 +110,6 @@ class Profile extends Component {
   }
 
   render () {
-    // const {surname} = this.props;
-    // let variableSurname = []
-    // /* eslint-disable */
-    // surname.map(surname => {
-    //   variableSurname.push({value: surname, label: surname})
-    // })
-    // /* eslint-enable */
-    //
-    // const inputSurname =
-    //   <h1
-    //     className="taskFactory__select"
-    //     defaultValue='0'
-    //     onChange={value => this.setState({surname: value.value})}
-    //     options={variableSurname}
-    //     placeholder="Повторяемость"
-    //   />
-
-    console.log(this.props)
     return (
       <div className="container">
         <div className="profile_column">
