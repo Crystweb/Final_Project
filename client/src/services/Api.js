@@ -25,7 +25,7 @@ export class Api {
   makeRequest (url, method, body) {
     const requestParams = {
       method: method || 'GET',
-      body: body,
+      data: body,
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }

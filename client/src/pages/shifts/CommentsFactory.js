@@ -49,7 +49,7 @@ class CreateNewComments extends Component {
           positions: positionForComment,
           date: new Date()
         }
-      commentForUpdate ? api.put('/workshift/comment', {data: data}) : api.post('/workshift/comment',{data: data})
+      commentForUpdate ? api.put('/workshift/comment', data) : api.post('/workshift/comment', data)
         .then(() => this.setState({
           errorText: null,
           errorCheckedPosition: null,
@@ -57,8 +57,8 @@ class CreateNewComments extends Component {
           checkedPositions: [],
           successPost: commentForUpdate ? 'Комментарий изменен' : 'Комментарий добавлен'
         }))
-        .then(() => commentForUpdate ? toastr.success('Комментарий изменен') :
-          toastr.success('Добавлен новый комментарий'))
+        .then(() => commentForUpdate ? toastr.success('Комментарий изменен')
+          : toastr.success('Добавлен новый комментарий'))
         .then(() => this.props.history.push('/shifts'))
     }
   }
@@ -122,8 +122,8 @@ class CreateNewComments extends Component {
           }
           <h3 className="newComment-title">Добавить коментарий</h3>
 
-          </div>
-          <div className="newComment-wrap-textarea">
+        </div>
+        <div className="newComment-wrap-textarea">
           <textarea className="newComment-textarea"
             name='commentField'
             value={textComment}
@@ -131,8 +131,8 @@ class CreateNewComments extends Component {
             cols="30"
             rows="10"
             onChange={this.addText.bind(this)}/>
-          </div>
-          <div className="newComment-btn">
+        </div>
+        <div className="newComment-btn">
           {errorText && <label className="newComment-errorText" htmlFor='commentField'>{errorText}</label>}
           {isUpdate || <button className="newComment-send" type="button"
             value=" Добавить комментарий "
