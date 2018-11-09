@@ -3,6 +3,7 @@ import connect from 'react-redux/es/connect/connect'
 import Select from 'react-select'
 import Point from '../../components/Point'
 import dateFormat from 'dateformat'
+import NotFoundData from '../../components/NotFoundData'
 
 class CheckInHistoryForSelectedDate extends Component {
   constructor (props) {
@@ -18,6 +19,8 @@ class CheckInHistoryForSelectedDate extends Component {
     const currentFloor = floors.find(floor => floor.id === this.state.floorId)
     const checkForCurrentFloor = (history || [])
       .filter(check => currentFloor.children.some(child => child.id === check.location.id))
+
+
 
     const styles = {
       dropdownIndicator: (base, state) => ({
@@ -58,6 +61,7 @@ class CheckInHistoryForSelectedDate extends Component {
       <div className="checkIn-wrap">
         {floorChoice}
         <ul className="tasks-list">
+          {checkForCurrentFloor.length <= 0 && <NotFoundData/>}
           {checkForCurrentFloor
             .sort((item1, item2) => item2.created - item1.created)
             .map(check => {

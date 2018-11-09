@@ -5,8 +5,8 @@ class Point extends Component {
   render() {
     let {color} = this.props
 
-    if (!color) {
-      color = "#c7c8ca"
+    if (!color || color === "#c7c8ca") {
+      color = "rgb(96, 100, 108)"
     }
 
     return (
