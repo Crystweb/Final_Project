@@ -55,8 +55,7 @@ class VacanciesPage extends Component {
         <div className="radioANDbuttons">
           <ul className="position-radio-buttons"
             aria-label={showClosedVacancies}
-            value={toString(showClosedVacancies)}
-          >
+            value={toString(showClosedVacancies)}>
             <li className="position-radio-buttons__elem">
               <label onClick={() => this.setState({showClosedVacancies: false})}>
                 <input name="position"
