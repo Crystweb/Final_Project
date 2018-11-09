@@ -1,5 +1,6 @@
 SET @OPENED = 'OPENED';
 SET @CLOSED = 'CLOSED';
+SET @PWD = '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK';
 
 INSERT INTO `role` (`r_name`)
 VALUES ('owner');
@@ -34,17 +35,17 @@ INSERT INTO `position` (p_title, pinned_to_comment)
 VALUES ('Завхоз', false);
 
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('admin', '$2a$10$yKj28aFTziVYvmegHoSLy.WZVPJINyt8xCKZDhSPfxu2j7dtAFtRe', 1);
+VALUES ('admin', @PWD, 1);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('user1', '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK', 2);
+VALUES ('user1', @PWD, 2);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('user2', '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK', 3);
+VALUES ('user2', @PWD, 3);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('user3', '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK', 4);
+VALUES ('user3', @PWD, 4);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('user4', '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK', 5);
+VALUES ('user4', @PWD, 5);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('user5', '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK', 1);
+VALUES ('user5', @PWD, 1);
 
 INSERT INTO `permission` (p_name)
 VALUES ('change comment');
