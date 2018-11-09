@@ -3,10 +3,6 @@ package ua.danit.final_project.controllers.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,9 +18,9 @@ import ua.danit.final_project.dto.DefaultMapper;
 import ua.danit.final_project.dto.UserDto;
 import ua.danit.final_project.entities.User;
 import ua.danit.final_project.services.RegistrationService;
+import ua.danit.final_project.services.security.AuthenticationService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
 
 @RestController
 public class AuthenticationController {
@@ -32,19 +28,19 @@ public class AuthenticationController {
   @Value("${jwt.header}")
   private String tokenHeader;
 
-  private final AuthenticationManager authenticationManager;
+  private final AuthenticationService authenticationService;
   private final JwtTokenUtil jwtTokenUtil;
   private final UserDetailsService userDetailsService;
   private final RegistrationService registrationService;
   private final DefaultMapper mapper;
 
   @Autowired
-  public AuthenticationController(AuthenticationManager authenticationManager,
+  public AuthenticationController(AuthenticationService authenticationService,
                                   JwtTokenUtil jwtTokenUtil,
                                   UserDetailsService userDetailsService,
                                   RegistrationService registrationService,
                                   DefaultMapper mapper) {
-    this.authenticationManager = authenticationManager;
+    this.authenticationService = authenticationService;
     this.jwtTokenUtil = jwtTokenUtil;
     this.userDetailsService = userDetailsService;
     this.registrationService = registrationService;
@@ -56,7 +52,7 @@ public class AuthenticationController {
       @RequestBody JwtAuthenticationRequest authenticationRequest
   ) throws AuthenticationException {
 
-    authenticate(authenticationRequest.getUserName(), authenticationRequest.getUserPassword());
+    authenticationService.authenticate(authenticationRequest.getUserName(), authenticationRequest.getUserPassword());
 
     final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUserName());
     final String token = jwtTokenUtil.generateToken(userDetails);
@@ -90,18 +86,5 @@ public class AuthenticationController {
   @GetMapping("/user/current")
   public UserDto getCurrentUser(@AuthenticationPrincipal User user) {
     return mapper.userToUserDto(user);
-  }
-
-  private void authenticate(String username, String password) {
-    Objects.requireNonNull(username);
-    Objects.requireNonNull(password);
-
-    try {
-      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-    } catch (DisabledException e) {
-      throw new AuthenticationException("User is disabled!", e);
-    } catch (BadCredentialsException e) {
-      throw new AuthenticationException("Bad credentials!", e);
-    }
   }
 }
