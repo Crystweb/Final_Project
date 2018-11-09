@@ -8,7 +8,6 @@ import Preloader from '../../components/Preloader'
 import '../../styles/RoomCheckIn.css'
 import api from '../../services/Api'
 import { toastr } from 'react-redux-toastr'
-import NotFoundData from '../../components/NotFoundData'
 
 class TasksForRoom extends Component {
   constructor (props) {
