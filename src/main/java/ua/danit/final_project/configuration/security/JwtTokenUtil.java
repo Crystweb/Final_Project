@@ -115,7 +115,7 @@ public class JwtTokenUtil {
         username.equals(user.getUsername())
             && !isTokenExpired(token)
             && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())
-    );
+        );
   }
 
   private Date calculateExpirationDate(Date createdDate) {
