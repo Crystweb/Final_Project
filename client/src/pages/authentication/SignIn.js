@@ -6,7 +6,6 @@ import * as _ from 'lodash'
 import axios from 'axios'
 import connect from 'react-redux/es/connect/connect'
 import logo from '../../img/GreLive.png'
-import { getCurrentUser } from '../../utils/utils'
 import { bindActionCreators } from 'redux'
 import initData from '../../actions/initData'
 

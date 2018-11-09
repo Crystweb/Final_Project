@@ -2,13 +2,13 @@ import SockJS from 'sockjs-client'
 import Stomp from 'stompjs'
 import { Component } from 'react'
 import connect from 'react-redux/es/connect/connect'
-import {addNewComment, addNewTask, deleteComment, deleteTask, updateComment} from '../actions/actions'
+import { addNewComment, addNewTask, deleteComment, deleteTask, updateComment } from '../actions/actions'
 import { toastr } from 'react-redux-toastr'
 
 class WsHandler extends Component {
   componentDidMount () {
     const {user, allTasks, allComments} = this.props
-    
+
     const ws = new SockJS(`http://localhost:9000/ws_0001?token=Bearer ${localStorage.getItem('token')}`)
     const stompClient = Stomp.over(ws)
     stompClient.connect({}, () => {
@@ -17,23 +17,23 @@ class WsHandler extends Component {
         const isClosedTask = allTasks.some(task => task.id === +newTask.id)
         const isTaskForCurrentUser = newTask.assignee.id === user.employee.id
         isClosedTask ? this.props.deleteClosedTask(newTask) : this.props.addTask(newTask)
-        isClosedTask && user.employee.position.pinnedToComment ?
-          toastr.info(`Задача '${newTask.message}' в ${newTask.locations[0].title} закрыта`) :
-          isTaskForCurrentUser && toastr.info(`Добавлена новая задача`)
+        isClosedTask && user.employee.position.pinnedToComment
+          ? toastr.info(`Задача '${newTask.message}' в ${newTask.locations[0].title} закрыта`)
+          : isTaskForCurrentUser && toastr.info(`Добавлена новая задача`)
       })
       stompClient.subscribe('/events/comment', resp => {
         const newComment = JSON.parse(resp.body)
         const isUpdate = allComments.some(comment => comment.id === +newComment.id)
         const currentUser = user.employee.id
         isUpdate ? this.props.commentUpdate(newComment) : this.props.addComment(newComment)
-        if(currentUser != newComment.author.id) {
-          isUpdate ? toastr.info('Комментарий изменен') :
-            toastr.info('Добавлен новый комментарий')
+        if (currentUser !== newComment.author.id) {
+          isUpdate ? toastr.info('Комментарий изменен')
+            : toastr.info('Добавлен новый комментарий')
         }
       })
       stompClient.subscribe('/events/rm/comment', resp => {
-        const removedComment = JSON.parse(resp.body);
-        this.props.commentDelete(removedComment.id);
+        const removedComment = JSON.parse(resp.body)
+        this.props.commentDelete(removedComment.id)
       })
     })
   }
