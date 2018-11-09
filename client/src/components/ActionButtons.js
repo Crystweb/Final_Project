@@ -14,10 +14,9 @@ class ActionButtons extends Component {
     const toastrConfirmOptions = {
       onOk: () => api.deleteApi(`/workshift/comment/${id}`)
         .then(() => this.props.deleteCurrentComment(id))
-        .then(() =>  toastr.success('Успешно', 'Комментарий удален'))
-    };
+        .then(() => toastr.success('Успешно', 'Комментарий удален'))
+    }
     toastr.confirm('Вы уверены, что хотите удалить комментарий?', toastrConfirmOptions)
-
   }
 
   render () {

@@ -13,6 +13,8 @@ import Lightbox from 'react-images'
 import filterCollection from '../../components/filterCollection'
 import trash from '../../img/delete.png'
 import update from '../../img/edit.png'
+import { getAllVacancies } from '../../actions/actions'
+import { toastr } from 'react-redux-toastr'
 
 class EmployeesPage extends Component {
   constructor (props) {
@@ -34,9 +36,10 @@ class EmployeesPage extends Component {
   }
 
   deleteEmployee (id) {
-    if (window.confirm('Вы уверены, что хотите удалить вакансию?')) {
-      api.deleteApi(`/employee/${id}`)
+    const toastrConfirmOptions = {
+      onOk: () => api.deleteApi(`/employee/${id}`)
     }
+    toastr.confirm('Вы уверены, что хотите удалить сотрудника?', toastrConfirmOptions)
   }
 
   render () {

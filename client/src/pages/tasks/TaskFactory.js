@@ -40,7 +40,8 @@ class TaskFactory extends Component {
       this.setState({
         locationId: +floorId,
         floorSelected: true,
-        idForRoom: +roomId})
+        idForRoom: +roomId
+      })
     }
   }
 
@@ -97,7 +98,6 @@ class TaskFactory extends Component {
       })
     }
 
-
     if (textForTask.value && taskFrequency && executorId && locationId && !sendingData) {
       let locations = (idForRoom && allLocations.find(location => location.id === locationId).children) ||
         allLocations
@@ -126,7 +126,7 @@ class TaskFactory extends Component {
             sendingData: false
           })
         })
-        .then(() =>  toastr.success('Задача добавлена успешно'))
+        .then(() => toastr.success('Задача добавлена успешно'))
         .then(() => roomId ? this.props.history.push(`/rooms/${roomId}`) : this.props.history.push(`/tasks`))
     }
   }
@@ -146,16 +146,11 @@ class TaskFactory extends Component {
     } = this.state
 
     const styles = {
-      dropdownIndicator: (base, state) => ({
-      }),
-      placeholder: (base, state) => ({
-      }),
-      valueContainer: (base, state) => ({
-      }),
-      control: (base, state) => ({
-      }),
-      indicatorsContainer: (base, state) => ({
-      }),
+      dropdownIndicator: (base, state) => ({}),
+      placeholder: (base, state) => ({}),
+      valueContainer: (base, state) => ({}),
+      control: (base, state) => ({}),
+      indicatorsContainer: (base, state) => ({}),
       input: (base, start) => ({
         display: 'flex',
         position: 'absolute',
@@ -223,39 +218,41 @@ class TaskFactory extends Component {
     )
 
     const priority =
-        <Select
-          styles={styles}
-          classNamePrefix="react-select"
-          className="taskFactory__select"
-          defaultValue={0}
-          id="priority"
-          onChange={value => this.setState({taskPriority: value.value})}
-          placeholder="Приоритет"
-          options={optionsPriority}
-        />
+      <Select
+        styles={styles}
+        classNamePrefix="react-select"
+        className="taskFactory__select"
+        defaultValue={0}
+        id="priority"
+        onChange={value => this.setState({taskPriority: value.value})}
+        placeholder="Приоритет"
+        options={optionsPriority}
+      />
 
     let optionsExecutor = []
     /* eslint-disable */
-      allUsers.map(user => {
-        optionsExecutor.push({value: user.id,
-          label: user.employee.forename +
-          " " + user.employee.forename
-          + ", " + user.employee.position.title})
+    allUsers.map(user => {
+      optionsExecutor.push({
+        value: user.id,
+        label: user.employee.forename +
+        ' ' + user.employee.forename
+        + ', ' + user.employee.position.title
       })
+    })
     /* eslint-enable */
 
     const executor =
-        <Select
-          styles={styles}
-          classNamePrefix="react-select"
-          className="taskFactory__select"
-          name='executors'
-          defaultValue='test'
-          onChange={value => this.setState({executorId: value.value})}
-          required={true}
-          options={optionsExecutor}
-          placeholder='Исполнитель'
-        />
+      <Select
+        styles={styles}
+        classNamePrefix="react-select"
+        className="taskFactory__select"
+        name='executors'
+        defaultValue='test'
+        onChange={value => this.setState({executorId: value.value})}
+        required={true}
+        options={optionsExecutor}
+        placeholder='Исполнитель'
+      />
 
     let optionsFrequency = []
     /* eslint-disable */
@@ -265,16 +262,16 @@ class TaskFactory extends Component {
     /* eslint-enable */
 
     const frequency =
-        <Select
-          styles={styles}
-          classNamePrefix="react-select"
-          className="taskFactory__select"
-          name='frequencies'
-          defaultValue='0'
-          onChange={value => this.setState({taskFrequency: value.value})}
-          options={optionsFrequency}
-          placeholder="Повторяемость"
-        />
+      <Select
+        styles={styles}
+        classNamePrefix="react-select"
+        className="taskFactory__select"
+        name='frequencies'
+        defaultValue='0'
+        onChange={value => this.setState({taskFrequency: value.value})}
+        options={optionsFrequency}
+        placeholder="Повторяемость"
+      />
 
     const locationSelect =
       (<div className="taskFactory__wrap-select">
@@ -356,11 +353,11 @@ class TaskFactory extends Component {
         <section className="taskFactory__btns">
           <label className='taskFactory__errorText' htmlFor='task'>{errorText}</label>
           <div className="taskFactory__wrap-foto">
-          Фото
+            Фото
             <input className="taskFactory__foto"
-              type="file"
-              accept="image/*"
-              onChange={this.makePhoto}/>
+                   type="file"
+                   accept="image/*"
+                   onChange={this.makePhoto}/>
           </div>
           <button
             className="taskFactory__create"
