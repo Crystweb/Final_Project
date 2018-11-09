@@ -111,6 +111,15 @@ VALUES (5,
         '0945864032',
         'Управляющий закрепляет за собой право в любой момент приехать с проверкой',
         'artyom@gmail.com');
+INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail)
+VALUES (4,
+        3,
+        'Коришняк',
+        'Роман',
+        'Викторович',
+        '0945860031',
+        'Смена с 20 до 8, рабочие дни : Пн,Вт,Ср,Чт,Пт',
+        'test@gmail.com');
 
 INSERT INTO `schedule` (p_id, start, end, created_at)
 VALUES (2, '10:00:00', '21:00:00', TIMESTAMPADD(DAY, -3, CURRENT_TIMESTAMP));
