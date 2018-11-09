@@ -20,35 +20,36 @@ class ScheduleWithComments extends Component {
     }
 
     return (
+      <div className="schedule-elem">
+        <h2 className="schedule-elem__title">{dataObject.title}</h2>
+        <ul className="comment-list">
+          {comments
+            .map((comment, index) => {
+              let time = new Date(+comment.date)
+              let cuurentTimestamp = new Date().getTime()
+              let isTimeExpired = cuurentTimestamp < (comment.date + 1800000)
+              let buttons = (+comment.author.id === userId) && isTimeExpired
+                ? <ActionButtons comment={comment.id}/> : ''
+              let readyTime = dateFormat(time, 'dd mmmm в HH:MM')
 
-        <div className="schedule-elem">
-          <h2 className="schedule-elem__title">{dataObject.title}</h2>
-          <ul className="comment-list">
-            {comments
-              .map((comment, index) => {
-                  let buttons = comment.author.id === userId ? <ActionButtons comment={comment.id}/> : "";
-                  let time = new Date(+comment.date);
-
-                  let readyTime = dateFormat(time, "dd mmmm в HH:MM")
-
-                  return (
-                    <li className="comment-list__elem" key={index}>
-                      <h3 className="comment-list__elem-title">
-                        {comment.author.forename} {comment.author.surname}, {comment.author.position.title}
-                      </h3>
-                      <Point color={dataObject.color}/>
-                      <h4 className="comment-list__elem-subtitle">
-                        {readyTime}
-                      </h4>
-                      <p className="comment-list__elem-info">
-                        {comment.message}
-                      </p>
-                      {buttons}
-                    </li>
-                  )
-                }
+              return (
+                <li className="comment-list__elem" key={index}>
+                  <h3 className="comment-list__elem-title">
+                    {comment.author.forename} {comment.author.surname}, {comment.author.position.title}
+                  </h3>
+                  <Point color={dataObject.color}/>
+                  <h4 className="comment-list__elem-subtitle">
+                    {readyTime}
+                  </h4>
+                  <p className="comment-list__elem-info">
+                    {comment.message}
+                  </p>
+                  {buttons}
+                </li>
               )
             }
+            )
+          }
         </ul>
       </div>
     )

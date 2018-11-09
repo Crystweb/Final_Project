@@ -1,17 +1,13 @@
 import React, { Component } from 'react'
 import Calendar from '../../components/Сalendar'
-import axios from 'axios/index'
+import api from '../../services/Api'
 import { addCommentForSelectedDate, addSelectedDateFromCalendar } from '../../actions/actions'
 import connect from 'react-redux/es/connect/connect'
 import ShiftHistoryForSelectedDay from './ShiftsHistoryForSelectedDay'
 
 class ShiftsHistory extends Component {
   getCommentsInForSelectedDate (date) {
-    axios.get('/workshift', {
-      params: {
-        date: date
-      }
-    })
+    api.get(`/workshift?date${date}`)
       .then(response => this.props.addCommentsForSelectedDate(response.data))
       .then(() => this.props.addDate(date))
   }

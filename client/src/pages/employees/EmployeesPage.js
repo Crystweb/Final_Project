@@ -7,7 +7,7 @@ import noPhoto from '../../img/no-photo.png'
 import employeeStyles from '../../constants/employeeStylesJSS'
 import routes from '../../constants/routes'
 import {Link} from 'react-router-dom'
-import axios from 'axios'
+import api from '../../services/Api'
 import picture from '../../img/add.png'
 import Lightbox from 'react-images'
 import filterCollection from '../../components/filterCollection'
@@ -27,15 +27,15 @@ class EmployeesPage extends Component {
   }
 
   componentWillMount () {
-    axios.get('/employee')
+    api.get('/employee')
       .then(response => {
         this.setState({employees: response.data})
       })
   }
 
   deleteEmployee (id) {
-    if (window.confirm('Вы уверены, что хотите удалить сотрудника?')) {
-      axios.delete(`/employee/${id}`)
+    if (window.confirm('Вы уверены, что хотите удалить вакансию?')) {
+      api.deleteApi(`/employee/${id}`)
     }
   }
 
@@ -120,6 +120,12 @@ class EmployeesPage extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAllVacancies: () => dispatch(getAllVacancies())
+  }
+}
+
 const mapStateToProps = (state) => {
   return {
     vacancies: state.vacancies,
@@ -129,4 +135,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withStyles(employeeStyles)(connect(mapStateToProps)(EmployeesPage))
+export default withStyles(employeeStyles)(connect(mapStateToProps, mapDispatchToProps)(EmployeesPage))

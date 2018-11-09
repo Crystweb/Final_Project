@@ -7,12 +7,11 @@ import { withStyles } from '@material-ui/core/styles'
 import vacancyStyles from '../../constants/vacancyStylesJSS'
 import routes from '../../constants/routes'
 import { Link } from 'react-router-dom'
-import picture from "../../img/add.png";
-import update from "../../img/edit.png";
-import trash from "../../img/delete.png";
+import picture from '../../img/add.png'
+import update from '../../img/edit.png'
+import trash from '../../img/delete.png'
 import Point from '../../components/Point'
-
-import axios from 'axios'
+import api from '../../services/Api'
 
 class VacanciesPage extends Component {
   constructor (props) {
@@ -31,7 +30,7 @@ class VacanciesPage extends Component {
 
   deleteVacancy (id) {
     if (window.confirm('Вы уверены, что хотите удалить вакансию?')) {
-      axios.delete(`/vacancy/${id}`)
+      api.deleteApi(`/vacancy/${id}`)
         .then(() => this.props.getAllVacancies())
     }
   }
@@ -54,16 +53,16 @@ class VacanciesPage extends Component {
         <Fragment>
           <div className="radioANDbuttons">
             <ul className="position-radio-buttons"
-                aria-label={showClosedVacancies}
-                value={toString(showClosedVacancies)}
-                >
+              aria-label={showClosedVacancies}
+              value={toString(showClosedVacancies)}
+            >
               <li className="position-radio-buttons__elem">
                 <label onClick={() => this.setState({showClosedVacancies: false})}>
                   <input name="position"
-                         type='radio'
-                         defaultChecked={!showClosedVacancies}
-                         value='d'
-                        />
+                    type='radio'
+                    defaultChecked={!showClosedVacancies}
+                    value='d'
+                  />
                   <div className="position-radio-buttons__fakeBtn">
                     <div className="position-radio-buttons__fakeBtn-active"></div>
                   </div>
@@ -73,9 +72,9 @@ class VacanciesPage extends Component {
               <li className="position-radio-buttons__elem">
                 <label onClick={() => this.setState({showClosedVacancies: true})}>
                   <input name="position"
-                         type='radio'
-                         defaultChecked={showClosedVacancies}
-                         value='d'
+                    type='radio'
+                    defaultChecked={showClosedVacancies}
+                    value='d'
                   />
                   <div className="position-radio-buttons__fakeBtn">
                     <div className="position-radio-buttons__fakeBtn-active"></div>
@@ -93,7 +92,7 @@ class VacanciesPage extends Component {
           <div className="vacancy-list">
             {toFilterVacancies.map(vacancy => {
               return <li className="comment-list__elem"
-                      key={vacancy.id}>
+                key={vacancy.id}>
                 <Point/>
                 <h3 className="comment-list__elem-title">
                   {positions.find(position => position.id === vacancy.position.id).title}
@@ -110,12 +109,12 @@ class VacanciesPage extends Component {
 
                 <div className="vacancy-list__elem-buttons">
                   <button onClick={() => this.deleteVacancy(vacancy.id)} className={classes.buttons}>
-                      <img alt="trash" src={trash}/>
+                    <img alt="trash" src={trash}/>
                   </button>
                   <button className={classes.buttons}>
-                      <Link to={{pathname: routes.updateVacancy.href + vacancy.id, state: vacancy}}>
-                          <img alt="update" src={update}/>
-                      </Link>
+                    <Link to={{pathname: routes.updateVacancy.href + vacancy.id, state: vacancy}}>
+                      <img alt="update" src={update}/>
+                    </Link>
                   </button>
                 </div>
 

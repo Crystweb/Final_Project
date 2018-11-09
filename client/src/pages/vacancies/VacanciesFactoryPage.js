@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import axios from 'axios'
+import api from '../../services/Api'
 import {connect} from 'react-redux'
 import Preloader from '../../components/Preloader'
 import {getAllVacancies} from "../../actions/actions";
@@ -37,23 +37,20 @@ class VacanciesFactoryPage extends Component {
       this.setState({positionIdError: "Выберите позицию"})
     }
     if (!sendingData && positionId && info.value) {
-      axios({
-        url: '/vacancy',
-        method: toUpdate ? 'PUT' : 'POST',
-        data: toUpdate ? {
-            id: this.state.id,
-            position: positions.find(position => position.id === this.state.positionId),
-            info: this.info.value,
-            salary: this.salary.value,
-            status: this.state.status.value,
-            publication: this.state.publication
-          }
-          : {
-            position: positions.find(position => position.id === this.state.positionId),
-            info: this.info.value,
-            salary: this.salary.value
-          },
-      })
+      const data = toUpdate ? {
+          id: this.state.id,
+          position: positions.find(position => position.id === this.state.positionId),
+          info: this.info.value,
+          salary: this.salary.value,
+          status: this.state.status.value,
+          publication: this.state.publication
+        }
+        : {
+          position: positions.find(position => position.id === this.state.positionId),
+          info: this.info.value,
+          salary: this.salary.value
+        }
+      toUpdate ? api.put('/vacancy',{data: data}) : api.post('/vacancy', {data: data})
         .then((response) => this.setState({
           successAction: toUpdate ? 'Вакансия изменена успешно' : 'Создана новая вакансия'
         }))

@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import '../../styles/Tasks.css'
 import { connect } from 'react-redux'
 import Preloader from '../../components/Preloader'
-import axios from 'axios/index'
+import api from '../../services/Api'
 import Point from '../../components/Point'
 import NotFound from '../../components/NotFoundData'
 import Lightbox from 'react-images'
 import dateFormat from 'dateformat'
+import { toastr } from 'react-redux-toastr'
 
 class TasksView extends Component {
   constructor (props) {
@@ -20,13 +21,11 @@ class TasksView extends Component {
   doTask (event) {
     let task = this.props.allTasks.find(task => task.id === +event.target.value)
     task.status = 'CLOSED'
-    if (window.confirm('Вы выполнили задачу?')) {
-      axios({
-        method: 'put',
-        url: `/task`,
-        data: task
-      })
+    const toastrConfirmOptions = {
+      onOk: () => api.put(`/task`, task)
+        .then(() => toastr.success('Успешно', 'Задача выполнена'))
     }
+    toastr.confirm('Выполнили задачу?', toastrConfirmOptions)
   }
 
   render () {
