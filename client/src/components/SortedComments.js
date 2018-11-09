@@ -81,7 +81,7 @@ class PositionButtons extends Component {
           })
 
         if (sortedComments.length > 0) {
-          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null} userId={this.state.userId}/>)
+          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null} userId={this.state.userId} key={this.state.userId + 100}/>)
         }
       } else {
         let sortedComments = filterComments
@@ -96,7 +96,7 @@ class PositionButtons extends Component {
           })
 
         if (sortedComments.length > 0) {
-          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={currentSchedule}
+          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={currentSchedule} key={this.state.userId}
                                                  userId={this.state.userId}/>)
         }
         startTime = currentSchedule.start
