@@ -43,7 +43,6 @@
   font-stretch: normal;
 }
 
-
 .employee {
   &List {
     display: flex;
@@ -75,6 +74,7 @@
     }
   }
 }
+
 .employee-page__elem-buttons {
   display: flex;
   flex-direction: column;
