@@ -7,7 +7,7 @@ import ShiftHistoryForSelectedDay from './ShiftsHistoryForSelectedDay'
 
 class ShiftsHistory extends Component {
   getCommentsInForSelectedDate (date) {
-    api.get(`/workshift?date${date}`)
+    api.get(`/workshift?date=${date}`)
       .then(response => this.props.addCommentsForSelectedDate(response.data))
       .then(() => this.props.addDate(date))
   }

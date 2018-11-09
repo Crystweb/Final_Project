@@ -61,7 +61,7 @@ class TasksView extends Component {
     if (tasks && currentUser) {
       return (
         <ul className="tasks-list">
-          {tasksForHistory && tasks.length === 0 && <NotFound/>}
+          {tasks.length <= 0 && <NotFound/>}
           {tasks.map(task => {
             const isShowTask = currentUser.employee.id === task.assignee.id
             const hasPhoto = task.imageLinks.length > 0

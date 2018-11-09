@@ -81,7 +81,7 @@ VALUES (1,
         'Vasyl',
         'Vasyliv',
         'Vasylovich',
-        '0988171854',
+        '+38 (063) 566 80 19',
         'Смена с 8 до 20, рабочие дни : Пн,Вт,Ср,Чт,Пт',
         'vasya@gmail.com');
 INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail)
@@ -725,15 +725,15 @@ VALUES (4,
 
 INSERT INTO `task_img` (task_id, url)
 VALUES (2,
-        'https://images.unsplash.com/photo-1533467915241-eac02e856653?ixlib=rb-0.3.5&s=5a355bc035d9fd2297e68804e4fdb433&w=1000&q=80');
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJtfQVa1-z3LFGjjxMoaMx2DOMXnmdHj4ArJ7YBWE7UlFTunLc');
 INSERT INTO `task_img` (task_id, url)
-VALUES (3, 'http://storage.agravery.com/uploads/files/flowers/ukraine/bouquet-3158350.jpg');
+VALUES (3, 'https://tomesto.ru/img/place/000/022/815/bar-gadkiy-koyot-coyote-ugly-na-ulitse-arbat_97611_full-74670.jpg');
 INSERT INTO `task_img` (task_id, url)
-VALUES (4, 'https://cdn6.sellbe.com/p66/s-66281/product/26/205816.jpg');
+VALUES (4, 'https://restoran-hrustal.com.ua/wp-content/uploads/2017/03/bg101.jpg');
 INSERT INTO `task_img` (task_id, url)
-VALUES (5, 'https://camellia.ua/upload/kamelia_flora/cat/82/1b/635x635/fc269977_56b4b3f1a7b06.jpg');
+VALUES (5, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVenAvgiXoaJIjq0apH9Mf_NhMRO_PcN0FoqJUwJ2pKob8XJA9OQ');
 INSERT INTO `task_img` (task_id, url)
-VALUES (6, 'http://roza.if.ua/wp-content/uploads/2017/05/961.jpg');
+VALUES (6, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDHaKGwTKzjLlZKcmibjQGgFI16Z_foIBIcoEny81DCBnFkDDb');
 
 INSERT INTO `task_location` (t_id, l_id)
 VALUES (1, 2);
