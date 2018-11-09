@@ -78,48 +78,48 @@ VALUES (2, 5);
 INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail)
 VALUES (1,
         1,
-        'Vasyl',
-        'Vasyliv',
-        'Vasylovich',
-        '+38 (063) 566 80 19',
+        'Артем',
+        'Тымчук',
+        'Дмитриевич',
+        '0988171854',
         'Смена с 8 до 20, рабочие дни : Пн,Вт,Ср,Чт,Пт',
-        'vasya@gmail.com');
+        'artyomtymchuk@gmail.com');
 INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail)
 VALUES (2,
         2,
-        'Petro',
-        'Petriv',
-        'Petrovych',
+        'Бармаков',
+        'Ростислав',
+        'Дмитриевич',
         '0905864032',
         'Смена с 10 до 21, рабочие дни : Пн,Вт,Ср,Вс',
         'petya@gmail.com');
 INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail)
 VALUES (3,
         3,
-        'Maxim',
-        'Maximov',
-        'Petrovych',
+        'Семенченко',
+        'Дмитрий',
+        'Русланович',
         '0925864033',
         'Исполняющий обязаности управляющего, без смен, каждый день с 8 до 22',
         'maximka@gmail.com');
 INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail)
 VALUES (5,
         3,
-        'Artem',
-        'Tymchuk',
-        'Dmytrovich',
+        'Полищук',
+        'Мирослав',
+        'Андреевич',
         '0945864032',
         'Управляющий закрепляет за собой право в любой момент приехать с проверкой',
         'artyom@gmail.com');
 INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail)
 VALUES (4,
         3,
-        'Rostyslav',
-        'Barmakov',
-        'Dmytrovich',
+        'Коришняк',
+        'Роман',
+        'Викторович',
         '0945860031',
         'Смена с 20 до 8, рабочие дни : Пн,Вт,Ср,Чт,Пт',
-        'warfawl@gmail.com');
+        'test@gmail.com');
 
 INSERT INTO `schedule` (p_id, start, end, created_at)
 VALUES (2, '10:00:00', '21:00:00', TIMESTAMPADD(DAY, -3, CURRENT_TIMESTAMP));
