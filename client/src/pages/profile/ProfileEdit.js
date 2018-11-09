@@ -131,7 +131,7 @@ class Profile extends Component {
     return (
       <div className="container">
         <div className="profile_column">
-          <div className="profile_info">
+          <div className="profile_info profile_name">
             <input value={this.state.surname} ref={input => this.surnameInput = input}/>&nbsp;<input value={this.state.forename} ref={input => this.forenameInput = input}/>
           </div>
           <div className="profile_img">
