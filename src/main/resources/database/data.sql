@@ -40,7 +40,11 @@ VALUES ('user1', '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK',
 INSERT INTO `user` (u_login, u_password, position_id)
 VALUES ('user2', '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK', 3);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('user3', '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK', 1);
+VALUES ('user3', '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK', 4);
+INSERT INTO `user` (u_login, u_password, position_id)
+VALUES ('user4', '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK', 5);
+INSERT INTO `user` (u_login, u_password, position_id)
+VALUES ('user5', '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK', 1);
 
 INSERT INTO `permission` (p_name)
 VALUES ('change comment');
