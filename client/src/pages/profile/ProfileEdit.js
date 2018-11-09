@@ -8,6 +8,12 @@ class Profile extends Component {
 
   constructor (props) {
     super(props)
+
+    this.surnameInput = React.createRef()
+    this.forenameInput = React.createRef()
+    this.phoneNumberInput = React.createRef()
+    this.mailInput = React.createRef()
+    this.loginInput = React.createRef()
     this.state = {
       profilePhoto: null,
       surname: null,
@@ -20,14 +26,15 @@ class Profile extends Component {
   }
 
   componentDidMount () {
-    const {employee} = this.props.match.params
+    const {employee} = this.props.employee
+    const sec = this.props.employee
     if (employee) {
       this.setState({
-        surname: employee.employee.surname,
-        forename: employee.employee.forename,
-        phoneNumber: employee.employee.phoneNumber,
-        mail: employee.employee.mail,
-        login: employee.login
+        surname: employee.surname,
+        forename: employee.forename,
+        phoneNumber: employee.phoneNumber,
+        mail: employee.mail,
+        login: sec.login
       })
     }
   }
@@ -67,13 +74,19 @@ class Profile extends Component {
   }
 
   updateProfile = () => {
+    const {surnameInput} = this
+    const {forenameInput} = this
+    const {phoneNumberInput} = this
+    const {mailInput} = this
+    const {loginInput} = this
     const {profilePhoto,sendingData} = this.state
-    const {employee} = this.props
+    // const {employee} = this.props
     let body = {
-      surname: employee.surname.value,
-      forename: employee.forename.value,
-      phoneNumber: employee.phoneNumber.value,
-      mail: employee.mail.value
+      surname: surnameInput.value,
+      forename: forenameInput.value,
+      phoneNumber: phoneNumberInput.value,
+      mail: mailInput.value,
+      login: loginInput.value
     }
     let formData = new FormData()
     formData.append('task', JSON.stringify(body))
@@ -113,11 +126,13 @@ class Profile extends Component {
     //     options={variableSurname}
     //     placeholder="Повторяемость"
     //   />
+
+    console.log(this.props)
     return (
       <div className="container">
         <div className="profile_column">
-          <div className="profile_title">
-            <h1 defaultValue={this.inputSurname}>&nbsp;</h1><h1 defaultValue={this.inputForname}/>
+          <div className="profile_info">
+            <input value={this.state.surname} ref={input => this.surnameInput = input}/>&nbsp;<input value={this.state.forename} ref={input => this.forenameInput = input}/>
           </div>
           <div className="profile_img">
             <img className="user_photo" src={current_user} alt="Нет фото"/>
@@ -126,15 +141,16 @@ class Profile extends Component {
           <input className="profile_photo"
                  type="file"
                  accept="image/*"
-                 onChange={this.changePhoto}>Изменить фото</input>
+                 placeholder='Изменить фото'
+                 onChange={this.changePhoto}/>
           </div>
           <div className="profile_info">
             <p>Ваш номер телефона :</p>
-            <input name="u_phone" type="tel" defaultValue={value => this.setState({phoneNumber: value.value})}/>
+            <input name="u_phone" type="tel" value={this.state.phoneNumber} ref={input => this.phoneNumberInput = input}/>
             <p>Ваш e-mail :</p>
-            <input name="u_mail" type="email" defaultValue={value => this.setState({mail: value.value})}/>
+            <input name="u_mail" type="email" value={this.state.mail} ref={input => this.mailInput = input}/>
             <p>Ваш логин :</p>
-            <input name="u_login" defaultValue={value => this.setState({login: value.value})}/>
+            <input name="u_login" value={this.state.login} ref={input => this.loginInput = input}/>
             <p>Введите ваш старый пароль :</p>
             <input name="u_password"/>
             <p>Введите новый пароль :</p>
@@ -151,5 +167,4 @@ const mapStateToProps = (state) => {
     employee: state.startData.currentUser,
   }
 };
-debugger;
 export default connect(mapStateToProps)(Profile)
