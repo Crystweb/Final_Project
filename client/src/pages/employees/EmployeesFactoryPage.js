@@ -1,12 +1,11 @@
 import React, {Component, Fragment} from 'react'
 import api from '../../services/Api'
-import connect from "react-redux/es/connect/connect"
+import connect from 'react-redux/es/connect/connect'
 import Select from 'react-select'
 import InputMask from 'react-input-mask'
 
 class EmployeesFactoryPage extends Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     /* eslint-disable */
@@ -65,7 +64,7 @@ class EmployeesFactoryPage extends Component {
         phoneNumber: this.phoneNumber.value,
         info: this.info.value
       }
-      toUpdate ? api.put('/employee', requestBody) : api.post('/employee',requestBody)
+      toUpdate ? api.put('/employee', requestBody) : api.post('/employee', requestBody)
         .then(() => this.setState({
           successAction: toUpdate ? 'Данные сотрудника изменены' : 'Создан новый сотрудник',
           sendingData: false
@@ -74,8 +73,8 @@ class EmployeesFactoryPage extends Component {
     }
   }
 
-  componentWillMount() {
-    const item = this.props.location.state;
+  componentWillMount () {
+    const item = this.props.location.state
 
     if (item) {
       this.patronymic = item.patronymic
@@ -91,10 +90,9 @@ class EmployeesFactoryPage extends Component {
     }
   }
 
-
-  render() {
-    const {forename, surname, patronymic, info} = this.state;
-    const {positions} = this.props;
+  render () {
+    const {forename, surname, patronymic, info} = this.state
+    const {positions} = this.props
 
     const styles = {
       dropdownIndicator: (base, state) => ({
@@ -108,7 +106,7 @@ class EmployeesFactoryPage extends Component {
       indicatorsContainer: (base, state) => ({
       }),
       input: (base, start) => ({
-        display: "none"
+        display: 'none'
       })
     }
 
@@ -127,16 +125,16 @@ class EmployeesFactoryPage extends Component {
         this.positionId = value.value
         this.setState({positionIdError: null})
       }}
-      placeholder={"Позиция"}
+      placeholder={'Позиция'}
     />
 
     return (
       <Fragment>
         <div>
-            <div
-              className="employee-form">
-              <div className='employee-wrapp'>
-                <div className='employee--m'>
+          <div
+            className="employee-form">
+            <div className='employee-wrapp'>
+              <div className='employee--m'>
                 <input
                   className="vacancy__salary"
                   type="text"
@@ -146,51 +144,51 @@ class EmployeesFactoryPage extends Component {
                 />
                 {this.state.forenameError &&
                 <label className='taskFactory__errorText'>{this.state.forenameError}</label>}
-                </div>
-                <div className='employee--m'>
+              </div>
+              <div className='employee--m'>
                 <input
                   className="vacancy__salary"
                   type="text"
                   placeholder='Фамилия'
                   defaultValue={surname}
-                  onChange={event => this.setState({surname: event.target.value , surnameError: null})}
+                  onChange={event => this.setState({surname: event.target.value, surnameError: null})}
                 />
                 {this.state.surnameError &&
                 <label className='taskFactory__errorText'>{this.state.surnameError}</label>}
-                </div>
-                <input
-                  className="vacancy__salary employee-m"
-                  type="text"
-                  placeholder='Отчество'
-                  defaultValue={patronymic}
-                  ref={input => this.patronymic = input}/>
+              </div>
+              <input
+                className="vacancy__salary employee-m"
+                type="text"
+                placeholder='Отчество'
+                defaultValue={patronymic}
+                ref={input => this.patronymic = input}/>
               <div className="taskFactory__wrap-select employee--m">
                 {positionSelect}
                 {this.state.positionIdError &&
                 <label className='taskFactory__errorText'>{this.state.positionIdError}</label>}
               </div>
-                <InputMask
-                  className="vacancy__salary employee-m"
-                  mask="+38 (999) 999 99 99"
-                  inputRef={inputTel => this.phoneNumber = inputTel}
-                  alwaysShowMask={false}
-                  placeholder='Телефон'
-                />
-              </div>
-                <div className="newComment-wrap-textarea">
-                  <textarea
-                    className="newComment-textarea"
-                    defaultValue={info} placeholder={'Введите Ваш коментарий'}
-                    ref={input => this.info = input}/>
-                </div>
-              <div className="taskFactory__btns">
-                <button className="newComment-send"
-                        onClick={this.createEmployee}
-                        value={this.props.location.state ? "Изменить данные" : "Добавить сотрудника"}>
-                  {this.props.location.state ? "Изменить данные" : "Добавить сотрудника"}
-                </button>
-              </div>
+              <InputMask
+                className="vacancy__salary employee-m"
+                mask="+38 (999) 999 99 99"
+                inputRef={inputTel => this.phoneNumber = inputTel}
+                alwaysShowMask={false}
+                placeholder='Телефон'
+              />
             </div>
+            <div className="newComment-wrap-textarea">
+              <textarea
+                className="newComment-textarea"
+                defaultValue={info} placeholder={'Введите Ваш коментарий'}
+                ref={input => this.info = input}/>
+            </div>
+            <div className="taskFactory__btns">
+              <button className="newComment-send"
+                onClick={this.createEmployee}
+                value={this.props.location.state ? 'Изменить данные' : 'Добавить сотрудника'}>
+                {this.props.location.state ? 'Изменить данные' : 'Добавить сотрудника'}
+              </button>
+            </div>
+          </div>
         </div>
         <p>{this.state.successAction}</p>
       </Fragment>
@@ -202,6 +200,6 @@ const mapStateToProps = ({startData}) => {
   return {
     positions: startData.positions
   }
-};
+}
 
 export default connect(mapStateToProps)(EmployeesFactoryPage)

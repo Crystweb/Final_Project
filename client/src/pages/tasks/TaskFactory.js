@@ -119,7 +119,7 @@ class TaskFactory extends Component {
       }
       this.setState({sendingData: true})
 
-      api.post(`/task`, {data: formData})
+      api.post(`/task`, formData)
         .then(() => {
           this.setState({
             successAdd: 'Задача добавлена',

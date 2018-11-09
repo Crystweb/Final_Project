@@ -22,9 +22,9 @@ class TasksView extends Component {
     let task = this.props.allTasks.find(task => task.id === +event.target.value)
     task.status = 'CLOSED'
     const toastrConfirmOptions = {
-      onOk: () => api.put(`/task`, {data: task})
+      onOk: () => api.put(`/task`, task)
         .then(() => toastr.success('Успешно', 'Задача выполнена'))
-    };
+    }
     toastr.confirm('Выполнили задачу?', toastrConfirmOptions)
   }
 

@@ -26,8 +26,6 @@ const initData = () => {
       api.get('/task').then(response => dispatch(addTasks(response.data))),
       api.get('/user/current',{
         headers: { "Authorization": "Bearer " + localStorage.getItem('token')},
-        credentials: 'include',
-        mode: 'cors'
       }).then(response => dispatch(addCurrentUser(response.data)))
 
     ])
@@ -48,4 +46,3 @@ const setDataLoadingState = (newState) => {
     newState
   }
 }
-

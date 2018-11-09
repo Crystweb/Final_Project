@@ -50,7 +50,7 @@ class TasksForRoom extends Component {
 
 const mapStateToProps = ({tasks, startData}, ownProps) => {
   return {
-    tasksForCurrentRoom: tasks.allTasks.filter(task => task.locations[0].id === +ownProps.match.params.roomId),
+    tasksForCurrentRoom: tasks.allTasks.filter(task => task.locations.find(location => location.id === +ownProps.match.params.roomId)),
     currentRoom: startData.locations
       .find(location => location.children
         .find(children => children.id === +ownProps.match.params.roomId))
