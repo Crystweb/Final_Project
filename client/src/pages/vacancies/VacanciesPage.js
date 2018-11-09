@@ -12,6 +12,7 @@ import update from '../../img/edit.png'
 import trash from '../../img/delete.png'
 import Point from '../../components/Point'
 import api from '../../services/Api'
+import { toastr } from 'react-redux-toastr'
 
 class VacanciesPage extends Component {
   constructor (props) {
@@ -29,10 +30,11 @@ class VacanciesPage extends Component {
   }
 
   deleteVacancy (id) {
-    if (window.confirm('Вы уверены, что хотите удалить вакансию?')) {
-      api.deleteApi(`/vacancy/${id}`)
+    const toastrConfirmOptions = {
+      onOk: () => api.deleteApi(`/vacancy/${id}`)
         .then(() => this.props.getAllVacancies())
     }
+    toastr.confirm('Вы уверены, что хотите удалить вакансию?', toastrConfirmOptions)
   }
 
   render () {
@@ -49,81 +51,76 @@ class VacanciesPage extends Component {
     if (!toFilterVacancies) {
       return <Preloader/>
     } else {
-      return (
-        <Fragment>
-          <div className="radioANDbuttons">
-            <ul className="position-radio-buttons"
-              aria-label={showClosedVacancies}
-              value={toString(showClosedVacancies)}
-            >
-              <li className="position-radio-buttons__elem">
-                <label onClick={() => this.setState({showClosedVacancies: false})}>
-                  <input name="position"
-                    type='radio'
-                    defaultChecked={!showClosedVacancies}
-                    value='d'
-                  />
-                  <div className="position-radio-buttons__fakeBtn">
-                    <div className="position-radio-buttons__fakeBtn-active"></div>
-                  </div>
-                  <span>открытые вакансии</span>
-                </label>
-              </li>
-              <li className="position-radio-buttons__elem">
-                <label onClick={() => this.setState({showClosedVacancies: true})}>
-                  <input name="position"
-                    type='radio'
-                    defaultChecked={showClosedVacancies}
-                    value='d'
-                  />
-                  <div className="position-radio-buttons__fakeBtn">
-                    <div className="position-radio-buttons__fakeBtn-active"></div>
-                  </div>
-                  <span>закрытые вакансии</span>
-                </label>
-              </li>
-            </ul>
-            <div className="add_and_history add_and_history--alone">
-              <Link to={routes.addNewVacancy.href}>
-                <img alt="add comment" src={picture}/>
-              </Link>
-            </div>
-          </div>
-          <div className="vacancy-list">
-            {toFilterVacancies.map(vacancy => {
-              return <li className="comment-list__elem"
-                key={vacancy.id}>
-                <Point/>
-                <h3 className="comment-list__elem-title">
-                  {positions.find(position => position.id === vacancy.position.id).title}
-                </h3>
-                <h4 className="comment-list__elem-subtitle">
-                  {new Date(vacancy.publication).toDateString()}
-                </h4>
-                <p className="comment-list__elem-info">
-                  {vacancy.salary}
-                </p>
-                <p className="comment-list__elem-info">
-                  {vacancy.info}
-                </p>
-
-                <div className="vacancy-list__elem-buttons">
-                  <button onClick={() => this.deleteVacancy(vacancy.id)} className={classes.buttons}>
-                    <img alt="trash" src={trash}/>
-                  </button>
-
-                  <button className={classes.buttons}>
-                    <Link to={{pathname: routes.updateVacancy.href + vacancy.id, state: vacancy}}>
-                      <img alt="update" src={update}/>
-                    </Link>
-                  </button>
+      return <Fragment>
+        <div className="radioANDbuttons">
+          <ul className="position-radio-buttons"
+            aria-label={showClosedVacancies}
+            value={toString(showClosedVacancies)}>
+            <li className="position-radio-buttons__elem">
+              <label onClick={() => this.setState({showClosedVacancies: false})}>
+                <input name="position"
+                  type='radio'
+                  defaultChecked={!showClosedVacancies}
+                  value='d'
+                />
+                <div className="position-radio-buttons__fakeBtn">
+                  <div className="position-radio-buttons__fakeBtn-active"></div>
                 </div>
-
-              </li>
-            })}
+                <span>открытые вакансии</span>
+              </label>
+            </li>
+            <li className="position-radio-buttons__elem">
+              <label onClick={() => this.setState({showClosedVacancies: true})}>
+                <input name="position"
+                  type='radio'
+                  defaultChecked={showClosedVacancies}
+                  value='d'
+                />
+                <div className="position-radio-buttons__fakeBtn">
+                  <div className="position-radio-buttons__fakeBtn-active"></div>
+                </div>
+                <span>закрытые вакансии</span>
+              </label>
+            </li>
+          </ul>
+          <div className="add_and_history add_and_history--alone">
+            <Link to={routes.addNewVacancy.href}>
+              <img alt="add comment" src={picture}/>
+            </Link>
           </div>
-        </Fragment>
-      )
+        </div>
+        <div className="vacancy-list">
+          {toFilterVacancies.map(vacancy => {
+            return <li className="comment-list__elem"
+              key={vacancy.id}>
+              <Point/>
+              <h3 className="comment-list__elem-title">
+                {positions.find(position => position.id === vacancy.position.id).title}
+              </h3>
+              <h4 className="comment-list__elem-subtitle">
+                {new Date(vacancy.publication).toDateString()}
+              </h4>
+              <p className="comment-list__elem-info">
+                {vacancy.salary}
+              </p>
+              <p className="comment-list__elem-info">
+                {vacancy.info}
+              </p>
+              {!showClosedVacancies && <div className="vacancy-list__elem-buttons">
+                <button onClick={() => this.deleteVacancy(vacancy.id)} className={classes.buttons}>
+                  <img alt="trash" src={trash}/>
+                </button>
+                <button className={classes.buttons}>
+                  <Link to={{pathname: routes.updateVacancy.href + vacancy.id, state: vacancy}}>
+                    <img alt="update" src={update}/>
+                  </Link>
+                </button>
+              </div>}
+
+            </li>
+          })}
+        </div>
+      </Fragment>
     }
   }
 }

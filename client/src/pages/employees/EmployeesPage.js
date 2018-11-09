@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react'
-import '../../styles/VacanciesPage.css'
+import '../../styles/Employee.css'
 import {connect} from 'react-redux'
-import {getAllVacancies} from '../../actions/actions'
 import Preloader from '../../components/Preloader'
 import {withStyles} from '@material-ui/core/styles'
 import noPhoto from '../../img/no-photo.png'
@@ -12,6 +11,10 @@ import api from '../../services/Api'
 import picture from '../../img/add.png'
 import Lightbox from 'react-images'
 import filterCollection from '../../components/filterCollection'
+import trash from '../../img/delete.png'
+import update from '../../img/edit.png'
+import { getAllVacancies } from '../../actions/actions'
+import { toastr } from 'react-redux-toastr'
 
 class EmployeesPage extends Component {
   constructor (props) {
@@ -33,13 +36,15 @@ class EmployeesPage extends Component {
   }
 
   deleteEmployee (id) {
-    if (window.confirm('Вы уверены, что хотите удалить вакансию?')) {
-      api.deleteApi(`/employee/${id}`)
+    const toastrConfirmOptions = {
+      onOk: () => api.deleteApi(`/employee/${id}`)
     }
+    toastr.confirm('Вы уверены, что хотите удалить сотрудника?', toastrConfirmOptions)
   }
 
   render () {
     const {employees, search} = this.state
+    const {classes} = this.props
     let resultEmployee = []
     let searchValue = this.searchInput.value
 
@@ -80,7 +85,7 @@ class EmployeesPage extends Component {
                     <img src={employee.image} alt=""/>
                     <Lightbox
                       isOpen={this.state.lightbox === employee.image}
-                      images={[{ src: employee.image }]}
+                      images={[{src: employee.image}]}
                       onClickImage={() => this.setState({lightbox: null})}
                       onClose={() => this.setState({lightbox: null})}
                     />
@@ -96,6 +101,18 @@ class EmployeesPage extends Component {
                   <p className="employee-info">
                     {employee.info}
                   </p>
+                </div>
+                <div className="employee-page__elem-buttons">
+                  <button onClick={() => this.deleteEmployee(employee.id)}
+                    className={classes.buttons}>
+                    <img alt="trash" src={trash}/>
+                  </button>
+                  <button className={classes.buttons}>
+                    <Link
+                      to={{pathname: routes.updateEmployee.href + employee.id, state: employee}}>
+                      <img alt="update" src={update}/>
+                    </Link>
+                  </button>
                 </div>
               </li>
             })}
@@ -117,7 +134,7 @@ const mapStateToProps = (state) => {
     vacancies: state.vacancies,
     positions: state.startData.positions,
     currentUser: state.startData.currentUser,
-    employeees: state.employees
+    employees: state.employees
   }
 }
 

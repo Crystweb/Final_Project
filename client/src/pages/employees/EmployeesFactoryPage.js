@@ -85,7 +85,11 @@ class EmployeesFactoryPage extends Component {
       this.setState({
         toUpdate: true,
         forename: item.forename,
-        surname: item.surname
+        surname: item.surname,
+        patronymic: item.patronymic,
+        positionId: item.position.id,
+        phoneNumber: item.phoneNumber,
+        info: item.info
       })
     }
   }

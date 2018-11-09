@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import Preloader from '../../components/Preloader'
 import '../../styles/RoomCheckIn.css'
 import api from '../../services/Api'
+import { toastr } from 'react-redux-toastr'
 
 class TasksForRoom extends Component {
   constructor (props) {
@@ -15,11 +16,13 @@ class TasksForRoom extends Component {
   }
 
   doCheckIn () {
-    if (window.confirm('Утверждаете, что провели проверку номера?')) {
-      const id = this.props.currentRoom.id
-      api.post(`/check-in/${id}`)
+    const id = this.props.currentRoom.id
+    const toastrConfirmOptions = {
+      onOk: () => api.post(`/check-in/${id}`)
+        .then(() => toastr.success('Проверка завершена!'))
         .then(() => this.props.history.push('/rooms'))
     }
+    toastr.confirm('Утверждаете, что провели проверку номера?', toastrConfirmOptions)
   }
 
   render () {
