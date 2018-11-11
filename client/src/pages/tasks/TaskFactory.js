@@ -235,7 +235,7 @@ class TaskFactory extends Component {
       optionsExecutor.push({
         value: user.id,
         label: user.employee.forename +
-        ' ' + user.employee.forename
+        ' ' + user.employee.surname
         + ', ' + user.employee.position.title
       })
     })

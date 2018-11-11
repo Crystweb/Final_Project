@@ -47,7 +47,7 @@ spring:
 jwt:
   header: Authorization
   secret: 9bd927c6
-  expiration: 604800
+  expiration: 60480000
 
 aws:
   credentials:

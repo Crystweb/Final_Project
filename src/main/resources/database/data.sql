@@ -35,15 +35,15 @@ INSERT INTO `position` (p_title, pinned_to_comment)
 VALUES ('Завхоз', false);
 
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('admin', @PWD, 1);
+VALUES ('Admin', @PWD, 1);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('user1', @PWD, 2);
+VALUES ('User1', @PWD, 2);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('user2', @PWD, 3);
+VALUES ('User2', @PWD, 3);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('user3', @PWD, 4);
+VALUES ('User3', @PWD, 4);
 INSERT INTO `user` (u_login, u_password, position_id)
-VALUES ('user4', @PWD, 5);
+VALUES ('User4', @PWD, 5);
 INSERT INTO `user` (u_login, u_password, position_id)
 VALUES ('user5', @PWD, 1);
 
@@ -106,7 +106,7 @@ VALUES (3,
         'Исполняющий обязаности управляющего, без смен, каждый день с 8 до 22',
         'maximka@gmail.com');
 INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail)
-VALUES (5,
+VALUES (6,
         3,
         'Полищук',
         'Мирослав',
@@ -120,6 +120,15 @@ VALUES (4,
         'Коришняк',
         'Роман',
         'Викторович',
+        '0945860031',
+        'Смена с 20 до 8, рабочие дни : Пн,Вт,Ср,Чт,Пт',
+        'test@gmail.com');
+        INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail)
+VALUES (5,
+        3,
+        'Власенко',
+        'Дмитрий',
+        'Алексеевич',
         '0945860031',
         'Смена с 20 до 8, рабочие дни : Пн,Вт,Ср,Чт,Пт',
         'test@gmail.com');
