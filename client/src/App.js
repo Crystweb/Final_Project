@@ -23,7 +23,7 @@ class App extends Component {
         <SignIn/>
       )
     }
-    const {comments, allTasks, user, loading} = this.props
+    const {loading} = this.props
 
     if (loading) {
       return <Preloader/>
@@ -31,7 +31,7 @@ class App extends Component {
 
     return (
       <div className="container">
-        <WsHandler allComments={comments} allTasks={allTasks} user={user}/>
+        <WsHandler/>
         <Navigation header={true}/>
         <Navigation/>
       </div>
@@ -41,9 +41,6 @@ class App extends Component {
 
 const mapStateToProps = ({comments, startData, tasks}) => {
   return {
-    user: startData.currentUser,
-    comments: comments.lastComments,
-    allTasks: tasks.allTasks,
     loading: startData.startDataLoading
   }
 }

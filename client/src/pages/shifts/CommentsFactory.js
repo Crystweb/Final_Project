@@ -17,7 +17,7 @@ class CreateNewComments extends Component {
       errorText: null,
       errorCheckedPosition: null,
       successPost: null,
-      commentForUpdate: this.props.updateComment || null
+      commentForUpdate: this.props.updateComment || false
     }
   }
 
@@ -40,15 +40,16 @@ class CreateNewComments extends Component {
     if (!_.isEmpty(textComment) && !_.isEmpty(checkedPositions)) {
       const data = commentForUpdate
         ? {
-          id: this.state.commentForUpdate.id,
+          id: commentForUpdate.id,
           message: this.state.textComment,
           positions: positionForComment,
-          date: this.state.commentForUpdate.date
+          date: commentForUpdate.date
         } : {
           message: this.state.textComment,
           positions: positionForComment,
           date: new Date()
         }
+        debugger
       commentForUpdate ? api.put('/workshift/comment', data) : api.post('/workshift/comment', data)
         .then(() => this.setState({
           errorText: null,
@@ -57,8 +58,8 @@ class CreateNewComments extends Component {
           checkedPositions: [],
           successPost: commentForUpdate ? 'Комментарий изменен' : 'Комментарий добавлен'
         }))
-        .then(() => commentForUpdate ? toastr.success('Комментарий изменен')
-          : toastr.success('Добавлен новый комментарий'))
+        .then(() => {commentForUpdate ? toastr.success('Комментарий изменен')
+          : toastr.success('Добавлен новый комментарий')})
         .then(() => this.props.history.push('/shifts'))
     }
   }
