@@ -3,70 +3,30 @@ import '../../styles/Profile.css'
 import current_user from '../../img/current_user.png'
 import connect from "react-redux/es/connect/connect";
 import axios from "axios";
+import InputMask from 'react-input-mask';
+
 
 class Profile extends Component {
 
   constructor (props) {
     super(props)
-
-    this.surnameInput = React.createRef()
-    this.forenameInput = React.createRef()
-    this.phoneNumberInput = React.createRef()
-    this.mailInput = React.createRef()
-    this.loginInput = React.createRef()
     this.state = {
       profilePhoto: null,
-      surname: null,
-      forename: null,
-      phoneNumber: null,
-      mail: null,
-      login: null,
       sendingData: false
     }
   }
 
   componentDidMount () {
     const {employee} = this.props.employee
-    const sec = this.props.employee
+    const firstEmployeeLevel = this.props.employee
+
     if (employee) {
-      this.setState({
-        surname: employee.surname,
-        forename: employee.forename,
-        phoneNumber: employee.phoneNumber,
-        mail: employee.mail,
-        login: sec.login
-      })
+      this.surnameInput.value = employee.surname
+      this.forenameInput.value = employee.forename
+      this.phoneNumberInput.value = this.phoneNumberInputHide.value
+      this.mailInput.value = employee.mail
+      this.loginInput.value = firstEmployeeLevel.login
     }
-  }
-
-  inputSurname (event) {
-    this.setState({
-      surname: event.target.value,
-    })
-  }
-
-  inputForname (event) {
-    this.setState({
-      forename: event.target.value,
-    })
-  }
-
-  inputPhonenumber (event) {
-    this.setState({
-      phoneNumber: event.target.value,
-    })
-  }
-
-  inputMail (event) {
-    this.setState({
-      mail: event.target.value,
-    })
-  }
-
-  inputLogin (event) {
-    this.setState({
-      login: event.target.value,
-    })
   }
 
   changePhoto = (event) => {
@@ -74,39 +34,51 @@ class Profile extends Component {
   }
 
   updateProfile = () => {
-    const {surnameInput} = this
-    const {forenameInput} = this
-    const {phoneNumberInput} = this
-    const {mailInput} = this
-    const {loginInput} = this
-    const {profilePhoto,sendingData} = this.state
-    // const {employee} = this.props
-    let body = {
+    const {surnameInput, forenameInput, phoneNumberInput, mailInput, loginInput} = this
+    const {profilePhoto, sendingData} = this.state
+
+    let data = {
+      id: this.props.employee.id,
+      position: this.props.employee.employee.position,
       surname: surnameInput.value,
       forename: forenameInput.value,
       phoneNumber: phoneNumberInput.value,
       mail: mailInput.value,
       login: loginInput.value
     }
-    let formData = new FormData()
-    formData.append('task', JSON.stringify(body))
-    if (profilePhoto) {
-      formData.append('file', profilePhoto)
-    }
+
     if (!sendingData) {
       this.setState({sendingData: true})
+      if (profilePhoto) {
+        let formData = new FormData()
+        formData.append('file', profilePhoto)
+
+        axios({
+          method: 'post',
+          url: `/employee/` + this.props.employee.id,
+          data: formData
+        }).then(() => {
+            this.setState({
+              successAdd: 'Фото изменёно',
+              sendingData: false
+            })
+          })
+      }
       axios({
-        method: 'post',
+        method: 'put',
         url: `/employee`,
-        data: formData
+        data: data
       })
         .then(() => {
           this.setState({
             successAdd: 'Профиль изменён',
-            sendingData: false
           })
         })
+
     }
+
+
+
   }
 
   render () {
@@ -114,7 +86,8 @@ class Profile extends Component {
       <div className="container">
         <div className="profile_column">
           <div className="profile_info profile_name">
-            <input value={this.state.surname} ref={input => this.surnameInput = input}/>&nbsp;<input value={this.state.forename} ref={input => this.forenameInput = input}/>
+            <input ref={input => this.surnameInput = input}/>
+            <input ref={input => this.forenameInput = input}/>
           </div>
           <div className="profile_img">
             <img className="user_photo" src={current_user} alt="Нет фото"/>
@@ -128,15 +101,38 @@ class Profile extends Component {
           </div>
           <div className="profile_info">
             <p>Ваш номер телефона :</p>
-            <input name="u_phone" type="tel" value={this.state.phoneNumber} ref={input => this.phoneNumberInput = input}/>
+            <InputMask
+              mask="+38 (999) 999 99 99"
+              inputRef={inputTel => this.phoneNumberInput = inputTel}
+              alwaysShowMask={true}
+              placeholder='Телефон'
+            />
+            <InputMask
+              style={{display: "none"}}
+              mask="+38 (999) 999 99 99"
+              inputRef={inputTel => this.phoneNumberInputHide = inputTel}
+              value={this.props.employee.employee.phoneNumber}
+            />
             <p>Ваш e-mail :</p>
-            <input name="u_mail" type="email" value={this.state.mail} ref={input => this.mailInput = input}/>
+            <input
+              type="email"
+              ref={input => this.mailInput = input}
+            />
             <p>Ваш логин :</p>
-            <input name="u_login" value={this.state.login} ref={input => this.loginInput = input}/>
+            <input
+              name="u_login"
+              ref={input => this.loginInput = input}
+            />
             <p>Введите ваш старый пароль :</p>
-            <input name="u_password"/>
+            <input
+              name="u_password"
+              type="password"
+            />
             <p>Введите новый пароль :</p>
-            <input name="u_password"/>
+            <input
+              name="u_password"
+              type="password"
+            />
           </div>
           <button onClick={this.updateProfile} className="button_save">сохранить</button>
         </div>
