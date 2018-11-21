@@ -6,7 +6,8 @@ import picture from '../../img/add.png'
 import { Link } from 'react-router-dom'
 import Preloader from '../../components/Preloader'
 import '../../styles/RoomCheckIn.css'
-import axios from 'axios'
+import api from '../../services/Api'
+import { toastr } from 'react-redux-toastr'
 
 class TasksForRoom extends Component {
   constructor (props) {
@@ -15,11 +16,13 @@ class TasksForRoom extends Component {
   }
 
   doCheckIn () {
-    if (window.confirm('Утверждаете, что провели проверку номера?')) {
-      const id = this.props.currentRoom.id
-      axios.post(`/check-in/${id}`)
+    const id = this.props.currentRoom.id
+    const toastrConfirmOptions = {
+      onOk: () => api.post(`/check-in/${id}`)
+        .then(() => toastr.success('Проверка завершена!'))
         .then(() => this.props.history.push('/rooms'))
     }
+    toastr.confirm('Утверждаете, что провели проверку номера?', toastrConfirmOptions)
   }
 
   render () {
@@ -50,7 +53,7 @@ class TasksForRoom extends Component {
 
 const mapStateToProps = ({tasks, startData}, ownProps) => {
   return {
-    tasksForCurrentRoom: tasks.allTasks.filter(task => task.locations[0].id === +ownProps.match.params.roomId),
+    tasksForCurrentRoom: tasks.allTasks.filter(task => task.locations.find(location => location.id === +ownProps.match.params.roomId)),
     currentRoom: startData.locations
       .find(location => location.children
         .find(children => children.id === +ownProps.match.params.roomId))

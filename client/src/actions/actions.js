@@ -1,11 +1,10 @@
 import * as types from '../constants/actionTypes'
-import axios from 'axios'
+import api from '../services/Api'
 import { UPDATE_COMMENT } from '../constants/actionTypes'
 import { DELETE_CALENDAR_DATE } from '../constants/actionTypes'
 import { ADD_ROOM_CHECK_HISTORY } from '../constants/actionTypes'
 import { SAVE_CURRENT_FLOOR } from '../constants/actionTypes'
 import { DELETE_CURRENT_FLOOR } from '../constants/actionTypes'
-import { USER_DOWNLOAD } from '../constants/actionTypes'
 
 export function addShift (shift) {
   return {
@@ -15,26 +14,18 @@ export function addShift (shift) {
 }
 
 export const getAllVacancies = () => dispatch => {
-  return axios.get('/vacancy')
+  return api.get('/vacancy')
     .then(response => dispatch({type: types.GET_ALL_VACANCIES, payload: response.data}))
 }
 
 export function addNewVacancy (dispatch, vacancy) {
-  axios({
-    url: '/vacancy',
-    method: 'POST',
-    data: vacancy
-  })
+  api.post(`/vacancy`, vacancy)
     .then(response => response.data)
     .then(data => dispatch({type: types.ADD_NEW_VACANCY, payload: data}))
 }
 
 export function updateVacancy (vacancy) {
-  axios({
-    url: '/vacancy',
-    method: 'PUT',
-    data: vacancy
-  })
+  api.put(`/task`, vacancy)
     .then(res => ({...vacancy, res}))
 
   return {
@@ -178,12 +169,5 @@ export function saveFlloorId (floor) {
 export function deleteCurrentFloor () {
   return {
     type: DELETE_CURRENT_FLOOR
-  }
-}
-
-export function downloadUser (bool) {
-  return {
-    type: USER_DOWNLOAD,
-    bool
   }
 }

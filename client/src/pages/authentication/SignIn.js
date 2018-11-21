@@ -5,8 +5,9 @@ import Link from 'react-router-dom/es/Link'
 import * as _ from 'lodash'
 import axios from 'axios'
 import connect from 'react-redux/es/connect/connect'
-import { addCurrentUser } from '../../actions/actions'
 import logo from '../../img/GreLive.png'
+import { bindActionCreators } from 'redux'
+import initData from '../../actions/initData'
 
 class SignIn extends Component {
   constructor (props) {
@@ -36,15 +37,13 @@ class SignIn extends Component {
       return null
     }
     axios.post('/auth', {
-      params: {
-        name: userName,
-        password: userPassword
-      }
+      userName,
+      userPassword
     })
-      .then(() =>
-        axios.get('/test/user')
-          .then(response => this.props.addUser(response.data))
-      )
+      .then(response => {
+        localStorage.setItem('token', response.data.token)
+      })
+      .then(() => this.props.initData())
   }
 
   render () {
@@ -57,7 +56,8 @@ class SignIn extends Component {
         <div className={userName ? 'signIn__login' : 'signIn__loginActive'}>
           <label className='signIn__login-label' htmlFor='userName'>Введите логин</label>
           <span className="signIn__inputBlock">
-            <input className={userName ? 'signIn__inputWithData' : 'signIn__inputWithoutData'} name='userName' type='text'
+            <input className={userName ? 'signIn__inputWithData' : 'signIn__inputWithoutData'} name='userName'
+              type='text'
               onChange={this.setUserName} maxLength={20}/>
             {userName && <img className="signIn-confirm" src={yesImg} alt="yes"/>}
           </span>
@@ -77,7 +77,7 @@ class SignIn extends Component {
             <div className="signIn-check__fakeCheckbox">
               <div className="signIn-check__fakeCheckbox-active"></div>
             </div>
-            Запомнить меня
+              Запомнить меня
           </label>
           <Link className="signIn-linkToRestorePassword" to={routes.taskForRoom.href}>Забыли пароль?</Link>
         </div>
@@ -90,11 +90,10 @@ class SignIn extends Component {
 const mapStateToProps = () => {
   return {}
 }
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    addUser: (data) => {
-      dispatch(addCurrentUser(data))
-    }
+    initData: bindActionCreators(initData, dispatch)
   }
 }
 

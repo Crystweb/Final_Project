@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -28,7 +27,7 @@ public class TaskTests {
 
   private static long mockId = 0; // id counter to be set when mockRepository.save(obj) called
 
-  @Autowired
+  @MockBean
   private TaskService taskService;
 
   @MockBean
@@ -38,18 +37,24 @@ public class TaskTests {
   private TaskDto taskDto;
 
   @Before
-  public void init() {
+  public void init() throws IOException {
     task = new Task();
     taskDto = new TaskDto();
 
     Mockito.when(mockTaskRepository.save(any(Task.class)))
         .then((Answer<Task>) invocationOnMock -> {
-            Task argument = invocationOnMock.getArgument(0);
-            argument.setId(++mockId);
-            return argument;
+          Task argument = invocationOnMock.getArgument(0);
+          argument.setId(++mockId);
+          return argument;
         });
     Mockito.when(mockTaskRepository.findById(any()))
         .thenReturn(Optional.of(task));
+
+    Mockito.when(taskService.create(Mockito.any(), Mockito.any())).thenReturn(taskDto);
+
+    TaskDto expiredTaskDto = new TaskDto();
+    expiredTaskDto.setStatus(Task.TaskStatus.REMOVED);
+    Mockito.when(taskService.remove(Mockito.any())).thenReturn(expiredTaskDto);
   }
 
   @Test
@@ -61,8 +66,7 @@ public class TaskTests {
   }
 
   @Test
-  public void taskExpiredOnRemoval() throws IOException {
-    taskDto = taskService.create(taskDto, null);
+  public void taskExpiredOnRemoval() {
     TaskDto removedTask = taskService.remove(task.getId());
 
     Assert.assertEquals(removedTask.getStatus(), Task.TaskStatus.REMOVED);

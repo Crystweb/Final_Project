@@ -19,7 +19,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
@@ -71,9 +70,9 @@ public class Task implements Serializable {
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @JoinTable(
-          name = "task_location",
-          joinColumns = {@JoinColumn(name = "t_id")},
-          inverseJoinColumns = {@JoinColumn(name = "l_id")})
+      name = "task_location",
+      joinColumns = {@JoinColumn(name = "t_id")},
+      inverseJoinColumns = {@JoinColumn(name = "l_id")})
   private List<Location> locations;
 
   @OneToMany(mappedBy = "task")
@@ -85,7 +84,7 @@ public class Task implements Serializable {
   private List<TaskComment> comments;
 
   public enum TaskStatus {
-    REMOVED ,OPENED, CLOSED, REJECTED, PENDING, IN_PROGRESS, EXPIRED, CHANGE
+    REMOVED, OPENED, CLOSED, REJECTED, PENDING, IN_PROGRESS, EXPIRED, CHANGE
   }
 
   public enum TaskFrequency {

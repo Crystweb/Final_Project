@@ -4,13 +4,19 @@ import update from '../img/edit.png'
 import trash from '../img/delete.png'
 import routes from '../constants/routes'
 import {Link} from 'react-router-dom'
-import axios from 'axios'
+import connect from 'react-redux/es/connect/connect'
+import { deleteComment } from '../actions/actions'
+import api from '../services/Api'
+import { toastr } from 'react-redux-toastr'
 
 class ActionButtons extends Component {
   deleteComment (id) {
-    if (window.confirm('Вы уверены, что хотите удалить комментарий?')) {
-      axios.delete(`/workshift/comment/${id}`)
+    const toastrConfirmOptions = {
+      onOk: () => api.deleteApi(`/workshift/comment/${id}`)
+        .then(() => this.props.deleteCurrentComment(id))
+        .then(() => toastr.success('Успешно', 'Комментарий удален'))
     }
+    toastr.confirm('Вы уверены, что хотите удалить комментарий?', toastrConfirmOptions)
   }
 
   render () {
@@ -34,4 +40,14 @@ class ActionButtons extends Component {
   }
 }
 
-export default ActionButtons
+const mapStateToProps = () => {
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteCurrentComment: id => dispatch(deleteComment(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActionButtons)

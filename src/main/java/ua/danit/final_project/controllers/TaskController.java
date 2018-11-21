@@ -71,7 +71,7 @@ public class TaskController {
 
   @PostMapping
   public TaskDto create(@RequestPart(name = "file", required = false) MultipartFile file,
-                     @RequestParam(name = "task") String taskString) throws IOException {
+                        @RequestParam(name = "task") String taskString) throws IOException {
     TaskDto taskDto = objectMapper.readValue(taskString, TaskDto.class);
     taskDto = taskService.create(taskDto, file);
     webSocketService.updateTask(taskDto);

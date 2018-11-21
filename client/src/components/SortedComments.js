@@ -81,7 +81,7 @@ class PositionButtons extends Component {
           })
 
         if (sortedComments.length > 0) {
-          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null} userId={this.state.userId}/>)
+          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null} userId={this.state.userId} key={this.state.userId + 100}/>)
         }
       } else {
         let sortedComments = filterComments
@@ -96,7 +96,7 @@ class PositionButtons extends Component {
           })
 
         if (sortedComments.length > 0) {
-          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={currentSchedule}
+          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={currentSchedule} key={this.state.userId}
                                                  userId={this.state.userId}/>)
         }
         startTime = currentSchedule.start
@@ -212,7 +212,7 @@ class PositionButtons extends Component {
   }
 
   render () {
-    const {position, comments, schedules} = this.props
+    const {position, comments, schedules, create} = this.props
     let indexColors = 0
     const schedulesWithColors = schedules
       .filter(item => item.position.title === this.state.view)
@@ -245,9 +245,9 @@ class PositionButtons extends Component {
             {selectPositionInputs}
           </ul>
           <div className="add_and_history">
-            <Link to={routes.addNewComments.href}>
+            {create && <Link to={routes.addNewComments.href}>
               <img alt="add comment" src={picture}/>
-            </Link>
+            </Link>}
             <Link to={routes.commentsHistory.href}>
               <img alt="calendar is here" src={calendar}/>
             </Link>

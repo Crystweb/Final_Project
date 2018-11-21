@@ -10,7 +10,7 @@ class ShiftHistoryForSelectedDay extends Component {
       return (
         <div className="container">
           <h4 className="shiftHistory-dateTitle">{new Date(date).toLocaleDateString()}</h4>
-          <SortedComments comments={commentsForSelectedDate}/>
+          <SortedComments create={false} comments={commentsForSelectedDate}/>
         </div>
       )
     } else {
