@@ -16,7 +16,6 @@ class CreateNewComments extends Component {
       textComment: (this.props.updateComment && this.props.updateComment.message) || undefined,
       errorText: null,
       errorCheckedPosition: null,
-      successPost: null,
       commentForUpdate: this.props.updateComment || false
     }
   }
@@ -49,17 +48,17 @@ class CreateNewComments extends Component {
           positions: positionForComment,
           date: new Date()
         }
-        debugger
       commentForUpdate ? api.put('/workshift/comment', data) : api.post('/workshift/comment', data)
         .then(() => this.setState({
           errorText: null,
           errorCheckedPosition: null,
           textComment: '',
           checkedPositions: [],
-          successPost: commentForUpdate ? 'Комментарий изменен' : 'Комментарий добавлен'
         }))
-        .then(() => {commentForUpdate ? toastr.success('Комментарий изменен')
-          : toastr.success('Добавлен новый комментарий')})
+        .then(() => {
+          commentForUpdate ? toastr.success('Комментарий изменен')
+            : toastr.success('Добавлен новый комментарий')
+        })
         .then(() => this.props.history.push('/shifts'))
     }
   }

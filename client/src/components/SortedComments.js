@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import routes from '../constants/routes'
 import picture from '../img/add.png'
 import calendar from '../img/calendar.png'
 import ScheduleWithComments from './ScheduleWithComments'
 import NotFound from './NotFoundData'
-import {addSelectedDateFromCalendar} from '../actions/actions'
+import { addSelectedDateFromCalendar } from '../actions/actions'
 
 class PositionButtons extends Component {
   state = {
@@ -30,11 +30,9 @@ class PositionButtons extends Component {
       let returnItem = Object.assign({}, item)
       let stringNumberStart = +item.start.toString().substr(0, 2)
       let stringNumberEnd = +item.end.toString().substr(0, 2)
-
       returnItem.start = stringNumberStart * 60
       returnItem.end = stringNumberEnd * 60
       returnItem.title = 'Смена с ' + stringNumberStart.toString() + ' по ' + stringNumberEnd.toString()
-
       return returnItem
     }).sort((item1, item2) => item2.start - item1.start)
 
@@ -42,7 +40,6 @@ class PositionButtons extends Component {
     let filterComments = comments
       .filter(comment => comment.positions.some(position => position.title === this.state.view))
       .sort((comment1, comment2) => comment2.date - comment1.date)
-
     if (filterComments.length > 0 && arrayOfSchedules.length > 0) {
       arrayOfReadyComments = this.createCommentsByWhile(arrayOfSchedules, filterComments)
     } else if (filterComments.length > 0 && arrayOfSchedules.length <= 0) {
@@ -50,7 +47,6 @@ class PositionButtons extends Component {
     } else {
       arrayOfReadyComments.push(<NotFound info={'записи не найдены'}/>)
     }
-
     return arrayOfReadyComments
   }
 
@@ -81,7 +77,8 @@ class PositionButtons extends Component {
           })
 
         if (sortedComments.length > 0) {
-          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null} userId={this.state.userId} key={this.state.userId + 100}/>)
+          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={null} userId={this.state.userId}
+                                                 key={this.state.userId + 100}/>)
         }
       } else {
         let sortedComments = filterComments
@@ -96,7 +93,8 @@ class PositionButtons extends Component {
           })
 
         if (sortedComments.length > 0) {
-          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={currentSchedule} key={this.state.userId}
+          resultArray.push(<ScheduleWithComments comments={sortedComments} schedule={currentSchedule}
+                                                 key={this.state.userId}
                                                  userId={this.state.userId}/>)
         }
         startTime = currentSchedule.start
@@ -212,7 +210,7 @@ class PositionButtons extends Component {
   }
 
   render () {
-    const {position, comments, schedules, create} = this.props
+    const {positions, comments, schedules, create} = this.props
     let indexColors = 0
     const schedulesWithColors = schedules
       .filter(item => item.position.title === this.state.view)
@@ -221,7 +219,7 @@ class PositionButtons extends Component {
         return item
       })
     let readyComments = this.createArrayOfReadyComments(schedulesWithColors, comments)
-    const selectPositionInputs = position.filter(position => position.pinnedToComment).map(position => {
+    const selectPositionInputs = positions.filter(position => position.pinnedToComment).map(position => {
       return (
         <li className="position-radio-buttons__elem" key={position.id}>
           <label key={position.id}>
@@ -263,7 +261,7 @@ class PositionButtons extends Component {
 
 const mapStateToProps = ({startData}) => {
   return {
-    position: startData.positions,
+    positions: startData.positions,
     currentUser: startData.currentUser,
     schedules: startData.schedules
   }

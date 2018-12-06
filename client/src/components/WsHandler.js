@@ -7,28 +7,25 @@ import { toastr } from 'react-redux-toastr'
 
 class WsHandler extends Component {
   componentDidMount () {
-    const {user, allTasks, allComments} = this.props
+    const {user} = this.props
 
     const ws = new SockJS(`http://localhost:9000/ws_0001?token=Bearer ${localStorage.getItem('token')}`)
     const stompClient = Stomp.over(ws)
     stompClient.connect({}, () => {
-      stompClient.subscribe('/events/task', resp => newTaskFromServer(resp.body)
-
-
-        // const newTask = JSON.parse(resp.body)
-        // const isClosedTask = allTasks.some(task => task.id === +newTask.id)
-        // const isTaskForCurrentUser = newTask.assignee.id === user.employee.id
-        // isClosedTask ? this.props.deleteClosedTask(newTask) : this.props.addTask(newTask)
-        // isClosedTask && user.employee.position.pinnedToComment
-        //   ? toastr.info(`Задача '${newTask.message}' в ${newTask.locations[0].title} закрыта`)
-        //   : isTaskForCurrentUser && toastr.info(`Добавлена новая задача`)
-      )
+      stompClient.subscribe('/events/task', resp => {
+        const newTask = JSON.parse(resp.body)
+        const isClosedTask = this.props.allTasks.some(task => task.id === +newTask.id)
+        const isTaskForCurrentUser = newTask.assignee.id === user.employee.id
+        isClosedTask ? this.props.deleteClosedTask(newTask) : this.props.addTask(newTask)
+        isClosedTask && user.employee.position.pinnedToComment
+          ? toastr.info(`Задача '${newTask.message}' в ${newTask.locations[0].title} закрыта`)
+          : isTaskForCurrentUser && toastr.info(`Добавлена новая задача`)
+      })
       stompClient.subscribe('/events/comment', resp => {
         const newComment = JSON.parse(resp.body)
-        const isUpdate = allComments.some(comment => comment.id === +newComment.id)
+        const isUpdate = this.props.allComments.some(comment => comment.id === +newComment.id)
         const currentUser = user.employee.id
         isUpdate ? this.props.commentUpdate(newComment) : this.props.addComment(newComment)
-        debugger
         if (currentUser !== newComment.author.id) {
           isUpdate ? toastr.info('Комментарий изменен')
             : toastr.info('Добавлен новый комментарий')
@@ -49,7 +46,6 @@ class WsHandler extends Component {
 }
 
 const mapStateToProps = ({comments, startData, tasks}) => {
-  debugger
   return {
     user: startData.currentUser,
     allComments: comments.lastComments,

@@ -39,7 +39,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({comments, startData, tasks}) => {
+const mapStateToProps = ({comments, startData}) => {
   return {
     loading: startData.startDataLoading
   }
