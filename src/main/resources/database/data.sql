@@ -1,5 +1,6 @@
 SET @OPENED = 'OPENED';
 SET @CLOSED = 'CLOSED';
+
 SET @PWD = '$2a$10$sUxH.CoUiCE9JRY9suExP.c6m9VYyDORkWZn4ciq8im6RzXMPcOfK';
 
 INSERT INTO `role` (`r_name`)
@@ -117,7 +118,7 @@ VALUES (5,
 INSERT INTO `employee` (u_id, p_id, e_forename, e_surname, e_patronymic, e_phone_number, e_info, e_mail)
 VALUES (4,
         3,
-        'Коришняк',
+        'Корешняк',
         'Роман',
         'Викторович',
         '0945860031',

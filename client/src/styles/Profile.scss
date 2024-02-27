@@ -17,8 +17,19 @@
   text-transform: capitalize;
 }
 
-.profile_img {
+.profile_data{
+  padding: 3px;
+  color: #727375;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: inherit;
+}
+
+.profile{
   margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .user_photo {
@@ -27,14 +38,18 @@
 }
 
 .profile_info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 200px;
-  margin-top: 20px;
-  margin-bottom: 25px;
+  display: grid;
+  padding: 11px;
   border: solid 2px #b4b8bd;
   border-radius: 5px;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  max-width: 315px;
+}
+
+.profile_name{
+  display: flex;
+border: transparent;
 }
 
 .profile_info p {
@@ -67,4 +82,8 @@
   font-size: 15px;
   font-weight: 500;
   text-transform: uppercase;
+
+}
+.button_save a{
+  color: #4b5461;
 }
